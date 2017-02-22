@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AndroidStudy</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main3">Main3Activity</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_list_view">This activity displays a list, using a ListView component. We will place here a names of space stars.</string>
+</resources>
