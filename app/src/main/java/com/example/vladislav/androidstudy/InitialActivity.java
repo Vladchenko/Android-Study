@@ -1,8 +1,12 @@
 package com.example.vladislav.androidstudy;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -10,6 +14,8 @@ import android.widget.Toast;
 public class InitialActivity extends AppCompatActivity {
 
     Button button;
+    String DEBUG_TAG = "Debug tag";
+    OrientationEventListener mOrientationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,27 @@ public class InitialActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        mOrientationListener = new OrientationEventListener(this,
+                SensorManager.SENSOR_DELAY_NORMAL) {
+            @Override
+            public void onOrientationChanged(int orientation) {
+                Toast toast = Toast.makeText(
+                        getApplicationContext(),
+                        "Orientation changed to " + orientation,
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        };
+
+        // Defining if an orientation checking can be performed or not.
+        if (mOrientationListener.canDetectOrientation() == true) {
+            Log.v(DEBUG_TAG, "Can detect orientation");
+            mOrientationListener.enable();
+        } else {
+            Log.v(DEBUG_TAG, "Cannot detect orientation");
+            mOrientationListener.disable();
+        }
+
     }
 
     // This callback fires when a button from ResultActivity returns a result. It's done in a
@@ -62,6 +89,16 @@ public class InitialActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT);
         toast.show();
     }
+
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        Toast toast = Toast.makeText(
+//                getApplicationContext(),
+//                "Configuration changed",
+//                Toast.LENGTH_SHORT);
+//        toast.show();
+//    }
 
     public void sendEmail(View view) {
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
