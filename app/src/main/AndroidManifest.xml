@@ -41,7 +41,8 @@
         <activity android:name=".AligningActivity" />
         <activity android:name=".ListsViewingActivity" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".fragments_activity.FragmentsActivity"></activity>
+        <activity android:name=".fragments_activity.FragmentsActivity" />
+        <activity android:name=".fragments_activity.FragmentsDynamicActivity"></activity>
     </application>
 
 </manifest>

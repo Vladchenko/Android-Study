@@ -6,6 +6,9 @@ import android.os.Bundle;
 
 import com.example.vladislav.androidstudy.R;
 
+/*
+ When fragments are included into an activity, one has to implement OnFragmentInteractionListener from all the fragments
+  */
 public class FragmentsActivity extends AppCompatActivity implements
         Fragment1.OnFragmentInteractionListener, Fragment2.OnFragmentInteractionListener {
 

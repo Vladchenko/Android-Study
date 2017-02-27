@@ -93,13 +93,22 @@
                 android:onClick="gotoMenuActivity"/>
 
             <Button
-                android:text="Menu"
+                android:text="Fragments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fragments_button"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/menu_button"
                 android:onClick="gotoFragmentsActivity"/>
+
+            <Button
+                android:text="Dynamic fragments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragments_dynamic_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/menu_button"
+                android:onClick="gotoFragmentsDynamicActivity"/>
 
         </RelativeLayout>
 

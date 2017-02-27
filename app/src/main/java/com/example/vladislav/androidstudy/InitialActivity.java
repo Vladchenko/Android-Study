@@ -2,10 +2,8 @@ package com.example.vladislav.androidstudy;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.hardware.SensorManager;
 import android.support.multidex.MultiDex;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.fragments_activity.FragmentsActivity;
+import com.example.vladislav.androidstudy.fragments_activity.FragmentsDynamicActivity;
 
 public class InitialActivity extends AppCompatActivity {
 
@@ -156,5 +155,8 @@ public class InitialActivity extends AppCompatActivity {
         Intent intent = new Intent(InitialActivity.this, FragmentsActivity.class);
         startActivity(intent);
     }
-
+    public void gotoFragmentsDynamicActivity(View view) {
+        Intent intent = new Intent(InitialActivity.this, FragmentsDynamicActivity.class);
+        startActivity(intent);
+    }
 }
