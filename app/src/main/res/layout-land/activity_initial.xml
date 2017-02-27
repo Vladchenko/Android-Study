@@ -28,8 +28,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="11dp"
                 android:onClick="sendEmail"
-                android:text="Send Email"
-                android:backgroundTint="@color/color1"/>
+                android:text="Send Email 123" />
 
             <Button
                 android:id="@+id/widgets_button"
@@ -62,7 +61,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/widgets_button"
-                android:layout_alignLeft="@+id/widgets_button"
                 android:layout_below="@+id/layouting_button"
                 android:onClick="gotoAligningActivity"
                 android:text="Aligning" />
@@ -82,25 +80,6 @@
                 android:layout_below="@+id/return_result_button"
                 android:layout_centerHorizontal="true"
                 android:text="Show list" />
-
-            <Button
-                android:text="Menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/menu_button"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/list_button"
-                android:onClick="gotoMenuActivity"/>
-
-            <Button
-                android:text="Menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fragments_button"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/menu_button"
-                android:onClick="gotoFragmentsActivity"/>
-
         </RelativeLayout>
 
     </ScrollView>

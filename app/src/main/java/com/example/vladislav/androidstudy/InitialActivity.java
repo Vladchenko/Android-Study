@@ -1,8 +1,11 @@
 package com.example.vladislav.androidstudy;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.SensorManager;
+import android.support.multidex.MultiDex;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,11 +14,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.vladislav.androidstudy.fragments_activity.FragmentsActivity;
+
 public class InitialActivity extends AppCompatActivity {
 
     Button button;
     String DEBUG_TAG = "Debug tag";
     OrientationEventListener mOrientationListener;
+
+    // This method required to run this app in a cellphone
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(context);
+        MultiDex.install(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +72,9 @@ public class InitialActivity extends AppCompatActivity {
                         "Orientation changed to " + orientation,
                         Toast.LENGTH_SHORT);
                 toast.show();
+                if (orientation == 90) {
+                    setContentView(R.layout.activity_initial);
+                }
             }
         };
 
@@ -71,6 +86,9 @@ public class InitialActivity extends AppCompatActivity {
             Log.v(DEBUG_TAG, "Cannot detect orientation");
             mOrientationListener.disable();
         }
+
+        // That's how we reach the resources.
+        Log.i("Log message: ", "Application name is:" + getResources().getString(R.string.app_name));
 
     }
 
@@ -126,6 +144,16 @@ public class InitialActivity extends AppCompatActivity {
 
     public void gotoAligningActivity(View view) {
         Intent intent = new Intent(InitialActivity.this, AligningActivity.class);
+        startActivity(intent);
+    }
+
+    public void gotoMenuActivity(View view) {
+        Intent intent = new Intent(InitialActivity.this, MenuActivity.class);
+        startActivity(intent);
+    }
+
+    public void gotoFragmentsActivity(View view) {
+        Intent intent = new Intent(InitialActivity.this, FragmentsActivity.class);
         startActivity(intent);
     }
 

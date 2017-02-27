@@ -5,4 +5,8 @@
     <string name="hello_world">Hello World!</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_list_view">This activity displays a list, using a ListView component. We will place here a names of space stars.</string>
+    <string name="fragment1_text">Fragment 1</string>
+    <string name="fragment2_text">Fragment 2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
