@@ -3,6 +3,9 @@ package com.example.vladislav.androidstudy.services;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 /**
  * An {@link IntentedService} subclass for handling asynchronous task requests in
@@ -12,6 +15,7 @@ import android.content.Context;
  * helper methods.
  */
 public class IntentedService extends IntentService {
+
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentedService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     private static final String ACTION_FOO = "com.example.vladislav.androidstudy.services.action.FOO";
@@ -88,4 +92,34 @@ public class IntentedService extends IntentService {
         // TODO: Handle action Baz
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
+
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i("IntentedService","onStartCommand");
+        return START_NOT_STICKY;
+//        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("IntentedService","onDestroy");
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        Log.i("IntentedService","onBind");
+//        Log.i("SimpleService", "SimpleService is bound to - " + intent.getAction());
+        return null;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.i("IntentedService","onUnbind");
+        return super.onUnbind(intent);
+    }
+
 }

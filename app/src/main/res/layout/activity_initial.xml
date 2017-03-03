@@ -122,15 +122,32 @@
                 android:layout_alignStart="@+id/menu_button"
                 android:onClick="gotoImageActivity"/>
 
-            <Button
-                android:text="Services"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/services_button"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/image_button"
-                android:layout_alignLeft="@+id/menu_button"
-                android:layout_alignStart="@+id/menu_button"
-                android:onClick="gotoServicesActivity"/>
+                android:gravity="center">
+
+                <Button
+                    android:text="Service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/services_button"
+                    android:layout_below="@+id/image_button"
+                    android:layout_alignLeft="@+id/menu_button"
+                    android:layout_alignStart="@+id/menu_button"
+                    android:onClick="gotoServicesActivity" />
+
+                <CheckBox
+                    android:text="IntentService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/services_button"
+                    android:layout_toEndOf="@+id/services_button"
+                    android:id="@+id/intent_service_checkbox" />
+            </LinearLayout>
 
             <!-- When adding other components, consider adding them to a layout-land activity-initial.xml also. -->
 

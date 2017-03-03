@@ -10,10 +10,13 @@ import android.util.Log;
 import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.fragments_activity.FragmentsActivity;
 import com.example.vladislav.androidstudy.fragments_activity.FragmentsDynamicActivity;
+import com.example.vladislav.androidstudy.services.IntentedService;
+import com.example.vladislav.androidstudy.services.SimpleService;
 
 public class InitialActivity extends AppCompatActivity {
 
@@ -168,6 +171,7 @@ public class InitialActivity extends AppCompatActivity {
 
     public void gotoServicesActivity(View view) {
         Intent intent = new Intent(InitialActivity.this, ServicesActivity.class);
+        intent.putExtra("isIntendedService",((CheckBox) findViewById(R.id.intent_service_checkbox)).isChecked());
         startActivity(intent);
     }
 }

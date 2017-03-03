@@ -15,7 +15,8 @@ public class SimpleService extends android.app.Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("SimpleService","onStartCommand");
-        return super.onStartCommand(intent, flags, startId);
+        return START_NOT_STICKY;
+//        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
@@ -28,7 +29,13 @@ public class SimpleService extends android.app.Service {
     @Override
     public IBinder onBind(Intent intent) {
         Log.i("SimpleService","onBind");
-//        Log.i("SimpleService", "SimpleService is bound to - " + intent.getAction());
         return null;
     }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.i("SimpleService","onUnbind");
+        return super.onUnbind(intent);
+    }
+
 }
