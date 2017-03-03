@@ -1,87 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/initial_activity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.vladislav.androidstudy.InitialActivity">
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/initial_activity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.example.vladislav.androidstudy.InitialActivity">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <Button
+            android:id="@+id/send_email_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:onClick="sendEmail"
+            android:text="Send Email"
+            android:backgroundTint="@color/color1"/>
 
-            <Button
-                android:id="@+id/send_email_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="11dp"
-                android:onClick="sendEmail"
-                android:text="Send Email 123" />
+        <Button
+            android:id="@+id/widgets_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/send_email_button"
+            android:layout_centerHorizontal="true"
+            android:onClick="gotoWidgetsActivity"
+            android:text="Widgets" />
 
-            <Button
-                android:id="@+id/widgets_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/send_email_button"
-                android:layout_centerHorizontal="true"
-                android:onClick="gotoWidgetsActivity"
-                android:text="Widgets" />
+        <Button
+            android:id="@+id/widgets2_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/widgets_button"
+            android:layout_centerHorizontal="true"
+            android:onClick="gotoWidgets2Activity"
+            android:text="Widgets2" />
 
-            <Button
-                android:id="@+id/widgets2_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/widgets_button"
-                android:layout_centerHorizontal="true"
-                android:onClick="gotoWidgets2Activity"
-                android:text="Widgets2" />
+        <Button
+            android:id="@+id/layouting_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/widgets2_button"
+            android:layout_centerHorizontal="true"
+            android:text="Layouting" />
 
-            <Button
-                android:id="@+id/layouting_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/widgets2_button"
-                android:layout_centerHorizontal="true"
-                android:text="Layouting" />
+        <Button
+            android:id="@+id/aligning_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/widgets_button"
+            android:layout_alignLeft="@+id/widgets_button"
+            android:layout_below="@+id/layouting_button"
+            android:onClick="gotoAligningActivity"
+            android:text="Aligning" />
 
-            <Button
-                android:id="@+id/aligning_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/widgets_button"
-                android:layout_below="@+id/layouting_button"
-                android:onClick="gotoAligningActivity"
-                android:text="Aligning" />
+        <Button
+            android:id="@+id/return_result_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/aligning_button"
+            android:layout_centerHorizontal="true"
+            android:text="Get result" />
 
-            <Button
-                android:id="@+id/return_result_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/aligning_button"
-                android:layout_centerHorizontal="true"
-                android:text="Get result" />
+        <Button
+            android:id="@+id/list_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/return_result_button"
+            android:layout_centerHorizontal="true"
+            android:text="Show list" />
 
-            <Button
-                android:id="@+id/list_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/return_result_button"
-                android:layout_centerHorizontal="true"
-                android:text="Show list" />
-        </RelativeLayout>
+        <Button
+            android:text="Menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/menu_button"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/list_button"
+            android:onClick="gotoMenuActivity"/>
 
-    </ScrollView>
+        <Button
+            android:text="Fragments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragments_button"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/menu_button"
+            android:onClick="gotoFragmentsActivity"/>
 
-</RelativeLayout>
+        <Button
+            android:text="Dynamic fragments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragments_dynamic_button"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/menu_button"
+            android:onClick="gotoFragmentsDynamicActivity"/>
+
+        <Button
+            android:text="Image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_button"
+            android:layout_below="@+id/fragments_button"
+            android:layout_alignLeft="@+id/menu_button"
+            android:layout_alignStart="@+id/menu_button"
+            android:onClick="gotoImageActivity"/>
+
+        <Button
+            android:text="Services"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/services_button"
+            android:layout_below="@+id/image_button"
+            android:layout_alignLeft="@+id/menu_button"
+            android:layout_alignStart="@+id/menu_button"
+            android:onClick="gotoServicesActivity"/>
+
+    </LinearLayout>
+</HorizontalScrollView>

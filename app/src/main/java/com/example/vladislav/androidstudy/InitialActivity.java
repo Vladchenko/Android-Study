@@ -155,8 +155,19 @@ public class InitialActivity extends AppCompatActivity {
         Intent intent = new Intent(InitialActivity.this, FragmentsActivity.class);
         startActivity(intent);
     }
+
     public void gotoFragmentsDynamicActivity(View view) {
         Intent intent = new Intent(InitialActivity.this, FragmentsDynamicActivity.class);
+        startActivity(intent);
+    }
+
+    public void gotoImageActivity(View view) {
+        Intent intent = new Intent(InitialActivity.this, ImageActivity.class);
+        startActivity(intent);
+    }
+
+    public void gotoServicesActivity(View view) {
+        Intent intent = new Intent(InitialActivity.this, ServicesActivity.class);
         startActivity(intent);
     }
 }

@@ -14,7 +14,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,8 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="11dp"
-                android:onClick="sendEmail"
+                android:onClick="sendEmail (InitialActivity)"
                 android:text="Send Email"
                 android:backgroundTint="@color/color1"/>
 
@@ -109,6 +111,28 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/menu_button"
                 android:onClick="gotoFragmentsDynamicActivity"/>
+
+            <Button
+                android:text="image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/image_button"
+                android:layout_below="@+id/fragments_button"
+                android:layout_alignLeft="@+id/menu_button"
+                android:layout_alignStart="@+id/menu_button"
+                android:onClick="gotoImageActivity"/>
+
+            <Button
+                android:text="Services"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/services_button"
+                android:layout_below="@+id/image_button"
+                android:layout_alignLeft="@+id/menu_button"
+                android:layout_alignStart="@+id/menu_button"
+                android:onClick="gotoServicesActivity"/>
+
+            <!-- When adding other components, consider adding them to a layout-land activity-initial.xml also. -->
 
         </RelativeLayout>
 
