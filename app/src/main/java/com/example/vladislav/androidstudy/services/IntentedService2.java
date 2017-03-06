@@ -2,27 +2,23 @@ package com.example.vladislav.androidstudy.services;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.Context;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
-
-import java.util.concurrent.TimeUnit;
 
 /**
- * An {@link IntentedService} subclass for handling asynchronous task requests in
+ * An {@link IntentedService2} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
  * <p>
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
-public class IntentedService extends IntentService {
+public class IntentedService2 extends IntentService {
 
     private Handler mHandler;
 
-    public IntentedService() {
+    public IntentedService2() {
         super("IntendedService");
     }
 
@@ -34,18 +30,8 @@ public class IntentedService extends IntentService {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("IntentedService","onStartCommand");
-        mHandler = new Handler();
-//        return START_NOT_STICKY;
-        return super.onStartCommand(intent, flags, startId);
-    }
-
-    @Override
     protected void onHandleIntent(Intent intent) {
-//        int tm = intent.getIntExtra("time", 0);
-//        String label = intent.getStringExtra("task");
-        Log.i("IntentedService", "onHandleIntent start");
+        Log.i("IntentedService2", "onHandleIntent start");
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -58,7 +44,7 @@ public class IntentedService extends IntentService {
                 }
 //                Toast.makeText(getApplicationContext(), "Intent service has finished its operation.",
 //                        Toast.LENGTH_SHORT).show();
-                Log.i("IntentedService", "onHandleIntent end");
+                Log.i("IntentedService2", "onHandleIntent end");
             }
         });
 
@@ -67,17 +53,22 @@ public class IntentedService extends IntentService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("IntentedService","onDestroy");
+        Log.i("IntentedService2","onDestroy");
         Log.i("-","-----------------------");
     }
 
-    // Dummy method.
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.i("IntentedService","onBind");
+        Log.i("IntentedService2","onBind");
 //        Log.i("SimpleService", "SimpleService is bound to - " + intent.getAction());
         return null;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.i("IntentedService2","onUnbind");
+        return super.onUnbind(intent);
     }
 
 }

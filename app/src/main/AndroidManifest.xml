@@ -51,7 +51,27 @@
             android:label="@string/service_description">
         </service>
         <service
-            android:name="com.example.vladislav.androidstudy.services.IntentedService"
+            android:name=".services.IntentedService"
+            android:description="@string/intent_service_description"
+            android:exported="false">
+        </service>
+        <service
+            android:name=".services.SimpleService2"
+            android:description="@string/service_description"
+            android:label="@string/service_description">
+        </service>
+        <service
+            android:name=".services.IntentedService2"
+            android:description="@string/intent_service_description"
+            android:exported="false">
+        </service>
+        <service
+            android:name=".services.SimpleService3"
+            android:description="@string/service_description"
+            android:label="@string/service_description">
+        </service>
+        <service
+            android:name=".services.IntentedService3"
             android:description="@string/intent_service_description"
             android:exported="false">
         </service>

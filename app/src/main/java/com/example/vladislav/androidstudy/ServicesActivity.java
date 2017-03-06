@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -12,7 +14,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.example.vladislav.androidstudy.services.IntentedService;
+import com.example.vladislav.androidstudy.services.IntentedService2;
+import com.example.vladislav.androidstudy.services.IntentedService3;
 import com.example.vladislav.androidstudy.services.SimpleService;
+import com.example.vladislav.androidstudy.services.SimpleService2;
+import com.example.vladislav.androidstudy.services.SimpleService3;
+
+import java.util.List;
 
 public class ServicesActivity extends AppCompatActivity {
 
@@ -20,6 +28,7 @@ public class ServicesActivity extends AppCompatActivity {
     Button mStopButton;
     Button mBindButton;
     Button mUnbindButton;
+    Boolean mServiceType;
     ServiceConnection mServiceConnection;
     Class mServiceTypeClass;
 
@@ -29,23 +38,60 @@ public class ServicesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services);
 
-        if (false == (Boolean)getIntent().getExtras().get("isIntendedService")) {
-            Log.i("Services Activity","Simple service is used.");
-            mServiceTypeClass = SimpleService.class;
-        } else {
-            Log.i("Services Activity","Intended service is used.");
-            mServiceTypeClass = IntentedService.class;
-        }
+        mServiceType = (Boolean) getIntent().getExtras().get("isIntendedService");
 
-        mStartButton = (Button)findViewById(R.id.service_column1_start_button);
-        assignStartButton(mStartButton);
-        mStartButton = (Button)findViewById(R.id.service_column3_start_button);
-        assignStartButton(mStartButton);
-
-        mStopButton = (Button)findViewById(R.id.service_column1_stop_button);
-        assignStopButton(mStopButton);
-        mStopButton = (Button)findViewById(R.id.service_column3_stop_button);
-        assignStopButton(mStopButton);
+        mStartButton = (Button) findViewById(R.id.service_column1_start_button);
+        mStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent;
+                if (false == mServiceType) {
+                    mIntent = new Intent(ServicesActivity.this, SimpleService.class);
+                } else {
+                    mIntent = new Intent(ServicesActivity.this, IntentedService.class);
+                }
+                ServicesActivity.this.startService(mIntent);
+            }
+        });
+        mStartButton = (Button) findViewById(R.id.service_column3_start_button);
+        mStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent;
+                if (false == mServiceType) {
+                    mIntent = new Intent(ServicesActivity.this, SimpleService3.class);
+                } else {
+                    mIntent = new Intent(ServicesActivity.this, IntentedService3.class);
+                }
+                ServicesActivity.this.startService(mIntent);
+            }
+        });
+        mStopButton = (Button) findViewById(R.id.service_column1_stop_button);
+        mStopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent;
+                if (false == mServiceType) {
+                    mIntent = new Intent(ServicesActivity.this, SimpleService.class);
+                } else {
+                    mIntent = new Intent(ServicesActivity.this, IntentedService.class);
+                }
+                ServicesActivity.this.stopService(mIntent);
+            }
+        });
+        mStopButton = (Button) findViewById(R.id.service_column3_stop_button);
+        mStopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent;
+                if (false == mServiceType) {
+                    mIntent = new Intent(ServicesActivity.this, SimpleService3.class);
+                } else {
+                    mIntent = new Intent(ServicesActivity.this, IntentedService3.class);
+                }
+                ServicesActivity.this.stopService(mIntent);
+            }
+        });
 
         mServiceConnection = new ServiceConnection() {
             @Override
@@ -60,16 +106,73 @@ public class ServicesActivity extends AppCompatActivity {
             }
         };
 
-        mBindButton = (Button)findViewById(R.id.service_column2_bind_button);
-        assignBindButton(mBindButton);
-        mBindButton = (Button)findViewById(R.id.service_column3_bind_button);
-        assignBindButton(mBindButton);
+        mBindButton = (Button) findViewById(R.id.service_column2_bind_button);
+        mBindButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent;
+                if (false == mServiceType) {
+                    mIntent = new Intent(ServicesActivity.this, SimpleService2.class);
+                } else {
+                    mIntent = new Intent(ServicesActivity.this, IntentedService2.class);
+                }
+                ServicesActivity.this.bindService(mIntent, mServiceConnection, BIND_AUTO_CREATE);
+            }
+        });
+        mBindButton = (Button) findViewById(R.id.service_column3_bind_button);
+        mBindButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent;
+                if (false == mServiceType) {
+                    mIntent = new Intent(ServicesActivity.this, SimpleService3.class);
+                } else {
+                    mIntent = new Intent(ServicesActivity.this, IntentedService3.class);
+                }
+                ServicesActivity.this.bindService(mIntent, mServiceConnection, BIND_AUTO_CREATE);
+            }
+        });
 
-        mUnbindButton = (Button)findViewById(R.id.service_column2_unbind_button);
-        assignUnbindButton(mUnbindButton);
-        mUnbindButton = (Button)findViewById(R.id.service_column3_unbind_button);
-        assignUnbindButton(mUnbindButton);
+        mUnbindButton = (Button) findViewById(R.id.service_column2_unbind_button);
+        mUnbindButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent;
+                if (false == mServiceType) {
+                    mIntent = new Intent(ServicesActivity.this, SimpleService2.class);
+                } else {
+                    mIntent = new Intent(ServicesActivity.this, IntentedService2.class);
+                }
+                ServicesActivity.this.unbindService(mServiceConnection);
+            }
+        });
+        mUnbindButton = (Button) findViewById(R.id.service_column3_unbind_button);
+        mUnbindButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent;
+                if (false == mServiceType) {
+                    mIntent = new Intent(ServicesActivity.this, SimpleService3.class);
+                } else {
+                    mIntent = new Intent(ServicesActivity.this, IntentedService3.class);
+                }
+                ServicesActivity.this.unbindService(mServiceConnection);
+            }
+        });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+//        ActivityManager am = (ActivityManager)this.getSystemService(Activity.ACTIVITY_SERVICE);
+//        List<ActivityManager.RunningServiceInfo> rs = am.getRunningServices(50);
+//        String message = null;
+//
+//        for (int i=0; i<rs.size(); i++) {
+//            ActivityManager.RunningServiceInfo rsi = rs.get(i);
+//            rsi.service.
+//        }
+        super.onBackPressed();
     }
 
     private void assignStartButton(Button button) {

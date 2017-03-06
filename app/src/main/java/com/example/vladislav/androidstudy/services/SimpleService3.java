@@ -10,17 +10,17 @@ import android.util.Log;
  * Created by vladislav on 02.03.17.
  */
 
-public class SimpleService extends android.app.Service {
+public class SimpleService3 extends Service {
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i("SimpleService","onCreate");
+        Log.i("SimpleService3","onCreate");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("SimpleService","onStartCommand");
+        Log.i("SimpleService3","onStartCommand");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -33,16 +33,21 @@ public class SimpleService extends android.app.Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("SimpleService","onDestroy");
+        Log.i("SimpleService3","onDestroy");
         Log.i("-","-----------------------");
     }
 
-    // Dummy method.
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-//        Log.i("SimpleService","onBind");
+        Log.i("SimpleService3","onBind");
         return null;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.i("SimpleService3","onUnbind");
+        return super.onUnbind(intent);
     }
 
 }
