@@ -15,8 +15,6 @@ import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.fragments_activity.FragmentsActivity;
 import com.example.vladislav.androidstudy.fragments_activity.FragmentsDynamicActivity;
-import com.example.vladislav.androidstudy.services.IntentedService;
-import com.example.vladislav.androidstudy.services.SimpleService;
 
 public class InitialActivity extends AppCompatActivity {
 

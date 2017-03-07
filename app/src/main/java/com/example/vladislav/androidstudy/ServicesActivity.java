@@ -1,42 +1,74 @@
 package com.example.vladislav.androidstudy;
 
-import android.app.Activity;
-import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.TextView;
 
-import com.example.vladislav.androidstudy.services.IntentedService;
-import com.example.vladislav.androidstudy.services.IntentedService2;
-import com.example.vladislav.androidstudy.services.IntentedService3;
-import com.example.vladislav.androidstudy.services.SimpleService;
-import com.example.vladislav.androidstudy.services.SimpleService2;
-import com.example.vladislav.androidstudy.services.SimpleService3;
-
-import java.util.List;
+import com.example.vladislav.androidstudy.services.BindIntentedService;
+import com.example.vladislav.androidstudy.services.BindSimpleService;
+import com.example.vladislav.androidstudy.services.BothIntentedService;
+import com.example.vladislav.androidstudy.services.BothSimpleService;
+import com.example.vladislav.androidstudy.services.StartedIntentService;
+import com.example.vladislav.androidstudy.services.StartedSimpleService;
 
 public class ServicesActivity extends AppCompatActivity {
 
-    Button mStartButton;
-    Button mStopButton;
-    Button mBindButton;
-    Button mUnbindButton;
-    Boolean mServiceType;
-    ServiceConnection mServiceConnection;
-    Class mServiceTypeClass;
+    private TextView textView;
+    private Button mStartButton;
+    private Button mStopButton;
+    private Button mBindButton;
+    private Button mUnbindButton;
+    private Boolean mServiceType;
+    private Class mServiceTypeClass;
+    private ServiceConnection mServiceConnection;
+    private BroadcastReceiver mBroadcastReceiver;
+    private static boolean sLocalBroadcastReceiver = false;
+
+    //* http://stackoverflow.com/questions/4442660/android-check-if-service-is-running-via-bindservice
+    public static boolean BOUND = false;
+    public static String BROADCAST_ID = "AndroidStudyBroadcast";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services);
+
+        mBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String string = intent.getExtras().getString(ServicesActivity.BROADCAST_ID);
+//                Log.i("DOES","DOES");
+                if (null != string) {
+                    TextView textView = (TextView) findViewById(R.id.service_log_contents_text_view);
+                    textView.append(string);
+//                    myscroll.FullScroll(FocusSearchDirection.Down);
+                }
+            }
+        };
+
+        IntentFilter mIntentFilter = new IntentFilter(ServicesActivity.BROADCAST_ID);
+
+        // Registering broadcast receiver.
+        if (issLocalBroadcastReceiver()) {
+            LocalBroadcastManager.getInstance(this).registerReceiver(
+                    mBroadcastReceiver,
+                    mIntentFilter);
+        } else {
+            registerReceiver(mBroadcastReceiver, mIntentFilter);
+        }
 
         mServiceType = (Boolean) getIntent().getExtras().get("isIntendedService");
 
@@ -46,9 +78,9 @@ public class ServicesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mIntent;
                 if (false == mServiceType) {
-                    mIntent = new Intent(ServicesActivity.this, SimpleService.class);
+                    mIntent = new Intent(ServicesActivity.this, StartedSimpleService.class);
                 } else {
-                    mIntent = new Intent(ServicesActivity.this, IntentedService.class);
+                    mIntent = new Intent(ServicesActivity.this, StartedIntentService.class);
                 }
                 ServicesActivity.this.startService(mIntent);
             }
@@ -59,9 +91,9 @@ public class ServicesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mIntent;
                 if (false == mServiceType) {
-                    mIntent = new Intent(ServicesActivity.this, SimpleService3.class);
+                    mIntent = new Intent(ServicesActivity.this, BothSimpleService.class);
                 } else {
-                    mIntent = new Intent(ServicesActivity.this, IntentedService3.class);
+                    mIntent = new Intent(ServicesActivity.this, BothIntentedService.class);
                 }
                 ServicesActivity.this.startService(mIntent);
             }
@@ -72,9 +104,9 @@ public class ServicesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mIntent;
                 if (false == mServiceType) {
-                    mIntent = new Intent(ServicesActivity.this, SimpleService.class);
+                    mIntent = new Intent(ServicesActivity.this, StartedSimpleService.class);
                 } else {
-                    mIntent = new Intent(ServicesActivity.this, IntentedService.class);
+                    mIntent = new Intent(ServicesActivity.this, StartedIntentService.class);
                 }
                 ServicesActivity.this.stopService(mIntent);
             }
@@ -85,9 +117,9 @@ public class ServicesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mIntent;
                 if (false == mServiceType) {
-                    mIntent = new Intent(ServicesActivity.this, SimpleService3.class);
+                    mIntent = new Intent(ServicesActivity.this, BothSimpleService.class);
                 } else {
-                    mIntent = new Intent(ServicesActivity.this, IntentedService3.class);
+                    mIntent = new Intent(ServicesActivity.this, BothIntentedService.class);
                 }
                 ServicesActivity.this.stopService(mIntent);
             }
@@ -112,9 +144,9 @@ public class ServicesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mIntent;
                 if (false == mServiceType) {
-                    mIntent = new Intent(ServicesActivity.this, SimpleService2.class);
+                    mIntent = new Intent(ServicesActivity.this, BindSimpleService.class);
                 } else {
-                    mIntent = new Intent(ServicesActivity.this, IntentedService2.class);
+                    mIntent = new Intent(ServicesActivity.this, BindIntentedService.class);
                 }
                 ServicesActivity.this.bindService(mIntent, mServiceConnection, BIND_AUTO_CREATE);
             }
@@ -125,9 +157,9 @@ public class ServicesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mIntent;
                 if (false == mServiceType) {
-                    mIntent = new Intent(ServicesActivity.this, SimpleService3.class);
+                    mIntent = new Intent(ServicesActivity.this, BothSimpleService.class);
                 } else {
-                    mIntent = new Intent(ServicesActivity.this, IntentedService3.class);
+                    mIntent = new Intent(ServicesActivity.this, BothIntentedService.class);
                 }
                 ServicesActivity.this.bindService(mIntent, mServiceConnection, BIND_AUTO_CREATE);
             }
@@ -139,11 +171,13 @@ public class ServicesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mIntent;
                 if (false == mServiceType) {
-                    mIntent = new Intent(ServicesActivity.this, SimpleService2.class);
+                    mIntent = new Intent(ServicesActivity.this, BindSimpleService.class);
                 } else {
-                    mIntent = new Intent(ServicesActivity.this, IntentedService2.class);
+                    mIntent = new Intent(ServicesActivity.this, BindIntentedService.class);
                 }
-                ServicesActivity.this.unbindService(mServiceConnection);
+                if (ServicesActivity.BOUND) {
+                    ServicesActivity.this.unbindService(mServiceConnection);
+                }
             }
         });
         mUnbindButton = (Button) findViewById(R.id.service_column3_unbind_button);
@@ -152,13 +186,19 @@ public class ServicesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mIntent;
                 if (false == mServiceType) {
-                    mIntent = new Intent(ServicesActivity.this, SimpleService3.class);
+                    mIntent = new Intent(ServicesActivity.this, BothSimpleService.class);
                 } else {
-                    mIntent = new Intent(ServicesActivity.this, IntentedService3.class);
+                    mIntent = new Intent(ServicesActivity.this, BothIntentedService.class);
                 }
-                ServicesActivity.this.unbindService(mServiceConnection);
+                if (ServicesActivity.BOUND) {
+                    ServicesActivity.this.unbindService(mServiceConnection);
+                }
             }
         });
+
+        textView = (TextView)findViewById(R.id.service_log_contents_text_view);
+        // Making a text view for a log scrollable.
+        textView.setMovementMethod(new ScrollingMovementMethod());
 
     }
 
@@ -172,7 +212,23 @@ public class ServicesActivity extends AppCompatActivity {
 //            ActivityManager.RunningServiceInfo rsi = rs.get(i);
 //            rsi.service.
 //        }
+        if (ServicesActivity.BOUND) {
+            unbindService(mServiceConnection);
+            mServiceConnection = null;
+        }
+        // exception should not be present in a first place
+        //
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!issLocalBroadcastReceiver()) {
+            unregisterReceiver(mBroadcastReceiver);
+        } else {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
+        }
     }
 
     private void assignStartButton(Button button) {
@@ -214,4 +270,13 @@ public class ServicesActivity extends AppCompatActivity {
             }
         });
     }
+
+    public static boolean issLocalBroadcastReceiver() {
+        return sLocalBroadcastReceiver;
+    }
+
+    public static void setsLocalBroadcastReceiver(boolean sLocalBroadcastReceiver) {
+        ServicesActivity.sLocalBroadcastReceiver = sLocalBroadcastReceiver;
+    }
+
 }

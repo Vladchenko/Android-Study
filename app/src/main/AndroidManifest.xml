@@ -46,35 +46,33 @@
         <activity android:name=".ServicesActivity"></activity>
 
         <service
-            android:name=".services.SimpleService"
+            android:name=".services.StartedSimpleService"
             android:description="@string/service_description"
             android:label="@string/service_description">
         </service>
         <service
-            android:name=".services.IntentedService"
-            android:description="@string/intent_service_description"
-            android:exported="false">
+            android:name=".services.StartedIntentService"
+            android:description="@string/intent_service_description">
         </service>
         <service
-            android:name=".services.SimpleService2"
+            android:name=".services.BindSimpleService"
             android:description="@string/service_description"
             android:label="@string/service_description">
         </service>
         <service
-            android:name=".services.IntentedService2"
-            android:description="@string/intent_service_description"
-            android:exported="false">
+            android:name=".services.BindIntentedService"
+            android:description="@string/intent_service_description">
         </service>
         <service
-            android:name=".services.SimpleService3"
+            android:name=".services.BothSimpleService"
             android:description="@string/service_description"
             android:label="@string/service_description">
         </service>
         <service
-            android:name=".services.IntentedService3"
-            android:description="@string/intent_service_description"
-            android:exported="false">
+            android:name=".services.BothIntentedService"
+            android:description="@string/intent_service_description">
         </service>
+
     </application>
 
 </manifest>

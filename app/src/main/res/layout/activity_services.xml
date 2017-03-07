@@ -126,7 +126,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/service_log_contents_text_view"
-            android:background="@drawable/rounded_corner"/>
+            android:background="@drawable/rounded_corner"
+            android:scrollbars="vertical"
+            android:maxLines="5000"/>
 
     </LinearLayout>
 
