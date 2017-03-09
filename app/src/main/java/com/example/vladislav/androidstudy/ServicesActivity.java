@@ -23,6 +23,9 @@ import com.example.vladislav.androidstudy.services.BothSimpleService;
 import com.example.vladislav.androidstudy.services.StartedIntentService;
 import com.example.vladislav.androidstudy.services.StartedSimpleService;
 
+import static android.content.IntentFilter.SYSTEM_HIGH_PRIORITY;
+import static android.content.IntentFilter.SYSTEM_LOW_PRIORITY;
+
 public class ServicesActivity extends AppCompatActivity {
 
     private TextView textView;
@@ -84,14 +87,14 @@ public class ServicesActivity extends AppCompatActivity {
                         String string = intent.getExtras().getString(ServicesActivity.BROADCAST_ID);
                         if (null != string) {
                             TextView textView = (TextView) findViewById(R.id.service_log_contents_text_view);
-                            textView.append(string);
+                            textView.append("BR2:" + string);
                         }
                     }
                 };
-                mIntentFilter.setPriority(1);
+                mIntentFilter.setPriority(SYSTEM_HIGH_PRIORITY);
                 registerReceiver(mBroadcastReceiver, mIntentFilter);
                 mIntentFilter = new IntentFilter(ServicesActivity.BROADCAST_ID);
-                mIntentFilter.setPriority(2);
+                mIntentFilter.setPriority(SYSTEM_LOW_PRIORITY);
                 registerReceiver(mBroadcastReceiver2, mIntentFilter);
                 break;
             }
@@ -231,14 +234,6 @@ public class ServicesActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        ActivityManager am = (ActivityManager)this.getSystemService(Activity.ACTIVITY_SERVICE);
-//        List<ActivityManager.RunningServiceInfo> rs = am.getRunningServices(50);
-//        String message = null;
-//
-//        for (int i=0; i<rs.size(); i++) {
-//            ActivityManager.RunningServiceInfo rsi = rs.get(i);
-//            rsi.service.
-//        }
         if (ServicesActivity.BOUND) {
             unbindService(mServiceConnection);
             mServiceConnection = null;

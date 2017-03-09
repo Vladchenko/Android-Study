@@ -61,19 +61,4 @@ public class StartedSimpleService extends android.app.Service {
         return null;
     }
 
-//    private void sendingBroadcast(String string) {
-//        if (!ServicesActivity.issLocalBroadcastReceiver()) {
-//            sendBroadcast(
-//                    new Intent().
-//                            setAction(ServicesActivity.BROADCAST_ID).
-//                            putExtra(ServicesActivity.BROADCAST_ID,
-//                                    this.getClass().getSimpleName() + ": " + string + "\n"));
-//        } else {
-//            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent().
-//                    setAction(ServicesActivity.BROADCAST_ID).
-//                    putExtra(ServicesActivity.BROADCAST_ID,
-//                            this.getClass().getSimpleName() + ": " + string + "\n"));
-//        }
-//    }
-
 }

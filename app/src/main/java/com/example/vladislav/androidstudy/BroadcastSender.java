@@ -39,7 +39,7 @@ public class BroadcastSender {
                 break;
             }
             case PRIORITIZED: {
-                context.sendOrderedBroadcast(intent, ServicesActivity.BROADCAST_ID);
+                context.sendOrderedBroadcast(intent, null);
                 break;
             }
         }
