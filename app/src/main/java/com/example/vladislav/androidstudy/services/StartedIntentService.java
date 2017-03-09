@@ -27,12 +27,12 @@ public class StartedIntentService extends IntentService {
     public void onCreate() {
         super.onCreate();
         // Instantiating a broadcast sender;
-        mBroadcastSender = BroadcastSender.getInstance(this, ServicesActivity.issLocalBroadcastReceiver());
-        if (ServicesActivity.issLocalBroadcastReceiver()) {
-            mBroadcastSender.sendBroadcast("Local BroadcastReceiver is used.\n");
-        } else {
-            mBroadcastSender.sendBroadcast("Global BroadcastReceiver is used.\n");
-        }
+        mBroadcastSender = BroadcastSender.getInstance(this);
+//        if (ServicesActivity.issLocalBroadcastReceiver()) {
+//            mBroadcastSender.sendBroadcast("Local BroadcastReceiver is used.\n");
+//        } else {
+//            mBroadcastSender.sendBroadcast("Global BroadcastReceiver is used.\n");
+//        }
         mBroadcastSender.sendBroadcast("onCreate");
         Log.i("StartedIntentService","onCreate");
     }

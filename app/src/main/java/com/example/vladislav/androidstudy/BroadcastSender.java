@@ -1,7 +1,11 @@
 package com.example.vladislav.androidstudy;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 
 /**
@@ -11,11 +15,9 @@ public class BroadcastSender {
 
     private static BroadcastSender ourInstance = new BroadcastSender();
     private static Context context;
-    private static boolean isLocal;
 
-    public static BroadcastSender getInstance(Context contextOuter, boolean local) {
+    public static BroadcastSender getInstance(Context contextOuter) {
         context = contextOuter;
-        isLocal = local;
         return ourInstance;
     }
 
@@ -23,18 +25,23 @@ public class BroadcastSender {
     }
 
     public void sendBroadcast(String string) {
-        if (isLocal) {
-            LocalBroadcastManager.getInstance(context).sendBroadcast(
-                    new Intent().
-                            setAction(ServicesActivity.BROADCAST_ID).
-                            putExtra(ServicesActivity.BROADCAST_ID,
-                                    context.getClass().getSimpleName() + ": " + string + "\n"));
-        } else {
-            context.sendBroadcast(
-                    new Intent().
-                            setAction(ServicesActivity.BROADCAST_ID).
-                            putExtra(ServicesActivity.BROADCAST_ID,
-                                    context.getClass().getSimpleName() + ": " + string + "\n"));
+        Intent intent = new Intent().
+                setAction(ServicesActivity.BROADCAST_ID).
+                putExtra(ServicesActivity.BROADCAST_ID,
+                        context.getClass().getSimpleName() + ": " + string + "\n");
+        switch (ServicesActivity.broadcastKind) {
+            case LOCAL: {
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                break;
+            }
+            case GLOBAL: {
+                context.sendBroadcast(intent);
+                break;
+            }
+            case PRIORITIZED: {
+                context.sendOrderedBroadcast(intent, ServicesActivity.BROADCAST_ID);
+                break;
+            }
         }
     }
 }

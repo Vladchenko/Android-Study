@@ -16,20 +16,13 @@ import com.example.vladislav.androidstudy.ServicesActivity;
 
 public class StartedSimpleService extends android.app.Service {
 
-    private LocalBroadcastManager mLocalBroadcastManager;
-    private BroadcastReceiver mBroadcastReceiver;
     private BroadcastSender mBroadcastSender;
 
     @Override
     public void onCreate() {
         super.onCreate();
         // Instantiating a broadcast sender;
-        mBroadcastSender = BroadcastSender.getInstance(this, ServicesActivity.issLocalBroadcastReceiver());
-        if (ServicesActivity.issLocalBroadcastReceiver()) {
-            mBroadcastSender.sendBroadcast("Local BroadcastReceiver is used.\n");
-        } else {
-            mBroadcastSender.sendBroadcast("Global BroadcastReceiver is used.\n");
-        }
+        mBroadcastSender = BroadcastSender.getInstance(this);
         mBroadcastSender.sendBroadcast("onCreate");
         Log.i("StartedSimpleService", "onCreate");
 

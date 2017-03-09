@@ -33,12 +33,7 @@ public class BothIntentedService extends IntentService {
     public void onCreate() {
         super.onCreate();
         // Instantiating a broadcast sender;
-        mBroadcastSender = BroadcastSender.getInstance(this, ServicesActivity.issLocalBroadcastReceiver());
-        if (ServicesActivity.issLocalBroadcastReceiver()) {
-            mBroadcastSender.sendBroadcast("Local BroadcastReceiver is used.\n");
-        } else {
-            mBroadcastSender.sendBroadcast("Global BroadcastReceiver is used.\n");
-        }
+        mBroadcastSender = BroadcastSender.getInstance(this);
         mBroadcastSender.sendBroadcast("onCreate");
         Log.i("BothIntentedService","onCreate");
     }
@@ -47,8 +42,8 @@ public class BothIntentedService extends IntentService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         mBroadcastSender.sendBroadcast("onStartCommand");
         Log.i("BothIntentedService","onStartCommand");
-//        return START_NOT_STICKY;
-        return super.onStartCommand(intent, flags, startId);
+        return START_NOT_STICKY;
+//        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override

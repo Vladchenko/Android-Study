@@ -34,11 +34,16 @@ public class ServicesActivity extends AppCompatActivity {
     private Class mServiceTypeClass;
     private ServiceConnection mServiceConnection;
     private BroadcastReceiver mBroadcastReceiver;
-    private static boolean sLocalBroadcastReceiver = false;
+    private BroadcastReceiver mBroadcastReceiver2;  // Used in case an ordered broadcast is sent.
+
+    public enum BroadcastKind {LOCAL, GLOBAL, PRIORITIZED}
+    public static BroadcastKind broadcastKind = BroadcastKind.PRIORITIZED;
+//    private static boolean sLocalBroadcastReceiver = false;
 
     //* http://stackoverflow.com/questions/4442660/android-check-if-service-is-running-via-bindservice
     public static boolean BOUND = false;
     public static String BROADCAST_ID = "AndroidStudyBroadcast";
+//    public static String BROADCAST_ID2 = "AndroidStudyBroadcast2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +55,6 @@ public class ServicesActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String string = intent.getExtras().getString(ServicesActivity.BROADCAST_ID);
-//                Log.i("DOES","DOES");
                 if (null != string) {
                     TextView textView = (TextView) findViewById(R.id.service_log_contents_text_view);
                     textView.append(string);
@@ -62,12 +66,35 @@ public class ServicesActivity extends AppCompatActivity {
         IntentFilter mIntentFilter = new IntentFilter(ServicesActivity.BROADCAST_ID);
 
         // Registering broadcast receiver.
-        if (issLocalBroadcastReceiver()) {
-            LocalBroadcastManager.getInstance(this).registerReceiver(
-                    mBroadcastReceiver,
-                    mIntentFilter);
-        } else {
-            registerReceiver(mBroadcastReceiver, mIntentFilter);
+        switch (broadcastKind) {
+            case LOCAL: {
+                LocalBroadcastManager.getInstance(this).registerReceiver(
+                        mBroadcastReceiver,
+                        mIntentFilter);
+                break;
+            }
+            case GLOBAL: {
+                registerReceiver(mBroadcastReceiver, mIntentFilter);
+                break;
+            }
+            case PRIORITIZED: {
+                mBroadcastReceiver2 = new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        String string = intent.getExtras().getString(ServicesActivity.BROADCAST_ID);
+                        if (null != string) {
+                            TextView textView = (TextView) findViewById(R.id.service_log_contents_text_view);
+                            textView.append(string);
+                        }
+                    }
+                };
+                mIntentFilter.setPriority(1);
+                registerReceiver(mBroadcastReceiver, mIntentFilter);
+                mIntentFilter = new IntentFilter(ServicesActivity.BROADCAST_ID);
+                mIntentFilter.setPriority(2);
+                registerReceiver(mBroadcastReceiver2, mIntentFilter);
+                break;
+            }
         }
 
         mServiceType = (Boolean) getIntent().getExtras().get("isIntendedService");
@@ -196,7 +223,7 @@ public class ServicesActivity extends AppCompatActivity {
             }
         });
 
-        textView = (TextView)findViewById(R.id.service_log_contents_text_view);
+        textView = (TextView) findViewById(R.id.service_log_contents_text_view);
         // Making a text view for a log scrollable.
         textView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -224,10 +251,20 @@ public class ServicesActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (!issLocalBroadcastReceiver()) {
-            unregisterReceiver(mBroadcastReceiver);
-        } else {
-            LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
+        switch (broadcastKind) {
+            case LOCAL: {
+                LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
+                break;
+            }
+            case GLOBAL: {
+                unregisterReceiver(mBroadcastReceiver);
+                break;
+            }
+            case PRIORITIZED: {
+                unregisterReceiver(mBroadcastReceiver);
+                unregisterReceiver(mBroadcastReceiver2);
+                break;
+            }
         }
     }
 
@@ -269,14 +306,6 @@ public class ServicesActivity extends AppCompatActivity {
                 ServicesActivity.this.unbindService(mServiceConnection);
             }
         });
-    }
-
-    public static boolean issLocalBroadcastReceiver() {
-        return sLocalBroadcastReceiver;
-    }
-
-    public static void setsLocalBroadcastReceiver(boolean sLocalBroadcastReceiver) {
-        ServicesActivity.sLocalBroadcastReceiver = sLocalBroadcastReceiver;
     }
 
 }

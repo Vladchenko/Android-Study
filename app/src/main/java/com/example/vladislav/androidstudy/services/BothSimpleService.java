@@ -22,12 +22,7 @@ public class BothSimpleService extends Service {
     public void onCreate() {
         super.onCreate();
         // Instantiating a broadcast sender;
-        mBroadcastSender = BroadcastSender.getInstance(this, ServicesActivity.issLocalBroadcastReceiver());
-        if (ServicesActivity.issLocalBroadcastReceiver()) {
-            mBroadcastSender.sendBroadcast("Local BroadcastReceiver is used.\n");
-        } else {
-            mBroadcastSender.sendBroadcast("Global BroadcastReceiver is used.\n");
-        }
+        mBroadcastSender = BroadcastSender.getInstance(this);
         mBroadcastSender.sendBroadcast("onCreate");
         Log.i("BothSimpleService", "onCreate");
     }
