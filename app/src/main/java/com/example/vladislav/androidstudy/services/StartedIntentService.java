@@ -28,17 +28,14 @@ public class StartedIntentService extends IntentService {
         super.onCreate();
         // Instantiating a broadcast sender;
         mBroadcastSender = BroadcastSender.getInstance(this);
-//        if (ServicesActivity.issLocalBroadcastReceiver()) {
-//            mBroadcastSender.sendBroadcast("Local BroadcastReceiver is used.\n");
-//        } else {
-//            mBroadcastSender.sendBroadcast("Global BroadcastReceiver is used.\n");
-//        }
         mBroadcastSender.sendBroadcast("onCreate");
         Log.i("StartedIntentService","onCreate");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        // Without invoking super, method onHandleIntent(...) isn't called.
+        super.onStartCommand(intent, flags, startId);
         mBroadcastSender.sendBroadcast("onStartCommand");
         Log.i("StartedIntentService","onStartCommand");
 //        return START_NOT_STICKY;

@@ -40,6 +40,8 @@ public class BothIntentedService extends IntentService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        // Without invoking super, method onHandleIntent(...) isn't called.
+        super.onStartCommand(intent, flags, startId);
         mBroadcastSender.sendBroadcast("onStartCommand");
         Log.i("BothIntentedService","onStartCommand");
         return START_NOT_STICKY;
@@ -66,7 +68,7 @@ public class BothIntentedService extends IntentService {
         mBroadcastSender.sendBroadcast("-----------------------");
         Log.i("BothIntentedService","onDestroy");
         Log.i("-","-----------------------");
-        ServicesActivity.BOUND = false;
+        ServicesActivity.bounded = false;
     }
 
     @Nullable
@@ -74,7 +76,7 @@ public class BothIntentedService extends IntentService {
     public IBinder onBind(Intent intent) {
         mBroadcastSender.sendBroadcast("onBind");
         Log.i("BothIntentedService","onBind");
-        ServicesActivity.BOUND = true;
+        ServicesActivity.bounded = true;
 //        Log.i("StartedSimpleService", "StartedSimpleService is bound to - " + intent.getAction());
         return new IBinder() {
             @Override

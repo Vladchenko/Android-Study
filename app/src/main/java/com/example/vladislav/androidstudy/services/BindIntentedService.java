@@ -29,11 +29,6 @@ public class BindIntentedService extends IntentService {
         super.onCreate();
         // Instantiating a broadcast sender;
         mBroadcastSender = BroadcastSender.getInstance(this);
-//        if (ServicesActivity.issLocalBroadcastReceiver()) {
-//            mBroadcastSender.sendBroadcast("Local BroadcastReceiver is used.\n");
-//        } else {
-//            mBroadcastSender.sendBroadcast("Global BroadcastReceiver is used.\n");
-//        }
         mBroadcastSender.sendBroadcast("onCreate");
         Log.i("BindIntentedService","onCreate");
     }
@@ -58,7 +53,7 @@ public class BindIntentedService extends IntentService {
         mBroadcastSender.sendBroadcast("-----------------------");
         Log.i("BindIntentedService","onDestroy");
         Log.i("-","-----------------------");
-        ServicesActivity.BOUND = false;
+        ServicesActivity.bounded = false;
     }
 
     @Nullable
@@ -66,7 +61,7 @@ public class BindIntentedService extends IntentService {
     public IBinder onBind(Intent intent) {
         mBroadcastSender.sendBroadcast("onBind");
         Log.i("BindIntentedService","onBind");
-        ServicesActivity.BOUND = true;
+        ServicesActivity.bounded = true;
         sendBroadcast(new Intent().putExtra(ServicesActivity.BROADCAST_ID,"onCreate"));
         return null;
     }

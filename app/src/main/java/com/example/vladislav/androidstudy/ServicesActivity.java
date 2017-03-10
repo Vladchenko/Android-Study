@@ -40,12 +40,12 @@ public class ServicesActivity extends AppCompatActivity {
     private BroadcastReceiver mBroadcastReceiver2;  // Used in case an ordered broadcast is sent.
 
     public enum BroadcastKind {LOCAL, GLOBAL, PRIORITIZED}
-    public static BroadcastKind broadcastKind = BroadcastKind.PRIORITIZED;
+    public static BroadcastKind broadcastKind = BroadcastKind.LOCAL;
 //    private static boolean sLocalBroadcastReceiver = false;
 
     //* http://stackoverflow.com/questions/4442660/android-check-if-service-is-running-via-bindservice
-    public static boolean BOUND = false;
-    public static String BROADCAST_ID = "AndroidStudyBroadcast";
+    public static boolean bounded = false;
+    public static final String BROADCAST_ID = "AndroidStudyBroadcast";
 //    public static String BROADCAST_ID2 = "AndroidStudyBroadcast2";
 
     @Override
@@ -205,7 +205,7 @@ public class ServicesActivity extends AppCompatActivity {
                 } else {
                     mIntent = new Intent(ServicesActivity.this, BindIntentedService.class);
                 }
-                if (ServicesActivity.BOUND) {
+                if (ServicesActivity.bounded) {
                     ServicesActivity.this.unbindService(mServiceConnection);
                 }
             }
@@ -220,7 +220,7 @@ public class ServicesActivity extends AppCompatActivity {
                 } else {
                     mIntent = new Intent(ServicesActivity.this, BothIntentedService.class);
                 }
-                if (ServicesActivity.BOUND) {
+                if (ServicesActivity.bounded) {
                     ServicesActivity.this.unbindService(mServiceConnection);
                 }
             }
@@ -234,7 +234,7 @@ public class ServicesActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (ServicesActivity.BOUND) {
+        if (ServicesActivity.bounded) {
             unbindService(mServiceConnection);
             mServiceConnection = null;
         }

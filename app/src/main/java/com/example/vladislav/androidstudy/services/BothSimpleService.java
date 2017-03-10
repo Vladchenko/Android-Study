@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.example.vladislav.androidstudy.BroadcastSender;
@@ -49,7 +48,7 @@ public class BothSimpleService extends Service {
         mBroadcastSender.sendBroadcast("-----------------------");
         Log.i("BothSimpleService", "onDestroy");
         Log.i("-", "-----------------------");
-        ServicesActivity.BOUND = false;
+        ServicesActivity.bounded = false;
     }
 
     @Nullable
@@ -57,7 +56,7 @@ public class BothSimpleService extends Service {
     public IBinder onBind(Intent intent) {
         mBroadcastSender.sendBroadcast("onBind");
         Log.i("BothSimpleService", "onBind");
-        ServicesActivity.BOUND = true;
+        ServicesActivity.bounded = true;
         return null;
     }
 

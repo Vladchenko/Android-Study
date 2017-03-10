@@ -34,7 +34,7 @@ public class BindSimpleService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ServicesActivity.BOUND = false;
+        ServicesActivity.bounded = false;
         mBroadcastSender.sendBroadcast("onDestroy");
         mBroadcastSender.sendBroadcast("-----------------------");
         Log.i("BindSimpleService","onDestroy");
@@ -46,7 +46,7 @@ public class BindSimpleService extends Service {
     public IBinder onBind(Intent intent) {
         mBroadcastSender.sendBroadcast("onBind");
         Log.i("BindSimpleService","onBind");
-        ServicesActivity.BOUND = true;
+        ServicesActivity.bounded = true;
         return null;
     }
 
