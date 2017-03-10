@@ -15,9 +15,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,9 +29,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/color1"
                 android:onClick="sendEmail (InitialActivity)"
-                android:text="Send Email"
-                android:backgroundTint="@color/color1"/>
+                android:text="Send Email" />
 
             <Button
                 android:id="@+id/widgets_button"
@@ -63,8 +63,8 @@
                 android:id="@+id/aligning_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/widgets_button"
                 android:layout_alignLeft="@+id/widgets_button"
+                android:layout_alignStart="@+id/widgets_button"
                 android:layout_below="@+id/layouting_button"
                 android:onClick="gotoAligningActivity"
                 android:text="Aligning" />
@@ -86,70 +86,75 @@
                 android:text="Show list" />
 
             <Button
-                android:text="Menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/menu_button"
-                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/list_button"
-                android:onClick="gotoMenuActivity"/>
-
-            <Button
-                android:text="Dynamic fragments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fragments_dynamic_button"
                 android:layout_centerHorizontal="true"
+                android:onClick="gotoMenuActivity"
+                android:text="Menu" />
+
+            <Button
+                android:id="@+id/fragments_dynamic_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/menu_button"
-                android:onClick="gotoFragmentsDynamicActivity"/>
+                android:layout_centerHorizontal="true"
+                android:onClick="gotoFragmentsDynamicActivity"
+                android:text="Dynamic fragments" />
 
             <Button
-                android:text="Fragments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/fragments_button"
-                android:onClick="gotoFragmentsActivity"
-                android:layout_below="@+id/fragments_dynamic_button"
-                android:layout_alignLeft="@+id/send_email_button"
-                android:layout_alignStart="@+id/send_email_button" />
-
-            <Button
-                android:text="image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/fragments_dynamic_button"
+                android:layout_centerHorizontal="true"
+                android:onClick="gotoFragmentsActivity"
+                android:text="Fragments" />
+
+            <Button
                 android:id="@+id/image_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/fragments_button"
-                android:layout_alignLeft="@+id/menu_button"
-                android:layout_alignStart="@+id/menu_button"
-                android:onClick="gotoImageActivity"/>
+                android:layout_centerHorizontal="true"
+                android:onClick="gotoImageActivity"
+                android:text="image" />
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:id="@+id/services_button_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/image_button"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <Button
-                    android:text="Service"
+                    android:id="@+id/services_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/services_button"
                     android:layout_below="@+id/image_button"
-                    android:layout_alignLeft="@+id/menu_button"
-                    android:layout_alignStart="@+id/menu_button"
-                    android:onClick="gotoServicesActivity" />
+                    android:layout_centerHorizontal="true"
+                    android:onClick="gotoServicesActivity"
+                    android:text="Service" />
 
                 <CheckBox
-                    android:text="IntentService"
+                    android:id="@+id/intent_service_checkbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_toRightOf="@+id/services_button"
-                    android:layout_toEndOf="@+id/services_button"
-                    android:id="@+id/intent_service_checkbox" />
+                    android:layout_below="@+id/image_button"
+                    android:layout_centerHorizontal="true"
+                    android:text="IntentService" />
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/youtube_runner_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/services_button_layout"
+                android:layout_centerHorizontal="true"
+                android:text="Youtube" />
 
             <!-- When adding other components, consider adding them to a layout-land activity-initial.xml also. -->
 

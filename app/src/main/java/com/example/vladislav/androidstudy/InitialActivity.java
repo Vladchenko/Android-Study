@@ -1,8 +1,10 @@
 package com.example.vladislav.androidstudy;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ public class InitialActivity extends AppCompatActivity {
     private String mDEBUG_TAG = "Debug tag";
     public static final String ACTIVITY_RESULT_ID = "result";
     private OrientationEventListener mOrientationListener;
+    private String mYouTubeVideoID = "Fee5vbFLYM4";
 
     // This method required to run this app in a cellphone
     @Override
@@ -34,6 +37,37 @@ public class InitialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial);
+        setButtonClicks();
+        mOrientationListener = new OrientationEventListener(this,
+                SensorManager.SENSOR_DELAY_NORMAL) {
+            @Override
+            public void onOrientationChanged(int orientation) {
+                Toast toast = Toast.makeText(
+                        getApplicationContext(),
+                        "Orientation changed to " + orientation,
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                if (orientation == 90) {
+                    setContentView(R.layout.activity_initial);
+                }
+            }
+        };
+
+        // Defining if an orientation checking can be performed or not.
+        if (mOrientationListener.canDetectOrientation() == true) {
+            Log.v(mDEBUG_TAG, "Can detect orientation");
+            mOrientationListener.enable();
+        } else {
+            Log.v(mDEBUG_TAG, "Cannot detect orientation");
+            mOrientationListener.disable();
+        }
+
+        // That's how we reach the resources.
+        Log.i("Log message: ", "Application name is:" + getResources().getString(R.string.app_name));
+
+    }
+
+    private void setButtonClicks() {
         mButton = (Button) findViewById(R.id.layouting_button);
         // Making a mButton to be clickable and click to perform a transfer to a layouting activity.
         // Another way of doing this - make a separate method in this class that invokes another
@@ -64,33 +98,13 @@ public class InitialActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        mOrientationListener = new OrientationEventListener(this,
-                SensorManager.SENSOR_DELAY_NORMAL) {
+        mButton = (Button) findViewById(R.id.youtube_runner_button);
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onOrientationChanged(int orientation) {
-                Toast toast = Toast.makeText(
-                        getApplicationContext(),
-                        "Orientation changed to " + orientation,
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                if (orientation == 90) {
-                    setContentView(R.layout.activity_initial);
-                }
+            public void onClick(View v) {
+                runYoutube(mYouTubeVideoID);
             }
-        };
-
-        // Defining if an orientation checking can be performed or not.
-        if (mOrientationListener.canDetectOrientation() == true) {
-            Log.v(mDEBUG_TAG, "Can detect orientation");
-            mOrientationListener.enable();
-        } else {
-            Log.v(mDEBUG_TAG, "Cannot detect orientation");
-            mOrientationListener.disable();
-        }
-
-        // That's how we reach the resources.
-        Log.i("Log message: ", "Application name is:" + getResources().getString(R.string.app_name));
-
+        });
     }
 
     // This callback fires when a mButton from ResultActivity returns a result. It's done in a
@@ -109,17 +123,8 @@ public class InitialActivity extends AppCompatActivity {
         toast.show();
     }
 
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//        Toast toast = Toast.makeText(
-//                getApplicationContext(),
-//                "Configuration changed",
-//                Toast.LENGTH_SHORT);
-//        toast.show();
-//    }
-
     public void sendEmail(View view) {
+        // An implicit intent.
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
         sendIntent.setType("message/rfc822");
         sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"vladislav_mail@list.ru"});
@@ -127,6 +132,17 @@ public class InitialActivity extends AppCompatActivity {
         sendIntent.putExtra(Intent.EXTRA_TEXT, "This message was sent from an application being " +
                 "developed in Android Studio, to check its operating.");
         startActivity(Intent.createChooser(sendIntent, "Choose mail app"));
+    }
+
+    public void runYoutube(String video_id) {
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + video_id));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://www.youtube.com/watch?v=" + video_id));
+        try {
+            startActivity(appIntent);
+        } catch (ActivityNotFoundException ex) {
+            startActivity(webIntent);
+        }
     }
 
     // This mButton is attached to Onclick() method in a mButton in activity_initial.xml
