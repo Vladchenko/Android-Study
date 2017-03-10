@@ -9,6 +9,8 @@
              location permissions for the 'MyLocation' functionality.
         -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--Such a persmission is needed to check a wifi state-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="android.support.multidex.MultiDexApplication"
@@ -44,6 +46,12 @@
         <activity android:name=".fragments_activity.FragmentsDynamicActivity" />
         <activity android:name=".ImageActivity" />
         <activity android:name=".ServicesActivity"></activity>
+
+        <receiver android:name=".AirPlaneStateReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".services.StartedSimpleService"

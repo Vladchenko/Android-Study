@@ -18,4 +18,16 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Result sent"
+        android:ems="10"
+        android:id="@+id/result_edit_text"
+        android:layout_below="@+id/go_back_button"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"/>
+
+
 </RelativeLayout>

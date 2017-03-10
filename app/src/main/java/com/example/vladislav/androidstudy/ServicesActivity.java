@@ -100,6 +100,88 @@ public class ServicesActivity extends AppCompatActivity {
             }
         }
 
+        // Setting a buttons' click listeners.
+        setListeners();
+
+        textView = (TextView) findViewById(R.id.service_log_contents_text_view);
+        // Making a text view for a log scrollable.
+        textView.setMovementMethod(new ScrollingMovementMethod());
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (ServicesActivity.bounded) {
+            unbindService(mServiceConnection);
+            mServiceConnection = null;
+        }
+        // exception should not be present in a first place
+        //
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        switch (broadcastKind) {
+            case LOCAL: {
+                LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
+                break;
+            }
+            case GLOBAL: {
+                unregisterReceiver(mBroadcastReceiver);
+                break;
+            }
+            case PRIORITIZED: {
+                unregisterReceiver(mBroadcastReceiver);
+                unregisterReceiver(mBroadcastReceiver2);
+                break;
+            }
+        }
+    }
+
+    private void assignStartButton(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(ServicesActivity.this, mServiceTypeClass);
+                ServicesActivity.this.startService(mIntent);
+            }
+        });
+    }
+
+    private void assignStopButton(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(ServicesActivity.this, mServiceTypeClass);
+                ServicesActivity.this.stopService(mIntent);
+            }
+        });
+    }
+
+    private void assignBindButton(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(ServicesActivity.this, mServiceTypeClass);
+                ServicesActivity.this.bindService(mIntent, mServiceConnection, BIND_AUTO_CREATE);
+            }
+        });
+    }
+
+    private void assignUnbindButton(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(ServicesActivity.this, mServiceTypeClass);
+                ServicesActivity.this.unbindService(mServiceConnection);
+            }
+        });
+    }
+
+    private void setListeners() {
+
         mServiceType = (Boolean) getIntent().getExtras().get("isIntendedService");
 
         mStartButton = (Button) findViewById(R.id.service_column1_start_button);
@@ -223,82 +305,6 @@ public class ServicesActivity extends AppCompatActivity {
                 if (ServicesActivity.bounded) {
                     ServicesActivity.this.unbindService(mServiceConnection);
                 }
-            }
-        });
-
-        textView = (TextView) findViewById(R.id.service_log_contents_text_view);
-        // Making a text view for a log scrollable.
-        textView.setMovementMethod(new ScrollingMovementMethod());
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (ServicesActivity.bounded) {
-            unbindService(mServiceConnection);
-            mServiceConnection = null;
-        }
-        // exception should not be present in a first place
-        //
-        super.onBackPressed();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        switch (broadcastKind) {
-            case LOCAL: {
-                LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
-                break;
-            }
-            case GLOBAL: {
-                unregisterReceiver(mBroadcastReceiver);
-                break;
-            }
-            case PRIORITIZED: {
-                unregisterReceiver(mBroadcastReceiver);
-                unregisterReceiver(mBroadcastReceiver2);
-                break;
-            }
-        }
-    }
-
-    private void assignStartButton(Button button) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mIntent = new Intent(ServicesActivity.this, mServiceTypeClass);
-                ServicesActivity.this.startService(mIntent);
-            }
-        });
-    }
-
-    private void assignStopButton(Button button) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mIntent = new Intent(ServicesActivity.this, mServiceTypeClass);
-                ServicesActivity.this.stopService(mIntent);
-            }
-        });
-    }
-
-    private void assignBindButton(Button button) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mIntent = new Intent(ServicesActivity.this, mServiceTypeClass);
-                ServicesActivity.this.bindService(mIntent, mServiceConnection, BIND_AUTO_CREATE);
-            }
-        });
-    }
-
-    private void assignUnbindButton(Button button) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mIntent = new Intent(ServicesActivity.this, mServiceTypeClass);
-                ServicesActivity.this.unbindService(mServiceConnection);
             }
         });
     }

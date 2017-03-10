@@ -18,9 +18,10 @@ import com.example.vladislav.androidstudy.fragments_activity.FragmentsDynamicAct
 
 public class InitialActivity extends AppCompatActivity {
 
-    Button button;
-    String DEBUG_TAG = "Debug tag";
-    OrientationEventListener mOrientationListener;
+    private Button mButton;
+    private String mDEBUG_TAG = "Debug tag";
+    public static final String ACTIVITY_RESULT_ID = "result";
+    private OrientationEventListener mOrientationListener;
 
     // This method required to run this app in a cellphone
     @Override
@@ -33,30 +34,30 @@ public class InitialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial);
-        button = (Button) findViewById(R.id.layouting_button);
-        // Making a button to be clickable and click to perform a transfer to a layouting activity.
+        mButton = (Button) findViewById(R.id.layouting_button);
+        // Making a mButton to be clickable and click to perform a transfer to a layouting activity.
         // Another way of doing this - make a separate method in this class that invokes another
-        // activity and assing it to a onClick() method in a respectful layout's button
-        // (say - button is - android:id="@+id/widgets_button",
+        // activity and assing it to a onClick() method in a respectful layout's mButton
+        // (say - mButton is - android:id="@+id/widgets_button",
         // attribute is - android:onClick="gotoWidgetsActivity")
         // gotoWidgetsActivity - the very method invoked.
-        button.setOnClickListener(new View.OnClickListener() {
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(InitialActivity.this, LayoutingActivity.class);
                 startActivity(intent);
             }
         });
-        button = (Button) findViewById(R.id.return_result_button);
-        button.setOnClickListener(new View.OnClickListener() {
+        mButton = (Button) findViewById(R.id.return_result_button);
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(InitialActivity.this, ResultActivity.class);
                 startActivityForResult(intent, 1);
             }
         });
-        button = (Button) findViewById(R.id.list_button);
-        button.setOnClickListener(new View.OnClickListener() {
+        mButton = (Button) findViewById(R.id.list_button);
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(InitialActivity.this, ListsViewingActivity.class);
@@ -80,10 +81,10 @@ public class InitialActivity extends AppCompatActivity {
 
         // Defining if an orientation checking can be performed or not.
         if (mOrientationListener.canDetectOrientation() == true) {
-            Log.v(DEBUG_TAG, "Can detect orientation");
+            Log.v(mDEBUG_TAG, "Can detect orientation");
             mOrientationListener.enable();
         } else {
-            Log.v(DEBUG_TAG, "Cannot detect orientation");
+            Log.v(mDEBUG_TAG, "Cannot detect orientation");
             mOrientationListener.disable();
         }
 
@@ -92,15 +93,15 @@ public class InitialActivity extends AppCompatActivity {
 
     }
 
-    // This callback fires when a button from ResultActivity returns a result. It's done in a
-    // OnClickListener() in a android:id="@+id/go_back_button" button.
+    // This callback fires when a mButton from ResultActivity returns a result. It's done in a
+    // OnClickListener() in a android:id="@+id/go_back_button" mButton.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // When nothing retrieved, finish the method.
         if (data == null) {
             return;
         }
-        String name = data.getStringExtra("name");
+        String name = data.getStringExtra(InitialActivity.ACTIVITY_RESULT_ID);
         Toast toast = Toast.makeText(
                 getApplicationContext(),
                 "Received result is: " + name,
@@ -128,10 +129,10 @@ public class InitialActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(sendIntent, "Choose mail app"));
     }
 
-    // This button is attached to Onclick() method in a button in activity_initial.xml
+    // This mButton is attached to Onclick() method in a mButton in activity_initial.xml
     // with id - android:id="@+id/widgets_button".
     // Check an attribute - android:onClick="gotoWidgetsActivity".
-    // Another way to do this - make a onCLickListener for a button in this class.
+    // Another way to do this - make a onCLickListener for a mButton in this class.
     public void gotoWidgetsActivity(View view) {
         Intent intent = new Intent(InitialActivity.this, WidgetsActivity.class);
         startActivity(intent);
@@ -173,3 +174,5 @@ public class InitialActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+
+
