@@ -101,10 +101,10 @@ public class InitialActivity extends AppCompatActivity {
         if (data == null) {
             return;
         }
-        String name = data.getStringExtra(InitialActivity.ACTIVITY_RESULT_ID);
+        String text = data.getStringExtra(InitialActivity.ACTIVITY_RESULT_ID);
         Toast toast = Toast.makeText(
                 getApplicationContext(),
-                "Received result is: " + name,
+                "Received result is: " + text,
                 Toast.LENGTH_SHORT);
         toast.show();
     }

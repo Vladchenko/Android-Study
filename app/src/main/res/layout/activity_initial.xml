@@ -95,15 +95,6 @@
                 android:onClick="gotoMenuActivity"/>
 
             <Button
-                android:text="Fragments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fragments_button"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/menu_button"
-                android:onClick="gotoFragmentsActivity"/>
-
-            <Button
                 android:text="Dynamic fragments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,6 +102,16 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/menu_button"
                 android:onClick="gotoFragmentsDynamicActivity"/>
+
+            <Button
+                android:text="Fragments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragments_button"
+                android:onClick="gotoFragmentsActivity"
+                android:layout_below="@+id/fragments_dynamic_button"
+                android:layout_alignLeft="@+id/send_email_button"
+                android:layout_alignStart="@+id/send_email_button" />
 
             <Button
                 android:text="image"
@@ -147,6 +148,7 @@
                     android:layout_toRightOf="@+id/services_button"
                     android:layout_toEndOf="@+id/services_button"
                     android:id="@+id/intent_service_checkbox" />
+
             </LinearLayout>
 
             <!-- When adding other components, consider adding them to a layout-land activity-initial.xml also. -->

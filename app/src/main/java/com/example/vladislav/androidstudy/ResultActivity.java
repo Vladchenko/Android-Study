@@ -24,7 +24,7 @@ public class ResultActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 mEditText = (EditText) findViewById(R.id.result_edit_text);
-                intent.putExtra(InitialActivity.ACTIVITY_RESULT_ID, mEditText.getText());
+                intent.putExtra(InitialActivity.ACTIVITY_RESULT_ID, mEditText.getText().toString());
                 setResult(RESULT_OK, intent);
                 finish();
             }
