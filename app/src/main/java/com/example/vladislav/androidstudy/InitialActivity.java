@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.example.vladislav.androidstudy.banksdetails.BanksDetailsActivity;
 import com.example.vladislav.androidstudy.fragments_activity.FragmentsActivity;
 import com.example.vladislav.androidstudy.fragments_activity.FragmentsDynamicActivity;
 
@@ -35,9 +36,12 @@ public class InitialActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial);
-        setButtonClicks();
+
+        setButtonsClicks();
+
         mOrientationListener = new OrientationEventListener(this,
                 SensorManager.SENSOR_DELAY_NORMAL) {
             @Override
@@ -67,7 +71,7 @@ public class InitialActivity extends AppCompatActivity {
 
     }
 
-    private void setButtonClicks() {
+    private void setButtonsClicks() {
         mButton = (Button) findViewById(R.id.layouting_button);
         // Making a mButton to be clickable and click to perform a transfer to a layouting activity.
         // Another way of doing this - make a separate method in this class that invokes another
@@ -105,6 +109,16 @@ public class InitialActivity extends AppCompatActivity {
                 runYoutube(mYouTubeVideoID);
             }
         });
+
+        ((Button) findViewById(R.id.banks_details_button)).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(InitialActivity.this, BanksDetailsActivity.class));
+                    }
+                }
+        );
+
     }
 
     // This callback fires when a mButton from ResultActivity returns a result. It's done in a
@@ -186,7 +200,7 @@ public class InitialActivity extends AppCompatActivity {
 
     public void gotoServicesActivity(View view) {
         Intent intent = new Intent(InitialActivity.this, ServicesActivity.class);
-        intent.putExtra("isIntendedService",((CheckBox) findViewById(R.id.intent_service_checkbox)).isChecked());
+        intent.putExtra("isIntendedService", ((CheckBox) findViewById(R.id.intent_service_checkbox)).isChecked());
         startActivity(intent);
     }
 }

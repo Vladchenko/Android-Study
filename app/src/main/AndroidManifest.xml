@@ -7,10 +7,13 @@
              The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
              Google Maps Android API v2, but you must specify either coarse or fine
              location permissions for the 'MyLocation' functionality.
-        -->
+    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!--Such a persmission is needed to check a wifi state-->
+    <!-- Such a persmission is needed to check a wifi state -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="com.android.androidtest.READ_DATABASE" />
+    <uses-permission android:name="com.android.androidtest.WRITE_DATABASE" />
 
     <application
         android:name="android.support.multidex.MultiDexApplication"
@@ -45,9 +48,9 @@
         <activity android:name=".fragments_activity.FragmentsActivity" />
         <activity android:name=".fragments_activity.FragmentsDynamicActivity" />
         <activity android:name=".ImageActivity" />
-        <activity android:name=".ServicesActivity"></activity>
+        <activity android:name=".ServicesActivity" />
 
-        <receiver android:name=".AirPlaneStateReceiver" >
+        <receiver android:name=".AirPlaneStateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
             </intent-filter>
@@ -56,31 +59,26 @@
         <service
             android:name=".services.StartedSimpleService"
             android:description="@string/service_description"
-            android:label="@string/service_description">
-        </service>
+            android:label="@string/service_description"></service>
         <service
             android:name=".services.StartedIntentService"
-            android:description="@string/intent_service_description">
-        </service>
+            android:description="@string/intent_service_description"></service>
         <service
             android:name=".services.BindSimpleService"
             android:description="@string/service_description"
-            android:label="@string/service_description">
-        </service>
+            android:label="@string/service_description"></service>
         <service
             android:name=".services.BindIntentedService"
-            android:description="@string/intent_service_description">
-        </service>
+            android:description="@string/intent_service_description"></service>
         <service
             android:name=".services.BothSimpleService"
             android:description="@string/service_description"
-            android:label="@string/service_description">
-        </service>
+            android:label="@string/service_description"></service>
         <service
             android:name=".services.BothIntentedService"
-            android:description="@string/intent_service_description">
-        </service>
+            android:description="@string/intent_service_description"></service>
 
+        <activity android:name=".banksdetails.BanksDetailsActivity"></activity>
     </application>
 
 </manifest>
