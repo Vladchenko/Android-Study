@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_selector"
+    android:clickable="true">
+
+    <ImageView
+        android:id="@+id/house_image_view"
+        android:layout_width="@dimen/house_size"
+        android:layout_height="@dimen/house_size"
+        android:layout_marginLeft="@dimen/house_left_margin"
+        android:layout_marginRight="@dimen/house_right_margin"
+        android:layout_marginTop="@dimen/house_up_margin"
+        android:background="@drawable/ic_brightness_1_black_24dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:contentDescription="Circle with a house in a center of it"
+        android:scaleType="center"
+        android:tint="@android:color/background_light"
+        app:srcCompat="@drawable/ic_home_black_24dp" />
+
+    <TextView
+        android:id="@+id/address_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/address_layout_height"
+        android:layout_marginTop="@dimen/house_up_margin"
+        android:layout_toRightOf="@id/house_image_view"
+        android:gravity="bottom|left"
+        android:maxLines="1"
+        android:text="@string/mAddress"
+        android:textSize="@dimen/address_text_size" />
+
+    <TextView
+        android:id="@+id/extra_office_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/extra_office_layout_height"
+        android:layout_below="@id/address_text_view"
+        android:layout_toRightOf="@id/house_image_view"
+        android:maxLines="1"
+        android:text="@string/extra_office"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/distance_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/house_size"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/house_up_margin"
+        android:gravity="right|center"
+        android:paddingRight="@dimen/distance_right_padding"
+        android:text="@string/mDistance"
+        android:textSize="@dimen/distance_text_size" />
+
+    <TextView
+        android:id="@+id/estimation_mark_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@id/address_text_view"
+        android:text="" />
+
+</RelativeLayout>

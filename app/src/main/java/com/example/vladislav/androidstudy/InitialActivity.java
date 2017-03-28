@@ -3,6 +3,8 @@ package com.example.vladislav.androidstudy;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.support.multidex.MultiDex;
@@ -42,33 +44,38 @@ public class InitialActivity extends AppCompatActivity {
 
         setButtonsClicks();
 
-        mOrientationListener = new OrientationEventListener(this,
-                SensorManager.SENSOR_DELAY_NORMAL) {
-            @Override
-            public void onOrientationChanged(int orientation) {
-                Toast toast = Toast.makeText(
-                        getApplicationContext(),
-                        "Orientation changed to " + orientation,
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                if (orientation == 90) {
-                    setContentView(R.layout.activity_initial);
-                }
-            }
-        };
-
-        // Defining if an orientation checking can be performed or not.
-        if (mOrientationListener.canDetectOrientation() == true) {
-            Log.v(mDEBUG_TAG, "Can detect orientation");
-            mOrientationListener.enable();
-        } else {
-            Log.v(mDEBUG_TAG, "Cannot detect orientation");
-            mOrientationListener.disable();
-        }
-
         // That's how we reach the resources.
         Log.i("Log message: ", "Application name is:" + getResources().getString(R.string.app_name));
 
+    }
+
+    // This callback fires when a mButton from ResultActivity returns a result. It's done in a
+    // OnClickListener() in a android:id="@+id/go_back_button" mButton.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // When nothing retrieved, finish the method.
+        if (data == null) {
+            return;
+        }
+        String text = data.getStringExtra(InitialActivity.ACTIVITY_RESULT_ID);
+        Toast toast = Toast.makeText(
+                getApplicationContext(),
+                "Received result is: " + text,
+                Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+        }
+        // Don't forget about next row in a manifest.xml
+        // android:configChanges="orientation|keyboardHidden
     }
 
     private void setButtonsClicks() {
@@ -102,39 +109,23 @@ public class InitialActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        mButton = (Button) findViewById(R.id.youtube_runner_button);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                runYoutube(mYouTubeVideoID);
-            }
-        });
+//        mButton = (Button) findViewById(R.id.youtube_runner_button);
+//        mButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                runYoutube(mYouTubeVideoID);
+//            }
+//        });
+//
+//        ((Button) findViewById(R.id.banks_details_button)).setOnClickListener(
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        startActivity(new Intent(InitialActivity.this, BanksDetailsActivity.class));
+//                    }
+//                }
+//        );
 
-        ((Button) findViewById(R.id.banks_details_button)).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(InitialActivity.this, BanksDetailsActivity.class));
-                    }
-                }
-        );
-
-    }
-
-    // This callback fires when a mButton from ResultActivity returns a result. It's done in a
-    // OnClickListener() in a android:id="@+id/go_back_button" mButton.
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // When nothing retrieved, finish the method.
-        if (data == null) {
-            return;
-        }
-        String text = data.getStringExtra(InitialActivity.ACTIVITY_RESULT_ID);
-        Toast toast = Toast.makeText(
-                getApplicationContext(),
-                "Received result is: " + text,
-                Toast.LENGTH_SHORT);
-        toast.show();
     }
 
     public void sendEmail(View view) {

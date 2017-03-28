@@ -27,7 +27,7 @@
             android:label="@string/title_activity_main2" />
         <activity
             android:name=".InitialActivity"
-            android:configChanges="keyboardHidden|screenSize">
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,6 +49,7 @@
         <activity android:name=".fragments_activity.FragmentsDynamicActivity" />
         <activity android:name=".ImageActivity" />
         <activity android:name=".ServicesActivity" />
+        <activity android:name=".banksdetails.BanksDetailsActivity"></activity>
 
         <receiver android:name=".AirPlaneStateReceiver">
             <intent-filter>
@@ -78,7 +79,6 @@
             android:name=".services.BothIntentedService"
             android:description="@string/intent_service_description"></service>
 
-        <activity android:name=".banksdetails.BanksDetailsActivity"></activity>
     </application>
 
 </manifest>

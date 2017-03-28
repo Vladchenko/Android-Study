@@ -31,7 +31,8 @@
                 android:layout_centerHorizontal="true"
                 android:backgroundTint="@color/color1"
                 android:onClick="sendEmail (InitialActivity)"
-                android:text="Send Email" />
+                android:text="Send Email"
+                android:elevation="24dp" />
 
             <Button
                 android:id="@+id/widgets_button"
