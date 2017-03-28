@@ -71,7 +71,7 @@ public class InitialActivity extends AppCompatActivity {
         // Checks the orientation of the screen
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
         }
         // Don't forget about next row in a manifest.xml
@@ -136,7 +136,14 @@ public class InitialActivity extends AppCompatActivity {
         sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Android intent testing");
         sendIntent.putExtra(Intent.EXTRA_TEXT, "This message was sent from an application being " +
                 "developed in Android Studio, to check its operating.");
+        // Show a chooser that provides a list of an apps that can handle this intent.
         startActivity(Intent.createChooser(sendIntent, "Choose mail app"));
+
+        // Verify that the intent will resolve to an activity
+//        if (sendIntent.resolveActivity(getPackageManager()) != null) {
+//            startActivity(sendIntent);
+//        }
+
     }
 
     public void runYoutube(String video_id) {

@@ -30,7 +30,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:backgroundTint="@color/color1"
-                android:onClick="sendEmail (InitialActivity)"
+                android:onClick="sendEmail"
                 android:text="Send Email"
                 android:elevation="24dp" />
 
