@@ -23,9 +23,9 @@ import com.example.vladislav.androidstudy.fragments_activity.FragmentsDynamicAct
 
 public class InitialActivity extends AppCompatActivity {
 
-    private Button mButton;
-    private String mDEBUG_TAG = "Debug tag";
     public static final String ACTIVITY_RESULT_ID = "result";
+    private Button mButton;
+//    private String mDEBUG_TAG = "Debug tag";
     private OrientationEventListener mOrientationListener;
     private String mYouTubeVideoID = "Fee5vbFLYM4";
 
@@ -144,6 +144,12 @@ public class InitialActivity extends AppCompatActivity {
 //            startActivity(sendIntent);
 //        }
 
+        Intent chooser = Intent.createChooser(sendIntent, "Choose mail app");
+//         Verify that the intent will resolve to an activity
+        if (sendIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(chooser);
+        }
+
     }
 
     public void runYoutube(String video_id) {
@@ -157,10 +163,11 @@ public class InitialActivity extends AppCompatActivity {
         }
     }
 
-    // This mButton is attached to Onclick() method in a mButton in activity_initial.xml
-    // with id - android:id="@+id/widgets_button".
-    // Check an attribute - android:onClick="gotoWidgetsActivity".
-    // Another way to do this - make a onCLickListener for a mButton in this class.
+//    This mButton is attached to Onclick() method in a mButton in activity_initial.xml
+//    with id - android:id="@+id/widgets_button".
+//    Check an attribute - android:onClick="gotoWidgetsActivity".
+//    Another way to do this - make a onCLickListener for a mButton in this class.
+//    Implementing a listener is correct programming practice.
     public void gotoWidgetsActivity(View view) {
         Intent intent = new Intent(InitialActivity.this, WidgetsActivity.class);
         startActivity(intent);
