@@ -2,12 +2,14 @@ package com.example.vladislav.androidstudy;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.support.multidex.MultiDex;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,8 +47,41 @@ public class InitialActivity extends AppCompatActivity {
         setButtonsClicks();
 
         // That's how we reach the resources.
-        Log.i("Log message: ", "Application name is:" + getResources().getString(R.string.app_name));
+//        Log.i("Log message: ", "Application name is:" + getResources().getString(R.string.app_name));
 
+        Log.i(getClass().getSimpleName(),"onCreate");
+
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(getClass().getSimpleName(),"onRestart");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(getClass().getSimpleName(),"onStart");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(getClass().getSimpleName(),"onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(getClass().getSimpleName(),"onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(getClass().getSimpleName(),"onDestroy");
     }
 
     // This callback fires when a mButton from ResultActivity returns a result. It's done in a
@@ -82,7 +117,7 @@ public class InitialActivity extends AppCompatActivity {
         mButton = (Button) findViewById(R.id.layouting_button);
         // Making a mButton to be clickable and click to perform a transfer to a layouting activity.
         // Another way of doing this - make a separate method in this class that invokes another
-        // activity and assing it to a onClick() method in a respectful layout's mButton
+        // activity and assign it to a onClick() method in a respectful layout's mButton
         // (say - mButton is - android:id="@+id/widgets_button",
         // attribute is - android:onClick="gotoWidgetsActivity")
         // gotoWidgetsActivity - the very method invoked.
@@ -137,6 +172,21 @@ public class InitialActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(InitialActivity.this, RotationActivity.class);
                 startActivity(intent);
+            }
+        });
+        mButton = (Button) findViewById(R.id.alert_dialogue_button);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(InitialActivity.this);
+                builder.setTitle("Alert Dialogue")
+                        .setItems(new CharSequence[]{"case 1","case2"}, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // The 'which' argument contains the index position
+                                // of the selected item
+                            }
+                        });
+                builder.create().show();
             }
         });
     }
