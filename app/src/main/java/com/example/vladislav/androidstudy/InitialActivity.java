@@ -125,7 +125,20 @@ public class InitialActivity extends AppCompatActivity {
 //                    }
 //                }
 //        );
-
+        mButton = (Button) findViewById(R.id.rotation_button);
+        // Making a mButton to be clickable and click to perform a transfer to a layouting activity.
+        // Another way of doing this - make a separate method in this class that invokes another
+        // activity and assing it to a onClick() method in a respectful layout's mButton
+        // (say - mButton is - android:id="@+id/widgets_button",
+        // attribute is - android:onClick="gotoWidgetsActivity")
+        // gotoWidgetsActivity - the very method invoked.
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InitialActivity.this, RotationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void sendEmail(View view) {

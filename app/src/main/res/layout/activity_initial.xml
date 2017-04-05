@@ -195,10 +195,11 @@
         android:layout_toRightOf="@+id/fragments_dynamic_button"
         android:layout_toEndOf="@+id/fragments_dynamic_button" />
 
-    <!-- When adding other components, consider adding them to a layout-land activity-initial.xml also. -->
-
-    <!--</RelativeLayout>-->
-
-    <!--</ScrollView>-->
+    <Button
+        android:id="@+id/rotation_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rotation check"
+        android:layout_below="@id/services_button_layout"/>
 
 </RelativeLayout>
