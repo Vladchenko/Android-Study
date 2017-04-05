@@ -6,8 +6,8 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.example.vladislav.androidstudy.BroadcastSender;
-import com.example.vladislav.androidstudy.ServicesActivity;
+import com.example.vladislav.androidstudy.activities.BroadcastSender;
+import com.example.vladislav.androidstudy.activities.ServicesActivity;
 
 /**
  * An {@link BindIntentedService} subclass for handling asynchronous task requests in

@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy;
+package com.example.vladislav.androidstudy.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +10,8 @@ import android.text.style.URLSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.vladislav.androidstudy.R;
 
 import static com.example.vladislav.androidstudy.R.*;
 

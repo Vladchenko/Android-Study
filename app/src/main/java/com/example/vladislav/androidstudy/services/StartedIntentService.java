@@ -2,11 +2,9 @@ package com.example.vladislav.androidstudy.services;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
 
-import com.example.vladislav.androidstudy.BroadcastSender;
-import com.example.vladislav.androidstudy.ServicesActivity;
+import com.example.vladislav.androidstudy.activities.BroadcastSender;
 
 /**
  * An {@link StartedIntentService} subclass for handling asynchronous task requests in

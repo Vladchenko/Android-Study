@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy;
+package com.example.vladislav.androidstudy.activities;
 
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -14,6 +14,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import com.example.vladislav.androidstudy.R;
 
 public class WidgetsActivity extends AppCompatActivity {
 

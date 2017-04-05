@@ -1,14 +1,11 @@
 package com.example.vladislav.androidstudy.services;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.example.vladislav.androidstudy.BroadcastSender;
-import com.example.vladislav.androidstudy.ServicesActivity;
+import com.example.vladislav.androidstudy.activities.BroadcastSender;
 
 /**
  * Created by vladislav on 02.03.17.

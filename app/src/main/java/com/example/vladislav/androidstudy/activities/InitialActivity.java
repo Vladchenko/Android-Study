@@ -1,12 +1,10 @@
-package com.example.vladislav.androidstudy;
+package com.example.vladislav.androidstudy.activities;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.hardware.SensorManager;
 import android.net.Uri;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AlertDialog;
@@ -19,9 +17,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
-import com.example.vladislav.androidstudy.banksdetails.BanksDetailsActivity;
-import com.example.vladislav.androidstudy.fragments_activity.FragmentsActivity;
-import com.example.vladislav.androidstudy.fragments_activity.FragmentsDynamicActivity;
+import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsActivity;
+import com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsDynamicActivity;
 
 public class InitialActivity extends AppCompatActivity {
 
@@ -184,6 +182,8 @@ public class InitialActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 // The 'which' argument contains the index position
                                 // of the selected item
+                                Toast.makeText(InitialActivity.this,
+                                        Integer.toString(which+1), Toast.LENGTH_SHORT).show();
                             }
                         });
                 builder.create().show();

@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.fragments_activity;
+package com.example.vladislav.androidstudy.activities.fragments_activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.fragments_activity.Fragment1;
-import com.example.vladislav.androidstudy.fragments_activity.Fragment2;
+import com.example.vladislav.androidstudy.activities.fragments_activity.Fragment1;
+import com.example.vladislav.androidstudy.activities.fragments_activity.Fragment2;
 
 public class FragmentsDynamicActivity extends AppCompatActivity implements View.OnClickListener,
         Fragment1.OnFragmentInteractionListener,

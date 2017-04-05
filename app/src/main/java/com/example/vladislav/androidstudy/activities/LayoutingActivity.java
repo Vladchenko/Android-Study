@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy;
+package com.example.vladislav.androidstudy.activities;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import com.example.vladislav.androidstudy.R;
 
 public class LayoutingActivity extends AppCompatActivity {
 

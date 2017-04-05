@@ -31,29 +31,29 @@
             android:required="false" />
 
         <activity
-            android:name=".Widgets2Activity"
+            android:name=".activities.Widgets2Activity"
             android:label="@string/title_activity_main2" />
         <activity
-            android:name=".InitialActivity"
+            android:name=".activities.InitialActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WidgetsActivity" />
-        <activity android:name=".ResultActivity" />
-        <activity android:name=".LayoutingActivity" />
-        <activity android:name=".AligningActivity" />
-        <activity android:name=".ListsViewingActivity" />
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".fragments_activity.FragmentsActivity" />
-        <activity android:name=".fragments_activity.FragmentsDynamicActivity" />
-        <activity android:name=".ImageActivity" />
-        <activity android:name=".ServicesActivity" />
+        <activity android:name=".activities.WidgetsActivity" />
+        <activity android:name=".activities.ResultActivity" />
+        <activity android:name=".activities.LayoutingActivity" />
+        <activity android:name=".activities.AligningActivity" />
+        <activity android:name=".activities.ListsViewingActivity" />
+        <activity android:name=".activities.MenuActivity" />
+        <activity android:name=".activities.fragments_activity.FragmentsActivity" />
+        <activity android:name=".activities.fragments_activity.FragmentsDynamicActivity" />
+        <activity android:name=".activities.ImageActivity" />
+        <activity android:name=".activities.ServicesActivity" />
         <activity android:name=".banksdetails.BanksDetailsActivity" />
 
-        <receiver android:name=".AirPlaneStateReceiver">
+        <receiver android:name=".activities.AirPlaneStateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
             </intent-filter>
@@ -81,7 +81,7 @@
             android:name=".services.BothIntentedService"
             android:description="@string/intent_service_description" />
 
-        <activity android:name=".RotationActivity"></activity>
+        <activity android:name=".activities.RotationActivity"></activity>
     </application>
 
 </manifest>

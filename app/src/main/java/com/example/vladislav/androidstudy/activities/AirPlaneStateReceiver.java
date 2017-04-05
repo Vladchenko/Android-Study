@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy;
+package com.example.vladislav.androidstudy.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

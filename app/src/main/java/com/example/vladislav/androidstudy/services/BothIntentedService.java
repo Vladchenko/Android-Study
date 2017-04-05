@@ -9,8 +9,8 @@ import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.example.vladislav.androidstudy.BroadcastSender;
-import com.example.vladislav.androidstudy.ServicesActivity;
+import com.example.vladislav.androidstudy.activities.BroadcastSender;
+import com.example.vladislav.androidstudy.activities.ServicesActivity;
 
 import java.io.FileDescriptor;
 

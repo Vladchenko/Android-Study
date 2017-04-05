@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy;
+package com.example.vladislav.androidstudy.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.services.BindIntentedService;
 import com.example.vladislav.androidstudy.services.BindSimpleService;
 import com.example.vladislav.androidstudy.services.BothIntentedService;

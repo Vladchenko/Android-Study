@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.fragments_activity;
+package com.example.vladislav.androidstudy.activities.fragments_activity;
 
 import android.content.Context;
 import android.net.Uri;

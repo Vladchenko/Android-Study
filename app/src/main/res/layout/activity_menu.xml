@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.vladislav.androidstudy.MenuActivity">
+    tools:context="com.example.vladislav.androidstudy.activities.MenuActivity">
 
     <TextView
         android:text="Menu cannot be triggered to be shown in a newly android OS"

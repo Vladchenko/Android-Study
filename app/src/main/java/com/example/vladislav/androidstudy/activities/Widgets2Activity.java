@@ -1,10 +1,12 @@
-package com.example.vladislav.androidstudy;
+package com.example.vladislav.androidstudy.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.example.vladislav.androidstudy.R;
 
 public class Widgets2Activity extends AppCompatActivity {
 
