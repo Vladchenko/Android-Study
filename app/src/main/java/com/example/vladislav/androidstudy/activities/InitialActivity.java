@@ -11,7 +11,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -24,10 +23,9 @@ import com.example.vladislav.androidstudy.activities.fragments_activity.Fragment
 public class InitialActivity extends AppCompatActivity {
 
     public static final String ACTIVITY_RESULT_ID = "result";
-    private Button mButton;
-//    private String mDEBUG_TAG = "Debug tag";
-    private OrientationEventListener mOrientationListener;
+    private final String mLogTag = getClass().getCanonicalName();
     private String mYouTubeVideoID = "Fee5vbFLYM4";
+    private Button mButton;
 
     // This method required to run this app in a cellphone
     @Override
@@ -47,39 +45,44 @@ public class InitialActivity extends AppCompatActivity {
         // That's how we reach the resources.
 //        Log.i("Log message: ", "Application name is:" + getResources().getString(R.string.app_name));
 
-        Log.i(getClass().getSimpleName(),"onCreate");
+        Log.i(mLogTag, "onCreate");
 
-
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i(getClass().getSimpleName(),"onRestart");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(getClass().getSimpleName(),"onStart");
+        Log.i(mLogTag, "onStart");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(mLogTag, "onRestart");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(getClass().getSimpleName(),"onPause");
+        Log.i(mLogTag, "onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(mLogTag, "onResume");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i(getClass().getSimpleName(),"onStop");
+        Log.i(mLogTag, "onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(getClass().getSimpleName(),"onDestroy");
+        Log.i(mLogTag, "onDestroy");
     }
 
     // This callback fires when a mButton from ResultActivity returns a result. It's done in a
@@ -178,12 +181,12 @@ public class InitialActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(InitialActivity.this);
                 builder.setTitle("Alert Dialogue")
-                        .setItems(new CharSequence[]{"case 1","case2"}, new DialogInterface.OnClickListener() {
+                        .setItems(new CharSequence[]{"case 1", "case2"}, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // The 'which' argument contains the index position
                                 // of the selected item
                                 Toast.makeText(InitialActivity.this,
-                                        Integer.toString(which+1), Toast.LENGTH_SHORT).show();
+                                        Integer.toString(which + 1), Toast.LENGTH_SHORT).show();
                             }
                         });
                 builder.create().show();
@@ -226,7 +229,7 @@ public class InitialActivity extends AppCompatActivity {
         }
     }
 
-//    This mButton is attached to Onclick() method in a mButton in activity_initial.xml
+    //    This mButton is attached to Onclick() method in a mButton in activity_initial.xml
 //    with id - android:id="@+id/widgets_button".
 //    Check an attribute - android:onClick="gotoWidgetsActivity".
 //    Another way to do this - make a onCLickListener for a mButton in this class.
@@ -272,5 +275,3 @@ public class InitialActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
-
-

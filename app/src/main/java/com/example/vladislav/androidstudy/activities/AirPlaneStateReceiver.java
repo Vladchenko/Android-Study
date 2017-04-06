@@ -15,8 +15,10 @@ import android.widget.Toast;
  */
 
 public class AirPlaneStateReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Toast.makeText(context, "Airplane mode state changed",Toast.LENGTH_SHORT).show();
     }
+
 }
