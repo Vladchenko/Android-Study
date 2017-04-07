@@ -90,4 +90,21 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="simple_intent_text">
+        "This activity has been invoked using a simple intent:\n
+        Intent intent = new Intent (this, SimpleIntentActivity.class);\n
+        startActivity(intent);"
+    </string>
+    <string name="intent_with_action_text">
+        "This activity has been launch using a next intent:\n\n"
+        "Intent intent = new Intent ("com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION");
+                startActivity(intent);\n\n"
+        "Keep in mind that manifest has to have a following text in it:\n\n"
+        "&lt;activity android:name=''.intentstudy.IntentWithActionActivity&gt;
+        &lt;intent-filter&gt;
+        &lt;action android:name=''com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION''/&gt;
+        &lt;category android:name=''android.intent.category.DEFAULT''/&gt;
+        &lt;/intent-filter&gt;
+        &lt;/activity&gt;"
+    </string>
 </resources>

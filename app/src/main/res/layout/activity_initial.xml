@@ -29,11 +29,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/send_email_button"
-        android:onClick="gotoWidgetsActivity"
-        android:text="Widgets"
         android:layout_toLeftOf="@+id/return_result_button"
-        android:layout_toStartOf="@+id/return_result_button" />
+        android:layout_toRightOf="@+id/send_email_button"
+        android:layout_toStartOf="@+id/return_result_button"
+        android:onClick="gotoWidgetsActivity"
+        android:text="Widgets" />
 
     <Button
         android:id="@+id/send_email_button"
@@ -50,12 +50,12 @@
         android:id="@+id/widgets2_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/fragments_button"
         android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/fragments_button"
         android:layout_toRightOf="@+id/widgets_button"
         android:onClick="gotoWidgets2Activity"
-        android:text="Widgets2"
-        android:layout_alignRight="@+id/fragments_button"
-        android:layout_alignEnd="@+id/fragments_button" />
+        android:text="Widgets2" />
 
     <Button
         android:id="@+id/layouting_button"
@@ -64,9 +64,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/send_email_button"
-        android:text="Layouting"
         android:layout_toLeftOf="@+id/widgets_button"
-        android:layout_toStartOf="@+id/widgets_button" />
+        android:layout_toStartOf="@+id/widgets_button"
+        android:text="Layouting" />
 
     <Button
         android:id="@+id/aligning_button"
@@ -91,11 +91,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/aligning_button"
-        android:layout_toRightOf="@+id/list_button"
-        android:onClick="gotoMenuActivity"
-        android:text="Menu"
         android:layout_toLeftOf="@+id/return_result_button"
-        android:layout_toStartOf="@+id/return_result_button" />
+        android:layout_toRightOf="@+id/list_button"
+        android:layout_toStartOf="@+id/return_result_button"
+        android:onClick="gotoMenuActivity"
+        android:text="Menu" />
 
     <Button
         android:id="@+id/image_button"
@@ -103,11 +103,11 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/menu_button"
         android:layout_alignBottom="@+id/menu_button"
+        android:layout_alignEnd="@+id/return_result_button"
+        android:layout_alignRight="@+id/return_result_button"
         android:layout_toRightOf="@+id/menu_button"
         android:onClick="gotoImageActivity"
-        android:text="image"
-        android:layout_alignRight="@+id/return_result_button"
-        android:layout_alignEnd="@+id/return_result_button" />
+        android:text="image" />
 
     <Button
         android:id="@+id/fragments_dynamic_button"
@@ -116,10 +116,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/list_button"
-        android:onClick="gotoFragmentsDynamicActivity"
-        android:text="Dynamic fragments"
         android:layout_toLeftOf="@+id/image_button"
-        android:layout_toStartOf="@+id/image_button" />
+        android:layout_toStartOf="@+id/image_button"
+        android:onClick="gotoFragmentsDynamicActivity"
+        android:text="Dynamic fragments" />
 
     <LinearLayout
         android:id="@+id/services_button_layout"
@@ -159,9 +159,9 @@
         android:layout_alignLeft="@+id/services_button_layout"
         android:layout_alignStart="@+id/services_button_layout"
         android:layout_below="@+id/fragments_dynamic_button"
-        android:text="Youtube"
         android:layout_toLeftOf="@+id/banks_details_button"
-        android:layout_toStartOf="@+id/banks_details_button" />
+        android:layout_toStartOf="@+id/banks_details_button"
+        android:text="Youtube" />
 
     <Button
         android:id="@+id/list_button"
@@ -170,44 +170,51 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/layouting_button"
-        android:text="Show list"
         android:layout_toLeftOf="@+id/aligning_button"
-        android:layout_toStartOf="@+id/aligning_button" />
+        android:layout_toStartOf="@+id/aligning_button"
+        android:text="Show list" />
 
     <Button
         android:id="@+id/banks_details_button"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:text="Load banks from other app"
+        android:layout_alignEnd="@+id/fragments_button"
+        android:layout_alignRight="@+id/fragments_button"
         android:layout_below="@+id/fragments_dynamic_button"
         android:layout_toRightOf="@+id/list_button"
-        android:layout_alignRight="@+id/fragments_button"
-        android:layout_alignEnd="@+id/fragments_button" />
+        android:text="Load banks from other app" />
 
     <Button
         android:id="@+id/fragments_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="gotoFragmentsActivity"
-        android:text="Fragments"
         android:layout_alignBaseline="@+id/fragments_dynamic_button"
         android:layout_alignBottom="@+id/fragments_dynamic_button"
+        android:layout_toEndOf="@+id/fragments_dynamic_button"
         android:layout_toRightOf="@+id/fragments_dynamic_button"
-        android:layout_toEndOf="@+id/fragments_dynamic_button" />
+        android:onClick="gotoFragmentsActivity"
+        android:text="Fragments" />
 
     <Button
         android:id="@+id/rotation_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rotation check"
-        android:layout_below="@id/services_button_layout"/>
+        android:layout_below="@id/services_button_layout"
+        android:text="Rotation check" />
 
     <Button
-        android:text="AlertDialogue"
+        android:id="@+id/alert_dialogue_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/alert_dialogue_button"
+        android:layout_alignBottom="@id/rotation_button"
         android:layout_toRightOf="@id/rotation_button"
-        android:layout_alignBottom="@id/rotation_button"/>
+        android:text="AlertDialogue" />
+
+    <Button
+        android:id="@+id/intent_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rotation_button"
+        android:text="Intents" />
 
 </RelativeLayout>

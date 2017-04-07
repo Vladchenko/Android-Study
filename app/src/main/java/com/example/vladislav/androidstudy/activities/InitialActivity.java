@@ -19,8 +19,12 @@ import android.widget.Toast;
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsActivity;
 import com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsDynamicActivity;
+import com.example.vladislav.androidstudy.intentstudy.IntentsActivity;
+import com.example.vladislav.androidstudy.intentstudy.SimpleIntentActivity;
 
-public class InitialActivity extends AppCompatActivity {
+import java.net.SocketImplFactory;
+
+public class InitialActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String ACTIVITY_RESULT_ID = "result";
     private final String mLogTag = getClass().getCanonicalName();
@@ -192,6 +196,8 @@ public class InitialActivity extends AppCompatActivity {
                 builder.create().show();
             }
         });
+        mButton = (Button) findViewById(R.id.intent_button);
+        mButton.setOnClickListener(this);
     }
 
     public void sendEmail(View view) {
@@ -273,5 +279,16 @@ public class InitialActivity extends AppCompatActivity {
         Intent intent = new Intent(InitialActivity.this, ServicesActivity.class);
         intent.putExtra("isIntendedService", ((CheckBox) findViewById(R.id.intent_service_checkbox)).isChecked());
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.intent_button: {
+                Intent intent = new Intent (this, IntentsActivity.class);
+                startActivity(intent);
+                break;
+            }
+        }
     }
 }
