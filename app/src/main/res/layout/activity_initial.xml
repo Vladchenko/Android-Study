@@ -217,4 +217,13 @@
         android:layout_below="@id/rotation_button"
         android:text="Intents" />
 
+    <Button
+        android:text="Call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/call_button"
+        android:layout_below="@+id/rotation_button"
+        android:layout_toRightOf="@+id/intent_button"
+        android:layout_toEndOf="@+id/intent_button" />
+
 </RelativeLayout>

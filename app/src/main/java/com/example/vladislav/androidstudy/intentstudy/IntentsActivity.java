@@ -24,7 +24,7 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.intent_button: {
-                Intent intent = new Intent (this, SimpleIntentActivity.class);
+                Intent intent = new Intent(this, SimpleIntentActivity.class);
                 startActivity(intent);
                 break;
             }

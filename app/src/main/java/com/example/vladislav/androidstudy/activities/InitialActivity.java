@@ -1,12 +1,16 @@
 package com.example.vladislav.androidstudy.activities;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.multidex.MultiDex;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
@@ -198,6 +203,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         });
         mButton = (Button) findViewById(R.id.intent_button);
         mButton.setOnClickListener(this);
+        mButton = (Button) findViewById(R.id.call_button);
+        mButton.setOnClickListener(this);
     }
 
     public void sendEmail(View view) {
@@ -283,10 +290,25 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.intent_button: {
-                Intent intent = new Intent (this, IntentsActivity.class);
+                intent = new Intent(this, IntentsActivity.class);
                 startActivity(intent);
+                break;
+            }
+            case R.id.call_button: {
+                int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+                if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(
+                            this,
+                            new String[]{Manifest.permission.CALL_PHONE},
+                            1
+                    );
+                } else {
+                    startActivity(new Intent(Intent.ACTION_CALL).setData(Uri.parse(
+                            "tel: 8 927 641 34 83")));
+                }
                 break;
             }
         }
