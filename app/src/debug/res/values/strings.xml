@@ -117,4 +117,11 @@
         that launching an activity with such action, invokes a dialogue that makes a user to choose
         the needed activity."
     </string>
+    <string name="intent_with_data_text">
+        "This activity has received data by means of a next intent:
+        Intent intent = new Intent (this, DataReceivingActivity.class);
+        intent.putExtra("Name", "Vlad");
+        intent.putExtra("Lastname", "Yanchenko");
+        startActivity(intent);"
+    </string>
 </resources>

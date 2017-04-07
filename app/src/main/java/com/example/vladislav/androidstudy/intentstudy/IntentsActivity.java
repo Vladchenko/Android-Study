@@ -16,9 +16,11 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_intents);
         Button button = (Button) findViewById(R.id.intent_button);
         button.setOnClickListener(this);
-        button = (Button) findViewById(R.id.intent_with_data_button);
+        button = (Button) findViewById(R.id.intent_with_action_button);
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.intent_with_data_same_action_button);
+        button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.intent_with_data_button);
         button.setOnClickListener(this);
     }
 
@@ -30,7 +32,7 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
             }
-            case R.id.intent_with_data_button: {
+            case R.id.intent_with_action_button: {
                 // This intent will make android to look for an activity with action
                 // "com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION"
                 // and once it finds it, runs it.
@@ -39,10 +41,17 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             }
             case R.id.intent_with_data_same_action_button: {
+                Intent intent = new Intent ("com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON");
+                startActivity(intent);
+                break;
+            }
+            case R.id.intent_with_data_button: {
                 // This intent will make android to look for an activity with action
                 // "com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION"
                 // and once it finds it, runs it.
-                Intent intent = new Intent ("com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON");
+                Intent intent = new Intent (this, DataReceivingActivity.class);
+                intent.putExtra("Name", "Vlad");
+                intent.putExtra("Lastname", "Yanchenko");
                 startActivity(intent);
                 break;
             }

@@ -11,19 +11,20 @@
     tools:context="com.example.vladislav.androidstudy.intentstudy.IntentsActivity">
 
     <Button
-        android:text="Intent with data "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/intent_with_data_button"
-        android:layout_below="@+id/intent_button"
-        android:layout_centerHorizontal="true" />
-
-    <Button
         android:text="Intent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/intent_button"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp" />
+
+    <Button
+        android:text="Intent with action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/intent_with_action_button"
+        android:layout_below="@+id/intent_button"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -31,6 +32,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/intent_with_data_same_action_button"
-        android:layout_below="@+id/intent_with_data_button"
+        android:layout_below="@+id/intent_with_action_button"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Intent with data passed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/intent_with_data_button"
+        android:layout_below="@+id/intent_with_data_same_action_button"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
