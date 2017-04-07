@@ -18,6 +18,8 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.intent_with_data_button);
         button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.intent_with_data_same_action_button);
+        button.setOnClickListener(this);
     }
 
     @Override
@@ -33,6 +35,14 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 // "com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION"
                 // and once it finds it, runs it.
                 Intent intent = new Intent ("com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION");
+                startActivity(intent);
+                break;
+            }
+            case R.id.intent_with_data_same_action_button: {
+                // This intent will make android to look for an activity with action
+                // "com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION"
+                // and once it finds it, runs it.
+                Intent intent = new Intent ("com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON");
                 startActivity(intent);
                 break;
             }
