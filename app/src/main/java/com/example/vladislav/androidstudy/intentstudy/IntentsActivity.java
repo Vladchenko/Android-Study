@@ -49,10 +49,10 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 // This intent will make android to look for an activity with action
                 // "com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION"
                 // and once it finds it, runs it.
-                Intent intent = new Intent (this, DataReceivingActivity.class);
-                intent.putExtra("Name", "Vlad");
-                intent.putExtra("Lastname", "Yanchenko");
-                startActivity(intent);
+//                Intent intent = new Intent (this, DataReceivingActivity.class);
+//                intent.putExtra("Name", "Vlad");
+//                intent.putExtra("Lastname", "Yanchenko");
+//                startActivity(intent);
                 break;
             }
         }
