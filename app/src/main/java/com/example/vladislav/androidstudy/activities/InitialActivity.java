@@ -207,6 +207,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.context_menu_button);
         mButton.setOnClickListener(this);
+        mButton = (Button) findViewById(R.id.programmatic_layout_button);
+        mButton.setOnClickListener(this);
     }
 
     public void sendEmail(View view) {
@@ -315,6 +317,11 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
             }
             case R.id.context_menu_button: {
                 intent = new Intent(this, ContextMenuActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.programmatic_layout_button: {
+                intent = new Intent(this, ProgrammaticLayoutActivity.class);
                 startActivity(intent);
                 break;
             }

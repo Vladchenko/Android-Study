@@ -52,6 +52,7 @@
         <activity android:name=".activities.fragments_activity.FragmentsDynamicActivity" />
         <activity android:name=".activities.ImageActivity" />
         <activity android:name=".activities.ServicesActivity" />
+        <activity android:name=".activities.ProgrammaticLayoutActivity" />
         <activity android:name=".banksdetails.BanksDetailsActivity" />
 
         <receiver android:name=".activities.AirPlaneStateReceiver">
