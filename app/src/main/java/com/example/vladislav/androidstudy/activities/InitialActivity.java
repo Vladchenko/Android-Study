@@ -205,6 +205,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.call_button);
         mButton.setOnClickListener(this);
+        mButton = (Button) findViewById(R.id.context_menu_button);
+        mButton.setOnClickListener(this);
     }
 
     public void sendEmail(View view) {
@@ -309,6 +311,11 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
                     startActivity(new Intent(Intent.ACTION_CALL).setData(Uri.parse(
                             "tel: 8 927 641 34 83")));
                 }
+                break;
+            }
+            case R.id.context_menu_button: {
+                intent = new Intent(this, ContextMenuActivity.class);
+                startActivity(intent);
                 break;
             }
         }

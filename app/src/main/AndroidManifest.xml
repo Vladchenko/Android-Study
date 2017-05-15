@@ -110,7 +110,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".intentstudy.DataReceivingActivity"></activity>
+        <!--<activity android:name=".intentstudy.DataReceivingActivity" />-->
+        <activity android:name=".activities.ContextMenuActivity"></activity>
     </application>
 
 </manifest>
