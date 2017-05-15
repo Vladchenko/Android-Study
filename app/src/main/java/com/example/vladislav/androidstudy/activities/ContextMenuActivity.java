@@ -58,28 +58,28 @@ public class ContextMenuActivity extends AppCompatActivity {
             // пункты меню для tvColor
             case MENU_COLOR_RED:
                 tvColor.setTextColor(Color.RED);
-                tvColor.setText("Text color = red");
+//                tvColor.setText("Text color = red");
                 break;
             case MENU_COLOR_GREEN:
                 tvColor.setTextColor(Color.GREEN);
-                tvColor.setText("Text color = green");
+//                tvColor.setText("Text color = green");
                 break;
             case MENU_COLOR_BLUE:
                 tvColor.setTextColor(Color.BLUE);
-                tvColor.setText("Text color = blue");
+//                tvColor.setText("Text color = blue");
                 break;
             // пункты меню для tvSize
             case MENU_SIZE_22:
                 tvSize.setTextSize(22);
-                tvSize.setText("Text size = 22");
+//                tvSize.setText("Text size = 22");
                 break;
             case MENU_SIZE_26:
                 tvSize.setTextSize(26);
-                tvSize.setText("Text size = 26");
+//                tvSize.setText("Text size = 26");
                 break;
             case MENU_SIZE_30:
                 tvSize.setTextSize(30);
-                tvSize.setText("Text size = 30");
+//                tvSize.setText("Text size = 30");
                 break;
         }
         return super.onContextItemSelected(item);
