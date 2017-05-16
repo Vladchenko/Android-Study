@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.vladislav.androidstudy.activities.asynctask.AsyncTasksActivity">
+
+    <Button
+        android:id="@+id/asynctask1_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AsyncTask1"
+        android:layout_above="@+id/asynctask2_button"
+        android:layout_alignLeft="@+id/asynctask2_button"
+        android:layout_alignStart="@+id/asynctask2_button" />
+
+    <Button
+        android:id="@+id/asynctask2_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AsyncTask2"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/asynctask3_button"
+        android:layout_alignStart="@+id/asynctask3_button" />
+
+    <Button
+        android:id="@+id/asynctask3_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AsyncTask3"
+        android:layout_below="@+id/asynctask2_button"
+        android:layout_centerHorizontal="true" />" />
+
+</RelativeLayout>

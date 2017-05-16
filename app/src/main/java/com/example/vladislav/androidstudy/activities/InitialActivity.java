@@ -18,16 +18,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.activities.asynctask.AsyncTasksActivity;
 import com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsActivity;
 import com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsDynamicActivity;
 import com.example.vladislav.androidstudy.intentstudy.IntentsActivity;
-import com.example.vladislav.androidstudy.intentstudy.SimpleIntentActivity;
-
-import java.net.SocketImplFactory;
 
 public class InitialActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -209,6 +206,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.programmatic_layout_button);
         mButton.setOnClickListener(this);
+        mButton = (Button) findViewById(R.id.asynctask_button);
+        mButton.setOnClickListener(this);
     }
 
     public void sendEmail(View view) {
@@ -322,6 +321,11 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
             }
             case R.id.programmatic_layout_button: {
                 intent = new Intent(this, ProgrammaticLayoutActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.asynctask_button: {
+                intent = new Intent(this, AsyncTasksActivity.class);
                 startActivity(intent);
                 break;
             }

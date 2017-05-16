@@ -244,6 +244,15 @@
         android:layout_toStartOf="@+id/context_menu_button"
         android:layout_toLeftOf="@+id/context_menu_button" />
 
+    <Button
+        android:text="Async Task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/asynctask_button"
+        android:layout_below="@+id/context_menu_button"
+        android:layout_toRightOf="@+id/programmatic_layout_button"
+        android:layout_toEndOf="@+id/programmatic_layout_button" />
+
     <!-- When adding a new view, provide the same view onto a landscape layout !!! -->
 
 </RelativeLayout>

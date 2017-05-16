@@ -111,8 +111,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".intentstudy.DataReceivingActivity" />-->
-        <activity android:name=".activities.ContextMenuActivity"></activity>
+        <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
+        <activity android:name=".activities.ContextMenuActivity" />
+        <activity android:name=".activities.asynctask.AsyncTasksActivity" />
+        <activity android:name=".activities.asynctask.AsyncTask1Activity" />
+        <activity android:name=".activities.asynctask.AsyncTask2Activity"></activity>
     </application>
 
 </manifest>
