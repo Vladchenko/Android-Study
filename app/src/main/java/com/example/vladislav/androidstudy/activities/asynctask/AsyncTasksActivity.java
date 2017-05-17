@@ -25,6 +25,12 @@ public class AsyncTasksActivity extends AppCompatActivity implements View.OnClic
         mButton = (Button) findViewById(R.id.asynctask2_button);
         mButton.setOnClickListener(this);
 
+        mButton = (Button) findViewById(R.id.asynctask3_button);
+        mButton.setOnClickListener(this);
+
+        mButton = (Button) findViewById(R.id.asynctask4_button);
+        mButton.setOnClickListener(this);
+
     }
 
     @Override
@@ -41,11 +47,16 @@ public class AsyncTasksActivity extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
                 break;
             }
-//            case R.id.asynctask3_button: {
-//                intent = new Intent(this, AsyncTask3Activity.class);
-//                startActivity(intent);
-//                break;
-//            }
+            case R.id.asynctask3_button: {
+                intent = new Intent(this, AsyncTask3Activity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.asynctask4_button: {
+                intent = new Intent(this, AsyncTask4Activity.class);
+                startActivity(intent);
+                break;
+            }
         }
     }
 

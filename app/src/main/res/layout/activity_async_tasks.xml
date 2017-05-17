@@ -10,26 +10,32 @@
         android:id="@+id/asynctask1_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AsyncTask1"
+        android:text="Simple asynctask "
         android:layout_above="@+id/asynctask2_button"
-        android:layout_alignLeft="@+id/asynctask2_button"
-        android:layout_alignStart="@+id/asynctask2_button" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/asynctask2_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AsyncTask2"
+        android:text="Asynctask with progressbar"
         android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/asynctask3_button"
-        android:layout_alignStart="@+id/asynctask3_button" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/asynctask3_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AsyncTask3"
+        android:text="Picture downloading asynctask"
         android:layout_below="@+id/asynctask2_button"
-        android:layout_centerHorizontal="true" />" />
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/asynctask4_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Picture downloading asynctask with progress"
+        android:layout_below="@+id/asynctask3_button"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

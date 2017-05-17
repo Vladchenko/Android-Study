@@ -115,7 +115,9 @@
         <activity android:name=".activities.ContextMenuActivity" />
         <activity android:name=".activities.asynctask.AsyncTasksActivity" />
         <activity android:name=".activities.asynctask.AsyncTask1Activity" />
-        <activity android:name=".activities.asynctask.AsyncTask2Activity"></activity>
+        <activity android:name=".activities.asynctask.AsyncTask2Activity" />
+        <activity android:name=".activities.asynctask.AsyncTask3Activity" />
+        <activity android:name=".activities.asynctask.AsyncTask4Activity"></activity>
     </application>
 
 </manifest>

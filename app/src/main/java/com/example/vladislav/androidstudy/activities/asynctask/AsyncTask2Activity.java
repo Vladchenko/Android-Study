@@ -9,10 +9,7 @@ import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -26,10 +23,11 @@ public class AsyncTask2Activity extends AppCompatActivity {
         demoAsyncTask.execute("http://developer.android.com");
     }
 
-    class DemoAsyncTask extends AsyncTask<String, Void, String> {
+    class DemoAsyncTask extends AsyncTask<String, Integer, String> {
 
         private Context mContext;
         private TextView textView;
+        private int progressCount;
 
         public DemoAsyncTask(Context context) {
             mContext = context.getApplicationContext();
@@ -42,6 +40,13 @@ public class AsyncTask2Activity extends AppCompatActivity {
         }
 
         @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            ((TextView)findViewById(R.id.asynctask2_progress_text_view))
+                .setText("Downloaded " + values[0] * 10 + " %");
+        }
+
+        @Override
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             String string = "No response";
@@ -49,6 +54,15 @@ public class AsyncTask2Activity extends AppCompatActivity {
                     connection = (HttpURLConnection) new URL(params[0])
                             .openConnection();
                     string = params[0] + " - " + connection.getResponseMessage();
+                    // Faking the progress by incrementing a progress value and wait 500ms.
+                    for (int i=0; i < 10; i++) {
+                        publishProgress(++progressCount);
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                     string = "Error getting a response message from " + params[0];
@@ -60,7 +74,7 @@ public class AsyncTask2Activity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String string) {
             textView.setText(string);
-            ((ProgressBar)findViewById(R.id.progress_bar2)).setVisibility(TextView.INVISIBLE);
+            ((ProgressBar)findViewById(R.id.asynctask2_progress_bar)).setVisibility(TextView.GONE);
         }
     }
 }

@@ -50,7 +50,7 @@ public class AsyncTask1Activity extends AppCompatActivity {
         protected void onPostExecute(Integer integer) {
             if (integer != -1) {
                 textView.setText("Asynctask1 finished performing its operation.");
-                ((ProgressBar)findViewById(R.id.progress_bar1)).setVisibility(TextView.INVISIBLE);
+                ((ProgressBar)findViewById(R.id.asynctask1_progress_bar)).setVisibility(TextView.INVISIBLE);
             } else {
                 textView.setText("Some trouble occured while asynctask performed its operation.");
             }

@@ -13,11 +13,11 @@
         android:text="Asynctask1 is being performed."
         tools:layout_editor_absoluteY="215dp"
         tools:layout_editor_absoluteX="98dp"
-        android:layout_above="@+id/progress_bar1"
+        android:layout_above="@+id/asynctask1_progress_bar"
         android:layout_centerHorizontal="true" />
 
     <ProgressBar
-        android:id="@+id/progress_bar1"
+        android:id="@+id/asynctask1_progress_bar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
