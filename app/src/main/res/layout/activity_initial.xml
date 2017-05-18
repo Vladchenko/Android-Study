@@ -159,9 +159,9 @@
         android:layout_alignLeft="@+id/services_button_layout"
         android:layout_alignStart="@+id/services_button_layout"
         android:layout_below="@+id/fragments_dynamic_button"
-        android:layout_toLeftOf="@+id/banks_details_button"
-        android:layout_toStartOf="@+id/banks_details_button"
-        android:text="Youtube" />
+        android:layout_toStartOf="@+id/menu_button"
+        android:text="Youtube"
+        android:layout_toLeftOf="@+id/menu_button" />
 
     <Button
         android:id="@+id/list_button"
@@ -178,11 +178,12 @@
         android:id="@+id/banks_details_button"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/fragments_button"
-        android:layout_alignRight="@+id/fragments_button"
-        android:layout_below="@+id/fragments_dynamic_button"
-        android:layout_toRightOf="@+id/list_button"
-        android:text="Load banks from other app" />
+        android:text="Load banks from other app"
+        android:layout_below="@+id/rotation_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/context_menu_button"
+        android:layout_toLeftOf="@+id/context_menu_button" />
 
     <Button
         android:id="@+id/fragments_button"
@@ -214,17 +215,20 @@
         android:id="@+id/intent_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rotation_button"
-        android:text="Intents" />
+        android:text="Intents"
+        android:layout_below="@+id/fragments_button"
+        android:layout_toRightOf="@+id/fragments_dynamic_button"
+        android:layout_alignRight="@+id/image_button"
+        android:layout_alignEnd="@+id/image_button" />
 
     <Button
         android:text="Call"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/call_button"
-        android:layout_below="@+id/rotation_button"
-        android:layout_toRightOf="@+id/intent_button"
-        android:layout_toEndOf="@+id/intent_button" />
+        android:layout_below="@+id/fragments_dynamic_button"
+        android:layout_toRightOf="@+id/youtube_runner_button"
+        android:layout_toEndOf="@+id/youtube_runner_button" />
 
     <Button
         android:text="Context menu"
@@ -240,9 +244,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/programmatic_layout_button"
-        android:layout_below="@+id/intent_button"
-        android:layout_toStartOf="@+id/alert_dialogue_button"
-        android:layout_toLeftOf="@+id/alert_dialogue_button" />
+        android:layout_alignTop="@+id/asynctask_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/banks_details_button"
+        android:layout_alignEnd="@+id/banks_details_button" />
 
     <Button
         android:text="Async Tasks"
