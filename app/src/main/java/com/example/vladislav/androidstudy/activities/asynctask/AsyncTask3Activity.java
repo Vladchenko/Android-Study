@@ -18,22 +18,40 @@ import java.net.URL;
 
 public class AsyncTask3Activity extends AppCompatActivity {
 
+    private DemoAsyncTask asyncTask;
+    private static TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_task3);
-        DemoAsyncTask demoAsyncTask = new DemoAsyncTask(this);
-        demoAsyncTask.execute("http://techladon.com/wp-content/uploads/2015/02/mortal-kombat-x.jpg");
+        textView = (TextView) findViewById(R.id.asynctask3_progress_text_view);
+        asyncTask = (DemoAsyncTask) getLastNonConfigurationInstance();
+        if (asyncTask == null) {
+            asyncTask = new DemoAsyncTask(this);
+            asyncTask.execute("http://techladon.com/wp-content/uploads/2015/02/mortal-kombat-x.jpg");
+        }
+        // передаем в DemoAsyncTask ссылку на текущее AsyncTask3Activity
+        asyncTask.link(this);
     }
 
-    class DemoAsyncTask extends AsyncTask<String, Integer, Bitmap> {
+    static class DemoAsyncTask extends AsyncTask<String, Integer, Bitmap> {
 
         private Context mContext;
-        private TextView textView;
+        private AsyncTask3Activity activity;
 
         public DemoAsyncTask(Context context) {
-            textView = (TextView) findViewById(R.id.asynctask3_progress_text_view);
             mContext = context.getApplicationContext();
+        }
+
+        // получаем ссылку на AsyncTask2Activity
+        void link(AsyncTask3Activity act) {
+            activity = act;
+        }
+
+        // обнуляем ссылку
+        void unLink() {
+            activity = null;
         }
 
         @Override
@@ -55,8 +73,8 @@ public class AsyncTask3Activity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Bitmap result) {
             textView.setText("Download complete");
-            ((ImageView) findViewById(R.id.asynctask3_image_view)).setImageBitmap(result);
-            ((ProgressBar) findViewById(R.id.asynctask3_progress_bar)).setVisibility(TextView.GONE);
+            ((ImageView) activity.findViewById(R.id.asynctask3_image_view)).setImageBitmap(result);
+            ((ProgressBar) activity.findViewById(R.id.asynctask3_progress_bar)).setVisibility(TextView.GONE);
         }
 
         // Downloading an image right away.

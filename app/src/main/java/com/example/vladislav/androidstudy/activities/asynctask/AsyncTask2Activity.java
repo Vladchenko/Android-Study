@@ -16,12 +16,13 @@ import java.net.URL;
 public class AsyncTask2Activity extends AppCompatActivity {
 
     private DemoAsyncTask asyncTask;
+    private static TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_task2);
-
+        textView = (TextView) findViewById(R.id.asynctask2_text_view);
         asyncTask = (DemoAsyncTask) getLastNonConfigurationInstance();
         if (asyncTask == null) {
             asyncTask = new DemoAsyncTask(this);
@@ -31,16 +32,15 @@ public class AsyncTask2Activity extends AppCompatActivity {
         asyncTask.link(this);
     }
 
-    class DemoAsyncTask extends AsyncTask<String, Integer, String> {
+    static class DemoAsyncTask extends AsyncTask<String, Integer, String> {
 
         private Context mContext;
-        private TextView textView;
+
         private int progressCount;
         private AsyncTask2Activity activity;
 
         public DemoAsyncTask(Context context) {
             mContext = context.getApplicationContext();
-            textView = (TextView) findViewById(R.id.asynctask2_text_view);
         }
 
         // получаем ссылку на AsyncTask2Activity
@@ -61,7 +61,7 @@ public class AsyncTask2Activity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            ((TextView)findViewById(R.id.asynctask2_progress_text_view))
+            ((TextView) activity.findViewById(R.id.asynctask2_progress_text_view))
                 .setText("Downloaded " + values[0] * 10 + " %");
         }
 
@@ -93,7 +93,7 @@ public class AsyncTask2Activity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String string) {
             textView.setText(string);
-            ((ProgressBar)findViewById(R.id.asynctask2_progress_bar)).setVisibility(TextView.GONE);
+            ((ProgressBar)activity.findViewById(R.id.asynctask2_progress_bar)).setVisibility(TextView.GONE);
         }
     }
 }

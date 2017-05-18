@@ -13,12 +13,13 @@ import com.example.vladislav.androidstudy.R;
 public class AsyncTask1Activity extends Activity {
 
     private DemoAsyncTask asyncTask;
+    private static TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_task1);
-
+        textView = (TextView) findViewById(R.id.asynctask1_text_view);
         asyncTask = (DemoAsyncTask) getLastNonConfigurationInstance();
         if (asyncTask == null) {
             asyncTask = new DemoAsyncTask(this);
@@ -34,14 +35,13 @@ public class AsyncTask1Activity extends Activity {
         return asyncTask;
     }
 
-    class DemoAsyncTask extends AsyncTask<String, Void, Integer> {
+    static class DemoAsyncTask extends AsyncTask<String, Void, Integer> {
 
         private Context mContext;
-        private TextView textView;
+
         private AsyncTask1Activity activity;
 
         public DemoAsyncTask(Context context) {
-            textView = (TextView) findViewById(R.id.asynctask1_text_view);
             mContext = context.getApplicationContext();
         }
 
@@ -57,6 +57,7 @@ public class AsyncTask1Activity extends Activity {
 
         @Override
         protected void onPreExecute() {
+
             textView.setText("Asynctask1 performs some operation ...");
         }
 
@@ -76,7 +77,7 @@ public class AsyncTask1Activity extends Activity {
         protected void onPostExecute(Integer integer) {
             if (integer != -1) {
                 textView.setText("Asynctask1 finished performing its operation.");
-                ((ProgressBar)findViewById(R.id.asynctask1_progress_bar)).setVisibility(TextView.INVISIBLE);
+                ((ProgressBar) activity.findViewById(R.id.asynctask1_progress_bar)).setVisibility(TextView.INVISIBLE);
             } else {
                 textView.setText("Some trouble occurred while asynctask performed its operation.");
             }
