@@ -24,7 +24,7 @@ public class AsyncTask1Activity extends Activity {
             asyncTask = new DemoAsyncTask(this);
             asyncTask.execute();
         }
-        // передаем в MyTask ссылку на текущее MainActivity
+        // передаем в MyTask ссылку на текущее AsyncTask1Activity
         asyncTask.link(this);
     }
 
@@ -54,6 +54,7 @@ public class AsyncTask1Activity extends Activity {
         void unLink() {
             activity = null;
         }
+
         @Override
         protected void onPreExecute() {
             textView.setText("Asynctask1 performs some operation ...");
@@ -77,7 +78,7 @@ public class AsyncTask1Activity extends Activity {
                 textView.setText("Asynctask1 finished performing its operation.");
                 ((ProgressBar)findViewById(R.id.asynctask1_progress_bar)).setVisibility(TextView.INVISIBLE);
             } else {
-                textView.setText("Some trouble occured while asynctask performed its operation.");
+                textView.setText("Some trouble occurred while asynctask performed its operation.");
             }
         }
     }

@@ -15,12 +15,20 @@ import java.net.URL;
 
 public class AsyncTask2Activity extends AppCompatActivity {
 
+    private DemoAsyncTask asyncTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_task2);
-        DemoAsyncTask demoAsyncTask = new DemoAsyncTask(this);
-        demoAsyncTask.execute("http://developer.android.com");
+
+        asyncTask = (DemoAsyncTask) getLastNonConfigurationInstance();
+        if (asyncTask == null) {
+            asyncTask = new DemoAsyncTask(this);
+            asyncTask.execute("http://developer.android.com");
+        }
+        // передаем в DemoAsyncTask ссылку на текущее AsyncTask2Activity
+        asyncTask.link(this);
     }
 
     class DemoAsyncTask extends AsyncTask<String, Integer, String> {
@@ -28,10 +36,21 @@ public class AsyncTask2Activity extends AppCompatActivity {
         private Context mContext;
         private TextView textView;
         private int progressCount;
+        private AsyncTask2Activity activity;
 
         public DemoAsyncTask(Context context) {
             mContext = context.getApplicationContext();
             textView = (TextView) findViewById(R.id.asynctask2_text_view);
+        }
+
+        // получаем ссылку на AsyncTask2Activity
+        void link(AsyncTask2Activity act) {
+            activity = act;
+        }
+
+        // обнуляем ссылку
+        void unLink() {
+            activity = null;
         }
 
         @Override
