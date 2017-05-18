@@ -241,11 +241,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/programmatic_layout_button"
         android:layout_below="@+id/intent_button"
-        android:layout_toStartOf="@+id/context_menu_button"
-        android:layout_toLeftOf="@+id/context_menu_button" />
+        android:layout_toStartOf="@+id/alert_dialogue_button"
+        android:layout_toLeftOf="@+id/alert_dialogue_button" />
 
     <Button
-        android:text="Async Task"
+        android:text="Async Tasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/asynctask_button"

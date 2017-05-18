@@ -62,25 +62,25 @@
         </receiver>
 
         <service
-            android:name=".services.StartedSimpleService"
+            android:name=".services.demo1.StartedSimpleService"
             android:description="@string/service_description"
             android:label="@string/service_description" />
         <service
-            android:name=".services.StartedIntentService"
+            android:name=".services.demo1.StartedIntentService"
             android:description="@string/intent_service_description" />
         <service
-            android:name=".services.BindSimpleService"
+            android:name=".services.demo1.BindSimpleService"
             android:description="@string/service_description"
             android:label="@string/service_description" />
         <service
-            android:name=".services.BindIntentedService"
+            android:name=".services.demo1.BindIntentedService"
             android:description="@string/intent_service_description" />
         <service
-            android:name=".services.BothSimpleService"
+            android:name=".services.demo1.BothSimpleService"
             android:description="@string/service_description"
             android:label="@string/service_description" />
         <service
-            android:name=".services.BothIntentedService"
+            android:name=".services.demo1.BothIntentedService"
             android:description="@string/intent_service_description" />
 
         <activity android:name=".activities.RotationActivity" />

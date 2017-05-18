@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.services;
+package com.example.vladislav.androidstudy.services.demo1;
 
 import android.content.Intent;
 import android.os.IBinder;

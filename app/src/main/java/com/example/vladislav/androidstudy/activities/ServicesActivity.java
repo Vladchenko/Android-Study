@@ -17,12 +17,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.services.BindIntentedService;
-import com.example.vladislav.androidstudy.services.BindSimpleService;
-import com.example.vladislav.androidstudy.services.BothIntentedService;
-import com.example.vladislav.androidstudy.services.BothSimpleService;
-import com.example.vladislav.androidstudy.services.StartedIntentService;
-import com.example.vladislav.androidstudy.services.StartedSimpleService;
+import com.example.vladislav.androidstudy.services.demo1.BindIntentedService;
+import com.example.vladislav.androidstudy.services.demo1.BindSimpleService;
+import com.example.vladislav.androidstudy.services.demo1.BothIntentedService;
+import com.example.vladislav.androidstudy.services.demo1.BothSimpleService;
+import com.example.vladislav.androidstudy.services.demo1.StartedIntentService;
+import com.example.vladislav.androidstudy.services.demo1.StartedSimpleService;
 
 import static android.content.IntentFilter.SYSTEM_HIGH_PRIORITY;
 import static android.content.IntentFilter.SYSTEM_LOW_PRIORITY;
