@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.vladislav.androidstudy.activities.BroadcastSender;
-import com.example.vladislav.androidstudy.activities.ServicesActivity;
+import com.example.vladislav.androidstudy.activities.ServicesDemo1Activity;
 
 /**
  * Created by vladislav on 02.03.17.
@@ -48,7 +48,7 @@ public class BothSimpleService extends Service {
         mBroadcastSender.sendBroadcast("-----------------------");
         Log.i("BothSimpleService", "onDestroy");
         Log.i("-", "-----------------------");
-        ServicesActivity.bounded = false;
+        ServicesDemo1Activity.bounded = false;
     }
 
     @Nullable
@@ -56,7 +56,7 @@ public class BothSimpleService extends Service {
     public IBinder onBind(Intent intent) {
         mBroadcastSender.sendBroadcast("onBind");
         Log.i("BothSimpleService", "onBind");
-        ServicesActivity.bounded = true;
+        ServicesDemo1Activity.bounded = true;
         return null;
     }
 

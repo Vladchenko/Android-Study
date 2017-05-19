@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.vladislav.androidstudy.activities.BroadcastSender;
-import com.example.vladislav.androidstudy.activities.ServicesActivity;
+import com.example.vladislav.androidstudy.activities.ServicesDemo1Activity;
 
 /**
  * An {@link BindIntentedService} subclass for handling asynchronous task requests in
@@ -53,7 +53,7 @@ public class BindIntentedService extends IntentService {
         mBroadcastSender.sendBroadcast("-----------------------");
         Log.i("BindIntentedService","onDestroy");
         Log.i("-","-----------------------");
-        ServicesActivity.bounded = false;
+        ServicesDemo1Activity.bounded = false;
     }
 
     @Nullable
@@ -61,8 +61,8 @@ public class BindIntentedService extends IntentService {
     public IBinder onBind(Intent intent) {
         mBroadcastSender.sendBroadcast("onBind");
         Log.i("BindIntentedService","onBind");
-        ServicesActivity.bounded = true;
-        sendBroadcast(new Intent().putExtra(ServicesActivity.BROADCAST_ID,"onCreate"));
+        ServicesDemo1Activity.bounded = true;
+        sendBroadcast(new Intent().putExtra(ServicesDemo1Activity.BROADCAST_ID,"onCreate"));
         return null;
     }
 

@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.vladislav.androidstudy.activities.BroadcastSender;
-import com.example.vladislav.androidstudy.activities.ServicesActivity;
+import com.example.vladislav.androidstudy.activities.ServicesDemo1Activity;
 
 /**
  * Created by vladislav on 02.03.17.
@@ -22,7 +22,7 @@ public class BindSimpleService extends Service {
         super.onCreate();
         // Instantiating a broadcast sender;
         mBroadcastSender = BroadcastSender.getInstance(this);
-//        if (ServicesActivity.issLocalBroadcastReceiver()) {
+//        if (ServicesDemo1Activity.issLocalBroadcastReceiver()) {
 //            mBroadcastSender.sendBroadcast("Local BroadcastReceiver is used.\n");
 //        } else {
 //            mBroadcastSender.sendBroadcast("Global BroadcastReceiver is used.\n");
@@ -34,7 +34,7 @@ public class BindSimpleService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ServicesActivity.bounded = false;
+        ServicesDemo1Activity.bounded = false;
         mBroadcastSender.sendBroadcast("onDestroy");
         mBroadcastSender.sendBroadcast("-----------------------");
         Log.i("BindSimpleService","onDestroy");
@@ -46,7 +46,7 @@ public class BindSimpleService extends Service {
     public IBinder onBind(Intent intent) {
         mBroadcastSender.sendBroadcast("onBind");
         Log.i("BindSimpleService","onBind");
-        ServicesActivity.bounded = true;
+        ServicesDemo1Activity.bounded = true;
         return null;
     }
 

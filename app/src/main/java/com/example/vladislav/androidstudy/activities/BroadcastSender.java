@@ -22,10 +22,10 @@ public class BroadcastSender {
 
     public void sendBroadcast(String string) {
         Intent intent = new Intent().
-                setAction(ServicesActivity.BROADCAST_ID).
-                putExtra(ServicesActivity.BROADCAST_ID,
+                setAction(ServicesDemo1Activity.BROADCAST_ID).
+                putExtra(ServicesDemo1Activity.BROADCAST_ID,
                         context.getClass().getSimpleName() + ": " + string + "\n");
-        switch (ServicesActivity.broadcastKind) {
+        switch (ServicesDemo1Activity.broadcastKind) {
             case LOCAL: {
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
                 break;

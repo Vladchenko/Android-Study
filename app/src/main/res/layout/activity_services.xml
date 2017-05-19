@@ -1,135 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_services"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.vladislav.androidstudy.activities.ServicesActivity">
 
     <LinearLayout
+        android:id="@+id/services_button_layout"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/widgets2_button"
+        android:layout_alignLeft="@+id/list_button"
+        android:layout_alignRight="@+id/widgets2_button"
+        android:layout_alignStart="@+id/list_button"
+        android:layout_below="@+id/youtube_runner_button"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/service_column1_title_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Started"
-                android:textAlignment="center"/>
-
-            <Button
-                android:id="@+id/service_column1_start_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Start" />
-
-            <Button
-                android:id="@+id/service_column1_stop_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Stop" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/service_column2_title_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bound"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/service_column2_bind_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bind" />
-
-            <Button
-                android:id="@+id/service_column2_unbind_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Unbind" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/service_column3_title_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mixed"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/service_column3_start_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Start" />
-
-            <Button
-                android:id="@+id/service_column3_stop_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Stop" />
-
-            <Button
-                android:id="@+id/service_column3_bind_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bind" />
-
-            <Button
-                android:id="@+id/service_column3_unbind_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Unbind" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:text="Service operating log:"
+        <Button
+            android:id="@+id/demo1_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/service_log_title_text_view" />
+            android:layout_below="@+id/image_button"
+            android:layout_centerHorizontal="true"
+            android:onClick="gotoServicesActivity"
+            android:text="Demo1" />
 
-        <TextView
-            android:text=""
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/service_log_contents_text_view"
-            android:background="@drawable/rounded_corner"
-            android:scrollbars="vertical"
-            android:maxLines="5000"/>
+        <CheckBox
+            android:id="@+id/intent_service_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_button"
+            android:layout_centerHorizontal="true"
+            android:text="IntentService" />
 
     </LinearLayout>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/demo2_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="gotoServicesActivity"
+        android:text="Demo2"
+        tools:layout_editor_absoluteY="48dp"
+        tools:layout_editor_absoluteX="134dp"
+        android:layout_below="@+id/services_button_layout"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

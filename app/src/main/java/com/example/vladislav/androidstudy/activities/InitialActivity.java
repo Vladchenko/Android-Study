@@ -208,6 +208,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.asynctask_button);
         mButton.setOnClickListener(this);
+        mButton = (Button) findViewById(R.id.services_button);
+        mButton.setOnClickListener(this);
     }
 
     public void sendEmail(View view) {
@@ -285,11 +287,11 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
     }
 
-    public void gotoServicesActivity(View view) {
-        Intent intent = new Intent(InitialActivity.this, ServicesActivity.class);
-        intent.putExtra("isIntendedService", ((CheckBox) findViewById(R.id.intent_service_checkbox)).isChecked());
-        startActivity(intent);
-    }
+//    public void gotoServicesActivity(View view) {
+//        Intent intent = new Intent(InitialActivity.this, ServicesDemo1Activity.class);
+//        intent.putExtra("isIntendedService", ((CheckBox) findViewById(R.id.intent_service_checkbox)).isChecked());
+//        startActivity(intent);
+//    }
 
     @Override
     public void onClick(View v) {
@@ -326,6 +328,12 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
             }
             case R.id.asynctask_button: {
                 intent = new Intent(this, AsyncTasksActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.services_button: {
+                intent = new Intent(this, ServicesActivity.class);
+//                intent.putExtra("isIntendedService", ((CheckBox) findViewById(R.id.intent_service_checkbox)).isChecked());
                 startActivity(intent);
                 break;
             }

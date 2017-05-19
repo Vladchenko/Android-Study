@@ -10,7 +10,7 @@ import android.util.Log;
  * Created by vladislav on 18.05.17.
  */
 
-public class ServiceDemo1 extends Service {
+public class ServiceDemo2 extends Service {
 
     final String LOG_TAG = "myLogs";
 

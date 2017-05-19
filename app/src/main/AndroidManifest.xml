@@ -51,7 +51,7 @@
         <activity android:name=".activities.fragments_activity.FragmentsActivity" />
         <activity android:name=".activities.fragments_activity.FragmentsDynamicActivity" />
         <activity android:name=".activities.ImageActivity" />
-        <activity android:name=".activities.ServicesActivity" />
+        <activity android:name=".activities.ServicesDemo1Activity" />
         <activity android:name=".activities.ProgrammaticLayoutActivity" />
         <activity android:name=".banksdetails.BanksDetailsActivity" />
 
@@ -117,7 +117,8 @@
         <activity android:name=".activities.asynctask.AsyncTask1Activity" />
         <activity android:name=".activities.asynctask.AsyncTask2Activity" />
         <activity android:name=".activities.asynctask.AsyncTask3Activity" />
-        <activity android:name=".activities.asynctask.AsyncTask4Activity"></activity>
+        <activity android:name=".activities.asynctask.AsyncTask4Activity" />
+        <activity android:name=".activities.ServicesActivity"></activity>
     </application>
 
 </manifest>

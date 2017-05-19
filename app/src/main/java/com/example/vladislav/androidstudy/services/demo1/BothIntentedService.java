@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.vladislav.androidstudy.activities.BroadcastSender;
-import com.example.vladislav.androidstudy.activities.ServicesActivity;
+import com.example.vladislav.androidstudy.activities.ServicesDemo1Activity;
 
 import java.io.FileDescriptor;
 
@@ -68,7 +68,7 @@ public class BothIntentedService extends IntentService {
         mBroadcastSender.sendBroadcast("-----------------------");
         Log.i("BothIntentedService","onDestroy");
         Log.i("-","-----------------------");
-        ServicesActivity.bounded = false;
+        ServicesDemo1Activity.bounded = false;
     }
 
     @Nullable
@@ -76,7 +76,7 @@ public class BothIntentedService extends IntentService {
     public IBinder onBind(Intent intent) {
         mBroadcastSender.sendBroadcast("onBind");
         Log.i("BothIntentedService","onBind");
-        ServicesActivity.bounded = true;
+        ServicesDemo1Activity.bounded = true;
 //        Log.i("StartedSimpleService", "StartedSimpleService is bound to - " + intent.getAction());
         return new IBinder() {
             @Override
