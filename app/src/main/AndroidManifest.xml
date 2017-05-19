@@ -82,6 +82,12 @@
         <service
             android:name=".services.demo1.BothIntentedService"
             android:description="@string/intent_service_description" />
+        <service android:name=".services.ServiceDemo2" />
+
+        <service
+            android:name=".services.ServiceDemo3"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <activity android:name=".activities.RotationActivity" />
         <activity android:name=".intentstudy.IntentsActivity" />
@@ -118,7 +124,8 @@
         <activity android:name=".activities.asynctask.AsyncTask2Activity" />
         <activity android:name=".activities.asynctask.AsyncTask3Activity" />
         <activity android:name=".activities.asynctask.AsyncTask4Activity" />
-        <activity android:name=".activities.ServicesActivity"></activity>
+        <activity android:name=".activities.ServicesActivity" />
+
     </application>
 
 </manifest>

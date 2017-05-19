@@ -1,23 +1,25 @@
 package com.example.vladislav.androidstudy.services;
 
+import android.app.Activity;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-/**
- * Created by vladislav on 18.05.17.
- */
+import java.util.concurrent.TimeUnit;
 
-public class ServiceDemo2 extends Service {
+public class ServiceDemo3 extends Service {
 
-    final String LOG_TAG = "ServiceDemo2";
+    final String LOG_TAG = "ServiceDemo3";
+    private Context context;
 
     public void onCreate() {
         super.onCreate();
         Log.i(LOG_TAG, "onCreate");
+        context = getApplicationContext();
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -39,13 +41,20 @@ public class ServiceDemo2 extends Service {
     }
 
     void someTask() {
-        try {
-            Toast.makeText(this, "Service demo2 performs", Toast.LENGTH_SHORT).show();
-            Thread.sleep(5000);
-            Toast.makeText(this, "Service demo2 is over", Toast.LENGTH_SHORT).show();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        stopSelf();
+        Toast.makeText(this, "Service demo3 performs", Toast.LENGTH_SHORT).show();
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+                for (int i = 0; i <= 5; i++) {
+                    Log.d(LOG_TAG, "i = " + i);
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                stopSelf();
+            }
+        });
     }
+
 }

@@ -25,5 +25,7 @@
     <dimen name="progress_margin_bottom">40dp</dimen>
     <dimen name="office_working_or_not_state_text_size">20sp</dimen>
     <dimen name="phoneset_size">40dp</dimen>
+    <dimen name="activities_title_text_size">32dp</dimen>
+    <dimen name="services_sub_parts_margin">25dp</dimen>
 
 </resources>

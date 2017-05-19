@@ -333,7 +333,6 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
             }
             case R.id.services_button: {
                 intent = new Intent(this, ServicesActivity.class);
-//                intent.putExtra("isIntendedService", ((CheckBox) findViewById(R.id.intent_service_checkbox)).isChecked());
                 startActivity(intent);
                 break;
             }
