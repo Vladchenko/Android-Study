@@ -94,4 +94,29 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/services_demo4_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/services_demo3_layout"
+        android:layout_marginTop="@dimen/services_sub_parts_margin"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/demo4_description_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/service_demo4_description" />
+
+        <Button
+            android:id="@+id/demo4_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/services_button_layout"
+            android:layout_centerHorizontal="true"
+            android:text="Run Demo3" />
+
+    </LinearLayout>
+
 </RelativeLayout>

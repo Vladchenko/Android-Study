@@ -202,7 +202,8 @@
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/intent_button"
         android:layout_alignRight="@+id/fragments_button"
-        android:layout_alignEnd="@+id/fragments_button" />
+        android:layout_alignEnd="@+id/fragments_button"
+        android:layout_toLeftOf="@+id/intent_button" />
 
     <Button
         android:text="Context menu"
@@ -243,8 +244,6 @@
         android:layout_below="@+id/context_menu_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-
 
     <!-- When adding a new view, provide the same view onto a landscape layout !!! -->
 
