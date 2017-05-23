@@ -109,13 +109,30 @@
             android:layout_height="wrap_content"
             android:text="@string/service_demo4_description" />
 
-        <Button
-            android:id="@+id/demo4_button"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/services_button_layout"
-            android:layout_centerHorizontal="true"
-            android:text="Run Demo3" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/start_demo4_service_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start service" />
+
+            <Button
+                android:id="@+id/request_data_demo4_service_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Request Data" />
+
+            <Button
+                android:id="@+id/stop_demo4_service_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stop service" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

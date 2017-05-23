@@ -1,5 +1,6 @@
 package com.example.vladislav.androidstudy.activities;
 
+import android.app.Service;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -14,6 +15,7 @@ import android.widget.CheckBox;
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.services.ServiceDemo2;
 import com.example.vladislav.androidstudy.services.ServiceDemo3;
+import com.example.vladislav.androidstudy.services.ServiceDemo4;
 
 public class ServicesActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,8 +26,9 @@ public class ServicesActivity extends AppCompatActivity implements View.OnClickL
 
     private String LOG_TAG = "ServicesActivity";
     private Button mButton;
-    private boolean bound;
-    private ServiceConnection serviceConnection;
+    private boolean mBound;
+    private ServiceConnection mServiceConnection;
+    private Service mService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +40,23 @@ public class ServicesActivity extends AppCompatActivity implements View.OnClickL
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.demo3_button);
         mButton.setOnClickListener(this);
-        mButton = (Button) findViewById(R.id.demo4_button);
+        mButton = (Button) findViewById(R.id.start_demo4_service_button);
         mButton.setOnClickListener(this);
-        serviceConnection = new ServiceConnection() {
-            public void onServiceConnected(ComponentName name, IBinder binder) {
+        mButton = (Button) findViewById(R.id.stop_demo4_service_button);
+        mButton.setOnClickListener(this);
+        mButton = (Button) findViewById(R.id.request_data_demo4_service_button);
+        mButton.setOnClickListener(this);
+        mServiceConnection = new ServiceConnection() {
+            public void onServiceConnected(ComponentName name, IBinder service) {
                 Log.d(LOG_TAG, "ServicesActivity onServiceConnected");
-                bound = true;
+                mBound = true;
+                ServiceDemo4.LocalBinder binder = (ServiceDemo4.LocalBinder) service;
+                mService = binder.getService();
             }
 
             public void onServiceDisconnected(ComponentName name) {
                 Log.d(LOG_TAG, "ServicesActivity onServiceDisconnected");
-                bound = false;
+                mBound = false;
             }
         };
     }
@@ -72,9 +81,18 @@ public class ServicesActivity extends AppCompatActivity implements View.OnClickL
                 startService(intent);
                 break;
             }
-            case R.id.demo4_button: {
-                intent = new Intent(this, ServiceDemo3.class);
-                bindService(intent, serviceConnection, BIND_AUTO_CREATE);
+            case R.id.start_demo4_service_button: {
+                intent = new Intent(this, ServiceDemo4.class);
+                bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
+                break;
+            }
+            case R.id.request_data_demo4_service_button: {
+                // Get service instance, request data with it and show it in a, say toast.
+//                mService.getSe
+                break;
+            }
+            case R.id.stop_demo4_service_button: {
+                // Get service instance and stop it.
                 break;
             }
         }
