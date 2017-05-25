@@ -1,139 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/activity_horizontal_margin"
-    tools:context="com.example.vladislav.androidstudy.activities.ServicesActivity">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/services_title_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/services_sub_parts_margin"
-        android:text="Services"
-        android:textSize="@dimen/activities_title_text_size" />
-
-    <LinearLayout
-        android:id="@+id/services_demo1_layout"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/services_title_text_view"
-        android:layout_marginTop="@dimen/services_sub_parts_margin"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/demo1_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/image_button"
-            android:layout_centerHorizontal="true"
-            android:text="Run Demo1" />
-
-        <CheckBox
-            android:id="@+id/intent_service_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/image_button"
-            android:layout_centerHorizontal="true"
-            android:text="IntentService" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/services_demo2_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/services_demo1_layout"
-        android:layout_marginTop="@dimen/services_sub_parts_margin"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        tools:context="com.example.vladislav.androidstudy.activities.ServicesActivity">
 
         <TextView
-            android:id="@+id/demo2_description_text_view"
+            android:id="@+id/services_title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/service_demo2_description" />
-
-        <Button
-            android:id="@+id/demo2_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/services_button_layout"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="Run Demo2" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/services_demo3_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/services_demo2_layout"
-        android:layout_marginTop="@dimen/services_sub_parts_margin"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/demo3_description_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/service_demo3_description" />
-
-        <Button
-            android:id="@+id/demo3_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/services_button_layout"
-            android:layout_centerHorizontal="true"
-            android:text="Run Demo3" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/services_demo4_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/services_demo3_layout"
-        android:layout_marginTop="@dimen/services_sub_parts_margin"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/demo4_description_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/service_demo4_description" />
+            android:layout_marginTop="@dimen/services_sub_parts_margin"
+            android:text="Services"
+            android:textSize="@dimen/activities_title_text_size" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/services_demo1_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/services_title_text_view"
+            android:layout_marginTop="@dimen/services_sub_parts_margin"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/start_demo4_service_button"
+                android:id="@+id/demo1_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start service" />
+                android:layout_below="@+id/image_button"
+                android:layout_centerHorizontal="true"
+                android:text="Run Demo1" />
 
-            <Button
-                android:id="@+id/request_data_demo4_service_button"
+            <CheckBox
+                android:id="@+id/intent_service_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Request Data" />
-
-            <Button
-                android:id="@+id/stop_demo4_service_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Stop service" />
+                android:layout_below="@+id/image_button"
+                android:layout_centerHorizontal="true"
+                android:text="IntentService" />
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/services_demo2_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/services_demo1_layout"
+            android:layout_marginTop="@dimen/services_sub_parts_margin"
+            android:gravity="center"
+            android:orientation="vertical">
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/demo2_description_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/service_demo2_description" />
+
+            <Button
+                android:id="@+id/demo2_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/services_button_layout"
+                android:layout_centerHorizontal="true"
+                android:text="Run Demo2" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/services_demo3_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/services_demo2_layout"
+            android:layout_marginTop="@dimen/services_sub_parts_margin"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/demo3_description_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/service_demo3_description" />
+
+            <Button
+                android:id="@+id/demo3_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/services_button_layout"
+                android:layout_centerHorizontal="true"
+                android:text="Run Demo3" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/services_demo4_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/services_demo3_layout"
+            android:layout_marginTop="@dimen/services_sub_parts_margin"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/demo4_description_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/service_demo4_description" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/start_demo4_service_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start service" />
+
+                <Button
+                    android:id="@+id/request_data_demo4_service_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Request Data" />
+
+                <Button
+                    android:id="@+id/stop_demo4_service_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stop service" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/services_demo5_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/services_demo4_layout"
+            android:layout_marginTop="@dimen/services_sub_parts_margin"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/demo5_description_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/service_demo5_description" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/start_demo5_service_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start service" />
+
+                <Button
+                    android:id="@+id/request_data_demo5_service_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Request Data" />
+
+                <Button
+                    android:id="@+id/stop_demo5_service_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stop service" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/service_data_received_title_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/service_demo5_title" />
+
+            <TextView
+                android:id="@+id/service_data_received_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>

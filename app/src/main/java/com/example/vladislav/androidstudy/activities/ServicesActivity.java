@@ -4,36 +4,54 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.services.ServiceDemo2;
 import com.example.vladislav.androidstudy.services.ServiceDemo3;
 import com.example.vladislav.androidstudy.services.ServiceDemo4;
+import com.example.vladislav.androidstudy.services.ServiceDemo5;
 
 public class ServicesActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * On notifying an activity about a service's some work is done, see
      * https://stackoverflow.com/questions/4111398/notify-activity-from-service
+     * http://www.vogella.com/tutorials/AndroidServices/article.html
      */
 
-    private String LOG_TAG = "ServicesActivity";
+    private static String LOG_TAG = "ServicesActivity";
     private Button mButton;
     private boolean mBound;
     private ServiceConnection mServiceConnection;
     private Service mService;
+    private static Handler messageHandler = new MessageHandler();
+    private static TextView textView;
+
+    public static class MessageHandler extends Handler {
+        @Override
+        public void handleMessage(Message message) {
+            int state = message.arg1;
+            Log.i(LOG_TAG, " argument received:" + Integer.toString(state));
+            textView.setText(Integer.toString(state));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services);
+        textView  = (TextView)findViewById(R.id.service_data_received_text_view);
         mButton = (Button) findViewById(R.id.demo1_button);
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.demo2_button);
@@ -46,12 +64,15 @@ public class ServicesActivity extends AppCompatActivity implements View.OnClickL
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.request_data_demo4_service_button);
         mButton.setOnClickListener(this);
+        mButton = (Button) findViewById(R.id.start_demo5_service_button);
+        mButton.setOnClickListener(this);
+        mButton = (Button) findViewById(R.id.stop_demo5_service_button);
+        mButton.setOnClickListener(this);
         mServiceConnection = new ServiceConnection() {
-            public void onServiceConnected(ComponentName name, IBinder service) {
+            public void onServiceConnected(ComponentName name, IBinder binder) {
                 Log.d(LOG_TAG, "ServicesActivity onServiceConnected");
                 mBound = true;
-                ServiceDemo4.LocalBinder binder = (ServiceDemo4.LocalBinder) service;
-                mService = binder.getService();
+                mService = ((ServiceDemo4.LocalBinder)binder).getService();
             }
 
             public void onServiceDisconnected(ComponentName name) {
@@ -88,13 +109,31 @@ public class ServicesActivity extends AppCompatActivity implements View.OnClickL
             }
             case R.id.request_data_demo4_service_button: {
                 // Get service instance, request data with it and show it in a, say toast.
-//                mService.getSe
+                // FIXME - Why is here no getServiceData method visible ?
+//                mService.getServiceData
                 break;
             }
             case R.id.stop_demo4_service_button: {
                 // Get service instance and stop it.
+                if (!mBound) return;
+                unbindService(mServiceConnection);
+                mBound = false;
                 break;
             }
+            case R.id.request_data_demo5_service_button: {
+                // Get service instance, request data with it and show it in a, say toast.
+                // FIXME - Why is here no getServiceData method visible ?
+//                messageHandler.handleMessage();
+                break;
+            }
+            case R.id.start_demo5_service_button: {
+                Intent intent2 = new Intent(this, ServiceDemo5.class);
+                intent2.putExtra("MESSENGER", new Messenger(messageHandler));
+                startService(intent2);
+                Log.d(LOG_TAG, "ServicesActivity Demo5 Startbutton clicked");
+                break;
+            }
+
         }
     }
 }

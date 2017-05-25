@@ -87,6 +87,17 @@
             android:name=".services.ServiceDemo3"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:name=".services.IntentServiceDemo1"
+            android:exported="false" />
+        <service
+            android:name=".services.ServiceDemo4"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service
+            android:name=".services.ServiceDemo5"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <activity android:name=".activities.RotationActivity" />
         <activity android:name=".intentstudy.IntentsActivity" />
@@ -125,13 +136,6 @@
         <activity android:name=".activities.asynctask.AsyncTask4Activity" />
         <activity android:name=".activities.ServicesActivity" />
 
-        <service
-            android:name=".services.IntentServiceDemo1"
-            android:exported="false" />
-        <service
-            android:name=".services.ServiceDemo4"
-            android:enabled="true"
-            android:exported="true"></service>
     </application>
 
 </manifest>

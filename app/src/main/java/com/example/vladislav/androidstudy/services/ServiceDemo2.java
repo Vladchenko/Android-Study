@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 /**
  * Created by vladislav on 18.05.17.
- * This service displays the invocation of a callbacks it has.
+ * Description is at @strings/service_demo2_description
  */
 
 public class ServiceDemo2 extends Service {

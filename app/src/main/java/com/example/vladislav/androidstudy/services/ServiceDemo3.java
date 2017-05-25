@@ -65,10 +65,12 @@ public class ServiceDemo3 extends Service {
             }
         }).start();
 
-        // Next, we need to know if a service did its job and notify a service about it.
-        // There are several ways of doing it:
-        //  ... Describe the ways ...
-        // We'll do this in a ServiceDemo4.
+        Toast.makeText(this, "Service demo3 finished performing", Toast.LENGTH_SHORT).show();
+
+        // The problem is - toast saying that service finished its operation, appears before this
+        // operation really finishes.
+        // In this case, there are a several ways out. Read part 4. Communication with services on
+        // a next link http://www.vogella.com/tutorials/AndroidServices/article.html
     }
 
 }
