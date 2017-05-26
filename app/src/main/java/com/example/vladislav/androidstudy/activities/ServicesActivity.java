@@ -51,7 +51,7 @@ public class ServicesActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services);
-        textView  = (TextView)findViewById(R.id.service_data_received_text_view);
+        textView = (TextView) findViewById(R.id.service_data_received_text_view);
         mButton = (Button) findViewById(R.id.demo1_button);
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.demo2_button);
@@ -68,11 +68,12 @@ public class ServicesActivity extends AppCompatActivity implements View.OnClickL
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.stop_demo5_service_button);
         mButton.setOnClickListener(this);
+        // For ServiceDemo4
         mServiceConnection = new ServiceConnection() {
             public void onServiceConnected(ComponentName name, IBinder binder) {
                 Log.d(LOG_TAG, "ServicesActivity onServiceConnected");
                 mBound = true;
-                mService = ((ServiceDemo4.LocalBinder)binder).getService();
+                mService = ((ServiceDemo4.LocalBinder) binder).getService();
             }
 
             public void onServiceDisconnected(ComponentName name) {
@@ -86,6 +87,7 @@ public class ServicesActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+
             case R.id.demo1_button: {
                 intent = new Intent(this, ServicesDemo1Activity.class);
                 intent.putExtra("isIntendedService", ((CheckBox) findViewById(R.id.intent_service_checkbox)).isChecked());
@@ -102,6 +104,7 @@ public class ServicesActivity extends AppCompatActivity implements View.OnClickL
                 startService(intent);
                 break;
             }
+
             case R.id.start_demo4_service_button: {
                 intent = new Intent(this, ServiceDemo4.class);
                 bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
@@ -120,20 +123,29 @@ public class ServicesActivity extends AppCompatActivity implements View.OnClickL
                 mBound = false;
                 break;
             }
-            case R.id.request_data_demo5_service_button: {
-                // Get service instance, request data with it and show it in a, say toast.
-                // FIXME - Why is here no getServiceData method visible ?
-//                messageHandler.handleMessage();
+
+            case R.id.stop_demo5_service_button: {
+                stopService(new Intent(this, ServiceDemo5.class));
+                Log.d(LOG_TAG, "Demo5 stop button clicked");
                 break;
             }
             case R.id.start_demo5_service_button: {
                 Intent intent2 = new Intent(this, ServiceDemo5.class);
                 intent2.putExtra("MESSENGER", new Messenger(messageHandler));
                 startService(intent2);
-                Log.d(LOG_TAG, "ServicesActivity Demo5 Startbutton clicked");
+//                Log.d(LOG_TAG, "Demo5 start button clicked");
                 break;
             }
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(new Intent(this, ServiceDemo2.class));
+        stopService(new Intent(this, ServiceDemo3.class));
+        unbindService(mServiceConnection);
+        stopService(new Intent(this, ServiceDemo5.class));
     }
 }

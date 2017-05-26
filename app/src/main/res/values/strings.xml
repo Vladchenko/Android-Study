@@ -26,7 +26,9 @@
     <string name="service_demo2_description">This service runs by default (on a UI thread). You may see that UI jams when this service performs.</string>
     <string name="service_demo3_description">This service runs on separate thread.</string>
     <string name="service_demo4_description">This service is bound.</string>
-    <string name="service_demo5_description">This service uses a Messenger.</string>
+    <string name="service_demo5_description">This service uses a Messenger. This mechanism renders a
+        sending of data(message), not the activity requests it on demand. One needs to implement a
+        way to receive the data on demand.</string>
     <string name="service_demo5_title">Value received from service:</string>
 
 </resources>

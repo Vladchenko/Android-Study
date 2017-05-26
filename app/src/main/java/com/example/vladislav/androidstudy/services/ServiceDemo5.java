@@ -17,25 +17,39 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
+ * This service produces an integer value and sends it to activity.
  */
 
 public class ServiceDemo5 extends Service {
 
     // Random number generator
     private final Random mGenerator = new Random();
-    final String LOG_TAG = "ServiceDemo5";
-    private Context context;
-    boolean mBound = false;
-    int value = 0;
-
+    private final String LOG_TAG = "ServiceDemo5";
     private Messenger messageHandler;
+    private boolean mBound = false;
+    private Context context;
+    private int value = 0;
+    private Thread thread;
 
     public void onCreate() {
         super.onCreate();
         Log.i(LOG_TAG, "onCreate");
         context = getApplicationContext();
-        Toast.makeText(this, "Service demo5 started", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, LOG_TAG + " created", Toast.LENGTH_SHORT).show();
+        thread = new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    try {
+                        value = mGenerator.nextInt(1000);
+                        sendMessage(value);
+                        TimeUnit.SECONDS.sleep(5);
+                        Log.i(LOG_TAG, Integer.toString(value));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -44,12 +58,11 @@ public class ServiceDemo5 extends Service {
         Bundle extras = intent.getExtras();
         messageHandler = (Messenger) extras.get("MESSENGER");
 
-        someTask();
+        thread.start();
         return super.onStartCommand(intent, flags, startId);
     }
 
     public void onDestroy() {
-        super.onDestroy();
         Log.i(LOG_TAG, "onDestroy");
         Toast.makeText(this, LOG_TAG + " stopped", Toast.LENGTH_SHORT).show();
     }
@@ -59,25 +72,6 @@ public class ServiceDemo5 extends Service {
     public IBinder onBind(Intent intent) {
         Log.i(LOG_TAG, "onBind");
         return null;
-    }
-
-    void someTask() {
-        // Service is to produce a new integer value at random and activity will require this value
-        // on a user's demand.
-        new Thread(new Runnable() {
-            public void run() {
-                while (true) {
-                    try {
-                        TimeUnit.SECONDS.sleep(10);
-                        value = mGenerator.nextInt();
-                        sendMessage(value);
-                        Log.i(LOG_TAG, Integer.toString(value));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
     }
 
     // Sending message to an activity.
