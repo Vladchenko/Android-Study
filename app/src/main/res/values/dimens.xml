@@ -27,5 +27,6 @@
     <dimen name="phoneset_size">40dp</dimen>
     <dimen name="activities_title_text_size">32dp</dimen>
     <dimen name="services_sub_parts_margin">20dp</dimen>
+    <dimen name="planet_title_margin">50dp</dimen>
 
 </resources>

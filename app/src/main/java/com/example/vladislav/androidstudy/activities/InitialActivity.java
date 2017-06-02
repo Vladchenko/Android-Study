@@ -24,6 +24,7 @@ import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.activities.asynctask.AsyncTasksActivity;
 import com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsActivity;
 import com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsDynamicActivity;
+import com.example.vladislav.androidstudy.beans.Planet;
 import com.example.vladislav.androidstudy.intentstudy.IntentsActivity;
 
 public class InitialActivity extends AppCompatActivity implements View.OnClickListener {
@@ -210,6 +211,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.services_button);
         mButton.setOnClickListener(this);
+        mButton = (Button) findViewById(R.id.parcelable_button);
+        mButton.setOnClickListener(this);
     }
 
     public void sendEmail(View view) {
@@ -333,6 +336,14 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
             }
             case R.id.services_button: {
                 intent = new Intent(this, ServicesActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.parcelable_button: {
+                intent = new Intent(this, ParcelableActivity.class);
+                // To send data to other activity, one can do this using Parcelable interface.
+                // Parcel is put to intent and in other activity is read from.
+                intent.putExtra("Planet", new Planet(12000,500000,600000));
                 startActivity(intent);
                 break;
             }

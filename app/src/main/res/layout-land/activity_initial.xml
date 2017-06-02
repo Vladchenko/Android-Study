@@ -225,6 +225,15 @@
             android:layout_alignEnd="@+id/banks_details_button" />
 
         <Button
+            android:text="Programmatic layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/programmatic_layout_button"
+            android:layout_below="@+id/context_menu_button"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
             android:text="Call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -235,13 +244,11 @@
             android:layout_alignEnd="@+id/alert_dialogue_button" />
 
         <Button
-            android:text="Programmatic layout"
+            android:text="Parcelable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/programmatic_layout_button"
-            android:layout_below="@+id/context_menu_button"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:id="@+id/parcelable_button"
+            android:layout_below="@+id/programmatic_layout_button" />
 
     </LinearLayout>
 
