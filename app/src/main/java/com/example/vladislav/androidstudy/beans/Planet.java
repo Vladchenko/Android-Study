@@ -11,6 +11,16 @@ public class Planet implements Parcelable {
 
     private double size;        // Diameter in kms.
     private double weight;      // In tons.
+
+    @Override
+    public String toString() {
+        return "Planet{" +
+                "size=" + size +
+                ", weight=" + weight +
+                ", distance=" + distance +
+                '}';
+    }
+
     private double distance;    // Distance from a star in kms.
 
     public Planet() { }
