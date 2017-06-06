@@ -9,26 +9,40 @@ import android.text.Spanned;
 import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.vladislav.androidstudy.R;
-
 import static com.example.vladislav.androidstudy.R.*;
 
-public class RotationActivity extends AppCompatActivity {
+public class RotationActivity extends AppCompatActivity  implements View.OnClickListener {
 
-    private final String mLogTag = getClass().getCanonicalName();
+    private final String TAG = getClass().getCanonicalName();
+    private final String KEY_INDEX = getClass().getCanonicalName();
+    private EditText generatedValueEditText;
+    private String mGeneratedValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_rotation);
+
+        // When there is a saved instance (usually when an activity is recreated when rotating
+        // a phone or when Android destroys an activity due to lack of memory);
+        if (savedInstanceState != null) {
+            // Getting a value from it.
+            mGeneratedValue = savedInstanceState.getString(KEY_INDEX);
+            // One may use not only a primitive but any java.lang.Object type.
+        }
+
         TextView textView = (TextView) findViewById(id.textView17);
         textView.setText("Vlad");
         EditText editText = (EditText) findViewById(id.editText4);
         editText.setText("Vlad");
-        textView = (TextView) findViewById(id.textView18);
+        textView = (TextView) findViewById(id.web_link_text_view);
+        generatedValueEditText = (EditText)findViewById(id.generated_value_edit_text);
+        Button button = (Button)findViewById(id.generate_value_button);
+        button.setOnClickListener(this);
 
         // Making a string text to look like a web-link.
         final CharSequence text = textView.getText();
@@ -44,43 +58,63 @@ public class RotationActivity extends AppCompatActivity {
                 startActivity(browserIntent);
             }
         });
+        System.out.println(mGeneratedValue);
 
-        Log.i(mLogTag, "onCreate");
+        Log.i(TAG, "onCreate");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.i(mLogTag, "onRestart");
+        Log.i(TAG, "onRestart");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(mLogTag, "onStart");
+        Log.i(TAG, "onStart");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(mLogTag, "onPause");
+        Log.i(TAG, "onPause");
     }
 
     @Override
     protected void onResume() {
         super.onPause();
-        Log.i(mLogTag, "onResume");
+        Log.i(TAG, "onResume");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i(mLogTag, "onStop");
+        Log.i(TAG, "onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(mLogTag, "onDestroy");
+        Log.i(TAG, "onDestroy");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        // Saving a generated value for a case when an activity is recreated.
+        savedInstanceState.putString(KEY_INDEX, mGeneratedValue);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case id.generate_value_button: {
+                mGeneratedValue = Long.toString(Math.round(Math.random()*1000));
+                generatedValueEditText.setText(mGeneratedValue);
+                break;
+            }
+        }
     }
 }

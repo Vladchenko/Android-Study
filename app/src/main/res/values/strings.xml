@@ -30,5 +30,7 @@
         sending of data(message), not the activity requests it on demand. One needs to implement a
         way to receive the data on demand.</string>
     <string name="service_demo5_title">Value received from service:</string>
+    <string name="rotation_activity_message">Since activities do get recreated after screen is rotated, the data of a view located on this activity should get lost. But android doesn't allow this to happen. You may rotate the screen to see that its true. Even that TextView and EditText present lower are set to text 'Vlad' programmatically. But this mechanism doesn't work with primitives or objects. In this case developer has to use onCreate(Bundle savedInstanceState) and onSaveInstanceState(Bundle savedInstanceState) methods.</string>
+
 
 </resources>

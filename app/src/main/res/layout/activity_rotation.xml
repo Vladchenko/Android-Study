@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Since activities do get recreated after screen is rotated, the data of a view located on this activity should get lost. But android doesn't allow this to happen. You may rotate the screen to see that its true. TextView and EditText present lower are set to text 'Vlad' programmatically." />
+        android:text="@string/rotation_activity_message" />
 
     <TextView
         android:id="@+id/textView17"
@@ -39,7 +39,7 @@
         android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/web_link_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -47,5 +47,22 @@
         android:layout_centerVertical="true"
         android:layout_margin="@dimen/activity_vertical_margin"
         android:text="http://charlesharley.com/2012/programming/views-saving-instance-state-in-android    -    How saving instance state works" />
+
+    <Button
+        android:layout_below="@id/web_link_text_view"
+        android:id="@+id/generate_value_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate" />
+
+    <EditText
+        android:id="@+id/generated_value_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/generate_value_button"
+        android:layout_below="@id/web_link_text_view"
+        android:ems="3"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:textAlignment="center" />
 
 </RelativeLayout>
