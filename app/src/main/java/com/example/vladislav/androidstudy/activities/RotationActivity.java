@@ -83,7 +83,7 @@ public class RotationActivity extends AppCompatActivity  implements View.OnClick
 
     @Override
     protected void onResume() {
-        super.onPause();
+        super.onResume();
         Log.i(TAG, "onResume");
     }
 
