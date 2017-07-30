@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="activities.AddButtonsActivity"
+    android:layout_marginLeft="@dimen/add_buttons_margin">
+
+    <RelativeLayout
+        android:id="@+id/static_components"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/button_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button name to operate with:"
+            android:layout_marginTop="@dimen/add_buttons_margin"/>
+
+        <EditText
+            android:id="@+id/button_name_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="button1"
+            android:layout_below="@+id/button_name_text_view"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:layout_below="@+id/button_name_edit_text"
+            android:layout_alignLeft="@+id/button_name_text_view"
+            android:layout_alignStart="@+id/button_name_text_view" />
+
+        <Button
+            android:id="@+id/remove_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove"
+            android:layout_below="@+id/button_name_edit_text"
+            android:layout_toRightOf="@+id/add_button"
+            android:layout_toEndOf="@+id/add_button" />
+
+    </RelativeLayout>
+
+    <GridLayout
+        android:layout_below="@id/static_components"
+        android:id="@+id/dynamic_components_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rowCount="20"
+        android:columnCount="2">
+    </GridLayout>
+
+</RelativeLayout>

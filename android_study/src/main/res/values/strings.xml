@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">AndroidStudy</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main3">Main3Activity</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_list_view">This activity displays a list, using a ListView component. We will place here a names of space stars.</string>
+    <string name="fragment1_text">Fragment 1</string>
+    <string name="fragment2_text">Fragment 2</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
+    <string name="replace">Replace</string>
+    <string name="stack">add to Back Stack</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="service_description">This is a demo service.</string>
+    <string name="intent_service_description">This is a demo intent service.</string>
+    <string name="mAddress">Вавилова, 23</string>
+    <string name="extra_office">Доп.офис №9380/0138</string>
+    <string name="mDistance">12 км.</string>
+    <string name="phone_number">+7 (800) 555-55-00</string>
+    <string name="information_text">Telephone for queries</string>
+    <string name="quality_estimation">Feedback</string>
+    <string name="progress_bar_inscription">Please wait, list of banks is downloading now ...</string>
+    <string name="detailed_info_empty">Click on a needed bank to see its details.</string>
+    <string name="service_demo2_description">This service runs by default (on a UI thread). You may see that UI jams when this service performs.</string>
+    <string name="service_demo3_description">This service runs on separate thread.</string>
+    <string name="service_demo4_description">This service is bound.</string>
+    <string name="service_demo5_description">This service uses a Messenger. This mechanism renders a
+        sending of data(message), not the activity requests it on demand. One needs to implement a
+        way to receive the data on demand.</string>
+    <string name="service_demo5_title">Value received from service:</string>
+    <string name="rotation_activity_message">Since activities do get recreated after screen is rotated, the data of a view located on this activity should get lost. But android doesn\'t allow this to happen. You may rotate the screen to see that its true. Even that TextView and EditText present lower are set to text \'Vlad\' programmatically. But this mechanism doesn\'t work with primitives or objects. In this case developer has to use onCreate(Bundle savedInstanceState) and onSaveInstanceState(Bundle savedInstanceState) methods.</string>
+    <string name="title_activity_add_buttons">AddButtonsActivity</string>
+
+
+</resources>

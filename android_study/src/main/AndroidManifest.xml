@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.vladislav.androidstudy">
+
+    <!-- INFO ABOUT MANIFEST.XML -->
+    <!-- http://developer.alexanderklimov.ru/android/theory/AndroidManifestXML.php -->
+    <!-- https://developer.android.com/guide/topics/manifest/manifest-intro.html -->
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--
+             The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+             Google Maps Android API v2, but you must specify either coarse or fine
+             location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Such a persmission is needed to check a wifi state -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.android.androidtest.READ_DATABASE" />
+    <uses-permission android:name="com.android.androidtest.WRITE_DATABASE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:name="android.support.multidex.MultiDexApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <uses-library
+            android:name="com.google.android.wearable"
+            android:required="false" />
+
+        <activity
+            android:name=".activities.Widgets2Activity"
+            android:label="@string/title_activity_main2" />
+        <activity
+            android:name=".activities.InitialActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.WidgetsActivity" />
+        <activity android:name=".activities.ResultActivity" />
+        <activity android:name=".activities.LayoutingActivity" />
+        <activity android:name=".activities.AligningActivity" />
+        <activity android:name=".activities.ListsViewingActivity" />
+        <activity android:name=".activities.MenuActivity" />
+        <activity android:name=".activities.fragments_activity.FragmentsActivity" />
+        <activity android:name=".activities.fragments_activity.FragmentsDynamicActivity" />
+        <activity android:name=".activities.ImageActivity" />
+        <activity android:name=".activities.ServicesDemo1Activity" />
+        <activity android:name=".activities.ProgrammaticLayoutActivity" />
+        <activity android:name=".banksdetails.BanksDetailsActivity" />
+
+        <receiver android:name=".activities.AirPlaneStateReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".services.demo1.StartedSimpleService"
+            android:description="@string/service_description"
+            android:label="@string/service_description" />
+        <service
+            android:name=".services.demo1.StartedIntentService"
+            android:description="@string/intent_service_description" />
+        <service
+            android:name=".services.demo1.BindSimpleService"
+            android:description="@string/service_description"
+            android:label="@string/service_description" />
+        <service
+            android:name=".services.demo1.BindIntentedService"
+            android:description="@string/intent_service_description" />
+        <service
+            android:name=".services.demo1.BothSimpleService"
+            android:description="@string/service_description"
+            android:label="@string/service_description" />
+        <service
+            android:name=".services.demo1.BothIntentedService"
+            android:description="@string/intent_service_description" />
+        <service android:name=".services.ServiceDemo2" />
+        <service
+            android:name=".services.ServiceDemo3"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".services.IntentServiceDemo1"
+            android:exported="false" />
+        <service
+            android:name=".services.ServiceDemo4"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".services.ServiceDemo5"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".activities.RotationActivity" />
+        <activity android:name=".intentstudy.IntentsActivity" />
+        <activity android:name=".intentstudy.SimpleIntentActivity" />
+        <activity android:name=".intentstudy.IntentWithActionActivity">
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".intentstudy.IntentWithActionActivity2"
+            android:label="activity 2">
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".intentstudy.IntentWithActionActivity3"
+            android:label="activity 3">
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
+        <activity android:name=".activities.ContextMenuActivity" />
+        <activity android:name=".activities.asynctask.AsyncTasksActivity" />
+        <activity android:name=".activities.asynctask.AsyncTask1Activity" />
+        <activity android:name=".activities.asynctask.AsyncTask2Activity" />
+        <activity android:name=".activities.asynctask.AsyncTask3Activity" />
+        <activity android:name=".activities.asynctask.AsyncTask4Activity" />
+        <activity android:name=".activities.ServicesActivity" />
+        <activity android:name=".activities.ParcelableActivity" />
+        <activity android:name=".activities.AddButtonsActivity"></activity>
+    </application>
+
+</manifest>
