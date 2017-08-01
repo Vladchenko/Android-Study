@@ -16,15 +16,15 @@ import com.example.vladislav.androidstudy.activities.fragments_activity.Fragment
 
 public class FragmentsDynamicActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button mButtonAdd;
-    Button mButtonReplace;
-    Button mButtonRemove;
-    Fragment mFragment1;
-    Fragment mFragment2;
-    Fragment mFragment;
-    CheckBox mCheckBox;
-    FragmentManager mFragmentManager;
-    FragmentTransaction mFragmentTransaction;
+    private Button mButtonAdd;
+    private Button mButtonReplace;
+    private Button mButtonRemove;
+    private Fragment mFragment1;
+    private Fragment mFragment2;
+    private Fragment mFragment;
+    private CheckBox mCheckBox;
+    private FragmentManager mFragmentManager;
+    private FragmentTransaction mFragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
