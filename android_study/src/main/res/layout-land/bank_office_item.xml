@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:background="@drawable/item_selector">
+
+    <TextView
+        android:id="@+id/address_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/address_layout_height"
+        android:layout_marginTop="@dimen/house_up_margin"
+        android:layout_toRightOf="@id/house_image_view"
+        android:gravity="bottom|left"
+        android:maxLines="1"
+        android:text="@string/mAddress"
+        android:textSize="@dimen/address_text_size" />
+
+    <TextView
+        android:id="@+id/extra_office_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/extra_office_layout_height"
+        android:layout_below="@id/address_text_view"
+        android:layout_toRightOf="@id/house_image_view"
+        android:maxLines="1"
+        android:text="@string/extra_office"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/distance_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/house_size"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/house_up_margin"
+        android:layout_toRightOf="@id/address_text_view"
+        android:gravity="right|center"
+        android:paddingRight="@dimen/distance_right_padding"
+        android:text="@string/mDistance"
+        android:textSize="@dimen/distance_text_size" />
+
+</RelativeLayout>
