@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
-import android.widget.RelativeLayout;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.logic.Utils;
@@ -17,55 +16,31 @@ import java.util.List;
 
 public class AddButtonsActivity extends AppCompatActivity {
 
-    List<Button> buttons = new ArrayList<>();
-    GridLayout layout;
+    private List<Button> mButtons = new ArrayList<>();
+    private GridLayout mLayout;
+    private EditText mButtonName;
+    private Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_buttons);
-        layout = (GridLayout) findViewById(R.id.dynamic_components_layout);
-        final Activity activity = this;
 
-        final EditText buttonname = (EditText) findViewById(R.id.button_name_edit_text);
+        mLayout = (GridLayout) findViewById(R.id.dynamic_components_layout);
+        mButtonName = (EditText) findViewById(R.id.button_name_edit_text);
+        mActivity = this;
 
         final Button addButton = (Button) findViewById(R.id.add_button);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isAddButton(buttonname.getText().toString())) {
-                    Button newButton = new Button(activity);
-                    newButton.setText(buttonname.getText());
-                    buttons.add(newButton);
-                    layout.addView(newButton);
-                    Utils.showToast(activity, "Button named "
-                            + buttonname.getText().toString()
-                            + " was added");
-                } else {
-                    Utils.showToast(activity, "Such button exists");
-                }
-            }
-        });
+        addButton.setOnClickListener(getAddButtonListener());
         final Button removeButton = (Button) findViewById(R.id.remove_button);
-        removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!removeButton(buttonname.getText().toString())) {
-                    Utils.showToast(activity, "No such button");
-                } else {
-                    Utils.showToast(activity, "Button named "
-                            + buttonname.getText().toString()
-                            + " has been removed");
-                }
-            }
-        });
+        removeButton.setOnClickListener(getRemoveButtonListener());
     }
 
-    public boolean isAddButton(String name) {
+    private boolean isAddButton(String name) {
         boolean result = true;
-        for (int i=0; i < buttons.size(); i++) {
-            if (buttons.get(i).getText().toString().equals(name)) {
+        for (int i = 0; i < mButtons.size(); i++) {
+            if (mButtons.get(i).getText().toString().equals(name)) {
                 result = false;
                 break;
             }
@@ -73,15 +48,49 @@ public class AddButtonsActivity extends AppCompatActivity {
         return result;
     }
 
-    public boolean removeButton(String name) {
+    private boolean removeButton(String name) {
         boolean result = false;
-        for (int i=0; i < buttons.size(); i++) {
-            if (buttons.get(i).getText().toString().equals(name)) {
-                layout.removeView(buttons.get(i));
-                buttons.remove(i);
+        for (int i = 0; i < mButtons.size(); i++) {
+            if (mButtons.get(i).getText().toString().equals(name)) {
+                mLayout.removeView(mButtons.get(i));
+                mButtons.remove(i);
                 result = true;
             }
         }
         return result;
+    }
+
+    private View.OnClickListener getAddButtonListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isAddButton(mButtonName.getText().toString())) {
+                    Button newButton = new Button(mActivity);
+                    newButton.setText(mButtonName.getText());
+                    mButtons.add(newButton);
+                    mLayout.addView(newButton);
+                    Utils.showToast(mActivity, "Button named "
+                            + mButtonName.getText().toString()
+                            + " was added");
+                } else {
+                    Utils.showToast(mActivity, "Such button exists");
+                }
+            }
+        };
+    }
+
+    private View.OnClickListener getRemoveButtonListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!removeButton(mButtonName.getText().toString())) {
+                    Utils.showToast(mActivity, "No such button");
+                } else {
+                    Utils.showToast(mActivity, "Button named "
+                            + mButtonName.getText().toString()
+                            + " has been removed");
+                }
+            }
+        };
     }
 }
