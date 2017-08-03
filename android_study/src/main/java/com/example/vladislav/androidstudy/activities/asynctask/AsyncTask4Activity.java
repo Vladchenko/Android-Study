@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
@@ -22,21 +21,41 @@ import java.net.URLConnection;
 
 public class AsyncTask4Activity extends AppCompatActivity {
 
-    private DemoAsyncTask asyncTask;
-    private static TextView textView;
+    private DemoAsyncTask mAsyncTask;
+    private static TextView mTextView;
+    private Bitmap mImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_async_task4);
-        textView = (TextView) findViewById(R.id.asynctask4_progress_text_view);
-        asyncTask = (DemoAsyncTask) getLastNonConfigurationInstance();
-        if (asyncTask == null) {
-            asyncTask = new DemoAsyncTask(this);
-            asyncTask.execute("http://techladon.com/wp-content/uploads/2015/02/mortal-kombat-x.jpg");
+
+        if (savedInstanceState != null) {
+            mImage = (Bitmap) savedInstanceState.getParcelable("image");
+            ((ImageView) findViewById(R.id.asynctask4_image_view)).setImageBitmap(mImage);
+        } else {
+            setContentView(R.layout.activity_async_task4);
+            mTextView = (TextView) findViewById(R.id.asynctask4_progress_text_view);
+            mAsyncTask = (DemoAsyncTask) getLastNonConfigurationInstance();
+            if (mAsyncTask == null) {
+                mAsyncTask = new DemoAsyncTask(this);
+                mAsyncTask.execute("https://images2.alphacoders.com/758/thumb-1920-75892.jpg");
+            }
+            // передаем в DemoAsyncTask ссылку на текущее AsyncTask4Activity
+            mAsyncTask.link(this);
         }
-        // передаем в DemoAsyncTask ссылку на текущее AsyncTask4Activity
-        asyncTask.link(this);
+    }
+
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("image", mImage);
+    }
+
+    public Bitmap getmImage() {
+        return mImage;
+    }
+
+    public void setmImage(Bitmap mImage) {
+        this.mImage = mImage;
     }
 
     static class DemoAsyncTask extends AsyncTask<String, Integer, Bitmap> {
@@ -48,7 +67,7 @@ public class AsyncTask4Activity extends AppCompatActivity {
             mContext = context.getApplicationContext();
         }
 
-        // получаем ссылку на AsyncTask2Activity
+        // получаем ссылку на AsyncTask4Activity
         void link(AsyncTask4Activity act) {
             activity = act;
         }
@@ -60,7 +79,7 @@ public class AsyncTask4Activity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            textView.setText("Asynctask3 performs downloading a picture ...");
+            mTextView.setText("Asynctask4 performs downloading a picture ...");
         }
 
         @Override
@@ -68,23 +87,23 @@ public class AsyncTask4Activity extends AppCompatActivity {
             return download_Image(params[0]);
         }
 
-
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            textView.setText("Downloaded " + values[0].toString() + "%");
+            mTextView.setText("Downloaded " + values[0].toString() + "%");
         }
 
         @Override
         protected void onPostExecute(Bitmap result) {
-            textView.setText("Download complete");
+            mTextView.setText("Download complete");
+            activity.setmImage(result);
             ((ImageView) activity.findViewById(R.id.asynctask4_image_view)).setImageBitmap(result);
-            ((ProgressBar) activity.findViewById(R.id.asynctask4_progress_bar)).setVisibility(TextView.GONE);
+            activity.findViewById(R.id.asynctask4_progress_bar).setVisibility(TextView.GONE);
         }
 
         private Bitmap download_Image(String urlString) {
 
-            // Downloading an image with showing a progress.
+            // Downloading an mImage with showing a progress.
 
             byte data[] = new byte[1024];
             long total = 0;
