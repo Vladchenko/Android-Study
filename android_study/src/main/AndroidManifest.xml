@@ -20,7 +20,6 @@
     <uses-permission android:name="com.android.androidtest.READ_DATABASE" />
     <uses-permission android:name="com.android.androidtest.WRITE_DATABASE" />
 
-
     <application
         android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
@@ -138,7 +137,11 @@
         <activity android:name=".activities.asynctask.AsyncTask4Activity" />
         <activity android:name=".activities.ServicesActivity" />
         <activity android:name=".activities.ParcelableActivity" />
-        <activity android:name=".activities.AddButtonsActivity"></activity>
+        <activity android:name=".activities.AddButtonsActivity" />
+        <activity
+            android:name=".activities.fragments_activity.OneFragmentActivity"
+            android:label="@string/title_activity_one_fragment"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

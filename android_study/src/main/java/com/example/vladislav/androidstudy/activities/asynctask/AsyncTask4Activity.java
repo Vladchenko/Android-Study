@@ -47,6 +47,8 @@ public class AsyncTask4Activity extends AppCompatActivity {
 
     @Override public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        // The goal is - to not download an image again, but to get it from a bundle.
+        // Seems there is no to do this, using this mechanism, but to save to disk and then restore.
         outState.putParcelable("image", mImage);
     }
 

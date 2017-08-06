@@ -216,6 +216,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.add_buttons_button);
         mButton.setOnClickListener(this);
+        mButton = (Button) findViewById(R.id.one_fragment_button);
+        mButton.setOnClickListener(this);
     }
 
 //    public void gotoServicesActivity(View view) {
@@ -301,6 +303,10 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
             }
             case R.id.add_buttons_button: {
                 mButtonsHandlers.gotoAddButtons();
+                break;
+            }
+            case R.id.one_fragment_button: {
+                mButtonsHandlers.gotoOneFragment();
                 break;
             }
         }

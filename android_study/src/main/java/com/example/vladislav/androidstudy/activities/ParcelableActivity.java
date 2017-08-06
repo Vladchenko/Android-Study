@@ -11,8 +11,8 @@ import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.beans.Planet;
 
 /**
- * To send data from one mActivity to another, one may use Parcelable.
- * 1. In one mActivity:
+ * To send data from one activity to another, one may use Parcelable.
+ * 1. In one activity:
  *      intent = new Intent(this, ParcelableActivity.class);
  *      intent.putExtra("Planet", new Planet(1,1,1));
  *       startActivity(intent);

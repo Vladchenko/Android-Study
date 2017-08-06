@@ -2,7 +2,6 @@ package com.example.vladislav.androidstudy.activities.fragments_activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.net.Uri;
 import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +10,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.activities.fragments_activity.Fragment1;
-import com.example.vladislav.androidstudy.activities.fragments_activity.Fragment2;
 
 public class FragmentsDynamicActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,7 +46,7 @@ public class FragmentsDynamicActivity extends AppCompatActivity implements View.
         mFragment = mFragmentManager.findFragmentById(R.id.fragment_container);
         switch (v.getId()) {
             case R.id.add_button: {
-                if (null == mFragment) {
+                if (mFragment == null) {
                     mFragmentTransaction.add(R.id.fragment_container, mFragment1);
                     break;
                 }
@@ -68,12 +65,12 @@ public class FragmentsDynamicActivity extends AppCompatActivity implements View.
                 break;
             }
             case R.id.replace_button: {
-                if (null != mFragment) {
-                    if (null != mFragment1
+                if (mFragment != null) {
+                    if (mFragment1 != null
                             && mFragment.equals(mFragment1)) {
                         mFragmentTransaction.replace(R.id.fragment_container, mFragment2);
                     }
-                    if (null != mFragment2
+                    if (mFragment2 != null
                             && mFragment.equals(mFragment2)) {
                         mFragmentTransaction.replace(R.id.fragment_container, mFragment1);
                     }
@@ -86,7 +83,9 @@ public class FragmentsDynamicActivity extends AppCompatActivity implements View.
                 break;
             }
         }
-        if (mCheckBox.isChecked()) mFragmentTransaction.addToBackStack(null);
+        if (mCheckBox.isChecked()) {
+            mFragmentTransaction.addToBackStack(null);
+        }
         mFragmentTransaction.commit();
     }
 

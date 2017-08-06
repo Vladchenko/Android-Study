@@ -21,6 +21,7 @@ import com.example.vladislav.androidstudy.activities.Widgets2Activity;
 import com.example.vladislav.androidstudy.activities.WidgetsActivity;
 import com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsActivity;
 import com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsDynamicActivity;
+import com.example.vladislav.androidstudy.activities.fragments_activity.OneFragmentActivity;
 import com.example.vladislav.androidstudy.beans.Planet;
 
 /**
@@ -146,6 +147,11 @@ public class ButtonsHandlers {
 
     public void gotoAddButtons() {
         Intent intent = new Intent(mInitialActivity, AddButtonsActivity.class);
+        mInitialActivity.startActivity(intent);
+    }
+
+    public void gotoOneFragment() {
+        Intent intent = new Intent(mInitialActivity, OneFragmentActivity.class);
         mInitialActivity.startActivity(intent);
     }
 }

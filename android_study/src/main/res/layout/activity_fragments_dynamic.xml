@@ -39,7 +39,6 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/replace_button"
         android:id="@+id/fragment_container">
-
     </FrameLayout>
 
     <CheckBox
