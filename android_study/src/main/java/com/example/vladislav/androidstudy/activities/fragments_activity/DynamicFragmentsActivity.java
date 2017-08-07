@@ -11,7 +11,7 @@ import android.widget.CheckBox;
 
 import com.example.vladislav.androidstudy.R;
 
-public class FragmentsDynamicActivity extends AppCompatActivity implements View.OnClickListener {
+public class DynamicFragmentsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button mButtonAdd;
     private Button mButtonReplace;

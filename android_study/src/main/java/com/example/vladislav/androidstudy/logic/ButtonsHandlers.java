@@ -20,7 +20,7 @@ import com.example.vladislav.androidstudy.activities.ParcelableActivity;
 import com.example.vladislav.androidstudy.activities.Widgets2Activity;
 import com.example.vladislav.androidstudy.activities.WidgetsActivity;
 import com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsActivity;
-import com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsDynamicActivity;
+import com.example.vladislav.androidstudy.activities.fragments_activity.DynamicFragmentsActivity;
 import com.example.vladislav.androidstudy.activities.fragments_activity.OneFragmentActivity;
 import com.example.vladislav.androidstudy.beans.Planet;
 
@@ -64,7 +64,7 @@ public class ButtonsHandlers {
     }
 
     public void gotoFragmentsDynamicActivity() {
-        Intent intent = new Intent(mInitialActivity, FragmentsDynamicActivity.class);
+        Intent intent = new Intent(mInitialActivity, DynamicFragmentsActivity.class);
         mInitialActivity.startActivity(intent);
     }
 

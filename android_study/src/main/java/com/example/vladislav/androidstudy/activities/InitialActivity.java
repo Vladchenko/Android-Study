@@ -202,8 +202,6 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.image_button);
         mButton.setOnClickListener(this);
-        mButton = (Button) findViewById(R.id.fragments_dynamic_button);
-        mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.fragments_button);
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.menu_button);
@@ -216,8 +214,7 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(this);
         mButton = (Button) findViewById(R.id.add_buttons_button);
         mButton.setOnClickListener(this);
-        mButton = (Button) findViewById(R.id.one_fragment_button);
-        mButton.setOnClickListener(this);
+
     }
 
 //    public void gotoServicesActivity(View view) {
@@ -240,10 +237,7 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
                 mButtonsHandlers.gotoImageActivity();
                 break;
             }
-            case R.id.fragments_dynamic_button: {
-                mButtonsHandlers.gotoFragmentsDynamicActivity();
-                break;
-            }
+
             case R.id.fragments_button: {
                 mButtonsHandlers.gotoFragmentsActivity();
                 break;

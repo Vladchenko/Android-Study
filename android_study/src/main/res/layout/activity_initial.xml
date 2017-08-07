@@ -115,7 +115,7 @@
             android:text="image" />
 
         <Button
-            android:id="@+id/fragments_dynamic_button"
+            android:id="@+id/dynamic_fragments_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -123,17 +123,15 @@
             android:layout_below="@+id/list_button"
             android:layout_toLeftOf="@+id/image_button"
             android:layout_toStartOf="@+id/image_button"
-            android:onClick="gotoFragmentsDynamicActivity"
             android:text="Dynamic fragments" />
 
         <Button
             android:id="@+id/fragments_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/fragments_dynamic_button"
-            android:layout_alignBottom="@+id/fragments_dynamic_button"
-            android:layout_toRightOf="@+id/fragments_dynamic_button"
-            android:onClick="gotoFragmentsActivity"
+            android:layout_alignBaseline="@+id/dynamic_fragments_button"
+            android:layout_alignBottom="@+id/dynamic_fragments_button"
+            android:layout_toRightOf="@+id/dynamic_fragments_button"
             android:text="Fragments" />
 
         <Button
@@ -142,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/fragments_dynamic_button"
+            android:layout_below="@+id/dynamic_fragments_button"
             android:layout_toLeftOf="@+id/menu_button"
             android:layout_toStartOf="@+id/menu_button"
             android:text="Youtube" />
@@ -164,7 +162,7 @@
             android:layout_alignEnd="@+id/image_button"
             android:layout_alignRight="@+id/image_button"
             android:layout_below="@+id/fragments_button"
-            android:layout_toRightOf="@+id/fragments_dynamic_button"
+            android:layout_toRightOf="@+id/dynamic_fragments_button"
             android:text="Intents" />
 
         <Button

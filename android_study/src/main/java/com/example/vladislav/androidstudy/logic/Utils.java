@@ -1,6 +1,7 @@
 package com.example.vladislav.androidstudy.logic;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.Toast;
 
 /**
@@ -9,7 +10,7 @@ import android.widget.Toast;
 
 public class Utils {
 
-    public static void showToast(Activity activity, String text) {
-        Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
+    public static void showToast(Context context, String text) {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 }

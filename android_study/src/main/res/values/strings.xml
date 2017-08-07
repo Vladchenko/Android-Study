@@ -33,6 +33,7 @@
     <string name="rotation_activity_message">Since activities do get recreated after screen is rotated, the data of a view located on this activity should get lost. But android doesn\'t allow this to happen. You may rotate the screen to see that its true. Even that TextView and EditText present lower are set to text \'Vlad\' programmatically. But this mechanism doesn\'t work with primitives or objects. In this case developer has to use onCreate(Bundle savedInstanceState) and onSaveInstanceState(Bundle savedInstanceState) methods.</string>
     <string name="title_activity_add_buttons">AddButtonsActivity</string>
     <string name="title_activity_one_fragment">OneFragmentActivity</string>
+    <string name="title_activity_fragments">FragmentsActivity</string>
 
 
 </resources>
