@@ -96,7 +96,7 @@
         startActivity(intent);"
     </string>
     <string name="intent_with_action_text">
-        "This activity has been launch using a next intent:\n\n"
+        "This activity has been launched using a next intent:\n\n"
         "Intent intent = new Intent ("com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION");
                 startActivity(intent);\n\n"
         "Keep in mind that manifest has to have a following text in it:\n\n"

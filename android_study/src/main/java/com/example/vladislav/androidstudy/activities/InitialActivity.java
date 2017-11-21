@@ -44,7 +44,7 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         utils = new Utils();
 
         // That's how we reach the resources.
-//        Log.i("Log message: ", "Application name is:" + getResources().getString(R.string.app_name));
+        Log.i("Log message: ", "Application name is:" + getResources().getString(R.string.app_name));
 
         Log.i(mLogTag, "onCreate");
 //        utils.showToast(this, "onCreate");
@@ -95,15 +95,14 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // When nothing retrieved, finish the method.
-        if (data == null) {
-            return;
+        if (data != null) { // btw, can data be null at all ?
+            String text = data.getStringExtra(InitialActivity.ACTIVITY_RESULT_ID);
+            Toast toast = Toast.makeText(
+                    getApplicationContext(),
+                    "Received result is: " + text,
+                    Toast.LENGTH_SHORT);
+            toast.show();
         }
-        String text = data.getStringExtra(InitialActivity.ACTIVITY_RESULT_ID);
-        Toast toast = Toast.makeText(
-                getApplicationContext(),
-                "Received result is: " + text,
-                Toast.LENGTH_SHORT);
-        toast.show();
     }
 
     @Override

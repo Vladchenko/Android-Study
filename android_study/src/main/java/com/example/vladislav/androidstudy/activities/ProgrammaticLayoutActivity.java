@@ -11,6 +11,8 @@ import android.support.v7.widget.LinearLayoutCompat.LayoutParams;
 import android.widget.TextView;
 
 /**
+ * This is how one creates a contents of a current activity programmatically.
+ *
  * Created by vladislav on 15.05.17.
  */
 
@@ -19,6 +21,7 @@ public class ProgrammaticLayoutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // создание LinearLayout
         LinearLayout linLayout = new LinearLayout(this);
         // установим вертикальную ориентацию

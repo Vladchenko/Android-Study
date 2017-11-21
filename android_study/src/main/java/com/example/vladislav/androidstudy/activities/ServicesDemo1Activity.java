@@ -241,13 +241,13 @@ public class ServicesDemo1Activity extends AppCompatActivity {
         mServiceConnection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                Log.d("ServiceConnection", "MainActivity onServiceConnected");
+                Log.d("ServiceConnection", "TestStandActivity onServiceConnected");
 //                bound = true;
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
-                Log.d("ServiceConnection", "MainActivity onServiceDisconnected");
+                Log.d("ServiceConnection", "TestStandActivity onServiceDisconnected");
             }
         };
 

@@ -32,6 +32,7 @@ public class Fragment2 extends Fragment {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // TODO - Remove NPE here
                 Utils.showToast(context, "Fragment2 clicked");
             }
         });

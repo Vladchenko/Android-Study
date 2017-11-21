@@ -2,10 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vladislav.androidstudy">
 
+    <!--This part is optional-->
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:maxSdkVersion="26"/>
+
     <!-- INFO ABOUT MANIFEST.XML -->
     <!-- http://developer.alexanderklimov.ru/android/theory/AndroidManifestXML.php -->
     <!-- https://developer.android.com/guide/topics/manifest/manifest-intro.html -->
 
+    <!--Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming.-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!--
              The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -13,7 +19,7 @@
              location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- Such a persmission is needed to check a wifi state -->
+    <!-- Such a permission is needed to check if wifi is on -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,7 +27,7 @@
     <uses-permission android:name="com.android.androidtest.WRITE_DATABASE" />
 
     <application
-        android:name="android.support.multidex.MultiDexApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -30,16 +36,47 @@
         <uses-library
             android:name="com.google.android.wearable"
             android:required="false" />
-
         <activity
             android:name=".activities.Widgets2Activity"
-            android:label="@string/title_activity_main2" />
+            android:label="@string/title_activity_main2">
+        </activity>
+        <!--
+
+        android:launchMode=""
+
+        An activity with the "standard" or "singleTop" launch mode can be instantiated multiple
+        times. The instances can belong to any task and can be located anywhere in the activity
+        stack. The "standard" and "singleTop" modes differ from each other in just one respect:
+        Every time there's a new intent for a "standard" activity, a new instance of the class is
+        created to respond to that intent. Each instance handles a single intent. Similarly, a new
+        instance of a "singleTop" activity may also be created to handle a new intent. However,
+        if the target task already has an existing instance of the activity at the top of its
+        stack, that instance will receive the new intent (in an onNewIntent() call); a new instance
+        is not created. In other circumstances — for example, if an existing instance of the
+        "singleTop" activity is in the target task, but not at the top of the stack, or if it's
+        at the top of a stack, but not in the target task — a new instance would be created and
+        pushed on the stack.
+
+        In contrast, "singleTask" and "singleInstance" activities can only begin a task. They are
+        always at the root of the activity stack. Moreover, the device can hold only one instance
+        of the activity at a time — only one such task. ...
+
+        https://developer.android.com/guide/topics/manifest/activity-element.html#lmode
+
+        -->
         <activity
             android:name=".activities.InitialActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleInstance">
+        </activity>
+        <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
+        <activity
+            android:name=".separatestudypackage.TestStandActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <!--Next row says this app is added to an apps list in andoid OS on a cell phone-->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -55,7 +92,49 @@
         <activity android:name=".activities.ServicesDemo1Activity" />
         <activity android:name=".activities.ProgrammaticLayoutActivity" />
         <activity android:name=".banksdetails.BanksDetailsActivity" />
+        <activity android:name=".activities.RotationActivity" />
+        <activity android:name=".intentstudy.IntentsActivity" />
+        <activity android:name=".intentstudy.SimpleIntentActivity" />
+        <activity android:name=".intentstudy.IntentWithActionActivity">
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".intentstudy.IntentWithActionActivity2"
+            android:label="activity 2">
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".intentstudy.IntentWithActionActivity3"
+            android:label="activity 3">
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
+        <activity android:name=".activities.ContextMenuActivity" />
+        <activity android:name=".activities.asynctask.AsyncTasksActivity" />
+        <activity android:name=".activities.asynctask.AsyncTask1Activity" />
+        <activity android:name=".activities.asynctask.AsyncTask2Activity" />
+        <activity android:name=".activities.asynctask.AsyncTask3Activity" />
+        <activity android:name=".activities.asynctask.AsyncTask4Activity" />
+        <activity android:name=".activities.ServicesActivity" />
+        <activity android:name=".activities.ParcelableActivity" />
+        <activity android:name=".activities.AddButtonsActivity" />
+        <activity
+            android:name=".activities.fragments_activity.OneFragmentActivity"
+            android:label="@string/title_activity_one_fragment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.FragmentsActivity" />
+        <activity android:name=".activities.fragments_activity.FragmentsActivity" />
 
+        // Broadcast receiver
         <receiver android:name=".activities.AirPlaneStateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
@@ -100,50 +179,6 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activities.RotationActivity" />
-        <activity android:name=".intentstudy.IntentsActivity" />
-        <activity android:name=".intentstudy.SimpleIntentActivity" />
-        <activity android:name=".intentstudy.IntentWithActionActivity">
-            <intent-filter>
-                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".intentstudy.IntentWithActionActivity2"
-            android:label="activity 2">
-            <intent-filter>
-                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".intentstudy.IntentWithActionActivity3"
-            android:label="activity 3">
-            <intent-filter>
-                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
-        <activity android:name=".activities.ContextMenuActivity" />
-        <activity android:name=".activities.asynctask.AsyncTasksActivity" />
-        <activity android:name=".activities.asynctask.AsyncTask1Activity" />
-        <activity android:name=".activities.asynctask.AsyncTask2Activity" />
-        <activity android:name=".activities.asynctask.AsyncTask3Activity" />
-        <activity android:name=".activities.asynctask.AsyncTask4Activity" />
-        <activity android:name=".activities.ServicesActivity" />
-        <activity android:name=".activities.ParcelableActivity" />
-        <activity android:name=".activities.AddButtonsActivity" />
-        <activity
-            android:name=".activities.fragments_activity.OneFragmentActivity"
-            android:label="@string/title_activity_one_fragment"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.FragmentsActivity" />
-        <activity android:name=".activities.fragments_activity.FragmentsActivity"></activity>
     </application>
 
 </manifest>
