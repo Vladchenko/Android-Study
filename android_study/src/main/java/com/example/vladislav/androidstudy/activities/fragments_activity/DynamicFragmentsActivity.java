@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.logic.Utils;
 
 public class DynamicFragmentsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,7 +43,7 @@ public class DynamicFragmentsActivity extends AppCompatActivity implements View.
     public void onClick(View v) {
         mFragmentManager = getFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
-        // Getting the current fragment
+        // Getting the current fragment, if there is one present in the container.
         mFragment = mFragmentManager.findFragmentById(R.id.fragment_container);
         switch (v.getId()) {
             case R.id.add_button: {
@@ -52,6 +53,7 @@ public class DynamicFragmentsActivity extends AppCompatActivity implements View.
                 }
                 if (mFragment1.isAdded()
                         && mFragment2.isAdded()) {
+                    Utils.showToast(this, getString(R.string.both_fragments_added));
                     break;
                 }
                 if (mFragment.equals(mFragment1)) {

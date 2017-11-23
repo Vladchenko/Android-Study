@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.activities.AddButtonsActivity;
+import com.example.vladislav.androidstudy.logic.Utils;
+
+import static java.net.Proxy.Type.HTTP;
 
 // This activity is made to run(test) different pieces of code.
 public class TestStandActivity extends AppCompatActivity {
@@ -39,9 +42,6 @@ public class TestStandActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-//        startSomeFragment();
-        startSomeActivity();
-//        startActivityWithParameters();
     }
 
     protected void onDestroy() {
@@ -62,6 +62,11 @@ public class TestStandActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(LOG_TAG, "onResume ");
+//        startSomeFragment();
+//        startSomeActivity();
+//        startActivityWithParameters();
+//        runOnUiThreadTest();
+        startImplicitIntent();
     }
 
     protected void onStart() {
@@ -118,6 +123,21 @@ public class TestStandActivity extends AppCompatActivity {
     private void startSomeFragment() {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container_temp, new FirstFragment()).commit();
+        Toast.makeText(this, "Fragment started", Toast.LENGTH_SHORT).show();
+    }
+
+    private void startSomeFragmentWithTag() {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        // fragmentTag - is a tag that fragment can be identified by, when referred to.
+        fragmentTransaction.add(R.id.fragment_container_temp, new FirstFragment(), "fragmentTag").commit();
+        Toast.makeText(this, "Fragment started", Toast.LENGTH_SHORT).show();
+    }
+
+    private void startSomeFragmentWithBackStack() {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         // Adding a fragment to backstack. When pushing back, it goes away.
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.add(R.id.fragment_container_temp, new FirstFragment()).commit();
@@ -147,7 +167,6 @@ public class TestStandActivity extends AppCompatActivity {
         startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
     }
 
-
     // Passing parameters using putExtra() method from Intent.
 //    https://stackoverflow.com/questions/768969/passing-a-bundle-on-startactivity
     private void startActivityWithParameters() {
@@ -169,7 +188,6 @@ public class TestStandActivity extends AppCompatActivity {
         // String value = getIntent().getExtras().getString(mKey)
     }
 
-
     // Passing parameters using Bundle from Intent.
 //    https://stackoverflow.com/questions/768969/passing-a-bundle-on-startactivity
     private void startActivityWithParameters2() {
@@ -186,7 +204,6 @@ public class TestStandActivity extends AppCompatActivity {
         // or
         // String value = getIntent().getExtras().getString(mKey)
     }
-
 
     // Passing parameters creating a new Bundle.
     private void startActivityWithParameters3() {
@@ -205,7 +222,6 @@ public class TestStandActivity extends AppCompatActivity {
         // String value = getIntent().getExtras().getString(mKey)
     }
 
-
     private void startActivityWithParcelable() {
         // Starting an activity with passing some data into it, using bundle.
         Bundle bundle = new Bundle();
@@ -213,6 +229,37 @@ public class TestStandActivity extends AppCompatActivity {
         startActivity(new Intent(this, AddButtonsActivity.class), bundle);
     }
 
+    private void runOnUiThreadTest() {
+        // This code freezes UI for a 3 seconds.
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Utils.showToast(this, "After runOnUiThread()");
+    }
+
+    // This method starts a choice of how the task is to be implemented.
+    private void startImplicitIntent() {
+
+        // Создаем текстовое сообщение
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Some message");
+        sendIntent.setType("text/plain"); // "text/plain" MIME тип
+
+        // Убеждаемся, что есть явление, которое может обработать намерение
+        if (sendIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(Intent.createChooser(sendIntent, "Choose the app to implement the task"));
+            // or without chooser
+//            startActivity(sendIntent);
+        }
+    }
 
 //    private void commonModel() {
 //        getApplication().get

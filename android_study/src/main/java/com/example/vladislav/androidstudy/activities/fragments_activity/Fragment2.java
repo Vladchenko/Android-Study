@@ -13,8 +13,6 @@ import com.example.vladislav.androidstudy.logic.Utils;
 
 public class Fragment2 extends Fragment {
 
-    Context context;
-
     public Fragment2() {
         // Required empty public constructor
     }
@@ -32,18 +30,15 @@ public class Fragment2 extends Fragment {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO - Remove NPE here
-                Utils.showToast(context, "Fragment2 clicked");
+                Utils.showToast(getActivity(), "Fragment2 clicked");
             }
         });
-        // Inflate the layout for this fragment
         return v;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.context = context;
     }
 
     @Override

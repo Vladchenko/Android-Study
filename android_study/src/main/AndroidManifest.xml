@@ -68,6 +68,7 @@
             android:name=".activities.InitialActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleInstance">
+
         </activity>
         <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
         <activity
