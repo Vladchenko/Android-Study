@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.intentstudy.intentfiltercollision.IntentFilterCollisionActivity;
+import com.example.vladislav.androidstudy.intentstudy.intentfiltercollision.IntentFilterCollisionInitialActivity;
 
 public class IntentsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -15,6 +17,8 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intents);
         Button button = (Button) findViewById(R.id.intent_button);
+        button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.intent_with_collision_button);
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.intent_with_action_button);
         button.setOnClickListener(this);
@@ -29,6 +33,11 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.intent_button: {
                 Intent intent = new Intent(this, SimpleIntentActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.intent_with_collision_button: {
+                Intent intent = new Intent(this, IntentFilterCollisionInitialActivity.class);
                 startActivity(intent);
                 break;
             }

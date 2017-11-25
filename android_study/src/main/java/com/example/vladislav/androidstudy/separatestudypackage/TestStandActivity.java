@@ -2,9 +2,9 @@ package com.example.vladislav.androidstudy.separatestudypackage;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,14 +18,13 @@ import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.activities.AddButtonsActivity;
 import com.example.vladislav.androidstudy.logic.Utils;
 
-import static java.net.Proxy.Type.HTTP;
-
 // This activity is made to run(test) different pieces of code.
 public class TestStandActivity extends AppCompatActivity {
 
     public static final String mKey = "someConstant";
     public static final String mKey2 = "someConstant2";
     private static final String LOG_TAG = TestStandActivity.class.getSimpleName();
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +62,11 @@ public class TestStandActivity extends AppCompatActivity {
         super.onResume();
         Log.d(LOG_TAG, "onResume ");
 //        startSomeFragment();
+//        startSomeFragmentWithBackStack();
 //        startSomeActivity();
 //        startActivityWithParameters();
 //        runOnUiThreadTest();
-        startImplicitIntent();
+//        startImplicitIntent();
     }
 
     protected void onStart() {
@@ -91,33 +91,12 @@ public class TestStandActivity extends AppCompatActivity {
     // https://stackoverflow.com/questions/12793069/android-onsaveinstancestate-not-being-called-from-activity
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        // The same Bundle comes in onCreate() callback
         super.onRestoreInstanceState(savedInstanceState);
         Log.d(LOG_TAG, "onRestoreInstanceState");
         if (savedInstanceState != null) {
             Toast.makeText(this, savedInstanceState.getString(mKey), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void makeDelay() {
-
-        // The point was to make some delay. before a UI thread could run some action.
-
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    Thread.sleep(4000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        thread.start();
-//        try {
-//            thread.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
 
     private void startSomeFragment() {
@@ -138,7 +117,8 @@ public class TestStandActivity extends AppCompatActivity {
     private void startSomeFragmentWithBackStack() {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        // Adding a fragment to backstack. When pushing back, it goes away.
+        // Adding a fragment to backstack. When clicking back, it goes away. Without backstack,
+        // clicking back would quit the app.
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.add(R.id.fragment_container_temp, new FirstFragment()).commit();
         Toast.makeText(this, "Fragment started", Toast.LENGTH_SHORT).show();
@@ -149,6 +129,9 @@ public class TestStandActivity extends AppCompatActivity {
     private void startSomeActivity() {
 
 //        startActivity(new Intent(this, AddButtonsActivity.class));
+        // This row fires a chooser saying - no apps can perform this action.
+        startActivity(Intent.createChooser(new Intent(this, AddButtonsActivity.class),
+                "Choose the app to proceed"));
 
         // Some extra way to start activity
 //        startActivity(new Intent(this, AddButtonsActivity.class), Bundle.EMPTY);
@@ -158,16 +141,16 @@ public class TestStandActivity extends AppCompatActivity {
         // startActivityWithParameters() method given lower.
 
         // It is a Context that starts an activity. So, upper row could be replaced with 2 rows
-        // lower:
+        // next:
 //        Context context = getApplicationContext();
 //        context.startActivity(new Intent(this, AddButtonsActivity.class));
 
         // This is the way an activity from another app is started. No extra permission is required
         // in this case.
-        startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
+//        startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
     }
 
-    // Passing parameters using putExtra() method from Intent.
+    // Passing parameters using putExtra() method in Intent.
 //    https://stackoverflow.com/questions/768969/passing-a-bundle-on-startactivity
     private void startActivityWithParameters() {
 
@@ -206,6 +189,7 @@ public class TestStandActivity extends AppCompatActivity {
     }
 
     // Passing parameters creating a new Bundle.
+    // What's the point of making a new bundle instead of using an existing one.
     private void startActivityWithParameters3() {
 
         String value = "someValue";
@@ -224,6 +208,7 @@ public class TestStandActivity extends AppCompatActivity {
 
     private void startActivityWithParcelable() {
         // Starting an activity with passing some data into it, using bundle.
+        // Do not forget to write unit tests on parcelables.
         Bundle bundle = new Bundle();
         bundle.putParcelable("VALUE", new MyParcelable2());
         startActivity(new Intent(this, AddButtonsActivity.class), bundle);
@@ -253,12 +238,59 @@ public class TestStandActivity extends AppCompatActivity {
         sendIntent.putExtra(Intent.EXTRA_TEXT, "Some message");
         sendIntent.setType("text/plain"); // "text/plain" MIME тип
 
-        // Убеждаемся, что есть явление, которое может обработать намерение
+        // Убеждаемся, что есть активити, которая может обработать интент
         if (sendIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(Intent.createChooser(sendIntent, "Choose the app to implement the task"));
             // or without chooser
 //            startActivity(sendIntent);
         }
+    }
+
+    // Listing and a methods that belong to Activity class.
+    private void activitySpecificMethods() {
+        findViewById(R.id.button_name_edit_text);
+//        runOnUiThread(new Runnable());
+//        ...
+    }
+
+    // Listing and a methods that belong to Context class.
+    private void contextSpecificMethods() {
+
+        // Some info about app
+        getPackageName();
+        getApplicationInfo();
+        getPackageResourcePath();
+
+        // This is how one gets an access to different app resources.
+        getResources().getString(R.string.app_name);
+        // Ome may omit the getResources(). since activity is a child of a app.Context and write
+        // next way -
+        getString(R.string.app_name);
+        getAssets();
+
+        // Content Resolver - some provider of data.
+        getContentResolver();
+
+        getMainLooper();
+//        setTheme(R.id.resid);     getTheme();
+
+        getSharedPreferences("name", 1);
+//        moveSharedPreferencesFrom(Context, "name");
+//        deleteSharedPreferences("name");    // Requires API24. Why? Seems one can delete contents
+        // of it, but not the very file.
+
+//        openFileInput("filename");  // wrap with try
+//        openFileOutput("filename", 1);  // wrap with try
+//        deleteFile("filename");
+        fileList();
+//        getDataDir(""); getFilesDir();
+
+//        openOrCreateDatabase();   also delete
+
+//        sendBroadcast();
+
+//        runOnUiThread();
+//        ...
     }
 
 //    private void commonModel() {

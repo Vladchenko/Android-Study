@@ -20,11 +20,19 @@
         android:layout_marginTop="18dp" />
 
     <Button
+        android:text="Intent collision"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/intent_with_collision_button"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/intent_button" />
+
+    <Button
         android:text="Intent with action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/intent_with_action_button"
-        android:layout_below="@+id/intent_button"
+        android:layout_below="@+id/intent_with_collision_button"
         android:layout_centerHorizontal="true" />
 
     <Button

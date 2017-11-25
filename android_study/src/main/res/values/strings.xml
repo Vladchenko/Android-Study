@@ -37,6 +37,9 @@
     <string name="title_activity_one_fragment">OneFragmentActivity</string>
     <string name="title_activity_fragments">FragmentsActivity</string>
     <string name="title_activity_main">MainActivity</string>
-
+    <string name="background_task">"Some background task is underway ..."</string>
+    <string name="click_to_run">"Click button below to run background task"</string>
+    <string name="same_intents_button_text">"Run intent"</string>
+    <string name="same_intents_text_view_text">"Click button that runs an intent that matches the intent-filters in 2 activities"</string>
 
 </resources>
