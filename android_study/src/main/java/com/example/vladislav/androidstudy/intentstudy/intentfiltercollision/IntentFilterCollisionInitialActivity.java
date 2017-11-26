@@ -14,21 +14,21 @@ public class IntentFilterCollisionInitialActivity extends AppCompatActivity {
     // intent filter of 2 activity, to see what happens.
     // This is called an intent-filter collision.
 
-    // This action has to be the same for both the activities -
-    // 1. for IntentFilterCollisionActivity and
-    // 2. for IntentFilterCollisionActivity2 in the AndroidManifest.xml file, i.e.
-    // <activity android:name=".intentfiltercollision.IntentFilterCollisionActivity">
-    //      <intent-filter>
-    //           <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
-    //           <category android:name="android.intent.category.DEFAULT"> </category>
-    //      </intent-filter>
-    //      </activity>
-    //      <activity android:name=".intentfiltercollision.IntentFilterCollisionActivity2">
-    //          <intent-filter>
-    //              <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
-    //              <category android:name="android.intent.category.DEFAULT"> </category>
-    //          </intent-filter>
-    //      </activity>
+//     This action has to be the same for both the activities -
+//     1. for IntentFilterCollisionActivity and
+//     2. for IntentFilterCollisionActivity2 in the AndroidManifest.xml file, i.e.
+//     <activity android:name=".intentfiltercollision.IntentFilterCollisionActivity">
+//          <intent-filter>
+//               <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
+//               <category android:name="android.intent.category.DEFAULT"> </category>
+//          </intent-filter>
+//          </activity>
+//          <activity android:name=".intentfiltercollision.IntentFilterCollisionActivity2">
+//              <intent-filter>
+//                  <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
+//                  <category android:name="android.intent.category.DEFAULT"> </category>
+//              </intent-filter>
+//          </activity>
     static final String action = ".intentfiltercollision.IntentFilterCollisionActivity";
 
     @Override

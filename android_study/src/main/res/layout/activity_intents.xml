@@ -28,19 +28,19 @@
         android:layout_below="@+id/intent_button" />
 
     <Button
-        android:text="Intent with action"
+        android:text="Intent collision 2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/intent_with_action_button"
+        android:id="@+id/intent_with_data_same_action_button"
         android:layout_below="@+id/intent_with_collision_button"
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Intent for 2 activities with same action"
+        android:text="Intent with action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/intent_with_data_same_action_button"
-        android:layout_below="@+id/intent_with_action_button"
+        android:id="@+id/intent_with_action_button"
+        android:layout_below="@+id/intent_with_data_same_action_button"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -48,7 +48,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/intent_with_data_button"
-        android:layout_below="@+id/intent_with_data_same_action_button"
+        android:layout_below="@+id/intent_with_action_button"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Google maps intent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/intent_google_maps_button"
+        android:layout_below="@+id/intent_with_data_button"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

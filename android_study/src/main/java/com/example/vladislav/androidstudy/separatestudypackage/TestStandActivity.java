@@ -2,10 +2,13 @@ package com.example.vladislav.androidstudy.separatestudypackage;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -67,6 +70,7 @@ public class TestStandActivity extends AppCompatActivity {
 //        startActivityWithParameters();
 //        runOnUiThreadTest();
 //        startImplicitIntent();
+        checkSharedPrefsOp();
     }
 
     protected void onStart() {
@@ -274,8 +278,22 @@ public class TestStandActivity extends AppCompatActivity {
         getMainLooper();
 //        setTheme(R.id.resid);     getTheme();
 
-        getSharedPreferences("name", 1);
-//        moveSharedPreferencesFrom(Context, "name");
+        // This Shared Preferences file is for a current activity only. It's single.
+        // It is accessible from any component of our app.
+        // Keeps activity related data.
+        // Filename is not set, comparing to a context shared pref-s file, it is set by default and
+        // it is an activity name.
+        getPreferences(Context.MODE_PRIVATE);
+        // This Shared Preferences file is seen from a context and an activity as well. One can use
+        // several files for it. It is accessible from any component of our app.
+        // Keeps application related data.
+        getSharedPreferences("file_name", Context.MODE_PRIVATE);
+        getSharedPreferences("file_name", Context.MODE_WORLD_READABLE);
+        getSharedPreferences("file_name", Context.MODE_WORLD_WRITEABLE);
+
+
+        PreferenceManager.getDefaultSharedPreferences(this);
+//        moveSharedPreferencesFrom(Context, "name"); // Requires API24.
 //        deleteSharedPreferences("name");    // Requires API24. Why? Seems one can delete contents
         // of it, but not the very file.
 
@@ -291,6 +309,28 @@ public class TestStandActivity extends AppCompatActivity {
 
 //        runOnUiThread();
 //        ...
+    }
+
+    private boolean putDataToSharedPrefs(String fileName, String key, int value) {
+        SharedPreferences sharedPreferences = getSharedPreferences(fileName,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(key, value);
+//        apply() was added in 2.3, it commits without returning a boolean indicating success or failure.
+//        commit() returns true if the save works, false otherwise.
+//        apply() was added as the Android dev team noticed that almost no one took notice of the return value, so apply is faster as it is asynchronous.
+        return editor.commit();
+    }
+
+    private int getDataFromSharedPrefs(String fileName, String key) {
+        SharedPreferences sharedPreferences = getSharedPreferences(fileName,
+                Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(key, -1);
+    }
+
+    private void checkSharedPrefsOp(){
+        putDataToSharedPrefs("ShPrefsFile", "gameCount", (int)(Math.random()*10));
+        Log.i(LOG_TAG, "Game score is = " + getDataFromSharedPrefs("ShPrefsFile", "gameCount"));
     }
 
 //    private void commonModel() {

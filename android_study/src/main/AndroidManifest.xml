@@ -27,6 +27,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES"/>
 
     <application
         android:name=".MyApplication"
@@ -68,19 +69,19 @@
             android:name=".activities.InitialActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleInstance">
+        </activity>
+        <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
+        <activity
+            android:name=".separatestudypackage.TestStandActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
-        <activity
-            android:name=".separatestudypackage.TestStandActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".handler.HandlerActivity">
-
         </activity>
         <activity android:name=".activities.WidgetsActivity" />
         <activity android:name=".activities.ResultActivity" />
@@ -127,11 +128,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <!--Activity may have more than 1 intent filters-->
         <activity
             android:name=".intentstudy.IntentWithActionActivity3"
             android:label="activity 3">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON2" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
