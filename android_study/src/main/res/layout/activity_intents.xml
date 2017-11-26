@@ -59,4 +59,12 @@
         android:layout_below="@+id/intent_with_data_button"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:text="Send broadcast intent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/intent_send_broadcast_button"
+        android:layout_below="@+id/intent_google_maps_button"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

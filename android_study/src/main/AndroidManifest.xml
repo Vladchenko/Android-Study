@@ -69,17 +69,18 @@
             android:name=".activities.InitialActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
         <activity
             android:name=".separatestudypackage.TestStandActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".handler.HandlerActivity">
         </activity>
@@ -164,6 +165,11 @@
         <receiver android:name=".activities.AirPlaneStateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receivers.BroadcastReceiverExample">
+            <intent-filter>
+                <action android:name="com.toxy.LOAD_URL" />
             </intent-filter>
         </receiver>
 

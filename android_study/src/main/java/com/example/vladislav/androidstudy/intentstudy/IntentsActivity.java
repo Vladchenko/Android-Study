@@ -31,6 +31,8 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.intent_google_maps_button);
         button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.intent_send_broadcast_button);
+        button.setOnClickListener(this);
     }
 
     @Override
@@ -65,7 +67,7 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 // This intent will make android to look for an activity with action
                 // "com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION"
                 // and once it finds it, runs it.
-                Intent intent = new Intent ("com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION");
+                Intent intent = new Intent("com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION");
                 intent.putExtra("Name", "Vlad");
                 intent.putExtra("Lastname", "Yanchenko");
                 startActivity(intent);
@@ -86,6 +88,12 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 } else {
                     Utils.showToast(this, "Intent cannot be resolved");
                 }
+            }
+            case R.id.intent_send_broadcast_button: {
+                Intent intent = new Intent();
+                intent.setAction("com.toxy.LOAD_URL");
+                intent.putExtra("message", "This is some message sent in broadcast");
+                sendBroadcast(intent);
             }
         }
     }
