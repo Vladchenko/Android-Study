@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.intentstudy.intentfiltercollision;
+package com.example.vladislav.androidstudy.intents.intentfiltercollision;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -22,13 +22,13 @@ public class IntentFilterCollisionInitialActivity extends AppCompatActivity {
 //               <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
 //               <category android:name="android.intent.category.DEFAULT"> </category>
 //          </intent-filter>
-//          </activity>
-//          <activity android:name=".intentfiltercollision.IntentFilterCollisionActivity2">
-//              <intent-filter>
-//                  <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
-//                  <category android:name="android.intent.category.DEFAULT"> </category>
-//              </intent-filter>
-//          </activity>
+//     </activity>
+//     <activity android:name=".intentfiltercollision.IntentFilterCollisionActivity2">
+//          <intent-filter>
+//              <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
+//              <category android:name="android.intent.category.DEFAULT"> </category>
+//          </intent-filter>
+//      </activity>
     static final String action = ".intentfiltercollision.IntentFilterCollisionActivity";
 
     @Override
@@ -61,9 +61,15 @@ public class IntentFilterCollisionInitialActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                // This action is the same as the one stated in a Manifest.xml for a
+                // This action is the same as the one stated in a AndroidManifest.xml for a
                 // IntentFilterCollisionActivity and IntentFilterCollisionActivity2 activities.
                 intent.setAction(action);
+                // Category attribute is not set and it is considered to be
+                // <category android:name="android.intent.category.DEFAULT"> </category>
+                // and be the same for both the activities -
+                // IntentFilterCollisionActivity and IntentFilterCollisionActivity2.
+                // It is explained in
+                // https://stackoverflow.com/questions/5727828/what-is-the-purpose-of-android-intent-category-default
                 startActivity(Intent.createChooser(intent, "This text is from a custom chooser"));
             }
         };

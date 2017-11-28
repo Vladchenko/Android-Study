@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 public class BroadcastReceiverExample extends BroadcastReceiver {
 
+    // Action of an intent that sends broadcast message to this receiver should have the same value
+    // as an intent-filter's action of this broadcast receiver in an androidmanifest file.
     @Override
     public void onReceive(Context context, Intent intent) {
         Toast.makeText(context, ".receivers.BroadcastReceiverExample:    "

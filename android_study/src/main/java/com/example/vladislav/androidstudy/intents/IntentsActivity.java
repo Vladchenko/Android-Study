@@ -1,6 +1,10 @@
-package com.example.vladislav.androidstudy.intentstudy;
+package com.example.vladislav.androidstudy.intents;
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +13,15 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.intentstudy.intentfiltercollision.IntentFilterCollisionActivity;
-import com.example.vladislav.androidstudy.intentstudy.intentfiltercollision.IntentFilterCollisionInitialActivity;
+import com.example.vladislav.androidstudy.intents.intentfiltercollision.IntentFilterCollisionInitialActivity;
 import com.example.vladislav.androidstudy.logic.Utils;
+import com.example.vladislav.androidstudy.receivers.BroadcastReceiverExample2;
+import com.example.vladislav.androidstudy.receivers.BroadcastReceiverSimple;
 
 public class IntentsActivity extends AppCompatActivity implements View.OnClickListener {
+
+    BroadcastReceiver mBroadcastReceiver = new BroadcastReceiverSimple();
+    BroadcastReceiver mBroadcastReceiver2 = new BroadcastReceiverExample2();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +41,28 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.intent_send_broadcast_button);
         button.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(".receivers.BroadcastReceiverSimple");
+        // Although this receiver is registered in an androidmanifest.xml, this program registration
+        // overrides the manifest.
+        registerReceiver(mBroadcastReceiver, intentFilter);
+
+        // Following broadcast receiver is registered only programmatically.
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(".receivers.BroadcastReceiverExample2");
+        registerReceiver(mBroadcastReceiver2, intentFilter, Manifest.permission.BROADCAST_WAP_PUSH, null);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(mBroadcastReceiver);
+        unregisterReceiver(mBroadcastReceiver2);
     }
 
     @Override
@@ -88,12 +118,14 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 } else {
                     Utils.showToast(this, "Intent cannot be resolved");
                 }
+                break;
             }
             case R.id.intent_send_broadcast_button: {
                 Intent intent = new Intent();
-                intent.setAction("com.toxy.LOAD_URL");
+                intent.setAction(".receivers.BroadcastReceiverExample2");
                 intent.putExtra("message", "This is some message sent in broadcast");
-                sendBroadcast(intent);
+                sendBroadcast(intent, Manifest.permission.BROADCAST_WAP_PUSH);
+                break;
             }
         }
     }

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.activities.asynctask.AsyncTasksActivity;
-import com.example.vladislav.androidstudy.intentstudy.IntentsActivity;
+import com.example.vladislav.androidstudy.intents.IntentsActivity;
 import com.example.vladislav.androidstudy.logic.ButtonsHandlers;
 import com.example.vladislav.androidstudy.logic.Utils;
 

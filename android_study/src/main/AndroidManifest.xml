@@ -113,16 +113,16 @@
         <activity android:name=".activities.FragmentsActivity" />
         <activity android:name=".activities.fragments_activity.FragmentsActivity" />
         <activity android:name=".banksdetails.BanksDetailsActivity" />
-        <activity android:name=".intentstudy.IntentsActivity" />
-        <activity android:name=".intentstudy.SimpleIntentActivity" />
-        <activity android:name=".intentstudy.IntentWithActionActivity">
+        <activity android:name=".intents.IntentsActivity" />
+        <activity android:name=".intents.SimpleIntentActivity" />
+        <activity android:name=".intents.IntentWithActionActivity">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".intentstudy.IntentWithActionActivity2"
+            android:name=".intents.IntentWithActionActivity2"
             android:label="activity 2">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
@@ -131,7 +131,7 @@
         </activity>
         <!--Activity may have more than 1 intent filters-->
         <activity
-            android:name=".intentstudy.IntentWithActionActivity3"
+            android:name=".intents.IntentWithActionActivity3"
             android:label="activity 3">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
@@ -145,15 +145,15 @@
 
 
         // Intent-filter collision
-        <activity android:name=".intentstudy.intentfiltercollision.IntentFilterCollisionInitialActivity">
+        <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionInitialActivity">
         </activity>
-        <activity android:name=".intentstudy.intentfiltercollision.IntentFilterCollisionActivity">
+        <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity">
             <intent-filter>
                 <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
                 <category android:name="android.intent.category.DEFAULT"> </category>
             </intent-filter>
         </activity>
-        <activity android:name=".intentstudy.intentfiltercollision.IntentFilterCollisionActivity2">
+        <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity2">
             <intent-filter>
                 <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
                 <category android:name="android.intent.category.DEFAULT"> </category>
@@ -161,15 +161,22 @@
         </activity>
 
 
-        // Broadcast receiver
-        <receiver android:name=".activities.AirPlaneStateReceiver">
+        // --- Broadcast receivers ---
+        // This receiver should not accept any broadcasts, but in fact it is overridden in code and
+        // has some intent-filter provided.
+        <receiver android:name=".receivers.BroadcastReceiverSimple">
+        </receiver>
+        // Presence of an intent-filter in a broadcast receiver's declaration in this file, makes
+        // it exported tag to be automatically true:
+        // android:exported = true
+        <receiver android:name=".receivers.AirPlaneStateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
             </intent-filter>
         </receiver>
         <receiver android:name=".receivers.BroadcastReceiverExample">
             <intent-filter>
-                <action android:name="com.toxy.LOAD_URL" />
+                <action android:name=".receivers.BroadcastReceiverExample" />
             </intent-filter>
         </receiver>
 

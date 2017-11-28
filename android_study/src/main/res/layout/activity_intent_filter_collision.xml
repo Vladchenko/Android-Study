@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".intentstudy.intentfiltercollision.IntentFilterCollisionActivity">
+    tools:context=".intents.intentfiltercollision.IntentFilterCollisionActivity">
 
 </android.support.constraint.ConstraintLayout>
