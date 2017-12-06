@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.separatestudypackage;
+package com.example.vladislav.androidstudy.activities.passdatatoanotheractivity;
 
 /**
  * Created by Влад on 20.11.2017.

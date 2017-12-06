@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.separatestudypackage;
+package com.example.vladislav.androidstudy.activities.passdatatoanotheractivity;
 
 import android.os.Parcel;
 import android.os.Parcelable;

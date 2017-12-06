@@ -3,6 +3,7 @@ package com.example.vladislav.androidstudy.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import com.example.vladislav.androidstudy.activities.asynctask.AsyncTasksActivit
 import com.example.vladislav.androidstudy.intents.IntentsActivity;
 import com.example.vladislav.androidstudy.logic.ButtonsHandlers;
 import com.example.vladislav.androidstudy.logic.Utils;
+
+import java.net.URI;
 
 public class InitialActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -131,7 +134,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InitialActivity.this, LayoutingActivity.class);
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:123"));
                 startActivity(intent);
             }
         });
