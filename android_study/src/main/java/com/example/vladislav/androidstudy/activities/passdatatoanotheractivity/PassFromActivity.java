@@ -46,7 +46,7 @@ public class PassFromActivity extends AppCompatActivity {
 
         String value = "Value2 from 1st activity";
         Intent intent = new Intent(this, PassToActivity.class);
-        // There is no bundle in intent. One has to put a new bundle inside it.
+        // There is no bundle instance in intent initially. One has to put a new bundle inside it.
         // Next row throws NPE.
         Bundle extras = intent.getExtras();
         extras.putString(mKey, value);

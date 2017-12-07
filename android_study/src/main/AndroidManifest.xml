@@ -27,7 +27,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES" />
 
     <application
         android:name=".MyApplication"
@@ -68,22 +68,13 @@
         <activity
             android:name=".activities.InitialActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleInstance">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:launchMode="singleInstance"></activity>
         <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
         <activity
             android:name=".separatestudypackage.TestStandActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name=".handler.HandlerActivity">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".handler.HandlerActivity" />
         <activity android:name=".activities.WidgetsActivity" />
         <activity android:name=".activities.ResultActivity" />
         <activity android:name=".activities.LayoutingActivity" />
@@ -106,6 +97,10 @@
         <activity android:name=".activities.ServicesActivity" />
         <activity android:name=".activities.ParcelableActivity" />
         <activity android:name=".activities.AddButtonsActivity" />
+        <activity android:name=".activities.passdatatoanotheractivity.PassFromActivity">
+
+        </activity>
+        <activity android:name=".activities.passdatatoanotheractivity.PassToActivity" />
         <activity
             android:name=".activities.fragments_activity.OneFragmentActivity"
             android:label="@string/title_activity_one_fragment"
@@ -118,6 +113,7 @@
         <activity android:name=".intents.IntentWithActionActivity">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -126,46 +122,53 @@
             android:label="activity 2">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--Activity may have more than 1 intent filters-->
+        <!-- Activity may have more than 1 intent filters -->
         <activity
             android:name=".intents.IntentWithActionActivity3"
             android:label="activity 3">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON2" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         // Intent-filter collision
-        <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionInitialActivity">
-        </activity>
+        <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionInitialActivity" />
         <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity">
             <intent-filter>
-                <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
-                <category android:name="android.intent.category.DEFAULT"> </category>
+                <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity2">
             <intent-filter>
-                <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
-                <category android:name="android.intent.category.DEFAULT"> </category>
+                <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".activities.startfragment.StartFragmentActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         // --- Broadcast receivers ---
         // This receiver should not accept any broadcasts, but in fact it is overridden in code and
         // has some intent-filter provided.
-        <receiver android:name=".receivers.BroadcastReceiverSimple">
-        </receiver>
+        <receiver android:name=".receivers.BroadcastReceiverSimple" />
         // Presence of an intent-filter in a broadcast receiver's declaration in this file, makes
         // it exported tag to be automatically true:
         // android:exported = true
@@ -179,7 +182,6 @@
                 <action android:name=".receivers.BroadcastReceiverExample" />
             </intent-filter>
         </receiver>
-
 
         <service
             android:name=".services.demo1.StartedSimpleService"
@@ -218,6 +220,7 @@
             android:name=".services.ServiceDemo5"
             android:enabled="true"
             android:exported="true" />
+
     </application>
 
 </manifest>
