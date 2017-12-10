@@ -97,10 +97,14 @@
         <activity android:name=".activities.ServicesActivity" />
         <activity android:name=".activities.ParcelableActivity" />
         <activity android:name=".activities.AddButtonsActivity" />
-        <activity android:name=".activities.passdatatoanotheractivity.PassFromActivity">
-
+        <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".activities.passdatatoanotheractivity.PassToActivity" />
+        <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassToActivity" />
         <activity
             android:name=".activities.fragments_activity.OneFragmentActivity"
             android:label="@string/title_activity_one_fragment"
@@ -157,12 +161,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.startfragment.StartFragmentActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".activities.start_fragment.StartFragmentActivity">
+
         </activity>
 
         // --- Broadcast receivers ---

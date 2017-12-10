@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.activities.startfragment;
+package com.example.vladislav.androidstudy.activities.start_fragment;
 
 
 import android.os.Bundle;

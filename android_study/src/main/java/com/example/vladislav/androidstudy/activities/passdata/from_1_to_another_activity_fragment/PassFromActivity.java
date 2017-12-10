@@ -1,11 +1,13 @@
-package com.example.vladislav.androidstudy.activities.passdatatoanotheractivity;
+package com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.activities.AddButtonsActivity;
 
 public class PassFromActivity extends AppCompatActivity {
 
@@ -16,7 +18,8 @@ public class PassFromActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_from);
-        startActivityWithData3();
+//        startActivityWithData3();
+        startFragmentWithData();
     }
 
     // Passing parameters using putExtra() method in Intent.
@@ -83,5 +86,20 @@ public class PassFromActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putParcelable("VALUE", new MyParcelable2());
         startActivity(new Intent(this, PassToActivity.class), bundle);
+    }
+
+    // Passing data from activity to fragment
+    void startFragmentWithData() {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(mKey, "String from StartFragmentActivity");
+
+        Fragment fragment = new PassToFragment();
+        fragment.setArguments(bundle);
+
+        transaction.add(R.id.fragment_layout, fragment);
+        transaction.commit();
     }
 }

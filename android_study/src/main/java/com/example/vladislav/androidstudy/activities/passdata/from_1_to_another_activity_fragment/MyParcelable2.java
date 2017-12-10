@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.activities.passdatatoanotheractivity;
+package com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment;
 
 /**
  * Created by Влад on 20.11.2017.

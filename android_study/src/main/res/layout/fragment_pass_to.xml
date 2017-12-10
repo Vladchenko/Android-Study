@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.example.vladislav.androidstudy.activities.start_fragment.SimpleFragment"
+    tools:context="com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment.PassFromActivity"
     android:orientation="vertical">
 
     <TextView

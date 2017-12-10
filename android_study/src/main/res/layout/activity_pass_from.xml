@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.vladislav.androidstudy.activities.passdatatoanotheractivity.PassFromActivity">
+    tools:context="com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment.PassFromActivity">
+
+    <FrameLayout
+        android:id="@+id/fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
 
 </android.support.constraint.ConstraintLayout>

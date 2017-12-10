@@ -1,6 +1,5 @@
-package com.example.vladislav.androidstudy.activities.startfragment;
+package com.example.vladislav.androidstudy.activities.start_fragment;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -18,10 +17,8 @@ public class StartFragmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_fragment);
-
 //        startFragment();
 //        startSupportFragment();
-        startFragmentWithData();
     }
 
     void startFragment() {
@@ -40,18 +37,4 @@ public class StartFragmentActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    // Passing data from activity to fragment
-    void startFragmentWithData() {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        Bundle bundle = new Bundle();
-        bundle.putString(mKey, "String from StartFragmentActivity");
-
-        Fragment fragment = new SimpleFragment();
-        fragment.setArguments(bundle);
-
-        transaction.add(R.id.frame_for_fragment, fragment);
-        transaction.commit();
-    }
 }
