@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionName="1.0"
     package="com.example.vladislav.androidstudy"> <!-- This part is optional -->
+    <!--The package name serves as a unique identifier for the application. It's also the default
+    name for the application process (see the <application> element's process process attribute)
+    and the default task affinity of an activity (see the <activity> element's taskAffinity
+    attribute).-->
+    <!--Caution: Once you publish your application, you cannot change the package name. The package
+    name defines your application's identity, so if you change it, then it is considered to be a
+    different application and users of the previous version cannot update to the new version.-->
+
+    <!--android:versionName="1.0" - this version is shown in a Google play -->
+
     <uses-sdk
-        android:maxSdkVersion="26"
-        android:minSdkVersion="21" />
+        android:minSdkVersion="21"
+        android:targetSdkVersion="25"
+        android:maxSdkVersion="26" />
+
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="false">
+    </uses-feature>
+
+    <!--Which screens app supports-->
+    <supports-screens>
+    </supports-screens>
+
+    <compatible-screens>
+    </compatible-screens>
 
     <!-- INFO ABOUT MANIFEST.XML -->
     <!-- http://developer.alexanderklimov.ru/android/theory/AndroidManifestXML.php -->
     <!-- https://developer.android.com/guide/topics/manifest/manifest-intro.html -->
+    <!--https://developer.oculus.com/distribute/latest/concepts/publish-mobile-manifest/-->
 
 
     <!-- Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. -->
@@ -35,7 +60,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:debuggable="true">
         <uses-library
             android:name="com.google.android.wearable"
             android:required="false" />
@@ -68,7 +94,10 @@
         <activity
             android:name=".activities.InitialActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"
+            android:excludeFromRecents="true"
+            />
         <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
         <activity
             android:name=".separatestudypackage.TestStandActivity"
