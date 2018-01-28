@@ -191,6 +191,7 @@ public class HandlerActivity extends AppCompatActivity {
                             for (int i = 1; i <= mTasks; i++) {
                                 Thread.sleep(1000);
                                 final int finalI = i;
+                                // One could use, say mTextView.post(...) to implement next code
                                 mHandler.post(new Runnable() {
                                     // That's done on a UI thread
                                     @Override
