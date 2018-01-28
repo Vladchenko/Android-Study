@@ -1,6 +1,7 @@
 package com.example.vladislav.androidstudy.handler;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ public class HandlerActivity extends AppCompatActivity {
     private Button mUITaskSeparateThreadButton;
     private Button mUseHandlerButton;
     private Button mUseHandler2Button;
+    private Button mUseHandler3Button;
     private int mTasks = 3;
 
     @Override
@@ -34,6 +36,7 @@ public class HandlerActivity extends AppCompatActivity {
         mUITaskSeparateThreadButton = (Button) findViewById(R.id.handler_tasks_run_on_UI_and_update_button);
         mUseHandlerButton = (Button) findViewById(R.id.handler_tasks_run_on_UI_and_update_button2);
         mUseHandler2Button = (Button) findViewById(R.id.handler_tasks_run_in_background_button);
+        mUseHandler3Button = (Button) findViewById(R.id.handler_tasks_run_in_background_button2);
 
         assignListenersToButtons();
     }
@@ -98,6 +101,10 @@ public class HandlerActivity extends AppCompatActivity {
         };
     }
 
+    private Handler provideHandler3() {
+        return new Handler(Looper.getMainLooper());
+    }
+
 
     private void assignListenersToButtons() {
 
@@ -141,7 +148,7 @@ public class HandlerActivity extends AppCompatActivity {
             }
         });
 
-        // This approach is doing good
+        // This approach is doing good - it uses Message
         mUseHandler2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,6 +164,49 @@ public class HandlerActivity extends AppCompatActivity {
                             for (int i = 1; i <= mTasks; i++) {
                                 Thread.sleep(1000);
                                 mHandler.sendEmptyMessage(i);
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
+            }
+        });
+
+        // Another approach is also doing good - it uses Runnable
+        mUseHandler3Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Previous handler will do just fine here
+                mHandler = provideHandler3();
+                mProgressBar.setVisibility(View.VISIBLE);
+                mUseHandler3Button.setEnabled(false);
+                mTextView.setText(0 + " out of " + mTasks + " done.");
+                // Making some computations and once they are done, informing the UI
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            for (int i = 1; i <= mTasks; i++) {
+                                Thread.sleep(1000);
+                                final int finalI = i;
+                                mHandler.post(new Runnable() {
+                                    // That's done on a UI thread
+                                    @Override
+                                    public void run() {
+                                        mTextView.setText(String.format(
+                                                Integer.toString(finalI), Locale.getDefault()));
+                                        // Since handleMessage(msg) method is not called in this
+                                        // case, one needs to do following
+                                        if (finalI == mTasks) {
+                                            mProgressBar.setVisibility(View.GONE);
+                                            mUseHandler3Button.setEnabled(true);
+                                            mTextView.setText(getString(
+                                                    R.string.handler_tasks_click_to_run_text));
+                                        }
+                                    }
+                                });
                             }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
