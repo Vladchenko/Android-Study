@@ -11,6 +11,8 @@
     <dimen name="address_layout_height">30dp</dimen>
     <dimen name="address_text_vertical_margin">18sp</dimen>
     <dimen name="address_text_size">20sp</dimen>
+    <dimen name="handler_tasks_text_size">14sp</dimen>
+    <dimen name="handler_tasks_text_to_button_margin">8dp</dimen>
     <!--<dimen mName="address_max_lines">1</dimen>-->
     <dimen name="distance_text_size">18sp</dimen>
     <dimen name="detailed_info_address_margin_right">130dp</dimen>

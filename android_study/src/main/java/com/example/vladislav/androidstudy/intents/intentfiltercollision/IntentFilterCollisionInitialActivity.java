@@ -10,13 +10,14 @@ import com.example.vladislav.androidstudy.R;
 
 public class IntentFilterCollisionInitialActivity extends AppCompatActivity {
 
-    // This activity keeps a button which is to start an activity using intent which matches the
-    // intent filter of 2 activity, to see what happens.
+    // This activity keeps a button which is to start an activity using intent that matches the
+    // intent filter of 2 activities, to see what happens.
     // This is called an intent-filter collision.
 
 //     This action has to be the same for both the activities -
-//     1. for IntentFilterCollisionActivity and
-//     2. for IntentFilterCollisionActivity2 in the AndroidManifest.xml file, i.e.
+//      1. for IntentFilterCollisionActivity and
+//
+// 2. for IntentFilterCollisionActivity2 in the AndroidManifest.xml file, i.e.
 //     <activity android:name=".intentfiltercollision.IntentFilterCollisionActivity">
 //          <intent-filter>
 //               <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
@@ -65,7 +66,7 @@ public class IntentFilterCollisionInitialActivity extends AppCompatActivity {
                 // IntentFilterCollisionActivity and IntentFilterCollisionActivity2 activities.
                 intent.setAction(action);
                 // Category attribute is not set and it is considered to be
-                // <category android:name="android.intent.category.DEFAULT"> </category>
+                // <category android:name="android.intent.category.DEFAULT"> </category> by default
                 // and be the same for both the activities -
                 // IntentFilterCollisionActivity and IntentFilterCollisionActivity2.
                 // It is explained in

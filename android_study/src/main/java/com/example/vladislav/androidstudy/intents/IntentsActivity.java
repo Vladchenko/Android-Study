@@ -41,6 +41,7 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.intent_send_broadcast_button);
         button.setOnClickListener(this);
+        intentShowWebLink();
     }
 
     @Override
@@ -129,4 +130,29 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
     }
+
+    // Dialing a number
+    private void intentDial() {
+        Intent dialIntent = new Intent();
+        dialIntent.setAction(Intent.ACTION_DIAL);
+        dialIntent.setData(Uri.parse("tel:88005553535"));
+        startActivity(dialIntent);
+    }
+
+    // Showing a map
+    private void intentMap() {
+        Intent mapIntent = new Intent();
+        mapIntent.setAction(Intent.ACTION_VIEW);
+        mapIntent.setData(Uri.parse("geo:55.754283,37.62002"));
+        // This intent will invoke ActivityNotFoundException on APIs that do not have a google maps
+        startActivity(mapIntent);
+    }
+
+    // Opening a link in a web-browser
+    private void intentShowWebLink() {
+        Intent intentWeb = new Intent(Intent.ACTION_VIEW);
+        intentWeb.setData(Uri.parse("http://developer.android.com"));
+        startActivity(intentWeb);
+    }
+
 }
