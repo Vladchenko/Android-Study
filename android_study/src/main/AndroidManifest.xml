@@ -21,12 +21,12 @@ Caution: Once you publish your application, you cannot change the package name. 
 
     <uses-feature
         android:name="android.hardware.camera2"
-        android:required="false"></uses-feature>
+        android:required="false" />
 
     <!-- Which screens app supports -->
-    <supports-screens></supports-screens>
+    <supports-screens />
 
-    <compatible-screens></compatible-screens>
+    <compatible-screens />
 
     <!-- INFO ABOUT MANIFEST.XML -->
     <!-- http://developer.alexanderklimov.ru/android/theory/AndroidManifestXML.php -->
@@ -95,19 +95,13 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
         <activity
             android:name=".separatestudypackage.TestStandActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".handler.HandlerActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activities.WidgetsActivity" />
         <activity android:name=".activities.ResultActivity" />
@@ -131,7 +125,7 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".activities.ServicesActivity" />
         <activity android:name=".activities.ParcelableActivity" />
         <activity android:name=".activities.AddButtonsActivity" />
-        <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity"></activity>
+        <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity" />
         <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassToActivity" />
         <activity
             android:name=".activities.fragments_activity.OneFragmentActivity"
@@ -189,7 +183,7 @@ Caution: Once you publish your application, you cannot change the package name. 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.start_fragment.StartFragmentActivity"></activity>
+        <activity android:name=".activities.start_fragment.StartFragmentActivity" />
         // --- Broadcast receivers ---
         // This receiver should not accept any broadcasts, but in fact it is overridden in code and
         // has some intent-filter provided.
@@ -246,7 +240,13 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".recyclerview.RecyclerViewActivity">
+        <activity android:name=".recyclerview.RecyclerViewActivity"></activity>
+        <activity android:name=".activities.ContextActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
