@@ -3,8 +3,11 @@ package com.example.vladislav.androidstudy.activities;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.AsyncTask;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +19,9 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.vladislav.androidstudy.R;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class WidgetsActivity extends AppCompatActivity {
 
@@ -31,6 +37,12 @@ public class WidgetsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_widgets); // One may put activity_widgets2 instead.
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        } else {
+            Logger.getAnonymousLogger().log(Level.SEVERE, "Actionbar is absent");
+        }
 
         final ApplicationInfo applicationInfo = getApplicationContext().getApplicationInfo();
 
@@ -100,6 +112,20 @@ public class WidgetsActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             textView.setText("Your name is " + name);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                finish();
+                // Or one could use NavUtils.navigateUpFromSameTask(this);, but in this case,
+                // one needs to define a parent activity -
+                // https://developer.android.com/training/implementing-navigation/ancestral.html#SpecifyParent
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // This class runs some task in a separate thread.

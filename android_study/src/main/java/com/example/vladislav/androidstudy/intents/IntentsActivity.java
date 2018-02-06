@@ -70,6 +70,13 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.intent_button: {
+
+                // This method won't do, since doesn't resolve into any activity
+                // One gets following error
+                // RuntimeException: Unable to start activity ComponentInfo {....}:
+                // ...ActivityNotFoundException: No Activity found to handle Intent {  }
+                // startActivity(new Intent());
+
                 Intent intent = new Intent(this, SimpleIntentActivity.class);
                 startActivity(intent);
                 break;
