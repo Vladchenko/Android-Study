@@ -1,9 +1,8 @@
-package com.example.vladislav.androidstudy.activities;
+package com.example.vladislav.androidstudy.simple_jobs;
 
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.AsyncTask;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,10 +18,14 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.activities.ResultActivity;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Activity demonstrating a widgets present in android
+ */
 public class WidgetsActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;

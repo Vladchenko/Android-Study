@@ -1,12 +1,14 @@
-package com.example.vladislav.androidstudy.activities;
+package com.example.vladislav.androidstudy.simple_jobs;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
 
+/**
+ * Methods that present in android.content.Context
+ */
 public class ContextActivity extends AppCompatActivity {
 
     TextView mTextView;

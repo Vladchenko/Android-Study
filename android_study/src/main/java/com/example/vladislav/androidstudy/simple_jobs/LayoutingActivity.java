@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.activities;
+package com.example.vladislav.androidstudy.simple_jobs;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 
 import com.example.vladislav.androidstudy.R;
 
+/**
+ * Activity demonstrating a way views are put in activity
+ */
 public class LayoutingActivity extends AppCompatActivity {
 
     private Button button;

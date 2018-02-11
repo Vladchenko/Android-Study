@@ -13,12 +13,12 @@ import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.activities.dynamic_layout.AddButtonsActivity;
-import com.example.vladislav.androidstudy.activities.AligningActivity;
-import com.example.vladislav.androidstudy.activities.ImageActivity;
+import com.example.vladislav.androidstudy.simple_jobs.AligningActivity;
+import com.example.vladislav.androidstudy.simple_jobs.ImageActivity;
 import com.example.vladislav.androidstudy.activities.MenuActivity;
 import com.example.vladislav.androidstudy.activities.ParcelableActivity;
-import com.example.vladislav.androidstudy.activities.Widgets2Activity;
-import com.example.vladislav.androidstudy.activities.WidgetsActivity;
+import com.example.vladislav.androidstudy.simple_jobs.Widgets2Activity;
+import com.example.vladislav.androidstudy.simple_jobs.WidgetsActivity;
 import com.example.vladislav.androidstudy.fragments.fragments_activity.FragmentsActivity;
 import com.example.vladislav.androidstudy.fragments.fragments_activity.DynamicFragmentsActivity;
 import com.example.vladislav.androidstudy.fragments.fragments_activity.OneFragmentActivity;

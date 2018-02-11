@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.activities;
+package com.example.vladislav.androidstudy.simple_jobs;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,9 @@ import android.view.View;
 
 import com.example.vladislav.androidstudy.R;
 
+/**
+ * Activity demonstrating a widgets present in android
+ */
 public class Widgets2Activity extends AppCompatActivity {
 
     @Override

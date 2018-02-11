@@ -2,6 +2,7 @@ package com.example.vladislav.androidstudy.activities.orientation_change;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -15,7 +16,7 @@ import android.widget.TextView;
 
 import static com.example.vladislav.androidstudy.R.*;
 
-public class RotationActivity extends AppCompatActivity  implements View.OnClickListener {
+public class RotationActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getCanonicalName();
     private final String KEY_INDEX = getClass().getCanonicalName();
@@ -27,24 +28,11 @@ public class RotationActivity extends AppCompatActivity  implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_rotation);
 
-        // When there is a saved instance (usually when an mActivity is recreated when rotating
-        // a phone or when Android destroys an mActivity due to lack of memory);
-//        if (savedInstanceState != null) {
-//            // Getting a value from it.
-//            mGeneratedValue = savedInstanceState.getString(KEY_INDEX);
-//            // One may use not only a primitive but any java.lang.Object type.
-//            if (mGeneratedValue != null)
-//            System.out.println(mGeneratedValue);
-//        }
-
         TextView textView = (TextView) findViewById(id.textView17);
         textView.setText("Vlad");
         EditText editText = (EditText) findViewById(id.editText4);
         editText.setText("Vlad");
         textView = (TextView) findViewById(id.web_link_text_view);
-//        generatedValueEditText = (EditText)findViewById(id.generated_value_edit_text);
-        Button button = (Button)findViewById(id.generate_value_button);
-        button.setOnClickListener(this);
 
         // Making a string text to look like a web-link.
         final CharSequence text = textView.getText();
@@ -108,14 +96,4 @@ public class RotationActivity extends AppCompatActivity  implements View.OnClick
         savedInstanceState.putString(KEY_INDEX, mGeneratedValue);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case id.generate_value_button: {
-                mGeneratedValue = Long.toString(Math.round(Math.random()*1000));
-                generatedValueEditText.setText(mGeneratedValue);
-                break;
-            }
-        }
-    }
 }
