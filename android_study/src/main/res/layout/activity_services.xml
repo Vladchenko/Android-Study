@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        tools:context="com.example.vladislav.androidstudy.activities.ServicesActivity">
+        tools:context="com.example.vladislav.androidstudy.services.ServicesActivity">
 
         <TextView
             android:id="@+id/services_title_text_view"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:columnCount="3"
     android:rowCount="10"
-    tools:context="com.example.vladislav.androidstudy.activities.fragments_activity.FragmentsActivity">
+    tools:context=".fragments.fragments_activity.FragmentsActivity">
 
     <TextView
         android:id="@+id/textView18"

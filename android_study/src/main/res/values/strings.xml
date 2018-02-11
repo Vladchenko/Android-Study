@@ -14,7 +14,8 @@
     <string name="replace">Replace</string>
     <string name="stack">add to Back Stack</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment1">Fragment1</string>
+    <string name="hello_blank_fragment2">Fragment2</string>
     <string name="hello_blank_support_fragment">Hello blank support fragment</string>
     <string name="service_description">This is a demo service.</string>
     <string name="intent_service_description">This is a demo intent service.</string>

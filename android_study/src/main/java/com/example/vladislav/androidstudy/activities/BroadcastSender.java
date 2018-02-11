@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.example.vladislav.androidstudy.services.ServicesDemo1Activity;
+
 /**
  * Created by vladislav on 07.03.17.
  */

@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.vladislav.androidstudy.activities.fragments_activity.OneFragmentActivity">
+    tools:context=".fragments.fragments_activity.OneFragmentActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

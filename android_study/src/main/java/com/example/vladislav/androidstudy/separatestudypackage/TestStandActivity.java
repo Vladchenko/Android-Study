@@ -18,8 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.activities.AddButtonsActivity;
-import com.example.vladislav.androidstudy.logic.Utils;
+import com.example.vladislav.androidstudy.activities.dynamic_layout.AddButtonsActivity;
 
 // This activity is made to run(test) different pieces of code.
 public class TestStandActivity extends AppCompatActivity {
@@ -68,7 +67,6 @@ public class TestStandActivity extends AppCompatActivity {
 //        startSomeFragmentWithBackStack();
 //        startSomeActivity();
 //        startActivityWithParameters();
-//        runOnUiThreadTest();
 //        startImplicitIntent();
         checkSharedPrefsOp();
     }
@@ -152,21 +150,6 @@ public class TestStandActivity extends AppCompatActivity {
         // This is the way an activity from another app is started. No extra permission is required
         // in this case.
 //        startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
-    }
-
-    private void runOnUiThreadTest() {
-        // This code freezes UI for a 3 seconds.
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        Utils.showToast(this, "After runOnUiThread()");
     }
 
     // This method starts a choice of how the task is to be implemented.

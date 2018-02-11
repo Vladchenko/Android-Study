@@ -13,12 +13,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.activities.asynctask.AsyncTasksActivity;
+import com.example.vladislav.androidstudy.activities.dynamic_layout.ProgrammaticLayoutActivity;
+import com.example.vladislav.androidstudy.activities.orientation_change.RotationActivity;
+import com.example.vladislav.androidstudy.background_jobs.asynctask.AsyncTasksActivity;
 import com.example.vladislav.androidstudy.intents.IntentsActivity;
 import com.example.vladislav.androidstudy.logic.ButtonsHandlers;
 import com.example.vladislav.androidstudy.logic.Utils;
-
-import java.net.URI;
+import com.example.vladislav.androidstudy.services.ServicesActivity;
 
 public class InitialActivity extends AppCompatActivity implements View.OnClickListener {
 

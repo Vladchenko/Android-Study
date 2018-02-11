@@ -26,16 +26,22 @@ public class ContextActivity extends AppCompatActivity {
 
         // findViewById() finds and retrieves a view that is located on current layout
         mTextView = (TextView) findViewById(R.id.textView22);
-        // One has to run next piece of code in a separate thread. Check a simple example of this
-        // method in a demoRunOnUIThread() method lower in this code.s
+
+        // One has to run next method in a separate thread. Contents of a run() method is run on a
+        // UI thread. Check a simple example of this method in a demoRunOnUIThread() method lower
+        // in this code.
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 //...
             }
         });
+
         // Launching an activities
-//        startActivity(new Intent());
+//        startActivity(new Intent());    // RuntimeException: Unable to start activity ComponentInfo
+        // Caused by: android.content.ActivityNotFoundException: No Activity found to handle Intent {  }
+
+//        startActivity(new Intent(), new Bundle());  // Same as previous
         
     }
 

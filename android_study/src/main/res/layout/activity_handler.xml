@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.vladislav.androidstudy.handler.HandlerActivity">
+    tools:context=".background_jobs.handler.HandlerActivity">
 
     <TextView
         android:id="@+id/run_task_on_UI_text_view"

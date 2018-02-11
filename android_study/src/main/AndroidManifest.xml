@@ -95,50 +95,50 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
         <activity
             android:name=".separatestudypackage.TestStandActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".handler.HandlerActivity">
-        </activity>
+        <activity android:name=".background_jobs.handler.HandlerActivity" />
         <activity android:name=".activities.WidgetsActivity" />
         <activity android:name=".activities.ResultActivity" />
         <activity android:name=".activities.LayoutingActivity" />
         <activity android:name=".activities.AligningActivity" />
         <activity android:name=".activities.ListsViewingActivity" />
         <activity android:name=".activities.MenuActivity" />
-        <activity android:name=".activities.fragments_activity.TwoFragmentsActivity" />
-        <activity android:name=".activities.fragments_activity.DynamicFragmentsActivity" />
+        <activity android:name=".fragments.fragments_activity.TwoFragmentsActivity" />
+        <activity android:name=".fragments.fragments_activity.DynamicFragmentsActivity" />
         <activity android:name=".activities.ImageActivity" />
-        <activity android:name=".activities.ServicesDemo1Activity" />
-        <activity android:name=".activities.ProgrammaticLayoutActivity" />
-        <activity android:name=".activities.RotationActivity" />
+        <activity android:name=".services.ServicesDemo1Activity" />
+        <activity android:name=".activities.dynamic_layout.ProgrammaticLayoutActivity" />
+        <activity android:name=".activities.orientation_change.RotationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            </activity>
         <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
-        <activity android:name=".activities.ContextMenuActivity" />
-        <activity android:name=".activities.asynctask.AsyncTasksActivity" />
-        <activity android:name=".activities.asynctask.AsyncTask1Activity" />
-        <activity android:name=".activities.asynctask.AsyncTask2Activity" />
-        <activity android:name=".activities.asynctask.AsyncTask3Activity" />
-        <activity android:name=".activities.asynctask.AsyncTask4Activity" />
-        <activity android:name=".activities.ServicesActivity" />
+        <activity android:name=".activities.ContextMenuActivity"></activity>
+        <activity android:name=".background_jobs.asynctask.AsyncTasksActivity" />
+        <activity android:name=".background_jobs.asynctask.AsyncTask1Activity" />
+        <activity android:name=".background_jobs.asynctask.AsyncTask2Activity" />
+        <activity android:name=".background_jobs.asynctask.AsyncTask3Activity" />
+        <activity android:name=".background_jobs.asynctask.AsyncTask4Activity" />
+        <activity android:name=".services.ServicesActivity" />
         <activity android:name=".activities.ParcelableActivity" />
-        <activity android:name=".activities.AddButtonsActivity" />
+        <activity android:name=".activities.dynamic_layout.AddButtonsActivity">
+        </activity>
         <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity" />
         <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassToActivity" />
         <activity
-            android:name=".activities.fragments_activity.OneFragmentActivity"
+            android:name=".fragments.fragments_activity.OneFragmentActivity"
             android:label="@string/title_activity_one_fragment"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.FragmentsActivity" />
-        <activity android:name=".activities.fragments_activity.FragmentsActivity" />
+        <activity android:name=".fragments.FragmentsActivity" />
+        <activity android:name=".fragments.fragments_activity.FragmentsActivity" />
         <activity android:name=".banksdetails.BanksDetailsActivity" />
         <activity android:name=".intents.IntentsActivity" />
         <activity android:name=".intents.SimpleIntentActivity" />
@@ -189,7 +189,7 @@ Caution: Once you publish your application, you cannot change the package name. 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.start_fragment.StartFragmentActivity" />
+        <activity android:name=".fragments.start_fragment.StartFragmentActivity" />
         // --- Broadcast receivers ---
         // This receiver should not accept any broadcasts, but in fact it is overridden in code and
         // has some intent-filter provided.
@@ -246,8 +246,14 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".recyclerview.RecyclerViewActivity"></activity>
+        <activity android:name=".recyclerview.RecyclerViewActivity" />
         <activity android:name=".activities.ContextActivity">
+
+        </activity>
+        <activity
+            android:name=".activities.orientation_change.OneOrTwoFragments.SomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+
         </activity>
     </application>
 

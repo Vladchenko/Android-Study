@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.vladislav.androidstudy.activities.asynctask.AsyncTasksActivity">
+    tools:context=".background_jobs.asynctask.AsyncTasksActivity">
 
     <Button
         android:id="@+id/asynctask1_button"
