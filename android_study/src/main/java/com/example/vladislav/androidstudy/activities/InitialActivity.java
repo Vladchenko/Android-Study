@@ -20,7 +20,11 @@ import com.example.vladislav.androidstudy.intents.IntentsActivity;
 import com.example.vladislav.androidstudy.logic.ButtonsHandlers;
 import com.example.vladislav.androidstudy.logic.Utils;
 import com.example.vladislav.androidstudy.services.ServicesActivity;
+import com.example.vladislav.androidstudy.simple_jobs.LayoutingActivity;
 
+/**
+ * This activity is picked to be the foremost that is invoked
+ */
 public class InitialActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String ACTIVITY_RESULT_ID = "result";
@@ -49,6 +53,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
 
         // That's how we reach the resources.
         Log.i("Log message: ", "Application name is:" + getResources().getString(R.string.app_name));
+        // getResources() may be omitted
+        Log.i("Log message: ", "Application name is:" + getString(R.string.app_name));
 
         Log.i(mLogTag, "onCreate");
 //        utils.showToast(this, "onCreate");
@@ -121,7 +127,7 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
         }
         // Don't forget about next row in a manifest.xml
-        // android:configChanges="orientation|keyboardHidden
+        // android:configChanges="orientation|keyboardHidden|screenSize
     }
 
     private void setButtonsClicks() {
@@ -135,11 +141,18 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:123"));
+                Intent intent = new Intent(InitialActivity.this, LayoutingActivity.class);
                 startActivity(intent);
             }
         });
+//        mButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_DIAL);
+//                intent.setData(Uri.parse("tel:123"));
+//                startActivity(intent);
+//            }
+//        });
         mButton = (Button) findViewById(R.id.return_result_button);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,7 +188,7 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton = (Button) findViewById(R.id.rotation_button);
         // Making a mButton to be clickable and click to perform a transfer to a layouting mActivity.
         // Another way of doing this - make a separate method in this class that invokes another
-        // mActivity and assing it to a onClick() method in a respectful mLayout's mButton
+        // mActivity and assign it to a onClick() method in a respectful mLayout's mButton
         // (say - mButton is - android:id="@+id/widgets_button",
         // attribute is - android:onClick="gotoWidgetsActivity")
         // gotoWidgetsActivity - the very method invoked.

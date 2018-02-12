@@ -95,8 +95,15 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
         <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".separatestudypackage.TestStandActivity"
             android:label="@string/title_activity_main"
@@ -126,7 +133,8 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".services.ServicesActivity" />
         <activity android:name=".activities.ParcelableActivity" />
         <activity android:name=".activities.dynamic_layout.AddButtonsActivity"></activity>
-        <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity" />
+        <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity">
+        </activity>
         <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassToActivity" />
         <activity
             android:name=".fragments.fragments_activity.OneFragmentActivity"
@@ -247,11 +255,6 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:name=".activities.orientation_change.OneOrTwoFragments.SomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"></activity>
         <activity android:name=".activities.dynamic_layout.DynamicButtonsSizeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

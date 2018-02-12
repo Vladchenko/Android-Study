@@ -9,6 +9,9 @@ import android.os.Bundle;
 
 import com.example.vladislav.androidstudy.R;
 
+/**
+ * This activity is meant to send data from
+ */
 public class PassFromActivity extends AppCompatActivity {
 
     public static final String mKey = "someConstant";
@@ -18,8 +21,8 @@ public class PassFromActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_from);
-//        startActivityWithData3();
-        startFragmentWithData();
+        startActivityWithData3();
+//        startFragmentWithData();
     }
 
     // Passing parameters using putExtra() method in Intent.
@@ -63,7 +66,7 @@ public class PassFromActivity extends AppCompatActivity {
     }
 
     // Passing parameters creating a new Bundle.
-    // What's the point of making a new bundle instead of using an existing one.
+    // Intent doesn't have a bundle, once created, one has to add it manually.
     private void startActivityWithData3() {
 
         String value = "Value3 from 1st activity";

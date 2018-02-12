@@ -21,7 +21,8 @@ public class ListsViewingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lists_viewing);
 
         listView = (ListView) findViewById(R.id.list);
-        listView.addFooterView(new View(this.getBaseContext()));
+        // Following line of code was here. But what does it do ?
+//        listView.addFooterView(new View(this.getBaseContext()));
 
         // создаем адаптер
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,

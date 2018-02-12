@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
 
+/**
+ * This activity is meant to receive data to
+ */
 public class PassToActivity extends AppCompatActivity {
 
     @Override
