@@ -96,14 +96,10 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape">
-        <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
+            <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
+
+        </activity>
         <activity
             android:name=".separatestudypackage.TestStandActivity"
             android:label="@string/title_activity_main"
@@ -113,16 +109,14 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".activities.ResultActivity" />
         <activity android:name=".simple_jobs.LayoutingActivity" />
         <activity android:name=".simple_jobs.AligningActivity" />
-        <activity android:name=".activities.ListsViewingActivity" />
+        <activity android:name=".activities.ListsViewingActivity"></activity>
         <activity android:name=".activities.MenuActivity" />
         <activity android:name=".fragments.fragments_activity.TwoFragmentsActivity" />
         <activity android:name=".fragments.fragments_activity.DynamicFragmentsActivity" />
         <activity android:name=".simple_jobs.ImageActivity" />
         <activity android:name=".services.ServicesDemo1Activity" />
         <activity android:name=".activities.dynamic_layout.ProgrammaticLayoutActivity" />
-        <activity android:name=".activities.orientation_change.RotationActivity">
-
-        </activity>
+        <activity android:name=".activities.orientation_change.RotationActivity" />
         <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
         <activity android:name=".activities.ContextMenuActivity" />
         <activity android:name=".background_jobs.asynctask.AsyncTasksActivity" />
@@ -132,9 +126,8 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".background_jobs.asynctask.AsyncTask4Activity" />
         <activity android:name=".services.ServicesActivity" />
         <activity android:name=".activities.ParcelableActivity" />
-        <activity android:name=".activities.dynamic_layout.AddButtonsActivity"></activity>
-        <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity">
-        </activity>
+        <activity android:name=".activities.dynamic_layout.AddButtonsActivity" />
+        <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity" />
         <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassToActivity" />
         <activity
             android:name=".fragments.fragments_activity.OneFragmentActivity"
@@ -181,14 +174,12 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity">
             <intent-filter>
                 <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity2">
             <intent-filter>
                 <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -250,11 +241,27 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:exported="true" />
 
         <activity android:name=".recyclerview.RecyclerViewActivity" />
-        <activity android:name=".simple_jobs.ContextActivity"></activity>
+        <activity android:name=".simple_jobs.ContextActivity" />
         <activity
             android:name=".activities.orientation_change.OneOrTwoFragments.SomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
-        <activity android:name=".activities.dynamic_layout.DynamicButtonsSizeActivity">
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity android:name=".activities.dynamic_layout.DynamicButtonsSizeActivity" />
+        <activity android:name=".separatestudypackage.two_actions_activity.ButtonsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".separatestudypackage.two_actions_activity.TimeDateActivity">
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.separatestudypackage.time" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.separatestudypackage.date" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
     </application>
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity.TimeDateActivity">
+
+    <TextView
+        android:id="@+id/inscription_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:layout_alignBaseline="@+id/value_text_view"
+        android:layout_alignBottom="@+id/value_text_view"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/value_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..."
+        android:layout_marginLeft="12dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/inscription_text_view"
+        android:layout_toEndOf="@+id/inscription_text_view"
+        android:layout_marginStart="12dp" />
+
+</RelativeLayout>
