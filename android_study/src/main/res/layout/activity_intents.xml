@@ -4,10 +4,6 @@
     android:id="@+id/activity_intents"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.vladislav.androidstudy.intents.IntentsActivity">
 
     <Button
@@ -60,11 +56,35 @@
         android:layout_centerHorizontal="true" />
 
     <Button
+        android:text="Web link intent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/intent_web_link_button"
+        android:layout_below="@+id/intent_google_maps_button"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Dial number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/intent_dial_button"
+        android:layout_below="@+id/intent_web_link_button"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/intent_map_button"
+        android:layout_below="@+id/intent_dial_button"
+        android:layout_centerHorizontal="true" />
+
+    <Button
         android:text="Send broadcast intent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/intent_send_broadcast_button"
-        android:layout_below="@+id/intent_google_maps_button"
+        android:layout_below="@+id/intent_map_button"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

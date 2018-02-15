@@ -41,7 +41,12 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.intent_send_broadcast_button);
         button.setOnClickListener(this);
-        intentShowWebLink();
+        button = (Button) findViewById(R.id.intent_web_link_button);
+        button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.intent_dial_button);
+        button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.intent_map_button);
+        button.setOnClickListener(this);
     }
 
     @Override
@@ -128,38 +133,43 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             }
+            case R.id.intent_web_link_button: {
+                Intent intentWeb = new Intent(Intent.ACTION_VIEW);
+                intentWeb.setData(Uri.parse("http://developer.android.com"));
+                startActivity(intentWeb);
+                break;
+            }
             case R.id.intent_send_broadcast_button: {
+                // Opening a link in a web-browser
                 Intent intent = new Intent();
                 intent.setAction(".receivers.BroadcastReceiverExample2");
                 intent.putExtra("message", "This is some message sent in broadcast");
                 sendBroadcast(intent, Manifest.permission.BROADCAST_WAP_PUSH);
                 break;
             }
+            case R.id.intent_dial_button: {
+                // Dialing a number
+                Intent dialIntent = new Intent();
+                dialIntent.setAction(Intent.ACTION_DIAL);
+                dialIntent.setData(Uri.parse("tel:88005553535"));
+                startActivity(dialIntent);
+                break;
+            }
+            case R.id.intent_map_button: {
+                // Displaying a map
+                Intent mapIntent = new Intent();
+                mapIntent.setAction(Intent.ACTION_VIEW);
+                mapIntent.setData(Uri.parse("geo:55.754283,37.62002"));
+                // Attempt to start an activity that can handle the Intent
+                PackageManager packageManager = getPackageManager();
+                if (mapIntent.resolveActivity(packageManager) != null) {
+                    startActivity(mapIntent);
+                } else {
+                    Utils.showToast(this, "Intent cannot be resolved");
+                }
+                break;
+            }
         }
-    }
-
-    // Dialing a number
-    private void intentDial() {
-        Intent dialIntent = new Intent();
-        dialIntent.setAction(Intent.ACTION_DIAL);
-        dialIntent.setData(Uri.parse("tel:88005553535"));
-        startActivity(dialIntent);
-    }
-
-    // Showing a map
-    private void intentMap() {
-        Intent mapIntent = new Intent();
-        mapIntent.setAction(Intent.ACTION_VIEW);
-        mapIntent.setData(Uri.parse("geo:55.754283,37.62002"));
-        // This intent will invoke ActivityNotFoundException on APIs that do not have a google maps
-        startActivity(mapIntent);
-    }
-
-    // Opening a link in a web-browser
-    private void intentShowWebLink() {
-        Intent intentWeb = new Intent(Intent.ACTION_VIEW);
-        intentWeb.setData(Uri.parse("http://developer.android.com"));
-        startActivity(intentWeb);
     }
 
 }

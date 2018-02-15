@@ -14,6 +14,9 @@ import java.util.Date;
 import static com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity.ButtonsActivity.DATE_ACTION;
 import static com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity.ButtonsActivity.TIME_ACTION;
 
+/**
+ * This activity displays time or date. It depends on an action that came in an intent.
+ */
 public class TimeDateActivity extends AppCompatActivity {
 
     private TextView mInscriptionTextView;
@@ -28,7 +31,7 @@ public class TimeDateActivity extends AppCompatActivity {
         displayRespectiveData(getIntent());
     }
 
-    // Displays time or date, depending on a action
+    // Displays time or date, depending on an action
     private void displayRespectiveData(Intent intent) {
         String action = intent.getAction();
         String format = null;

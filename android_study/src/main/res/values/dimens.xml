@@ -33,4 +33,8 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="add_buttons_margin">16dp</dimen>
 
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_big">20sp</dimen>
+    <dimen name="text_size_large">32sp</dimen>
+
 </resources>
