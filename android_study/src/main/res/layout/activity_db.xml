@@ -7,22 +7,11 @@
     android:orientation="vertical"
     tools:context="com.example.vladislav.androidstudy.jobs.sqlite.DBActivity">
 
-    <TextView
-        android:id="@+id/table_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Database contents"
-        android:textSize="20sp" />
-
-    <TableLayout
-        android:id="@+id/people_table"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/table_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/border2" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/replace_button"
+        android:id="@+id/fragment_container">
+    </FrameLayout>
 
 </RelativeLayout>
