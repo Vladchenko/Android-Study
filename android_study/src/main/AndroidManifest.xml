@@ -95,13 +95,10 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance">
+
             <!-- android:screenOrientation="landscape" makes orientation to be only landscape -->
             <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".separatestudypackage.TestStandActivity"
@@ -112,7 +109,7 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".activities.ResultActivity" />
         <activity android:name=".simple_jobs.LayoutingActivity" />
         <activity android:name=".simple_jobs.AligningActivity" />
-        <activity android:name=".activities.ListsViewingActivity"></activity>
+        <activity android:name=".activities.ListsViewingActivity" />
         <activity android:name=".activities.MenuActivity" />
         <activity android:name=".fragments.fragments_activity.TwoFragmentsActivity" />
         <activity android:name=".fragments.fragments_activity.DynamicFragmentsActivity" />
@@ -177,12 +174,14 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity">
             <intent-filter>
                 <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity2">
             <intent-filter>
                 <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -249,15 +248,24 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:name=".activities.orientation_change.OneOrTwoFragments.SomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name=".activities.dynamic_layout.DynamicButtonsSizeActivity" />
-        <activity android:name=".separatestudypackage.two_actions_activity.ButtonsActivity">
-
-        </activity>
+        <activity android:name=".separatestudypackage.two_actions_activity.ButtonsActivity" />
         <activity android:name=".separatestudypackage.two_actions_activity.TimeDateActivity">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.separatestudypackage.time" />
                 <action android:name="com.example.vladislav.androidstudy.separatestudypackage.date" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity android:name=".jobs.sqlite.WebBrowserActivity">
+
+        </activity>
+        <activity android:name=".jobs.sqlite.DBActivity">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
     </application>
 

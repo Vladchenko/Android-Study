@@ -32,6 +32,9 @@
     <dimen name="planet_title_margin">50dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="add_buttons_margin">16dp</dimen>
+    <dimen name="web_browser_button_width">50dp</dimen>
+    <dimen name="web_browser_web_view_padding">8dp</dimen>
+    <dimen name="web_browser_layout_margin">16dp</dimen>
 
     <dimen name="text_size_medium">16sp</dimen>
     <dimen name="text_size_big">20sp</dimen>
