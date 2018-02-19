@@ -3,7 +3,6 @@ package com.example.vladislav.androidstudy.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import com.example.vladislav.androidstudy.activities.dynamic_layout.Programmatic
 import com.example.vladislav.androidstudy.activities.orientation_change.RotationActivity;
 import com.example.vladislav.androidstudy.background_jobs.asynctask.AsyncTasksActivity;
 import com.example.vladislav.androidstudy.intents.IntentsActivity;
+import com.example.vladislav.androidstudy.jobs.listviewing.ListsViewingActivity;
 import com.example.vladislav.androidstudy.logic.ButtonsHandlers;
 import com.example.vladislav.androidstudy.logic.Utils;
 import com.example.vladislav.androidstudy.services.ServicesActivity;

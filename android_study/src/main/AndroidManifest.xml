@@ -109,7 +109,14 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".activities.ResultActivity" />
         <activity android:name=".simple_jobs.LayoutingActivity" />
         <activity android:name=".simple_jobs.AligningActivity" />
-        <activity android:name=".activities.ListsViewingActivity" />
+        <activity android:name=".jobs.listviewing.ListsViewingActivity" />
+        <activity android:name=".jobs.listviewing.ListsViewingActivity2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            </activity>
         <activity android:name=".activities.MenuActivity" />
         <activity android:name=".fragments.fragments_activity.TwoFragmentsActivity" />
         <activity android:name=".fragments.fragments_activity.DynamicFragmentsActivity" />
@@ -261,11 +268,7 @@ Caution: Once you publish your application, you cannot change the package name. 
 
         </activity>
         <activity android:name=".jobs.sqlite.DBActivity">
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+
         </activity>
     </application>
 
