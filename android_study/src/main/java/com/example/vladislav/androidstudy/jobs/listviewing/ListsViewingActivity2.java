@@ -11,7 +11,9 @@ import com.example.vladislav.androidstudy.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This activity demonstrates operating an ArrayAdapter
@@ -37,7 +39,7 @@ public class ListsViewingActivity2 extends AppCompatActivity {
 
         // Strangely, list doesn't scroll
         mListView = (ListView) findViewById(R.id.list);
-        mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         // создаем адаптер
         CustomArrayAdapter adapter = new CustomArrayAdapter(this, names);
@@ -51,17 +53,38 @@ public class ListsViewingActivity2 extends AppCompatActivity {
 
         // Strangely, list doesn't scroll
         mListView = (ListView) findViewById(R.id.list);
-        mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+        final Map<Integer, View> views = new HashMap<>();
 
         // создаем адаптер
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.my_list_item_selector, names);
 
         // присваиваем адаптер списку
         mListView.setAdapter(adapter);
+        // This click listener makes a selection of only 1 item
+//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                view.setSelected(true);
+//            }
+//        });
+        // This click listener makes a selection of a several items
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                view.setSelected(true);
+                if (!views.containsKey(position)) {
+                    views.put(position, view);
+
+                } else {
+                    views.get(position).setSelected(false);
+                    views.remove(position);
+
+                    mListView.invalidate();
+                }
+                for (int pos:views.keySet()) {
+                    views.get(pos).setSelected(true);
+                }
             }
         });
     }
