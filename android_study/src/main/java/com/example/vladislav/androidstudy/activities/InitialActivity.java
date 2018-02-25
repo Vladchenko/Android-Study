@@ -16,7 +16,7 @@ import com.example.vladislav.androidstudy.activities.dynamic_layout.Programmatic
 import com.example.vladislav.androidstudy.activities.orientation_change.RotationActivity;
 import com.example.vladislav.androidstudy.background_jobs.asynctask.AsyncTasksActivity;
 import com.example.vladislav.androidstudy.intents.IntentsActivity;
-import com.example.vladislav.androidstudy.jobs.listviewing.ListsViewingActivity;
+import com.example.vladislav.androidstudy.jobs.listviewing.ListsViewActivity;
 import com.example.vladislav.androidstudy.logic.ButtonsHandlers;
 import com.example.vladislav.androidstudy.logic.Utils;
 import com.example.vladislav.androidstudy.services.ServicesActivity;
@@ -165,7 +165,7 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InitialActivity.this, ListsViewingActivity.class);
+                Intent intent = new Intent(InitialActivity.this, ListsViewActivity.class);
                 startActivity(intent);
             }
         });

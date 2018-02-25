@@ -1,8 +1,11 @@
 package com.example.vladislav.androidstudy.jobs.listviewing;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -16,9 +19,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This activity demonstrates operating an ArrayAdapter
+ * Fragment displaying a ListView
+ *      1. Displaying simple list
+ *      2. Displaying a list with 2 view types for list items
+ *      3. Displaying a list with 2 view types for list items and providing multi items selection
  */
-public class ListsViewingActivity2 extends AppCompatActivity {
+public class ListViewFragment extends Fragment {
 
     ListView mListView;
 
@@ -27,41 +33,62 @@ public class ListsViewingActivity2 extends AppCompatActivity {
             "Alpha Centauri"));
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lists_viewing);
-//        setupListViewWith2ViewTypes();
-        setupListViewWith2ViewTypesAndClickable();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_list_view, container, false);
+        setupList(view, getActivity());
+//        setupListViewWith2ViewTypes(view, getActivity());
+//        setupListViewWith2ViewTypesAndClickable(view, getActivity());
+        // Inflate the layout for this fragment
+        return view;
     }
 
-    // Making up a list with custom ArrayAdapter that has 2 different layout types for its list items
-    private void setupListViewWith2ViewTypes() {
+    // Displaying a simple list
+    private void setupList(View view, Activity activity) {
 
-        // Strangely, list doesn't scroll
-        mListView = (ListView) findViewById(R.id.list);
-        mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        mListView = (ListView) view.findViewById(R.id.list);
+        // Following line of code was here. But what does it do ?
+//        listView.addFooterView(footer);
+//        listView.addHeaderView(footer);
 
         // создаем адаптер
-        CustomArrayAdapter adapter = new CustomArrayAdapter(this, names);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
+                R.layout.my_list_item_selector, names);
 
         // присваиваем адаптер списку
         mListView.setAdapter(adapter);
     }
 
-    // Making up a list with 2 different layout types for its list items and implemeting clicking
-    private void setupListViewWith2ViewTypesAndClickable() {
+    // Making up a list with custom ArrayAdapter that has 2 different layout types for its list items
+    private void setupListViewWith2ViewTypes(View view, Activity activity) {
 
         // Strangely, list doesn't scroll
-        mListView = (ListView) findViewById(R.id.list);
+        mListView = (ListView) view.findViewById(R.id.list);
+        mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+        // создаем адаптер
+        CustomArrayAdapter adapter = new CustomArrayAdapter(activity, names);
+
+        // присваиваем адаптер списку
+        mListView.setAdapter(adapter);
+    }
+
+    // Making up a list with 2 different layout types for its list items and implementing clicking
+    private void setupListViewWith2ViewTypesAndClickable(View view, Activity activity) {
+
+        // Strangely, list doesn't scroll
+        mListView = (ListView) view.findViewById(R.id.list);
         mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         final Map<Integer, View> views = new HashMap<>();
 
         // создаем адаптер
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.my_list_item_selector, names);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
+                R.layout.my_list_item_selector, names);
 
         // присваиваем адаптер списку
         mListView.setAdapter(adapter);
+
         // This click listener makes a selection of only 1 item
 //        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -69,6 +96,7 @@ public class ListsViewingActivity2 extends AppCompatActivity {
 //                view.setSelected(true);
 //            }
 //        });
+
         // This click listener makes a selection of a several items
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -88,4 +116,5 @@ public class ListsViewingActivity2 extends AppCompatActivity {
             }
         });
     }
+
 }

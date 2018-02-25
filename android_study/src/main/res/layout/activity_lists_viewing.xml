@@ -8,18 +8,19 @@
     android:paddingLeft="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.vladislav.androidstudy.jobs.listviewing.ListsViewingActivity"
+    tools:context="com.example.vladislav.androidstudy.jobs.listviewing.ListsViewActivity"
     android:orientation="vertical">
 
     <TextView
-        android:text="This activity displays a list, using a ListView component. We will place here a names of space stars. "
+        android:text="This activity displays a list, using a ListView component. Let's place here a names of space stars. "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/activity_designation_text_view" />
 
-    <ListView
-        android:id="@+id/list"
+    <FrameLayout
+        android:id="@+id/list_view_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+    </FrameLayout>
 
 </LinearLayout>

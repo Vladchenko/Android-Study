@@ -109,8 +109,7 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".activities.ResultActivity" />
         <activity android:name=".simple_jobs.LayoutingActivity" />
         <activity android:name=".simple_jobs.AligningActivity" />
-        <activity android:name=".jobs.listviewing.ListsViewingActivity" />
-        <activity android:name=".jobs.listviewing.ListsViewingActivity2">
+        <activity android:name=".jobs.listviewing.ListsViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
