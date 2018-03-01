@@ -12,17 +12,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
-import com.example.vladislav.androidstudy.activities.dynamic_layout.AddButtonsActivity;
-import com.example.vladislav.androidstudy.simple_jobs.AligningActivity;
-import com.example.vladislav.androidstudy.simple_jobs.ImageActivity;
 import com.example.vladislav.androidstudy.activities.MenuActivity;
 import com.example.vladislav.androidstudy.activities.ParcelableActivity;
-import com.example.vladislav.androidstudy.simple_jobs.Widgets2Activity;
-import com.example.vladislav.androidstudy.simple_jobs.WidgetsActivity;
-import com.example.vladislav.androidstudy.fragments.fragments_activity.FragmentsActivity;
-import com.example.vladislav.androidstudy.fragments.fragments_activity.DynamicFragmentsActivity;
-import com.example.vladislav.androidstudy.fragments.fragments_activity.OneFragmentActivity;
+import com.example.vladislav.androidstudy.activities.dynamic_layout.AddButtonsActivity;
 import com.example.vladislav.androidstudy.beans.Planet;
+import com.example.vladislav.androidstudy.fragments.fragments_activity.DynamicFragmentsActivity;
+import com.example.vladislav.androidstudy.fragments.fragments_activity.FragmentsActivity;
+import com.example.vladislav.androidstudy.fragments.fragments_activity.OneFragmentActivity;
+import com.example.vladislav.androidstudy.simple_jobs.AligningActivity;
 
 /**
  * Keeps methods that pass to a respective activities.
@@ -39,13 +36,13 @@ public class ButtonsHandlers {
     }
 
     public void gotoWidgetsActivity() {
-        Intent intent = new Intent(mInitialActivity, WidgetsActivity.class);
-        mInitialActivity.startActivity(intent);
+//        Intent intent = new Intent(mInitialActivity, WidgetsActivity.class);
+//        mInitialActivity.startActivity(intent);
     }
 
     public void gotoWidgets2Activity() {
-        Intent intent = new Intent(mInitialActivity, Widgets2Activity.class);
-        mInitialActivity.startActivity(intent);
+//        Intent intent = new Intent(mInitialActivity, Widgets2Activity.class);
+//        mInitialActivity.startActivity(intent);
     }
 
     public void gotoAligningActivity() {
@@ -69,8 +66,8 @@ public class ButtonsHandlers {
     }
 
     public void gotoImageActivity() {
-        Intent intent = new Intent(mInitialActivity, ImageActivity.class);
-        mInitialActivity.startActivity(intent);
+//        Intent intent = new Intent(mInitialActivity, ImageActivity.class);
+//        mInitialActivity.startActivity(intent);
     }
 
     public void sendEmail() {

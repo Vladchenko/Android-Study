@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.vladislav.androidstudy.jobs.sqlite.WebBrowserActivity"
+    tools:context="com.example.vladislav.androidstudy.jobs.WebBrowserActivity"
     android:layout_margin="@dimen/web_browser_layout_margin"
     android:orientation="vertical">
 

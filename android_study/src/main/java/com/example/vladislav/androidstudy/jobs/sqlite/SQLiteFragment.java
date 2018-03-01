@@ -78,7 +78,7 @@ public class SQLiteFragment extends Fragment {
 
     // Creating a stub list of a people
     private List<Person> makeUpPeopleStubList() {
-        Log.i(TAG, "Making a data stub list");
+        Log.i(TAG, "Making a stub List<Person>");
         List<Person> list = new ArrayList<>();
         list.add(new Person("Vlad", "Yanchenko", "9048625912", "vladchenko@yandex.ru",
                 "Innopolis, Sportivnaya 120"));
@@ -86,7 +86,7 @@ public class SQLiteFragment extends Fragment {
                 "Innopolis, Sportivnaya 120"));
         list.add(new Person("Rezeda", "Batkovna", "9628113929", "rezedets@gmail.com",
                 "Nab. Chelny, sh. Usmanova"));
-        Log.i(TAG, "Data stub list is made");
+        Log.i(TAG, "Stub List<Person> is made");
         return list;
     }
 

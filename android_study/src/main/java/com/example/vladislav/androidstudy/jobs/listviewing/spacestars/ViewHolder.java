@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.jobs.listviewing;
+package com.example.vladislav.androidstudy.jobs.listviewing.spacestars;
 
 import android.widget.TextView;
 

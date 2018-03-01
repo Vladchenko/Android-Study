@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.jobs.sqlite;
+package com.example.vladislav.androidstudy.jobs;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

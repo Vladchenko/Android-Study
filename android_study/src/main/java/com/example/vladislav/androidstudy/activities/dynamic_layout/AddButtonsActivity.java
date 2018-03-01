@@ -73,9 +73,9 @@ public class AddButtonsActivity extends AppCompatActivity {
             mButtonNames.add(string);
             mButtons.add(button);
             mLayout.addView(button);
-            // Strangely, operating with a Button resulted in exception saying the view (button) already
-            // has a parent and goolge said that one needs to remove the view from a prent to resolve that.
-            // But it didn't help, I had to switch to sending a strings
+            // Strangely, operating with a Button resulted in exception saying the view (button)
+            // already has a parent and google said that one needs to remove the view from a parent
+            // to resolve that. But it didn't help, I had to switch to sending a strings.
         }
     }
 

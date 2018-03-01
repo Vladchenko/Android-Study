@@ -1,14 +1,17 @@
 package com.example.vladislav.androidstudy.simple_jobs;
 
+
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
@@ -20,14 +23,13 @@ import android.widget.ToggleButton;
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.activities.ResultActivity;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
- * Activity demonstrating a widgets present in android
+ * Fragment displaying some android widgets
  */
-public class WidgetsActivity extends AppCompatActivity {
+public class WidgetsFragment extends Fragment {
 
+    private Activity mActivity;
+    private Context mContext;
     private ProgressBar progressBar;
     private RadioButton radioButton;
     private ToggleButton toggleButton;
@@ -35,100 +37,75 @@ public class WidgetsActivity extends AppCompatActivity {
     private TextView textView;
     private int count = 1;
 
+    public static final String FRAGMENT_TAG = ImageFragment.class.getSimpleName();
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_widgets, container, false);
+    }
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_widgets); // One may put activity_widgets2 instead.
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        } else {
-            Logger.getAnonymousLogger().log(Level.SEVERE, "Actionbar is absent");
-        }
+    private void logicFromActivity() {
 
-        final ApplicationInfo applicationInfo = getApplicationContext().getApplicationInfo();
+        mActivity = getActivity();
+        mContext = mActivity.getApplicationContext();
+        final ApplicationInfo applicationInfo = mContext.getApplicationInfo();
 
-        Toast toast = Toast.makeText(getApplicationContext(),
+        Toast toast = Toast.makeText(mContext,
                 "This is the toast message", Toast.LENGTH_SHORT);
         // An alternative way of setting a text message to be shown.
 //        toast.setText("!");
         toast.show();
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) mActivity.findViewById(R.id.progressBar);
 
-        Button button = (Button) findViewById(R.id.button);
+        Button button = (Button) mActivity.findViewById(R.id.button);
         // This is the way a button click is processed.
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "Process name is: " + applicationInfo.processName, Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(mContext, "Process name is: "
+                        + applicationInfo.processName, Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
 
         // OnFocusListener doesn't work for TextView and for some other components. But it should
         // work for textEdit.
-        textView = (TextView) findViewById(R.id.helloworld_text_view);
+        textView = (TextView) mActivity.findViewById(R.id.helloworld_text_view);
         textView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Toast toast = Toast.makeText(getApplicationContext(),
+                Toast toast = Toast.makeText(mContext,
                         R.id.helloworld_text_view + " has been touched", Toast.LENGTH_SHORT);
                 toast.show();
                 return true;
             }
         });
 
-        radioButton = (RadioButton) findViewById(R.id.radioButton);
+        radioButton = (RadioButton) mActivity.findViewById(R.id.radioButton);
         // Clicking this radiobutton calls other mActivity (Widgets2Activity).
         radioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // This way we call another mActivity.
-                Intent intent = new Intent(WidgetsActivity.this, Widgets2Activity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(WidgetsActivity.this, Widgets2Activity.class);
+//                startActivity(intent);
             }
         });
 
-        checkBox = (CheckBox) findViewById(R.id.checkBox);
+        checkBox = (CheckBox) mActivity.findViewById(R.id.checkBox);
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WidgetsActivity.this, ResultActivity.class);
+                Intent intent = new Intent(mContext, ResultActivity.class);
                 startActivityForResult(intent, 1);
             }
         });
 
         new MyTask().execute();
 
-    }
-
-    // When a result is back from other mActivity.
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data == null) {
-            return;
-        }
-        String name = data.getStringExtra("name");
-        if (resultCode == RESULT_OK) {
-            textView.setText("Your name is " + name);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                finish();
-                // Or one could use NavUtils.navigateUpFromSameTask(this);, but in this case,
-                // one needs to define a parent activity -
-                // https://developer.android.com/training/implementing-navigation/ancestral.html#SpecifyParent
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     // This class runs some task in a separate thread.

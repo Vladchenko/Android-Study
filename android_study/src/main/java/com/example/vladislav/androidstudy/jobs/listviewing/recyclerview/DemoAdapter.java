@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.recyclerview;
+package com.example.vladislav.androidstudy.jobs.listviewing.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

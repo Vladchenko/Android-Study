@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.fragments.start_fragment;
+package com.example.vladislav.androidstudy.simple_jobs;
 
 
 import android.os.Bundle;
@@ -10,17 +10,17 @@ import android.view.ViewGroup;
 import com.example.vladislav.androidstudy.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment displaying some android widgets
  */
-public class SimpleSupportFragment extends Fragment {
+public class Widgets2Fragment extends Fragment {
 
-    public static final String FRAGMENT_TAG = "SimpleSupportFragment";
+    public static final String FRAGMENT_TAG = ImageFragment.class.getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_simple_support, container, false);
+        return inflater.inflate(R.layout.fragment_widgets2, container, false);
     }
 
 }

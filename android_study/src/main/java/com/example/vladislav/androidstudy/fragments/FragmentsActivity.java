@@ -1,7 +1,7 @@
 package com.example.vladislav.androidstudy.fragments;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
 
@@ -12,4 +12,6 @@ public class FragmentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragments_two);
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.jobs.listviewing;
+package com.example.vladislav.androidstudy.jobs.listviewing.spacestars;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -19,16 +19,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Fragment displaying a ListView
+ * Fragment displaying a ListView (list os space stars)
  *      1. Displaying simple list
  *      2. Displaying a list with 2 view types for list items
  *      3. Displaying a list with 2 view types for list items and providing multi items selection
  */
-public class ListViewFragment extends Fragment {
+public class ListViewStarsFragment extends Fragment {
 
-    ListView mListView;
+    private ListView mListView;
 
-    List<String> names = new ArrayList<>(Arrays.asList("Polaris", "Aldebaran", "Vega",
+    List<String> mStarsNames = new ArrayList<>(Arrays.asList("Polaris", "Aldebaran", "Vega",
             "Ursa Majoris", "Sirius", "Sun", "Antares", "VY Canis Majoris", "Rigel", "Betelgeuse",
             "Alpha Centauri"));
 
@@ -47,19 +47,17 @@ public class ListViewFragment extends Fragment {
     private void setupList(View view, Activity activity) {
 
         mListView = (ListView) view.findViewById(R.id.list);
-        // Following line of code was here. But what does it do ?
-//        listView.addFooterView(footer);
-//        listView.addHeaderView(footer);
 
         // создаем адаптер
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
-                R.layout.my_list_item_selector, names);
+                R.layout.my_list_item_selector, mStarsNames);
 
         // присваиваем адаптер списку
         mListView.setAdapter(adapter);
     }
 
     // Making up a list with custom ArrayAdapter that has 2 different layout types for its list items
+    // To change a look of a list item, one have to implement custom adapter.
     private void setupListViewWith2ViewTypes(View view, Activity activity) {
 
         // Strangely, list doesn't scroll
@@ -67,7 +65,7 @@ public class ListViewFragment extends Fragment {
         mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         // создаем адаптер
-        CustomArrayAdapter adapter = new CustomArrayAdapter(activity, names);
+        CustomArrayAdapter adapter = new CustomArrayAdapter(activity, mStarsNames);
 
         // присваиваем адаптер списку
         mListView.setAdapter(adapter);
@@ -84,7 +82,7 @@ public class ListViewFragment extends Fragment {
 
         // создаем адаптер
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
-                R.layout.my_list_item_selector, names);
+                R.layout.my_list_item_selector, mStarsNames);
 
         // присваиваем адаптер списку
         mListView.setAdapter(adapter);
