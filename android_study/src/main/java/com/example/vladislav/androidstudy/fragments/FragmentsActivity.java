@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
 
+/**
+ * Activity displaying two fragments located in its layout statically
+ */
 public class FragmentsActivity extends AppCompatActivity {
 
     @Override

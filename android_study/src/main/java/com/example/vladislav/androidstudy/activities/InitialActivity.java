@@ -14,13 +14,13 @@ import android.widget.Toast;
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.activities.dynamic_layout.ProgrammaticLayoutActivity;
 import com.example.vladislav.androidstudy.activities.orientation_change.RotationActivity;
-import com.example.vladislav.androidstudy.background_jobs.asynctask.AsyncTasksActivity;
+import com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTasksActivity;
 import com.example.vladislav.androidstudy.intents.IntentsActivity;
 import com.example.vladislav.androidstudy.jobs.listviewing.ListsViewActivity;
 import com.example.vladislav.androidstudy.logic.ButtonsHandlers;
 import com.example.vladislav.androidstudy.logic.Utils;
 import com.example.vladislav.androidstudy.services.ServicesActivity;
-import com.example.vladislav.androidstudy.simple_jobs.LayoutingActivity;
+import com.example.vladislav.androidstudy.jobs.simple_jobs.LayoutingActivity;
 
 /**
  * This activity is picked to be the foremost that is invoked

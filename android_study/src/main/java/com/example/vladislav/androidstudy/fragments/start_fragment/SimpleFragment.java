@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.example.vladislav.androidstudy.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * This fragment displays its lifecycle callbacks
  */
 public class SimpleFragment extends Fragment {
 

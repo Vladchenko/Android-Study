@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.background_jobs.handler;
+package com.example.vladislav.androidstudy.jobs.background_jobs.handler;
 
 import android.os.Handler;
 import android.os.Looper;

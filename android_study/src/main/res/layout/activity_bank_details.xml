@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.vladislav.androidstudy.banksdetails.BanksDetailsActivity">
+    tools:context=".jobs.banksdetails.BanksDetailsActivity">
 
     <!-- Component that is to be used as a container to hold a list of a banks details.
      bank_office_item is used to represent each element from a list of banks details. -->

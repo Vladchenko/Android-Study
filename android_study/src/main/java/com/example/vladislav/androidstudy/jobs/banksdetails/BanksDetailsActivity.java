@@ -1,6 +1,5 @@
-package com.example.vladislav.androidstudy.banksdetails;
+package com.example.vladislav.androidstudy.jobs.banksdetails;
 
-import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Loader;
 import android.database.Cursor;
@@ -8,9 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.example.vladislav.androidstudy.R;
 
@@ -43,11 +40,11 @@ public class BanksDetailsActivity extends AppCompatActivity implements LoaderMan
     // In fact, this method should not belong to this class. It has to be some separate utility class.
     public static BankDetails cursorToBankDetails(Cursor cursor) {
         BankDetails bankDetails = new BankDetails();
-        bankDetails.setmAddress(cursor.getString(1));
-        bankDetails.setmDistance(cursor.getString(2));
-        bankDetails.setmName(cursor.getString(3));
-        bankDetails.setmEstimationMark(Integer.parseInt(cursor.getString(4)));
-        bankDetails.setmPhoneNumber(cursor.getString(5));
+        bankDetails.setAddress(cursor.getString(1));
+        bankDetails.setDistance(cursor.getString(2));
+        bankDetails.setName(cursor.getString(3));
+        bankDetails.setEstimationMark(Integer.parseInt(cursor.getString(4)));
+        bankDetails.setPhoneNumber(cursor.getString(5));
         return bankDetails;
     }
 

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.support.v7.widget.LinearLayoutCompat.LayoutParams;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 
 /**
  * This is how one creates a contents of a current activity programmatically.
- *
+ * <p>
  * Created by vladislav on 15.05.17.
  */
 
@@ -57,5 +58,6 @@ public class ProgrammaticLayoutActivity extends AppCompatActivity {
         Button btn2 = new Button(this);
         btn2.setText("Button2");
         linLayout.addView(btn2, rightGravityParams);
+
     }
 }

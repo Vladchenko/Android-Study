@@ -12,10 +12,10 @@ import com.example.vladislav.androidstudy.services.ServicesDemo1Activity;
 public class BroadcastSender {
 
     private static BroadcastSender ourInstance = new BroadcastSender();
-    private static Context context;
+    private static Context mContext;
 
     public static BroadcastSender getInstance(Context contextOuter) {
-        context = contextOuter;
+        mContext = contextOuter;
         return ourInstance;
     }
 
@@ -26,18 +26,18 @@ public class BroadcastSender {
         Intent intent = new Intent().
                 setAction(ServicesDemo1Activity.BROADCAST_ID).
                 putExtra(ServicesDemo1Activity.BROADCAST_ID,
-                        context.getClass().getSimpleName() + ": " + string + "\n");
+                        mContext.getClass().getSimpleName() + ": " + string + "\n");
         switch (ServicesDemo1Activity.broadcastKind) {
             case LOCAL: {
-                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
                 break;
             }
             case GLOBAL: {
-                context.sendBroadcast(intent);
+                mContext.sendBroadcast(intent);
                 break;
             }
             case PRIORITIZED: {
-                context.sendOrderedBroadcast(intent, null);
+                mContext.sendOrderedBroadcast(intent, null);
                 break;
             }
         }

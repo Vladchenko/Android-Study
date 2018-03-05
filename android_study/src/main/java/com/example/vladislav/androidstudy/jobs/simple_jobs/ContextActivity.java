@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.simple_jobs;
+package com.example.vladislav.androidstudy.jobs.simple_jobs;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +26,7 @@ public class ContextActivity extends AppCompatActivity {
 
         // Following methods are present in class android.content.Context;
 
-        // findViewById() finds and retrieves a view that is located on current layout
+        // findViewById() finds and retrieves a view that is located on a current layout
         mTextView = (TextView) findViewById(R.id.textView22);
 
         // One has to run next method in a separate thread. Contents of a run() method is run on a

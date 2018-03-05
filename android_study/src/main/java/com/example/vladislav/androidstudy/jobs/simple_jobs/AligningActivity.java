@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.simple_jobs;
+package com.example.vladislav.androidstudy.jobs.simple_jobs;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

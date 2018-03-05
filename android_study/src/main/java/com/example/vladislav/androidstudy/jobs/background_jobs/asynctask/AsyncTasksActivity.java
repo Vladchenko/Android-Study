@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.background_jobs.asynctask;
+package com.example.vladislav.androidstudy.jobs.background_jobs.asynctask;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

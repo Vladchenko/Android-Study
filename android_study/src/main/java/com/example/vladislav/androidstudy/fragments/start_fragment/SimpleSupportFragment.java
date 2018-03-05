@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import com.example.vladislav.androidstudy.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment that extends android.support.v4.app.Fragment, but not android.app.Fragment. This is a
+ * fragment that is compatible with an older versions of android OS.
  */
 public class SimpleSupportFragment extends Fragment {
 

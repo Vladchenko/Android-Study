@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.banksdetails;
+package com.example.vladislav.androidstudy.jobs.banksdetails;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,7 +31,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder2 holder, int position) {
         BankDetails bankDetails = mList.get(position);
-        holder.addressTextView.setText(bankDetails.getmAddress());
+        holder.addressTextView.setText(bankDetails.getAddress());
         holder.distanceTextView.setText(bankDetails.getmDistance());
         holder.extraOfficeTextView.setText(bankDetails.getmName());
         if (bankDetails.getmEstimationMark() > -1) {

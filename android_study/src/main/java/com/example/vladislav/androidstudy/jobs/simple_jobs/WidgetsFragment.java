@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.simple_jobs;
+package com.example.vladislav.androidstudy.jobs.simple_jobs;
 
 
 import android.app.Activity;
@@ -28,6 +28,8 @@ import com.example.vladislav.androidstudy.activities.ResultActivity;
  */
 public class WidgetsFragment extends Fragment {
 
+    public static final String FRAGMENT_TAG = ImageFragment.class.getSimpleName();
+
     private Activity mActivity;
     private Context mContext;
     private ProgressBar progressBar;
@@ -36,8 +38,6 @@ public class WidgetsFragment extends Fragment {
     private CheckBox checkBox;
     private TextView textView;
     private int count = 1;
-
-    public static final String FRAGMENT_TAG = ImageFragment.class.getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

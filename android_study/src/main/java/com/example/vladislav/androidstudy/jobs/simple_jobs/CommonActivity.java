@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.simple_jobs;
+package com.example.vladislav.androidstudy.jobs.simple_jobs;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.activities.dynamic_layout.DynamicLayoutFragment;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +33,8 @@ public class CommonActivity extends AppCompatActivity {
         }
 
 //        addImageFragment();
-        addWidgetsFragment();
+//        addWidgetsFragment();
+        addDynamicLayoutFragment();
     }
 
     @Override
@@ -67,6 +69,17 @@ public class CommonActivity extends AppCompatActivity {
             fragment = new WidgetsFragment();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.fragment_container, fragment, WidgetsFragment.FRAGMENT_TAG);
+            fragmentTransaction.commit();
+        }
+    }
+
+    private void addDynamicLayoutFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(DynamicLayoutFragment.FRAGMENT_TAG);
+        if (fragment == null) {
+            fragment = new DynamicLayoutFragment();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragment_container, fragment, DynamicLayoutFragment.FRAGMENT_TAG);
             fragmentTransaction.commit();
         }
     }

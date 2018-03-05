@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.banksdetails;
+package com.example.vladislav.androidstudy.jobs.banksdetails;
 
 import android.content.Context;
 import android.content.CursorLoader;
@@ -26,7 +26,7 @@ public class BanksDetailsLoader extends CursorLoader {
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
-        // When on wishes to see the estimation marks right the way when they are given, one has to
+        // When on wishes to see the estimation marks right away when they are given, one has to
         // remove this condition and put only forceLoad(); method.
         if (null != mCursor) {
             deliverResult(mCursor);
@@ -37,6 +37,7 @@ public class BanksDetailsLoader extends CursorLoader {
 
     @Override
     public Cursor loadInBackground() {
-        return getContext().getContentResolver().query(Uri.parse("content://com.example.vladislav.androidtest/BANKS"), null, null, null, null);
+        return getContext().getContentResolver().query(
+                Uri.parse("content://com.example.vladislav.androidtest/BANKS"), null, null, null, null);
     }
 }

@@ -19,7 +19,7 @@ import com.example.vladislav.androidstudy.beans.Planet;
 import com.example.vladislav.androidstudy.fragments.fragments_activity.DynamicFragmentsActivity;
 import com.example.vladislav.androidstudy.fragments.fragments_activity.FragmentsActivity;
 import com.example.vladislav.androidstudy.fragments.fragments_activity.OneFragmentActivity;
-import com.example.vladislav.androidstudy.simple_jobs.AligningActivity;
+import com.example.vladislav.androidstudy.jobs.simple_jobs.AligningActivity;
 
 /**
  * Keeps methods that pass to a respective activities.

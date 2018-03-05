@@ -101,10 +101,10 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:name=".separatestudypackage.TestStandActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".background_jobs.handler.HandlerActivity" />
+        <activity android:name=".jobs.background_jobs.handler.HandlerActivity" />
         <activity android:name=".activities.ResultActivity" />
-        <activity android:name=".simple_jobs.LayoutingActivity" />
-        <activity android:name=".simple_jobs.AligningActivity" />
+        <activity android:name=".jobs.simple_jobs.LayoutingActivity" />
+        <activity android:name=".jobs.simple_jobs.AligningActivity" />
         <activity android:name=".jobs.listviewing.ListsViewActivity">
 
         </activity>
@@ -116,11 +116,11 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".activities.orientation_change.RotationActivity" />
         <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
         <activity android:name=".activities.ContextMenuActivity" />
-        <activity android:name=".background_jobs.asynctask.AsyncTasksActivity" />
-        <activity android:name=".background_jobs.asynctask.AsyncTask1Activity" />
-        <activity android:name=".background_jobs.asynctask.AsyncTask2Activity" />
-        <activity android:name=".background_jobs.asynctask.AsyncTask3Activity" />
-        <activity android:name=".background_jobs.asynctask.AsyncTask4Activity" />
+        <activity android:name=".jobs.background_jobs.asynctask.AsyncTasksActivity" />
+        <activity android:name=".jobs.background_jobs.asynctask.AsyncTask1Activity" />
+        <activity android:name=".jobs.background_jobs.asynctask.AsyncTask2Activity" />
+        <activity android:name=".jobs.background_jobs.asynctask.AsyncTask3Activity" />
+        <activity android:name=".jobs.background_jobs.asynctask.AsyncTask4Activity" />
         <activity android:name=".services.ServicesActivity" />
         <activity android:name=".activities.ParcelableActivity" />
         <activity android:name=".activities.dynamic_layout.AddButtonsActivity" />
@@ -132,7 +132,7 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".fragments.FragmentsActivity"></activity>
         <activity android:name=".fragments.fragments_activity.FragmentsActivity" />
-        <activity android:name=".banksdetails.BanksDetailsActivity" />
+        <activity android:name=".jobs.banksdetails.BanksDetailsActivity" />
         <activity android:name=".intents.IntentsActivity" />
         <activity android:name=".intents.SimpleIntentActivity" />
         <activity android:name=".intents.IntentWithActionActivity">
@@ -239,7 +239,7 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:exported="true" />
 
         <activity android:name=".jobs.listviewing.recyclerview.RecyclerViewActivity" />
-        <activity android:name=".simple_jobs.ContextActivity" />
+        <activity android:name=".jobs.simple_jobs.ContextActivity" />
         <activity
             android:name=".activities.orientation_change.OneOrTwoFragments.SomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
@@ -259,7 +259,7 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:name=".fragments.start_fragment.SimpleFragmentActivity"
             android:label="@string/title_activity_simple_fragment"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".simple_jobs.CommonActivity">
+        <activity android:name=".jobs.simple_jobs.CommonActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- Next row says this app is added to an apps list in andoid OS on a cell phone -->
