@@ -32,11 +32,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder2 holder, int position) {
         BankDetails bankDetails = mList.get(position);
         holder.addressTextView.setText(bankDetails.getAddress());
-        holder.distanceTextView.setText(bankDetails.getmDistance());
-        holder.extraOfficeTextView.setText(bankDetails.getmName());
-        if (bankDetails.getmEstimationMark() > -1) {
+        holder.distanceTextView.setText(bankDetails.getDistance());
+        holder.extraOfficeTextView.setText(bankDetails.getName());
+        if (bankDetails.getEstimationMark() > -1) {
             holder.estimationTextView.setText("Оценка "
-                    + Integer.toString(bankDetails.getmEstimationMark()));
+                    + Integer.toString(bankDetails.getEstimationMark()));
         } else {
             holder.estimationTextView.setText("");
         }
