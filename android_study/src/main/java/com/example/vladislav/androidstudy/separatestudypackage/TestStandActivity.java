@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.activities.dynamic_layout.AddButtonsActivity;
+import com.example.vladislav.androidstudy.activities.dynamic_layout.buttons_inserting.AddButtonsActivity;
 
 // This activity is made to run(test) different pieces of code.
 public class TestStandActivity extends AppCompatActivity {

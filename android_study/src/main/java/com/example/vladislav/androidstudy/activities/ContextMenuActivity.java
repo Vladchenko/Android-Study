@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -77,5 +79,10 @@ public class ContextMenuActivity extends AppCompatActivity {
                 break;
         }
         return super.onContextItemSelected(item);
+    }
+
+    public static Intent newIntent(Context context) {
+        Intent i = new Intent(context, ContextMenuActivity.class);
+        return i;
     }
 }

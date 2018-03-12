@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.dynamic_layout.AddButtonsActivity"
+    tools:context=".activities.dynamic_layout.buttons_inserting.AddButtonsActivity"
     tools:showIn="@layout/activity_add_buttons"
     android:layout_marginLeft="@dimen/add_buttons_margin">
 

@@ -14,9 +14,6 @@ import com.example.vladislav.androidstudy.R;
  */
 public class DynamicButtonsSizeActivity extends Activity {
 
-    private int mProgress = 50;
-    private int mStep = 10;
-
     private LinearLayout.LayoutParams lParams1;
     private LinearLayout.LayoutParams lParams2;
 

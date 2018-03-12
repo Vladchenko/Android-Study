@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.activities.dynamic_layout;
+package com.example.vladislav.androidstudy.activities.dynamic_layout.buttons_inserting;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;

@@ -1,2 +1,5 @@
 Implement following tasks in this app:
+    - Replace all the intents for startActivity() with newIntent()
     - Implement setTargetFragment() ni some fragment
+    - WidgetsFragment - //Code taken from activity, make it work if possible
+    - Work through an addition of a fragment usingits id

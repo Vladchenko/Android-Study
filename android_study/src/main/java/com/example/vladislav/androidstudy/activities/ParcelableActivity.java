@@ -1,6 +1,9 @@
 package com.example.vladislav.androidstudy.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -18,6 +21,9 @@ import com.example.vladislav.androidstudy.beans.Planet;
  */
 public class ParcelableActivity extends AppCompatActivity {
 
+    private static final String PARCELABLE_PLANET =
+            "com.example.vladislav.androidstudy.activities.ParcelableActivity.PARCELABLE_PLANET";
+
     private Planet planet;
     private TextView planetSizeTextView;
     private TextView planetWeightTextView;
@@ -29,7 +35,7 @@ public class ParcelableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parcelable);
         // Reading parcelable from an intent.
-        planet = getIntent().getParcelableExtra("Planet");
+        planet = getIntent().getParcelableExtra(PARCELABLE_PLANET);
 
         planetSizeTextView = (TextView) findViewById(R.id.planet_size_text_view);
         planetWeightTextView = (TextView) findViewById(R.id.planet_weight_text_view);
@@ -41,4 +47,9 @@ public class ParcelableActivity extends AppCompatActivity {
 
     }
 
+    public static Intent newIntent(Context context, Parcelable planet) {
+        Intent intent = new Intent(context, ParcelableActivity.class);
+        intent.putExtra(PARCELABLE_PLANET, planet);
+        return intent;
+    }
 }

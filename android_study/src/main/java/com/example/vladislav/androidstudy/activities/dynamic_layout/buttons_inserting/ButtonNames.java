@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.activities.dynamic_layout;
+package com.example.vladislav.androidstudy.activities.dynamic_layout.buttons_inserting;
 
 import android.os.Parcel;
 import android.os.Parcelable;

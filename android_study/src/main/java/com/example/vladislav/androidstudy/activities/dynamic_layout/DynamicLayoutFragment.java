@@ -22,7 +22,7 @@ import com.example.vladislav.androidstudy.jobs.simple_jobs.ImageFragment;
  * Fragment which layout is created dynamically.
  * Assign it to a CommonLayout to display.
  *
- * BUG - This fragment is not shown !!!
+ * BUG - This fragment doesn't display its contents !!!
  *
  */
 public class DynamicLayoutFragment extends Fragment {

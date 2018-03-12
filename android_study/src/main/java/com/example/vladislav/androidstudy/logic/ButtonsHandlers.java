@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.activities.MenuActivity;
 import com.example.vladislav.androidstudy.activities.ParcelableActivity;
-import com.example.vladislav.androidstudy.activities.dynamic_layout.AddButtonsActivity;
+import com.example.vladislav.androidstudy.activities.dynamic_layout.buttons_inserting.AddButtonsActivity;
 import com.example.vladislav.androidstudy.beans.Planet;
 import com.example.vladislav.androidstudy.fragments.fragments_activity.DynamicFragmentsActivity;
 import com.example.vladislav.androidstudy.fragments.fragments_activity.FragmentsActivity;
@@ -121,11 +121,10 @@ public class ButtonsHandlers {
     }
 
     public void gotoParcelable() {
-        Intent intent = new Intent(mInitialActivity, ParcelableActivity.class);
         // To send data to other activity, one can do this using Parcelable interface.
         // Parcel is put to intent and in other activity is read from.
-        intent.putExtra("Planet", new Planet(12000,500000,600000));
-        mInitialActivity.startActivity(intent);
+        mInitialActivity.startActivity(ParcelableActivity.newIntent(
+                mInitialActivity, new Planet(12000,500000,600000)));
     }
 
     public void showAlertDialog() {

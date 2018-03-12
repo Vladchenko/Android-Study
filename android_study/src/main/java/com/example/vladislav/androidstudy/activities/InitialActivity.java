@@ -285,8 +285,7 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             }
             case R.id.context_menu_button: {
-                intent = new Intent(this, ContextMenuActivity.class);
-                startActivity(intent);
+                startActivity(ContextMenuActivity.newIntent(this));
                 break;
             }
             case R.id.programmatic_layout_button: {

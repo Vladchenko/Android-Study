@@ -1,16 +1,21 @@
 package com.example.vladislav.androidstudy.jobs.simple_jobs;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -34,7 +39,7 @@ public class WidgetsFragment extends Fragment {
     private Context mContext;
     private ProgressBar progressBar;
     private RadioButton radioButton;
-    private ToggleButton toggleButton;
+    private ToggleButton mToggleButton;
     private CheckBox checkBox;
     private TextView textView;
     private int count = 1;
@@ -42,10 +47,19 @@ public class WidgetsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_widgets, container, false);
+        mToggleButton = (ToggleButton)view.findViewById(R.id.toggle_button);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_widgets, container, false);
+        return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        animateButton();
+    }
+
+    // Code taken from activity, make it work if possible
     private void logicFromActivity() {
 
         mActivity = getActivity();
@@ -106,6 +120,26 @@ public class WidgetsFragment extends Fragment {
 
         new MyTask().execute();
 
+    }
+
+    private void animateButton() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int cx = mToggleButton.getWidth() / 2;
+            int cy = mToggleButton.getHeight() / 2;
+            float radius = mToggleButton.getWidth();
+            Animator anim = ViewAnimationUtils
+                    .createCircularReveal(mToggleButton, cx, cy, radius, 0);
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    mToggleButton.setVisibility(View.INVISIBLE);
+                }
+            });
+            anim.start();
+        } else {
+            mToggleButton.setVisibility(View.VISIBLE);
+        }
     }
 
     // This class runs some task in a separate thread.

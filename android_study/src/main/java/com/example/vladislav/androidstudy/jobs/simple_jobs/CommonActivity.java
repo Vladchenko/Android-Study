@@ -33,8 +33,8 @@ public class CommonActivity extends AppCompatActivity {
         }
 
 //        addImageFragment();
-//        addWidgetsFragment();
-        addDynamicLayoutFragment();
+        addWidgetsFragment();
+//        addDynamicLayoutFragment();
     }
 
     @Override

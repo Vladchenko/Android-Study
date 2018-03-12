@@ -61,7 +61,7 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
         // Following broadcast receiver is registered only programmatically.
         intentFilter = new IntentFilter();
         intentFilter.addAction(".receivers.BroadcastReceiverExample2");
-        registerReceiver(mBroadcastReceiver2, intentFilter, Manifest.permission.BROADCAST_WAP_PUSH, null);
+        registerReceiver(mBroadcastReceiver2, intentFilter);
     }
 
     @Override
@@ -140,11 +140,11 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             }
             case R.id.intent_send_broadcast_button: {
-                // Opening a link in a web-browser
+                // Sending a broadcast
                 Intent intent = new Intent();
                 intent.setAction(".receivers.BroadcastReceiverExample2");
                 intent.putExtra("message", "This is some message sent in broadcast");
-                sendBroadcast(intent, Manifest.permission.BROADCAST_WAP_PUSH);
+                sendBroadcast(intent);
                 break;
             }
             case R.id.intent_dial_button: {
