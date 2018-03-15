@@ -9,14 +9,12 @@ import java.util.UUID;
 
 public class Crime {
 
-    private String mId;
     private String mTitle;
     private String mDescription;
     private Date mDate;
     private boolean mSolved;
 
     public void Crime() {
-        mId = UUID.randomUUID().toString();
         mDate = new Date();
     }
 
@@ -42,14 +40,6 @@ public class Crime {
 
     public void setSolved(boolean mSolved) {
         this.mSolved = mSolved;
-    }
-
-    public String getId() {
-        return mId;
-    }
-
-    public void setId(UUID mId) {
-        this.mId = mId.toString();
     }
 
     public String getTitle() {

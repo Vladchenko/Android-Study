@@ -6,6 +6,7 @@
     android:layout_margin="16dp">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/crime_records_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
@@ -15,10 +16,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_margin="16dp"
         android:clickable="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_cloud_circle_black_24dp" />
+        android:src="@drawable/ic_add_black_24dp" />
 
 </RelativeLayout>

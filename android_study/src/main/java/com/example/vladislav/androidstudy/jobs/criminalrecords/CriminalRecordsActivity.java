@@ -16,18 +16,18 @@ public class CriminalRecordsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_criminal_records);
-        addCriminalRecordFragment();
+        addCriminalRecordListFragment();
     }
 
-    void addCriminalRecordFragment() {
+    void addCriminalRecordListFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment criminalRecordFragment = fragmentManager.findFragmentByTag(
-                CriminalRecordFragment.FRAGMENT_TAG);
+                CriminalRecordListFragment.FRAGMENT_TAG);
         if (criminalRecordFragment == null) {
-            criminalRecordFragment = new CriminalRecordFragment();
+            criminalRecordFragment = new CriminalRecordListFragment();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.add(R.id.fragment_container, criminalRecordFragment,
-                    CriminalRecordFragment.FRAGMENT_TAG)
+                    CriminalRecordListFragment.FRAGMENT_TAG)
                     .commit();
         }
     }

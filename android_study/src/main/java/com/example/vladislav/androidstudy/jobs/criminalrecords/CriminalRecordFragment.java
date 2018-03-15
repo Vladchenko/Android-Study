@@ -26,8 +26,6 @@ public class CriminalRecordFragment extends Fragment {
 
     public static final String FRAGMENT_TAG = CriminalRecordFragment.class.getSimpleName();
 
-    private boolean mCheck;
-
     private CheckBox mSolvedCheckBox;
     private Button mCancelButton;
     private Button mSaveButton;
@@ -66,7 +64,6 @@ public class CriminalRecordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mCrime = new Crime();
-//                mCrime.setDate(new Date());
                 mCrime.setDescription(mDescriptionEditText.getText().toString());
                 mCrime.setTitle(mTitleEditText.getText().toString());
                 if (!mCrime.getTitle().isEmpty()
@@ -91,6 +88,7 @@ public class CriminalRecordFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCrime = new Crime();
-        mDbHelper = new DBHelper(getActivity(), DATABASE_NAME);
+//        mDbHelper = new DBHelper(getActivity(), DATABASE_NAME);
+//        mDbHelper.createTableWithColumns(mDbHelper.getWritableDatabase());
     }
 }

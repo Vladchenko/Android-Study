@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.vladislav.androidstudy.jobs.sqlite.Person;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,10 +52,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // Making up a list of a columns
     private String[] makeColumnsNames() {
-        String[] columns = new String[5];
-        columns[0] = "Id";
-        columns[1] = "Title";
-        columns[2] = "Description";
+        String[] columns = new String[4];
+        columns[0] = "Title";
+        columns[1] = "Description";
+        columns[2] = "Date";
         columns[3] = "Checked";
         return columns;
     }
@@ -63,26 +64,25 @@ public class DBHelper extends SQLiteOpenHelper {
      * Getting all data from a table
      *
      * @param db database to get data from
-     * @param columns columns of table to be present in a retrieved dataset
      * @return 2d {@link ArrayList} os {@link String}
      */
-    public List<ArrayList<String>> getTableData(SQLiteDatabase db, String[] columns) {
+    public List<Crime> getCrimeData(SQLiteDatabase db) {
 
-        Cursor cursor = db.query(mDatabaseName, columns, null, null, null, null, null);
-        List<ArrayList<String>> tableData = new ArrayList<ArrayList<String>>();
+        Cursor cursor = db.query(mDatabaseName, mColumns, null, null, null, null, null);
+        List<Crime> crimes = new ArrayList<Crime>();
         cursor.moveToFirst();
-        int i = 0;
+        Crime crime;
         while (!cursor.isAfterLast()) {
-            tableData.add(new ArrayList<String>());
-            // Pass through all the columns in one row and put them in a list
-            for (int j = 0; j < cursor.getColumnCount(); j++) {
-                tableData.get(tableData.size() - 1).add("");
-                tableData.get(tableData.size() - 1).set(j, cursor.getString(j));
-            }
+            crime = new Crime();
+            crime.setTitle(cursor.getString(0));
+            crime.setDescription(cursor.getString(1));
+            crime.setDate(new Date(Date.parse(cursor.getString(2))));
+            crime.setSolved(Boolean.parseBoolean(cursor.getString(3)));
+            crimes.add(crime);
             cursor.moveToNext();
         }
         cursor.close();
-        return tableData;
+        return crimes;
     }
 
     /**
@@ -97,12 +97,12 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.i(TAG, "Putting data to a database");
         for (int i = 0; i < list.size(); i++) {
             db.execSQL(("INSERT INTO " + mDatabaseName
-                    + "(" + columns[0] + ", " + columns[1]
-                    + ", " + columns[2] + ", " + columns[3]
-                    + ") Values(" + "'" + list.get(i).getId() + "', "
+                    + "(" + columns[0] + ", " + columns[1] + ", " + columns[2]
+                    + ") Values(" + "'" + "', "
                     + "'" + list.get(i).getTitle() + "', "
                     + "'" + list.get(i).getDescription() + "', "
-                    + "'" + list.get(i).isSolved() + "') "));
+                    + "'" + list.get(i).isSolved() + "', "
+                    + "'" + list.get(i).getDate() + "') "));
         }
         Log.i(TAG, "Data has been put to a database");
     }
@@ -111,18 +111,16 @@ public class DBHelper extends SQLiteOpenHelper {
      * Putting a crime instance to a database
      *
      * @param db database to put data into
-     * @param columns columns of a database to write data into
      * @param crime instance of a crime
      */
     public void putCrimeToTable(SQLiteDatabase db, Crime crime) {
         Log.i(TAG, "Putting Crime to a database");
             db.execSQL(("INSERT INTO " + mDatabaseName
-                    + "(" + mColumns[0] + ", " + mColumns[1]
-                    + ", " + mColumns[2] + ", " + mColumns[3]
-                    + ") Values(" + "'" + crime.getId() + "', "
-                    + "'" + crime.getTitle() + "', "
+                    + "(" + mColumns[0] + ", " + mColumns[1] + ", " + mColumns[2]
+                    + ") Values(" + "'" + crime.getTitle() + "', "
                     + "'" + crime.getDescription() + "', "
-                    + "'" + crime.isSolved() + "') "));
+                    + "'" + crime.isSolved() + "', "
+                    + "'" + crime.getDate() + "') "));
         Log.i(TAG, "Crime has been put to a database");
     }
 
@@ -130,19 +128,27 @@ public class DBHelper extends SQLiteOpenHelper {
      * Creating table with a specific columns, unless already present
      *
      * @param db subject database
-     * @param columns columns that a table to be made of. All columns have type "text"
      */
-    public void createTableWithColumns(SQLiteDatabase db, String[] columns) {
+    public void createTableWithColumns(SQLiteDatabase db) {
         Log.i(TAG, "Creating a database");
         String sqlRequest = "Create table if not exists " + mDatabaseName + "("
                 + " id integer primary key autoincrement, ";
-        for (int i=0; i < columns.length - 1; i++) {
-            sqlRequest += columns[i] + " text, ";
+        for (int i=0; i < mColumns.length - 1; i++) {
+            sqlRequest += mColumns[i] + " text, ";
         }
-        sqlRequest += columns[columns.length - 1] + " text" + ");";
+        sqlRequest += mColumns[mColumns.length - 1] + " text" + ");";
         Log.i(TAG, "Request is:" + sqlRequest);
         db.execSQL(sqlRequest);
         Log.i(TAG, "Database created");
+    }
+
+    /**
+     * Dropping a table, if needed
+     */
+    public void dropTable(SQLiteDatabase db) {
+        Log.i(TAG, "Dropping a database");
+        db.execSQL(("Drop table if exists " + mDatabaseName));
+        Log.i(TAG, "Database dropped");
     }
 
 }
