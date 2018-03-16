@@ -97,7 +97,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.i(TAG, "Putting data to a database");
         for (int i = 0; i < list.size(); i++) {
             db.execSQL(("INSERT INTO " + mDatabaseName
-                    + "(" + columns[0] + ", " + columns[1] + ", " + columns[2]
+                    + "(" + columns[0] + ", " + columns[1] + ", " + columns[2] + ", " + columns[3]
                     + ") Values(" + "'" + "', "
                     + "'" + list.get(i).getTitle() + "', "
                     + "'" + list.get(i).getDescription() + "', "
@@ -117,7 +117,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.i(TAG, "Putting Crime to a database");
             db.execSQL(("INSERT INTO " + mDatabaseName
                     + "(" + mColumns[0] + ", " + mColumns[1] + ", " + mColumns[2]
-                    + ") Values(" + "'" + crime.getTitle() + "', "
+                    + ", " + mColumns[3] + ") Values(" + "'" + crime.getTitle() + "', "
                     + "'" + crime.getDescription() + "', "
                     + "'" + crime.isSolved() + "', "
                     + "'" + crime.getDate() + "') "));

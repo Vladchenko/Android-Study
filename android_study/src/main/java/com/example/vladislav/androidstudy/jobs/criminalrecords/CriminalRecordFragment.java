@@ -87,8 +87,8 @@ public class CriminalRecordFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
-//        mDbHelper = new DBHelper(getActivity(), DATABASE_NAME);
+//        mCrime = new Crime();
+        mDbHelper = new DBHelper(getActivity(), DATABASE_NAME);
 //        mDbHelper.createTableWithColumns(mDbHelper.getWritableDatabase());
     }
 }
