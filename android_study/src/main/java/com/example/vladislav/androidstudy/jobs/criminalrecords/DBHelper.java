@@ -52,11 +52,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // Making up a list of a columns
     private String[] makeColumnsNames() {
-        String[] columns = new String[4];
-        columns[0] = "Title";
-        columns[1] = "Description";
-        columns[2] = "Date";
-        columns[3] = "Checked";
+        String[] columns = new String[5];
+        columns[0] = "Id";
+        columns[1] = "Title";
+        columns[2] = "Description";
+        columns[3] = "Date";
+        columns[4] = "Checked";
         return columns;
     }
 
@@ -74,37 +75,16 @@ public class DBHelper extends SQLiteOpenHelper {
         Crime crime;
         while (!cursor.isAfterLast()) {
             crime = new Crime();
-            crime.setTitle(cursor.getString(0));
-            crime.setDescription(cursor.getString(1));
-            crime.setDate(new Date(Date.parse(cursor.getString(2))));
-            crime.setSolved(Boolean.parseBoolean(cursor.getString(3)));
+            // 0 index is an id and shouldn't be displayed to user
+            crime.setTitle(cursor.getString(1));
+            crime.setDescription(cursor.getString(2));
+            crime.setDate(new Date(Date.parse(cursor.getString(3))));
+            crime.setSolved(Boolean.parseBoolean(cursor.getString(4)));
             crimes.add(crime);
             cursor.moveToNext();
         }
         cursor.close();
         return crimes;
-    }
-
-    /**
-     * Putting data to a database
-     *
-     * @param db database to put data to
-     * @param columns columns of a table to put a data to
-     * @param list lst of data to be put to a table
-     */
-    public void putDataToTable(SQLiteDatabase db, String[] columns,
-                               List<Crime> list) {
-        Log.i(TAG, "Putting data to a database");
-        for (int i = 0; i < list.size(); i++) {
-            db.execSQL(("INSERT INTO " + mDatabaseName
-                    + "(" + columns[0] + ", " + columns[1] + ", " + columns[2] + ", " + columns[3]
-                    + ") Values(" + "'" + "', "
-                    + "'" + list.get(i).getTitle() + "', "
-                    + "'" + list.get(i).getDescription() + "', "
-                    + "'" + list.get(i).isSolved() + "', "
-                    + "'" + list.get(i).getDate() + "') "));
-        }
-        Log.i(TAG, "Data has been put to a database");
     }
 
     /**
@@ -114,13 +94,21 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param crime instance of a crime
      */
     public void putCrimeToTable(SQLiteDatabase db, Crime crime) {
+        Log.i(TAG, "Checking if a Crime is already present in a database");
+        Cursor cursor = db.query(mDatabaseName, new String[]{mColumns[0]},
+                mColumns[0] + "=" + crime.getId(), null, null, null, null);
+        if (cursor.getCount() > 0) {
+            Log.i(TAG, "Such crime exists");
+            // Means there is such entry present in a database and we should quit this method
+            return;
+        }
         Log.i(TAG, "Putting Crime to a database");
             db.execSQL(("INSERT INTO " + mDatabaseName
                     + "(" + mColumns[0] + ", " + mColumns[1] + ", " + mColumns[2]
-                    + ", " + mColumns[3] + ") Values(" + "'" + crime.getTitle() + "', "
-                    + "'" + crime.getDescription() + "', "
-                    + "'" + crime.isSolved() + "', "
-                    + "'" + crime.getDate() + "') "));
+                    + ", " + mColumns[3] + ", " + mColumns[4] + ") Values(" + "'"
+                    + crime.getId() + "',' " + crime.getTitle() + "', " + "'"
+                    + crime.getDescription() + "', " + "'" + crime.getDate() + "', "
+                    + "'" + crime.isSolved() + "') "));
         Log.i(TAG, "Crime has been put to a database");
     }
 
@@ -131,8 +119,8 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public void createTableWithColumns(SQLiteDatabase db) {
         Log.i(TAG, "Creating a database");
-        String sqlRequest = "Create table if not exists " + mDatabaseName + "("
-                + " id integer primary key autoincrement, ";
+        String sqlRequest = "Create table if not exists " + mDatabaseName + "( ";
+                //+ "id integer primary key autoincrement, ";
         for (int i=0; i < mColumns.length - 1; i++) {
             sqlRequest += mColumns[i] + " text, ";
         }

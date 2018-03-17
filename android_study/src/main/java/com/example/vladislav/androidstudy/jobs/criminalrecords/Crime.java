@@ -9,13 +9,47 @@ import java.util.UUID;
 
 public class Crime {
 
+    private String mId;
     private String mTitle;
     private String mDescription;
-    private Date mDate;
+    private Date mDate = new Date();
     private boolean mSolved;
 
     public void Crime() {
-        mDate = new Date();
+        mId = Integer.toString(hashCode());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Crime crime = (Crime) o;
+
+        if (mSolved != crime.mSolved) return false;
+        if (!mTitle.equals(crime.mTitle)) return false;
+        if (!mDescription.equals(crime.mDescription)) return false;
+        return mDate.equals(crime.mDate);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = mTitle.hashCode();
+        result = 31 * result + mDescription.hashCode();
+        result = 31 * result + mDate.hashCode();
+        result = 31 * result + (mSolved ? 1 : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Crime{" +
+                "Title='" + mTitle + '\'' +
+                ", Description='" + mDescription + '\'' +
+                ", Date=" + mDate +
+                ", Solved=" + mSolved +
+                '}';
     }
 
     public String getDescription() {
@@ -48,6 +82,14 @@ public class Crime {
 
     public void setTitle(String mTitle) {
         this.mTitle = mTitle;
+    }
+
+    public String getId() {
+        return mId;
+    }
+
+    public void setId(String mId) {
+        this.mId = mId;
     }
 
 }

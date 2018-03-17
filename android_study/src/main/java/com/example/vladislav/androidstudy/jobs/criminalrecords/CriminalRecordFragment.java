@@ -15,8 +15,6 @@ import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
 
-import java.util.Date;
-
 import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsActivity.DATABASE_NAME;
 
 /**
@@ -35,8 +33,12 @@ public class CriminalRecordFragment extends Fragment {
 
     private DBHelper mDbHelper;
 
-    public CriminalRecordFragment() {
-        // Required empty public constructor
+    public static CriminalRecordFragment newInstance() { //int someInt
+        CriminalRecordFragment myFragment = new CriminalRecordFragment();
+//        Bundle args = new Bundle();
+//        args.putInt("someInt", someInt);
+//        myFragment.setArguments(args);
+        return myFragment;
     }
 
     @Override
@@ -69,6 +71,8 @@ public class CriminalRecordFragment extends Fragment {
                 if (!mCrime.getTitle().isEmpty()
                         && !mCrime.getDescription().isEmpty()) {
                     mDbHelper.putCrimeToTable(mDbHelper.getWritableDatabase(), mCrime);
+                    Toast.makeText(getActivity(), "New crime has been added",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "Crime title or description is empty",
                             Toast.LENGTH_SHORT).show();
@@ -82,7 +86,6 @@ public class CriminalRecordFragment extends Fragment {
             }
         });
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

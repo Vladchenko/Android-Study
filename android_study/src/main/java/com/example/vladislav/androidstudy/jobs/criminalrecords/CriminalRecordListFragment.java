@@ -1,7 +1,6 @@
 package com.example.vladislav.androidstudy.jobs.criminalrecords;
 
 
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -36,14 +35,21 @@ public class CriminalRecordListFragment extends Fragment {
 
     private DBHelper mDbHelper;
 
-    public CriminalRecordListFragment() {
-        // Required empty public constructor
+    public static CriminalRecordListFragment newInstance() { //int someInt
+        CriminalRecordListFragment fragment = new CriminalRecordListFragment();
+//        Bundle args = new Bundle();
+//        args.putInt("someInt", someInt);
+//        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mDbHelper = new DBHelper(getActivity(), DATABASE_NAME);
+        // Dropping a database in case a previous one is obsolete
+//        mDbHelper.dropTable(mDbHelper.getWritableDatabase());
+        // Creating a table if it doesn't exist
         mDbHelper.createTableWithColumns(mDbHelper.getWritableDatabase());
         View view = inflater.inflate(R.layout.fragment_criminal_record_list, container, false);
         // Inflate the layout for this fragment
@@ -62,8 +68,8 @@ public class CriminalRecordListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                addCriminalRecordFragment();
+                public void onClick(View v) {
+                addCriminalRecordFragment(true);
             }
         });
         setupRecyclerView();
@@ -79,17 +85,20 @@ public class CriminalRecordListFragment extends Fragment {
         mAdapter.notifyDataSetChanged();
     }
 
-    private void addCriminalRecordFragment() {
+    private void addCriminalRecordFragment(boolean addToBackStack) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         Fragment criminalRecordFragment = fragmentManager.findFragmentByTag(
                 CriminalRecordFragment.FRAGMENT_TAG);
         if (criminalRecordFragment == null) {
-            criminalRecordFragment = new CriminalRecordFragment();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.fragment_container, criminalRecordFragment,
-                    CriminalRecordFragment.FRAGMENT_TAG)
-                    .commit();
+            criminalRecordFragment = CriminalRecordFragment.newInstance();
         }
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (addToBackStack) {
+            transaction.addToBackStack(null);
+        }
+        transaction.replace(R.id.fragment_container, criminalRecordFragment,
+                CriminalRecordFragment.FRAGMENT_TAG)
+                .commit();
     }
 
     private void setupAddButtonForegroundColor(int color) {

@@ -24,11 +24,11 @@ public class CriminalRecordsActivity extends AppCompatActivity {
         Fragment criminalRecordFragment = fragmentManager.findFragmentByTag(
                 CriminalRecordListFragment.FRAGMENT_TAG);
         if (criminalRecordFragment == null) {
-            criminalRecordFragment = new CriminalRecordListFragment();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(R.id.fragment_container, criminalRecordFragment,
-                    CriminalRecordListFragment.FRAGMENT_TAG)
-                    .commit();
+            criminalRecordFragment = CriminalRecordListFragment.newInstance();
         }
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, criminalRecordFragment,
+                CriminalRecordListFragment.FRAGMENT_TAG)
+                .commit();
     }
 }
