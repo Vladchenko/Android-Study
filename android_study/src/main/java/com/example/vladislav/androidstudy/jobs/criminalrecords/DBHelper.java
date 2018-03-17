@@ -5,15 +5,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
-import com.example.vladislav.androidstudy.jobs.sqlite.Person;
-
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsAdapter.mDateFormat;
 
 /**
  * Created by Влад on 11.03.2018.
@@ -78,7 +79,11 @@ public class DBHelper extends SQLiteOpenHelper {
             // 0 index is an id and shouldn't be displayed to user
             crime.setTitle(cursor.getString(1));
             crime.setDescription(cursor.getString(2));
-            crime.setDate(new Date(Date.parse(cursor.getString(3))));
+            try {
+                crime.setDate((Date) mDateFormat.parse(cursor.getString(3)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             crime.setSolved(Boolean.parseBoolean(cursor.getString(4)));
             crimes.add(crime);
             cursor.moveToNext();
@@ -102,6 +107,7 @@ public class DBHelper extends SQLiteOpenHelper {
             // Means there is such entry present in a database and we should quit this method
             return;
         }
+//        String date = mDateFormat.format(crime.getDate());
         Log.i(TAG, "Putting Crime to a database");
             db.execSQL(("INSERT INTO " + mDatabaseName
                     + "(" + mColumns[0] + ", " + mColumns[1] + ", " + mColumns[2]
@@ -125,7 +131,7 @@ public class DBHelper extends SQLiteOpenHelper {
             sqlRequest += mColumns[i] + " text, ";
         }
         sqlRequest += mColumns[mColumns.length - 1] + " text" + ");";
-        Log.i(TAG, "Request is:" + sqlRequest);
+        Log.i(TAG, "Request is: " + sqlRequest);
         db.execSQL(sqlRequest);
         Log.i(TAG, "Database created");
     }

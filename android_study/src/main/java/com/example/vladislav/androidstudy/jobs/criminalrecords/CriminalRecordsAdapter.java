@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 
 import com.example.vladislav.androidstudy.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Влад on 13.03.2018.
@@ -16,6 +19,8 @@ import java.util.List;
 public class CriminalRecordsAdapter extends RecyclerView.Adapter<CriminalRecordsViewHolder> {
 
     private List<Crime> mCrimes;
+    private int mIndex=0;
+    public static final DateFormat mDateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy", Locale.US);
 
     public CriminalRecordsAdapter(List<Crime> crimes) {
         mCrimes = crimes;
@@ -23,11 +28,18 @@ public class CriminalRecordsAdapter extends RecyclerView.Adapter<CriminalRecords
 
     @Override
     public CriminalRecordsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        mIndex++;
         // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.crime_record_recycler_view_item, parent, false);
+        View view;
+        if (mIndex%2 == 0) {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.crime_record_recycler_view_item, parent, false);
+        } else {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.crime_record_recycler_view_item_2, parent, false);
+        }
         // set the view's size, margins, paddings and layout parameters
-        CriminalRecordsViewHolder vh = new CriminalRecordsViewHolder(v);
+        CriminalRecordsViewHolder vh = new CriminalRecordsViewHolder(view);
         return vh;
     }
 
@@ -35,7 +47,8 @@ public class CriminalRecordsAdapter extends RecyclerView.Adapter<CriminalRecords
     public void onBindViewHolder(CriminalRecordsViewHolder holder, int position) {
         holder.getCrimeTitleTextView().setText(mCrimes.get(position).getTitle());
         holder.getCrimeDescriptionTextView().setText(mCrimes.get(position).getDescription());
-        holder.getCrimeCreationDateTextView().setText(mCrimes.get(position).getDate().toString());
+        holder.getCrimeCreationDateTextView().setText(
+                mDateFormat.format(mCrimes.get(position).getDate()));
     }
 
     @Override
