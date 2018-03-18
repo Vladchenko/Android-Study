@@ -19,7 +19,7 @@ public class CriminalRecordsActivity extends AppCompatActivity {
         addCriminalRecordListFragment();
     }
 
-    void addCriminalRecordListFragment() {
+    public void addCriminalRecordListFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment criminalRecordFragment = fragmentManager.findFragmentByTag(
                 CriminalRecordListFragment.FRAGMENT_TAG);

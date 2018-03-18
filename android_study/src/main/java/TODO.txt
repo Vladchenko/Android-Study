@@ -2,4 +2,8 @@ Implement following tasks in this app:
     - Replace all the intents for startActivity() with newIntent()
     - Implement setTargetFragment() ni some fragment
     - WidgetsFragment - //Code taken from activity, make it work if possible
-    - Work through an addition of a fragment usingits id
+    - Work through an addition of a fragment using its id
+    - Make an empty item, when a crimes list is empty in the beginning
+    - Make a DBHelper to be a singleton
+    - Make a deletion button
+    - Make a deletion button to be not seen when a crime is created

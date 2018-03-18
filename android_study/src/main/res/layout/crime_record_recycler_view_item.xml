@@ -3,7 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/crime_record_recycler_view_item_layout">
+
+    <TextView
+        android:id="@+id/crime_id_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:text="Id"/>
 
     <TextView
         android:id="@+id/crime_title_text_view"

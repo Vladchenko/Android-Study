@@ -6,15 +6,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsAdapter.mDateFormat;
+import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsAdapter.DATE_FORMAT;
 
 /**
  * Created by Влад on 11.03.2018.
@@ -33,7 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
     /**
      * Creates a database with a specific name
      *
-     * @param context some context
+     * @param context      some context
      * @param databaseName database name
      */
     DBHelper(Context context, String databaseName) {
@@ -75,16 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         Crime crime;
         while (!cursor.isAfterLast()) {
-            crime = new Crime();
-            // 0 index is an id and shouldn't be displayed to user
-            crime.setTitle(cursor.getString(1));
-            crime.setDescription(cursor.getString(2));
-            try {
-                crime.setDate((Date) mDateFormat.parse(cursor.getString(3)));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            crime.setSolved(Boolean.parseBoolean(cursor.getString(4)));
+            crime = getCrimeFromCursor(cursor);
             crimes.add(crime);
             cursor.moveToNext();
         }
@@ -92,10 +80,22 @@ public class DBHelper extends SQLiteOpenHelper {
         return crimes;
     }
 
+    public Crime getCrimeById(SQLiteDatabase db, String id) {
+        Crime crime = null;
+        Cursor cursor = db.query(mDatabaseName, mColumns, mColumns[0] + "=" + id,
+                null, null, null, null);
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            crime = getCrimeFromCursor(cursor);
+        }
+        cursor.close();
+        return crime;
+    }
+
     /**
      * Putting a crime instance to a database
      *
-     * @param db database to put data into
+     * @param db    database to put data into
      * @param crime instance of a crime
      */
     public void putCrimeToTable(SQLiteDatabase db, Crime crime) {
@@ -107,15 +107,24 @@ public class DBHelper extends SQLiteOpenHelper {
             // Means there is such entry present in a database and we should quit this method
             return;
         }
-//        String date = mDateFormat.format(crime.getDate());
         Log.i(TAG, "Putting Crime to a database");
-            db.execSQL(("INSERT INTO " + mDatabaseName
-                    + "(" + mColumns[0] + ", " + mColumns[1] + ", " + mColumns[2]
-                    + ", " + mColumns[3] + ", " + mColumns[4] + ") Values(" + "'"
-                    + crime.getId() + "',' " + crime.getTitle() + "', " + "'"
-                    + crime.getDescription() + "', " + "'" + crime.getDate() + "', "
-                    + "'" + crime.isSolved() + "') "));
+        db.execSQL(("INSERT INTO " + mDatabaseName
+                + "(" + mColumns[0] + ", " + mColumns[1] + ", " + mColumns[2]
+                + ", " + mColumns[3] + ", " + mColumns[4] + ") Values(" + "'"
+                + crime.initId() + "',' " + crime.getTitle() + "', " + "'"
+                + crime.getDescription() + "', " + "'" + crime.getDate() + "', "
+                + "'" + crime.isSolved() + "') "));
         Log.i(TAG, "Crime has been put to a database");
+    }
+
+    private Crime getCrimeFromCursor(Cursor cursor) {
+        Crime crime = new Crime();
+        crime.setId(cursor.getString(0));
+        crime.setTitle(cursor.getString(1));
+        crime.setDescription(cursor.getString(2));
+        crime.setDate(new Date(Date.parse(cursor.getString(3))));
+        crime.setSolved(Boolean.parseBoolean(cursor.getString(4)));
+        return crime;
     }
 
     /**
@@ -126,8 +135,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void createTableWithColumns(SQLiteDatabase db) {
         Log.i(TAG, "Creating a database");
         String sqlRequest = "Create table if not exists " + mDatabaseName + "( ";
-                //+ "id integer primary key autoincrement, ";
-        for (int i=0; i < mColumns.length - 1; i++) {
+        //+ "id integer primary key autoincrement, ";
+        for (int i = 0; i < mColumns.length - 1; i++) {
             sqlRequest += mColumns[i] + " text, ";
         }
         sqlRequest += mColumns[mColumns.length - 1] + " text" + ");";

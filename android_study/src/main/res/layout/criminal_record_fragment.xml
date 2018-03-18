@@ -74,7 +74,7 @@
         android:layout_below="@id/crime_description_edit_text"
         android:layout_centerHorizontal="true"
         android:enabled="false"
-        android:text="Button" />
+        android:text="CRIME CREATION TIME PENDING" />
 
 
     <LinearLayout

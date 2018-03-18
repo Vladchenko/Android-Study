@@ -24,10 +24,16 @@ public class CriminalRecordFragment extends Fragment {
 
     public static final String FRAGMENT_TAG = CriminalRecordFragment.class.getSimpleName();
 
-    private CheckBox mSolvedCheckBox;
+    public static final String CRIME_TITLE_KEY = "Crime record key";
+    public static final String CRIME_DESCRIPTION_KEY = "Crime description key";
+    public static final String CRIME_DATE_KEY = "Crime date key";
+    public static final String CRIME_SOLVED_KEY = "Crime date key";
+
     private Button mCancelButton;
     private Button mSaveButton;
+    private Button mDateButton;
     private Crime mCrime;
+    private CheckBox mSolvedCheckBox;
     private EditText mDescriptionEditText;
     private EditText mTitleEditText;
 
@@ -44,12 +50,23 @@ public class CriminalRecordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mCrime = new Crime();
+        Bundle args = getArguments();
         View view = inflater.inflate(R.layout.criminal_record_fragment, container, false);
         mSolvedCheckBox = (CheckBox)view.findViewById(R.id.solved_checkbox);
         mCancelButton = (Button)view.findViewById(R.id.cancel_button);
         mSaveButton = (Button)view.findViewById(R.id.save_button);
         mDescriptionEditText = (EditText)view.findViewById(R.id.crime_description_edit_text);
         mTitleEditText = (EditText)view.findViewById(R.id.crime_title_edit_text);
+        mDateButton = (Button)view.findViewById(R.id.date_button);
+        if (args != null) {
+            mTitleEditText.setText(args.getString(CRIME_TITLE_KEY));
+            mDescriptionEditText.setText(args.getString(CRIME_DESCRIPTION_KEY));
+            mDateButton.setText("CREATION DATE: " + args.getString(CRIME_DATE_KEY));
+            mSolvedCheckBox.setChecked(Boolean.parseBoolean(args.getString(CRIME_SOLVED_KEY)));
+//            mCrime.set
+            // Set all the fields to Crime
+        }
         return view;
     }
 
@@ -65,7 +82,6 @@ public class CriminalRecordFragment extends Fragment {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCrime = new Crime();
                 mCrime.setDescription(mDescriptionEditText.getText().toString());
                 mCrime.setTitle(mTitleEditText.getText().toString());
                 if (!mCrime.getTitle().isEmpty()
@@ -83,6 +99,7 @@ public class CriminalRecordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Make pass to a listfragment
+                getFragmentManager().popBackStack();
             }
         });
     }
@@ -90,8 +107,6 @@ public class CriminalRecordFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mCrime = new Crime();
         mDbHelper = new DBHelper(getActivity(), DATABASE_NAME);
-//        mDbHelper.createTableWithColumns(mDbHelper.getWritableDatabase());
     }
 }

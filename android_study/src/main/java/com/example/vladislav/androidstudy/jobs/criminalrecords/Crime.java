@@ -15,10 +15,6 @@ public class Crime {
     private Date mDate = new Date();
     private boolean mSolved;
 
-    public void Crime() {
-        mId = Integer.toString(hashCode());
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,7 +41,8 @@ public class Crime {
     @Override
     public String toString() {
         return "Crime{" +
-                "Title='" + mTitle + '\'' +
+                "Id='" + mId + '\'' +
+                ", Title='" + mTitle + '\'' +
                 ", Description='" + mDescription + '\'' +
                 ", Date=" + mDate +
                 ", Solved=" + mSolved +
@@ -88,8 +85,13 @@ public class Crime {
         return mId;
     }
 
-    public void setId(String mId) {
-        this.mId = mId;
+    public void setId(String id) {
+        mId = id;
+    }
+
+    public String initId() {
+        mId = Integer.toString(hashCode());
+        return mId;
     }
 
 }
