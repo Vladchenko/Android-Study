@@ -93,12 +93,19 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         // Get a crime entry on such id from DB and launch CriminalRecordFragment with this entry
         // in bundle.
         Crime crime = mDbHelper.getCrimeById(mDbHelper.getReadableDatabase(), crimeId);
-        Bundle bundle = new Bundle();
-        bundle.putString(CRIME_TITLE_KEY, crime.getTitle());
-        bundle.putString(CRIME_DESCRIPTION_KEY, crime.getDescription());
-        bundle.putString(CRIME_DATE_KEY, crime.getDate().toString());
-        bundle.putString(CRIME_SOLVED_KEY, DATE_FORMAT.format(crime.getDate()));
-        addCriminalRecordFragment(true, bundle);
+        if (crime != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString(CRIME_TITLE_KEY, crime.getTitle());
+            bundle.putString(CRIME_DESCRIPTION_KEY, crime.getDescription());
+            bundle.putString(CRIME_DATE_KEY, crime.getDate().toString());
+            bundle.putString(CRIME_SOLVED_KEY, DATE_FORMAT.format(crime.getDate()));
+            // Removing an existing entry, since we'll need to add a modified one and this one is
+            // to stay in DB, unless we remove it here.
+            mDbHelper.removeCrimeById(mDbHelper.getReadableDatabase(), crimeId);
+            addCriminalRecordFragment(true, bundle);
+        } else {
+            // What should go here ?
+        }
 
     }
 

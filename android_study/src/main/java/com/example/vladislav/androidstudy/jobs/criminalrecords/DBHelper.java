@@ -92,6 +92,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return crime;
     }
 
+    public int removeCrimeById(SQLiteDatabase db, String id) {
+        return db.delete(mDatabaseName, mColumns[0] + "=" + id, null);
+    }
+
     /**
      * Putting a crime instance to a database
      *
