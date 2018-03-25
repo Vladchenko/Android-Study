@@ -24,10 +24,13 @@ public class CriminalRecordFragment extends Fragment {
 
     public static final String FRAGMENT_TAG = CriminalRecordFragment.class.getSimpleName();
 
+    public static final String CRIME_ID = "Crime Id";
     public static final String CRIME_TITLE_KEY = "Crime record key";
     public static final String CRIME_DESCRIPTION_KEY = "Crime description key";
     public static final String CRIME_DATE_KEY = "Crime date key";
-    public static final String CRIME_SOLVED_KEY = "Crime date key";
+    public static final String CRIME_SOLVED_KEY = "Crime solved key";
+
+    private String mId;
 
     private Button mCancelButton;
     private Button mSaveButton;
@@ -60,10 +63,11 @@ public class CriminalRecordFragment extends Fragment {
         mTitleEditText = (EditText)view.findViewById(R.id.crime_title_edit_text);
         mDateButton = (Button)view.findViewById(R.id.date_button);
         if (args != null) {
+            mId = args.getString(CRIME_ID);
             mTitleEditText.setText(args.getString(CRIME_TITLE_KEY));
             mDescriptionEditText.setText(args.getString(CRIME_DESCRIPTION_KEY));
             mDateButton.setText("CREATION DATE: " + args.getString(CRIME_DATE_KEY));
-            mSolvedCheckBox.setChecked(Boolean.parseBoolean(args.getString(CRIME_SOLVED_KEY)));
+            mSolvedCheckBox.setChecked(args.getBoolean(CRIME_SOLVED_KEY));
 //            mCrime.set
             // Set all the fields to Crime
         }
@@ -82,8 +86,11 @@ public class CriminalRecordFragment extends Fragment {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Removing an existing entry, since we'll need to add a modified one
+                mDbHelper.removeCrimeById(mDbHelper.getReadableDatabase(), mId);
                 mCrime.setDescription(mDescriptionEditText.getText().toString());
                 mCrime.setTitle(mTitleEditText.getText().toString());
+                mCrime.setSolved(mSolvedCheckBox.isChecked());
                 if (!mCrime.getTitle().isEmpty()
                         && !mCrime.getDescription().isEmpty()) {
                     mDbHelper.putCrimeToTable(mDbHelper.getWritableDatabase(), mCrime);

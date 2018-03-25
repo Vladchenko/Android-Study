@@ -22,6 +22,7 @@ import java.util.List;
 
 import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordFragment.CRIME_DATE_KEY;
 import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordFragment.CRIME_DESCRIPTION_KEY;
+import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordFragment.CRIME_ID;
 import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordFragment.CRIME_SOLVED_KEY;
 import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordFragment.CRIME_TITLE_KEY;
 import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsActivity.DATABASE_NAME;
@@ -95,13 +96,11 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         Crime crime = mDbHelper.getCrimeById(mDbHelper.getReadableDatabase(), crimeId);
         if (crime != null) {
             Bundle bundle = new Bundle();
+            bundle.putString(CRIME_ID, crime.getId());
             bundle.putString(CRIME_TITLE_KEY, crime.getTitle());
             bundle.putString(CRIME_DESCRIPTION_KEY, crime.getDescription());
             bundle.putString(CRIME_DATE_KEY, crime.getDate().toString());
-            bundle.putString(CRIME_SOLVED_KEY, DATE_FORMAT.format(crime.getDate()));
-            // Removing an existing entry, since we'll need to add a modified one and this one is
-            // to stay in DB, unless we remove it here.
-            mDbHelper.removeCrimeById(mDbHelper.getReadableDatabase(), crimeId);
+            bundle.putBoolean(CRIME_SOLVED_KEY, crime.isSolved());
             addCriminalRecordFragment(true, bundle);
         } else {
             // What should go here ?
