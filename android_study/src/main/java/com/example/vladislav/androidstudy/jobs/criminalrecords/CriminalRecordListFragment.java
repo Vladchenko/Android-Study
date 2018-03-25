@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
 
@@ -103,7 +104,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
             bundle.putBoolean(CRIME_SOLVED_KEY, crime.isSolved());
             addCriminalRecordFragment(true, bundle);
         } else {
-            // What should go here ?
+            Toast.makeText(getActivity(), "No crime found to edit. Something is wrong.", Toast.LENGTH_SHORT);
         }
 
     }

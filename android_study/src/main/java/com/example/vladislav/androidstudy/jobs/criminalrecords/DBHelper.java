@@ -115,7 +115,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(("INSERT INTO " + mDatabaseName
                 + "(" + mColumns[0] + ", " + mColumns[1] + ", " + mColumns[2]
                 + ", " + mColumns[3] + ", " + mColumns[4] + ") Values(" + "'"
-                + crime.initId() + "',' " + crime.getTitle() + "', " + "'"
+                + crime.initId() + "', '" + crime.getTitle() + "', " + "'"
                 + crime.getDescription() + "', " + "'" + crime.getDate() + "', "
                 + "'" + crime.isSolved() + "') "));
         Log.i(TAG, "Crime has been put to a database");
