@@ -100,7 +100,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
             bundle.putString(CRIME_ID, crime.getId());
             bundle.putString(CRIME_TITLE_KEY, crime.getTitle());
             bundle.putString(CRIME_DESCRIPTION_KEY, crime.getDescription());
-            bundle.putString(CRIME_DATE_KEY, crime.getDate().toString());
+            bundle.putString(CRIME_DATE_KEY, DATE_FORMAT.format(crime.getDate()));
             bundle.putBoolean(CRIME_SOLVED_KEY, crime.isSolved());
             addCriminalRecordFragment(true, bundle);
         } else {
