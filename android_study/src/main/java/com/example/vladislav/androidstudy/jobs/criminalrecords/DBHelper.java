@@ -27,13 +27,22 @@ public class DBHelper extends SQLiteOpenHelper {
     // Columns to create a table with
     private final String[] mColumns = makeColumnsNames();
 
+    private static DBHelper ourInstance = null;
+
+    static DBHelper getInstance(Context context, String databaseName) {
+        if (ourInstance == null) {
+            ourInstance = new DBHelper(context, databaseName);
+        }
+        return ourInstance;
+    }
+
     /**
      * Creates a database with a specific name
      *
      * @param context      some context
      * @param databaseName database name
      */
-    DBHelper(Context context, String databaseName) {
+    private DBHelper(Context context, String databaseName) {
         super(context, databaseName, null, 1);
         mDatabaseName = databaseName;
     }

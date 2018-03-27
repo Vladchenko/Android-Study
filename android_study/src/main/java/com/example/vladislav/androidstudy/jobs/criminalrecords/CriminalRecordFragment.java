@@ -114,6 +114,6 @@ public class CriminalRecordFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDbHelper = new DBHelper(getActivity(), DATABASE_NAME);
+        mDbHelper = DBHelper.getInstance(getActivity(), DATABASE_NAME);
     }
 }

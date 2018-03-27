@@ -57,7 +57,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mDbHelper = new DBHelper(getActivity(), DATABASE_NAME);
+        mDbHelper = DBHelper.getInstance(getActivity(), DATABASE_NAME);
         // Dropping a table to remove all the entries at once
 //        mDbHelper.dropTable(mDbHelper.getReadableDatabase());
         // Creating a table if it doesn't exist
