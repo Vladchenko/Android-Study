@@ -6,3 +6,10 @@ Implement following tasks in this app:
     - Make a deletion button
         - Make a deletion button to be not seen when a crime is created
     - When a crime is edited, its creation date is changed when saved, make not do so.
+    - Separate list for a resolved and not resolved crimes ?
+    - Make a look of a list items to be more separated
+    - Make a look of a date button's text to be more black
+    - Make a ViewPager for a crimes
+
+    ? CriminalRecordListFragment is passed to CrimesAsyncTask and once asynctask done its job, is
+    it destroyed right away and fragment is not leaked

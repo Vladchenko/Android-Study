@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
-    tools:context="com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordFragment">
+    tools:context="com.example.vladislav.androidstudy.jobs.criminalrecords.ui.CriminalRecordFragment">
 
     <TextView
         android:id="@+id/title_text_text_view"

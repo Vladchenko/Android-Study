@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.jobs.criminalrecords;
+package com.example.vladislav.androidstudy.jobs.criminalrecords.ui;
 
 
 import android.os.Bundle;
@@ -14,8 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
-
-import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsActivity.DATABASE_NAME;
+import com.example.vladislav.androidstudy.jobs.criminalrecords.Crime;
+import com.example.vladislav.androidstudy.jobs.criminalrecords.DBHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -114,6 +114,6 @@ public class CriminalRecordFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDbHelper = DBHelper.getInstance(getActivity(), DATABASE_NAME);
+        mDbHelper = DBHelper.getInstance(getActivity(), CriminalRecordsActivity.DATABASE_NAME);
     }
 }

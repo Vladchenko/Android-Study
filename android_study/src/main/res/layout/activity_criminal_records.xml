@@ -5,6 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsActivity">
+    tools:context="com.example.vladislav.androidstudy.jobs.criminalrecords.ui.CriminalRecordsActivity">
 
 </FrameLayout>

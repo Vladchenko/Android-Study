@@ -180,6 +180,10 @@ Caution: Once you publish your application, you cannot change the package name. 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <provider android:authorities="com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesContentProvider"
+            android:name=".jobs.criminalrecords.data_providing.CrimesContentProvider"/>
+
         // --- Broadcast receivers ---
         // This receiver should not accept any broadcasts, but in fact it is overridden in code and
         // has some intent-filter provided.
@@ -259,7 +263,7 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".jobs.simple_jobs.CommonActivity">
         </activity>
-        <activity android:name=".jobs.criminalrecords.CriminalRecordsActivity">
+        <activity android:name=".jobs.criminalrecords.ui.CriminalRecordsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- Next row says this app is added to an apps list in android OS on a cell phone -->

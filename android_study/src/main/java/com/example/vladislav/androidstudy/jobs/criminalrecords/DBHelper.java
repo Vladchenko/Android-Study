@@ -6,12 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsAdapter.DATE_FORMAT;
 
 /**
  * Created by Влад on 11.03.2018.
@@ -27,13 +24,13 @@ public class DBHelper extends SQLiteOpenHelper {
     // Columns to create a table with
     private final String[] mColumns = makeColumnsNames();
 
-    private static DBHelper ourInstance = null;
+    private static DBHelper mInstance = null;
 
-    static DBHelper getInstance(Context context, String databaseName) {
-        if (ourInstance == null) {
-            ourInstance = new DBHelper(context, databaseName);
+    public static DBHelper getInstance(Context context, String databaseName) {
+        if (mInstance == null) {
+            mInstance = new DBHelper(context, databaseName);
         }
-        return ourInstance;
+        return mInstance;
     }
 
     /**
@@ -69,14 +66,36 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Getting a cursor for all the crimes
+     *
+     * @param db
+     * @return
+     */
+    public Cursor getCrimesCursor(SQLiteDatabase db) {
+        return db.query(mDatabaseName, mColumns, null, null, null, null, null);
+    }
+
+    /**
      * Getting all data from a table
      *
      * @param db database to get data from
      * @return 2d {@link ArrayList} os {@link String}
      */
     public List<Crime> getCrimeData(SQLiteDatabase db) {
+        Cursor cursor = getCrimesCursor(db);
+        List<Crime> crimes = new ArrayList<Crime>();
+        cursor.moveToFirst();
+        Crime crime;
+        while (!cursor.isAfterLast()) {
+            crime = getCrimeFromCursor(cursor);
+            crimes.add(crime);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return crimes;
+    }
 
-        Cursor cursor = db.query(mDatabaseName, mColumns, null, null, null, null, null);
+    public List<Crime> getCrimeData(Cursor cursor) {
         List<Crime> crimes = new ArrayList<Crime>();
         cursor.moveToFirst();
         Crime crime;
