@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -21,19 +22,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.jobs.criminalrecords.Crime;
 import com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsAdapter;
 import com.example.vladislav.androidstudy.jobs.criminalrecords.DBHelper;
 import com.example.vladislav.androidstudy.jobs.criminalrecords.ICrimeItemClickListener;
-import com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesAsyncTask;
-import com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesCursorLoader;
+import com.example.vladislav.androidstudy.jobs.criminalrecords.ParcelableCrimesList;
 
 import java.util.List;
-
-import static com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsAdapter.DATE_FORMAT;
 
 /**
  * Fragment representing a list of a crimes
@@ -42,7 +39,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String FRAGMENT_TAG = CriminalRecordListFragment.class.getSimpleName();
-    private List<Crime> mCrimes;
+    private ParcelableCrimesList mCrimes;
 
     private FloatingActionButton mActionButton;
     private RecyclerView mRecyclerView;
@@ -86,43 +83,41 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addCriminalRecordFragment(true, null);
+                addCrimeViewPagerFragment(true, null);
             }
         });
         setupAddButtonForegroundColor(R.color.color_white);
         // Getting loadermanager for cursorloader and initializing it.
         getActivity().getSupportLoaderManager().initLoader(0, null, this);
         if (mCrimes == null) {
-            getActivity().getSupportLoaderManager().getLoader(0).forceLoad();
+            getActivity().getSupportLoaderManager().getLoader(0).startLoading();
         } else {
             setupRecyclerView(mCrimes);
             mProgressBar.setVisibility(View.INVISIBLE);
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mDbHelper.close();
+    }
+
     // Callback method. It is invoked when a recyclerview's crime item clicked.
     @Override
     public void onCrimeItemClick(String crimeId) {
-        // Get a crime entry on such id from DB and launch CriminalRecordFragment with this entry
-        // in bundle.
-        Crime crime = mDbHelper.getCrimeById(mDbHelper.getReadableDatabase(), crimeId);
-        if (crime != null) {
-            Bundle bundle = new Bundle();
-            bundle.putString(CriminalRecordFragment.CRIME_ID, crime.getId());
-            bundle.putString(CriminalRecordFragment.CRIME_TITLE_KEY, crime.getTitle());
-            bundle.putString(CriminalRecordFragment.CRIME_DESCRIPTION_KEY, crime.getDescription());
-            bundle.putString(CriminalRecordFragment.CRIME_DATE_KEY, DATE_FORMAT.format(crime.getDate()));
-            bundle.putBoolean(CriminalRecordFragment.CRIME_SOLVED_KEY, crime.isSolved());
-            addCriminalRecordFragment(true, bundle);
-        } else {
-            Toast.makeText(getActivity(), "No crime found to edit. Something is wrong.", Toast.LENGTH_SHORT);
-        }
-
+        addCrimeViewPagerFragment(true, crimeId);
     }
 
     public void setupRecyclerView(List<Crime> crimes) {
@@ -134,7 +129,6 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         mAdapter.notifyDataSetChanged();
     }
 
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Uri contentUri = Uri.parse("content://com.example.vladislav.androidstudy.jobs." +
@@ -144,9 +138,9 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        loader.forceLoad();
         if (cursor != null) {
-            setupRecyclerView(mDbHelper.getCrimeData(cursor));
+            mCrimes = mDbHelper.getCrimeData(cursor);
+            setupRecyclerView(mCrimes);
             mProgressBar.setVisibility(View.INVISIBLE);
         }
     }
@@ -156,22 +150,26 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
 
     }
 
-    public void addCriminalRecordFragment(boolean addToBackStack, Bundle bundle) {
+    public void addCrimeViewPagerFragment(boolean addToBackStack, String crimeId) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        Fragment criminalRecordFragment = fragmentManager.findFragmentByTag(
-                CriminalRecordFragment.FRAGMENT_TAG);
-        if (criminalRecordFragment == null) {
-            criminalRecordFragment = CriminalRecordFragment.newInstance();
+        Fragment crimesViewPagerFragment = fragmentManager.findFragmentByTag(
+                CrimesViewPagerFragment.FRAGMENT_TAG);
+        if (crimesViewPagerFragment == null) {
+            crimesViewPagerFragment = CrimesViewPagerFragment.newInstance();
         }
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if (addToBackStack) {
             transaction.addToBackStack(null);
         }
-        if (bundle != null) {
-            criminalRecordFragment.setArguments(bundle);
+        if (crimeId != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("CrimeId", crimeId);
+            bundle.putParcelableArrayList("Crimes", mCrimes);
+
+            crimesViewPagerFragment.setArguments(bundle);
         }
-        transaction.replace(R.id.fragment_container, criminalRecordFragment,
-                CriminalRecordFragment.FRAGMENT_TAG)
+        transaction.replace(R.id.fragment_container, crimesViewPagerFragment,
+                CrimesViewPagerFragment.FRAGMENT_TAG)
                 .commit();
     }
 
@@ -189,11 +187,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         }
     }
 
-    public List<Crime> getCrimes() {
-        return mCrimes;
-    }
-
-    public void setCrimes(List<Crime> mCrimes) {
+    public void setCrimes(ParcelableCrimesList mCrimes) {
         this.mCrimes = mCrimes;
     }
 

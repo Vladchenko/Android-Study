@@ -56,7 +56,7 @@ public class CrimesAsyncTask extends AsyncTask<Void, Integer, List<Crime>> {
     @Override
     protected void onPostExecute(List<Crime> crimes) {
         super.onPostExecute(crimes);
-        mRecordListFragment.setCrimes(crimes);
+//        mRecordListFragment.setCrimes(crimes);
         mRecordListFragment.getProgressBar().setVisibility(View.INVISIBLE);
         mRecordListFragment.setupRecyclerView(crimes);
     }

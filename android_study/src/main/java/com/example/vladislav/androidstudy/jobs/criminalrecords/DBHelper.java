@@ -11,9 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Class that provides a means to access database.
+ *
  * Created by Влад on 11.03.2018.
  */
-
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String TAG = DBHelper.class.getSimpleName();
@@ -81,22 +82,13 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param db database to get data from
      * @return 2d {@link ArrayList} os {@link String}
      */
-    public List<Crime> getCrimeData(SQLiteDatabase db) {
+    public ParcelableCrimesList getCrimeData(SQLiteDatabase db) {
         Cursor cursor = getCrimesCursor(db);
-        List<Crime> crimes = new ArrayList<Crime>();
-        cursor.moveToFirst();
-        Crime crime;
-        while (!cursor.isAfterLast()) {
-            crime = getCrimeFromCursor(cursor);
-            crimes.add(crime);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return crimes;
+        return getCrimeData(cursor);
     }
 
-    public List<Crime> getCrimeData(Cursor cursor) {
-        List<Crime> crimes = new ArrayList<Crime>();
+    public ParcelableCrimesList getCrimeData(Cursor cursor) {
+        ParcelableCrimesList crimes = new ParcelableCrimesList();
         cursor.moveToFirst();
         Crime crime;
         while (!cursor.isAfterLast()) {
@@ -104,7 +96,7 @@ public class DBHelper extends SQLiteOpenHelper {
             crimes.add(crime);
             cursor.moveToNext();
         }
-        cursor.close();
+//        cursor.close();
         return crimes;
     }
 

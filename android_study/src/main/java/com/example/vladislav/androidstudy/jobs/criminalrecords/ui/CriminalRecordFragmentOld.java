@@ -4,7 +4,6 @@ package com.example.vladislav.androidstudy.jobs.criminalrecords.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +15,16 @@ import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.jobs.criminalrecords.Crime;
-import com.example.vladislav.androidstudy.jobs.criminalrecords.CrimeViewPagerAdapter;
-import com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsAdapter;
 import com.example.vladislav.androidstudy.jobs.criminalrecords.DBHelper;
 
 /**
+ * Fragment used before using a ViewPager
+ *
  * A simple {@link Fragment} subclass.
  */
-public class CriminalRecordFragment extends Fragment {
+public class CriminalRecordFragmentOld extends Fragment {
 
-    public static final String FRAGMENT_TAG = CriminalRecordFragment.class.getSimpleName();
+    public static final String FRAGMENT_TAG = CriminalRecordFragmentOld.class.getSimpleName();
 
     public static final String CRIME_ID = "Crime Id";
     public static final String CRIME_TITLE_KEY = "Crime record key";
@@ -45,8 +44,11 @@ public class CriminalRecordFragment extends Fragment {
 
     private DBHelper mDbHelper;
 
-    public static CriminalRecordFragment newInstance() {
-        CriminalRecordFragment myFragment = new CriminalRecordFragment();
+    public static CriminalRecordFragmentOld newInstance() { //int someInt
+        CriminalRecordFragmentOld myFragment = new CriminalRecordFragmentOld();
+//        Bundle args = new Bundle();
+//        args.putInt("someInt", someInt);
+//        myFragment.setArguments(args);
         return myFragment;
     }
 
@@ -68,6 +70,8 @@ public class CriminalRecordFragment extends Fragment {
             mDescriptionEditText.setText(args.getString(CRIME_DESCRIPTION_KEY));
             mDateButton.setText("CREATION DATE: " + args.getString(CRIME_DATE_KEY));
             mSolvedCheckBox.setChecked(args.getBoolean(CRIME_SOLVED_KEY));
+//            mCrime.set
+            // Set all the fields to Crime
         }
         return view;
     }
