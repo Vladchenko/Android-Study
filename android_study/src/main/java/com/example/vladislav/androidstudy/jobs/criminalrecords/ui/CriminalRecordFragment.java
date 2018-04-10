@@ -92,6 +92,7 @@ public class CriminalRecordFragment extends Fragment {
                 if (!mCrime.getTitle().isEmpty()
                         && !mCrime.getDescription().isEmpty()) {
                     mDbHelper.putCrimeToTable(mDbHelper.getWritableDatabase(), mCrime);
+//                    mDbHelper.close();
                     Toast.makeText(getActivity(), "New crime has been added",
                             Toast.LENGTH_SHORT).show();
                 } else {

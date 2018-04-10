@@ -29,7 +29,9 @@ public class CrimesContentProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection,
                         @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-        return mDBHelper.getCrimesCursor(mDBHelper.getReadableDatabase());
+        Cursor cursor = mDBHelper.getCrimesCursor(mDBHelper.getReadableDatabase());
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+        return cursor;
     }
 
     @Nullable
@@ -41,6 +43,7 @@ public class CrimesContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+        getContext().getContentResolver().notifyChange(uri, null);
         return null;
     }
 

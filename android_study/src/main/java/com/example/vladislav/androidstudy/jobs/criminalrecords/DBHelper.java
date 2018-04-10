@@ -166,7 +166,7 @@ public class DBHelper extends SQLiteOpenHelper {
         sqlRequest += mColumns[mColumns.length - 1] + " text" + ");";
         Log.i(TAG, "Request is: " + sqlRequest);
         db.execSQL(sqlRequest);
-        Log.i(TAG, "Database created");
+//        Log.i(TAG, "Database created");
     }
 
     /**

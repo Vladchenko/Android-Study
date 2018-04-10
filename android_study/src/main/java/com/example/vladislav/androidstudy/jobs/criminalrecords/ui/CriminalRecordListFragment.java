@@ -67,7 +67,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         // Dropping a table to remove all the entries at once
 //        mDbHelper.dropTable(mDbHelper.getReadableDatabase());
         // Creating a table if it doesn't exist
-//        mDbHelper.createTableWithColumns(mDbHelper.getWritableDatabase());
+        mDbHelper.createTableWithColumns(mDbHelper.getWritableDatabase());
         View view = inflater.inflate(R.layout.fragment_criminal_record_list, container, false);
         // Inflate the layout for this fragment
         return view;
@@ -94,18 +94,18 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         mActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addCrimeViewPagerFragment(true, null);
+                addCrimeFragment(true, null);
             }
         });
         setupAddButtonForegroundColor(R.color.color_white);
         // Getting loadermanager for cursorloader and initializing it.
         getActivity().getSupportLoaderManager().initLoader(0, null, this);
-        if (mCrimes == null) {
+//        if (mCrimes == null) {
             getActivity().getSupportLoaderManager().getLoader(0).startLoading();
-        } else {
+//        } else {
             setupRecyclerView(mCrimes);
             mProgressBar.setVisibility(View.INVISIBLE);
-        }
+//        }
     }
 
     @Override
@@ -170,6 +170,25 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         }
         transaction.replace(R.id.fragment_container, crimesViewPagerFragment,
                 CrimesViewPagerFragment.FRAGMENT_TAG)
+                .commit();
+    }
+
+    public void addCrimeFragment(boolean addToBackStack, Bundle bundle) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        Fragment criminalRecordFragment = fragmentManager.findFragmentByTag(
+                CriminalRecordFragment.FRAGMENT_TAG);
+        if (criminalRecordFragment == null) {
+            criminalRecordFragment = CriminalRecordFragment.newInstance();
+        }
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (addToBackStack) {
+            transaction.addToBackStack(null);
+        }
+        if (bundle != null) {
+            criminalRecordFragment.setArguments(bundle);
+        }
+        transaction.replace(R.id.fragment_container, criminalRecordFragment,
+                CriminalRecordFragment.FRAGMENT_TAG)
                 .commit();
     }
 
