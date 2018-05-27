@@ -93,8 +93,19 @@ public class CriminalRecordFragment extends Fragment {
                         && !mCrime.getDescription().isEmpty()) {
                     mDbHelper.putCrimeToTable(mDbHelper.getWritableDatabase(), mCrime);
 //                    mDbHelper.close();
-                    Toast.makeText(getActivity(), "New crime has been added",
+                    String message;
+                    if (mId == null) {
+                        message = "New crime has been added";
+                    } else {
+                        message = "Crime has been modified";
+                    }
+                    Toast.makeText(getActivity(), message,
                             Toast.LENGTH_SHORT).show();
+                    // Make a callback to inform a list fragment that a new entry is added or an
+                    // existing one modified.
+//                    getActivity().getSupportLoaderManager().getLoader(0).startLoading();
+                    // Make pass to a listfragment
+                    getFragmentManager().popBackStack();
                 } else {
                     Toast.makeText(getActivity(), "Crime title or description is empty",
                             Toast.LENGTH_SHORT).show();

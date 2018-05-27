@@ -46,4 +46,9 @@ public class CrimesCursorLoader extends CursorLoader {
         }
         return cursor;
     }
+
+//    @Override
+//    public void onContentChanged() {
+//        super.onContentChanged();
+//    }
 }

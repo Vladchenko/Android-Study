@@ -141,6 +141,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         if (cursor != null) {
+            cursor.requery();   // stackoverflow says this is done on ui thread and might provide ANR
             mCrimes = mDbHelper.getCrimeData(cursor);
             setupRecyclerView(mCrimes);
             mProgressBar.setVisibility(View.INVISIBLE);

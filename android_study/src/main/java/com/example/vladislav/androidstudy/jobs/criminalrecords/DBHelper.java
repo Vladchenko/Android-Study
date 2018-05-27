@@ -139,6 +139,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + crime.getDescription() + "', " + "'" + crime.getDate() + "', "
                 + "'" + crime.isSolved() + "') "));
         Log.i(TAG, "Crime has been put to a database");
+        cursor.close();
     }
 
     private Crime getCrimeFromCursor(Cursor cursor) {
@@ -157,7 +158,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param db subject database
      */
     public void createTableWithColumns(SQLiteDatabase db) {
-        Log.i(TAG, "Creating a database");
+        Log.i(TAG, "Creating a database, if exists");
         String sqlRequest = "Create table if not exists " + mDatabaseName + "( ";
         //+ "id integer primary key autoincrement, ";
         for (int i = 0; i < mColumns.length - 1; i++) {
