@@ -6,7 +6,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -39,6 +38,9 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String FRAGMENT_TAG = CriminalRecordListFragment.class.getSimpleName();
+    public static final String CRIME_POSITION = "Crime position";
+    public static final String CRIMES_LIST = "Crimes list";
+
     private ParcelableCrimesList mCrimes;
 
     private FloatingActionButton mActionButton;
@@ -100,12 +102,12 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         setupAddButtonForegroundColor(R.color.color_white);
         // Getting loadermanager for cursorloader and initializing it.
         getActivity().getSupportLoaderManager().initLoader(0, null, this);
-//        if (mCrimes == null) {
+        if (mCrimes == null) {
             getActivity().getSupportLoaderManager().getLoader(0).startLoading();
-//        } else {
+        } else {
             setupRecyclerView(mCrimes);
             mProgressBar.setVisibility(View.INVISIBLE);
-//        }
+        }
     }
 
     @Override
@@ -116,7 +118,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
 
     // Callback method. It is invoked when a recyclerview's crime item clicked.
     @Override
-    public void onCrimeItemClick(String crimeId) {
+    public void onCrimeItemClick(int crimeId) {
         addCrimeViewPagerFragment(true, crimeId);
     }
 
@@ -150,7 +152,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
 
     }
 
-    public void addCrimeViewPagerFragment(boolean addToBackStack, String crimeId) {
+    public void addCrimeViewPagerFragment(boolean addToBackStack, int crimePosition) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         Fragment crimesViewPagerFragment = fragmentManager.findFragmentByTag(
                 CrimesViewPagerFragment.FRAGMENT_TAG);
@@ -161,11 +163,10 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         if (addToBackStack) {
             transaction.addToBackStack(null);
         }
-        if (crimeId != null) {
+        if (crimePosition > -1) {
             Bundle bundle = new Bundle();
-            bundle.putString("CrimeId", crimeId);
-            bundle.putParcelableArrayList("Crimes", mCrimes);
-
+            bundle.putInt(CRIME_POSITION, crimePosition);
+            bundle.putParcelableArrayList(CRIMES_LIST, mCrimes);
             crimesViewPagerFragment.setArguments(bundle);
         }
         transaction.replace(R.id.fragment_container, crimesViewPagerFragment,

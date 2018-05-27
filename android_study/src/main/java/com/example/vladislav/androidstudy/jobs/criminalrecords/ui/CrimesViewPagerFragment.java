@@ -14,7 +14,9 @@ import com.example.vladislav.androidstudy.jobs.criminalrecords.CrimeViewPagerAda
 import com.example.vladislav.androidstudy.jobs.criminalrecords.DBHelper;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import static com.example.vladislav.androidstudy.jobs.criminalrecords.ui.CriminalRecordListFragment.CRIMES_LIST;
+import static com.example.vladislav.androidstudy.jobs.criminalrecords.ui.CriminalRecordListFragment.CRIME_POSITION;
 
 /**
  * Fragment to display a viewpager that is to hold a CriminalRecordFragment instances
@@ -27,6 +29,7 @@ public class CrimesViewPagerFragment extends Fragment {
 
     private DBHelper mDbHelper;
     private ArrayList<Crime> mCrimes;
+    private int position;
 
     public CrimesViewPagerFragment() {
     }
@@ -41,16 +44,18 @@ public class CrimesViewPagerFragment extends Fragment {
                              Bundle savedInstanceState) {
         Bundle args = getArguments();
         if (args != null) {
-            mCrimes = args.getParcelableArrayList("Crimes");
+            mCrimes = args.getParcelableArrayList(CRIMES_LIST);
+            position = args.getInt(CRIME_POSITION);
         } else {
             mCrimes = new ArrayList<>();
             mCrimes.add(new Crime());
         }
         View view = inflater.inflate(R.layout.fragment_crimes_view_pager, container, false);
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager_crime);
+        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager_crime);
         viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         viewPager.setAdapter(new CrimeViewPagerAdapter(getActivity().getSupportFragmentManager(),
                 mCrimes));
+        viewPager.setCurrentItem(position);
         return view;
     }
 

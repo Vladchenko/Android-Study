@@ -39,7 +39,10 @@ public class CriminalRecordsAdapter extends RecyclerView.Adapter<CriminalRecords
                 .inflate(R.layout.crime_record_recycler_view_item, parent, false);
         if (mIndex % 2 == 1) {
             view.setBackgroundColor(parent.getContext().getResources().
-                    getColor(R.color.color_lightgray));
+                    getColor(R.color.color_lightblue));
+        } else {
+            view.setBackgroundColor(parent.getContext().getResources().
+                    getColor(R.color.color_lightblue_2));
         }
         // set the view's size, margins, paddings and layout parameters
         CriminalRecordsViewHolder vh = new CriminalRecordsViewHolder(view, mFragment);
@@ -48,7 +51,7 @@ public class CriminalRecordsAdapter extends RecyclerView.Adapter<CriminalRecords
 
     @Override
     public void onBindViewHolder(CriminalRecordsViewHolder holder, int position) {
-        holder.setId(mCrimes.get(position).getId());
+        holder.setPosition(position);
         holder.getCrimeTitleTextView().setText(mCrimes.get(position).getTitle());
         holder.getCrimeDescriptionTextView().setText(mCrimes.get(position).getDescription());
         holder.getCrimeCreationDateTextView().setText(

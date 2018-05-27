@@ -14,7 +14,7 @@ import com.example.vladislav.androidstudy.jobs.criminalrecords.ui.CriminalRecord
 
 public class CriminalRecordsViewHolder extends RecyclerView.ViewHolder {
 
-    private String mId;
+    private int mPosition;
 
     private TextView mCrimeTitleTextView;
     private TextView mCrimeDescriptionTextView;
@@ -31,8 +31,8 @@ public class CriminalRecordsViewHolder extends RecyclerView.ViewHolder {
         crimeClickListener = fragment;
     }
 
-    public void setId(String id) {
-        mId = id;
+    public void setPosition(int position) {
+        mPosition = position;
     }
 
     public TextView getCrimeTitleTextView() {
@@ -51,7 +51,7 @@ public class CriminalRecordsViewHolder extends RecyclerView.ViewHolder {
         return new AdapterView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                crimeClickListener.onCrimeItemClick(mId);
+                crimeClickListener.onCrimeItemClick(mPosition);
             }
         };
     }

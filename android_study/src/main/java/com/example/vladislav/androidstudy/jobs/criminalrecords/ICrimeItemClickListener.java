@@ -6,6 +6,6 @@ package com.example.vladislav.androidstudy.jobs.criminalrecords;
 
 public interface ICrimeItemClickListener {
 
-    void onCrimeItemClick(String crimeId);
+    void onCrimeItemClick(int crimeId);
 
 }

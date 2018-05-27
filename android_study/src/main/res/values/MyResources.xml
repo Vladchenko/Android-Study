@@ -2,5 +2,8 @@
 <resources>
     <color name="color1">#546521</color>
     <color name="color_white">#FFFFFF</color>
-    <color name="color_lightgray">#BBBBBB</color>
+    <color name="color_lightgray">#CCCCCC</color>
+    <color name="color_lightgray_2">#EEEEEE</color>
+    <color name="color_lightblue">#BBBBDD</color>
+    <color name="color_lightblue_2">#DDDDFF</color>
 </resources>

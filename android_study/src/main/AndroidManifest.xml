@@ -241,7 +241,8 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:exported="true" />
 
         <activity android:name=".jobs.listviewing.recyclerview.RecyclerViewActivity" />
-        <activity android:name=".jobs.simple_jobs.ContextActivity" />
+        <activity android:name=".jobs.simple_jobs.ContextActivity">
+        </activity>
         <activity
             android:name=".activities.orientation_change.OneOrTwoFragments.SomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />

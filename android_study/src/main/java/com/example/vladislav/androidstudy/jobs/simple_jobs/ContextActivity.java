@@ -1,17 +1,26 @@
 package com.example.vladislav.androidstudy.jobs.simple_jobs;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
+
+import java.io.IOException;
+
+import static android.os.Environment.getExternalStorageDirectory;
+import static com.example.vladislav.androidstudy.Utils.printList;
+import static com.example.vladislav.androidstudy.Utils.printStrings;
 
 /**
  * Methods that present in android.content.Context
  */
 public class ContextActivity extends AppCompatActivity {
 
-    TextView mTextView;
+    private TextView mTextView;
+    private static final String TAG = ContextActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +38,10 @@ public class ContextActivity extends AppCompatActivity {
         // findViewById() finds and retrieves a view that is located on a current layout
         mTextView = (TextView) findViewById(R.id.textView22);
 
+        // Here we dynamicly create a TextView. It needs a Context to be passed into, since it has
+        // to know the environment it is added into (location, size)
+        mTextView = new TextView(this);
+
         // One has to run next method in a separate thread. Contents of a run() method is run on a
         // UI thread. Check a simple example of this method in a demoRunOnUIThread() method lower
         // in this code.
@@ -44,7 +57,25 @@ public class ContextActivity extends AppCompatActivity {
         // Caused by: android.content.ActivityNotFoundException: No Activity found to handle Intent {  }
 
 //        startActivity(new Intent(), new Bundle());  // Same as previous
-        
+
+        mTextView.setText(getResources().getString(R.string.app_name));
+        // Rather to use this one, omitting getResources()
+        mTextView.setText(getString(R.string.app_name));
+
+        try {
+            // Printing files and folders present in "assets" folder
+            printStrings(getAssets().list("")); // "" - default assets folder
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Printing locales
+        printStrings(getAssets().getLocales());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Log.i(TAG, getDataDir().toString());
+        }
+
     }
 
     // This method is similar to Handler. It can work with UI thread, while being called from not
