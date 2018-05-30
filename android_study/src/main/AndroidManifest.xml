@@ -105,7 +105,7 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".activities.ResultActivity" />
         <activity android:name=".jobs.simple_jobs.LayoutingActivity" />
         <activity android:name=".jobs.simple_jobs.AligningActivity" />
-        <activity android:name=".jobs.listviewing.ListsViewActivity"></activity>
+        <activity android:name=".jobs.listviewing.ListsViewActivity" />
         <activity android:name=".activities.MenuActivity" />
         <activity android:name=".fragments.fragments_activity.TwoFragmentsActivity" />
         <activity android:name=".fragments.fragments_activity.DynamicFragmentsActivity" />
@@ -181,9 +181,9 @@ Caution: Once you publish your application, you cannot change the package name. 
             </intent-filter>
         </activity>
 
-        <provider android:authorities="com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesContentProvider"
-            android:name=".jobs.criminalrecords.data_providing.CrimesContentProvider"/>
-
+        <provider
+            android:name=".jobs.criminalrecords.data_providing.CrimesContentProvider"
+            android:authorities="com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesContentProvider" />
         // --- Broadcast receivers ---
         // This receiver should not accept any broadcasts, but in fact it is overridden in code and
         // has some intent-filter provided.
@@ -241,8 +241,7 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:exported="true" />
 
         <activity android:name=".jobs.listviewing.recyclerview.RecyclerViewActivity" />
-        <activity android:name=".jobs.simple_jobs.ContextActivity">
-        </activity>
+        <activity android:name=".jobs.simple_jobs.ContextActivity"></activity>
         <activity
             android:name=".activities.orientation_change.OneOrTwoFragments.SomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
@@ -262,9 +261,10 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:name=".fragments.start_fragment.SimpleFragmentActivity"
             android:label="@string/title_activity_simple_fragment"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".jobs.simple_jobs.CommonActivity">
-        </activity>
+        <activity android:name=".jobs.simple_jobs.CommonActivity"></activity>
         <activity android:name=".jobs.criminalrecords.ui.CriminalRecordsActivity">
+        </activity>
+        <activity android:name=".jobs.currency.CurrencyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
