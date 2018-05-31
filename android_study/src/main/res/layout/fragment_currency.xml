@@ -4,17 +4,24 @@
     android:layout_height="match_parent"
     tools:context="com.example.vladislav.androidstudy.jobs.currency.CurrencyFragment">
 
+    <TextView
+        android:id="@+id/center_message_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
     <ProgressBar
         android:id="@+id/currency_progress_bar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/currency_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/currency_recyclerview_item_margin"/>
+        android:layout_marginBottom="@dimen/currency_recyclerview_item_margin"
+        android:scrollbars="vertical"/>
 
 </RelativeLayout>

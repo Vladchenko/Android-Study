@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.jobs.currency.beans.CurrencyBean;
@@ -32,6 +34,7 @@ public class CurrencyFragment extends Fragment implements IAsyncTaskCallback {
     private RecyclerView mRecyclerView;
     private CurrencyRecyclerAdapter mAdapter;
     private ProgressBar mProgressBar;
+    private TextView mCenterMessageTextView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,14 +49,21 @@ public class CurrencyFragment extends Fragment implements IAsyncTaskCallback {
         View view = inflater.inflate(R.layout.fragment_currency, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.currency_recycler_view);
         mProgressBar = (ProgressBar) view.findViewById(R.id.currency_progress_bar);
+        mCenterMessageTextView = (TextView) view.findViewById(R.id.center_message_text_view);
         return view;
     }
 
     @Override
     public void loadedData(List<CurrencyBean> currenciesList) {
-        mAdapter = new CurrencyRecyclerAdapter(currenciesList);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        mRecyclerView.setAdapter(mAdapter);
+        if (currenciesList == null) {
+            mCenterMessageTextView.setVisibility(View.VISIBLE);
+            mCenterMessageTextView.setText(R.string.currencies_absent_message);
+        } else {
+            mCenterMessageTextView.setVisibility(View.INVISIBLE);
+            mAdapter = new CurrencyRecyclerAdapter(currenciesList);
+            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            mRecyclerView.setAdapter(mAdapter);
+        }
         mProgressBar.setVisibility(View.INVISIBLE);
     }
 }
