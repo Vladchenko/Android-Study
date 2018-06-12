@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.logic.Utils;
+
+import static com.example.vladislav.androidstudy.Utils.showToast;
 
 public class Fragment1 extends Fragment {
 
@@ -29,7 +30,7 @@ public class Fragment1 extends Fragment {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.showToast(getActivity(), "Fragment1 clicked");
+                showToast(getActivity(), "Fragment1 clicked");
             }
         });
         return v;

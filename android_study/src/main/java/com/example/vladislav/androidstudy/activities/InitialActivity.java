@@ -18,7 +18,6 @@ import com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTa
 import com.example.vladislav.androidstudy.intents.IntentsActivity;
 import com.example.vladislav.androidstudy.jobs.listviewing.ListsViewActivity;
 import com.example.vladislav.androidstudy.logic.ButtonsHandlers;
-import com.example.vladislav.androidstudy.logic.Utils;
 import com.example.vladislav.androidstudy.services.ServicesActivity;
 import com.example.vladislav.androidstudy.jobs.simple_jobs.LayoutingActivity;
 
@@ -32,7 +31,6 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
     private String mYouTubeVideoID = "Fee5vbFLYM4";
     private Button mButton;
     private ButtonsHandlers mButtonsHandlers;
-    private Utils utils;
 
     // This method required to run this app in a cellphone
     @Override
@@ -49,7 +47,6 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
 
         setButtonsClicks();
         mButtonsHandlers = new ButtonsHandlers(this);
-        utils = new Utils();
 
         // That's how we reach the resources.
         Log.i("Log message: ", "Application name is:" + getResources().getString(R.string.app_name));

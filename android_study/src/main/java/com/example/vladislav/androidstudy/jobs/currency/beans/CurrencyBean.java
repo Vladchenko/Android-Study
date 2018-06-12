@@ -1,5 +1,8 @@
 package com.example.vladislav.androidstudy.jobs.currency.beans;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 
@@ -8,7 +11,7 @@ import org.simpleframework.xml.Element;
  */
 
 @Element(name="Valute")
-public class CurrencyBean {
+public class CurrencyBean implements Parcelable {
 
     /**
      * Temporary message to know the contents of an currency entry read from a web.
@@ -34,6 +37,9 @@ public class CurrencyBean {
     private String mValue;           // say, 78,5631
     @Element(name="Nominal")
     private double mNominal;         // say, 1
+
+    public CurrencyBean() {
+    }
 
     public String getID() {
         return mID;
@@ -74,4 +80,40 @@ public class CurrencyBean {
     public void setValue(String value) {
         this.mValue = value;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mID);
+        dest.writeString(this.mNumericCode);
+        dest.writeString(this.mCharacterCode);
+        dest.writeString(this.mName);
+        dest.writeString(this.mValue);
+        dest.writeDouble(this.mNominal);
+    }
+
+    protected CurrencyBean(Parcel in) {
+        this.mID = in.readString();
+        this.mNumericCode = in.readString();
+        this.mCharacterCode = in.readString();
+        this.mName = in.readString();
+        this.mValue = in.readString();
+        this.mNominal = in.readDouble();
+    }
+
+    public static final Parcelable.Creator<CurrencyBean> CREATOR = new Parcelable.Creator<CurrencyBean>() {
+        @Override
+        public CurrencyBean createFromParcel(Parcel source) {
+            return new CurrencyBean(source);
+        }
+
+        @Override
+        public CurrencyBean[] newArray(int size) {
+            return new CurrencyBean[size];
+        }
+    };
 }

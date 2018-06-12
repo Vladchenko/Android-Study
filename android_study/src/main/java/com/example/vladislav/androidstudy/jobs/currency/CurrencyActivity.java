@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.jobs.currency.fragments.CurrencyAsyncTaskFragment;
+import com.example.vladislav.androidstudy.jobs.currency.fragments.CurrencyBindServiceFragment;
+import com.example.vladislav.androidstudy.jobs.currency.fragments.CurrencyStartServiceFragment;
 
 public class CurrencyActivity extends AppCompatActivity {
 
@@ -20,11 +23,16 @@ public class CurrencyActivity extends AppCompatActivity {
         mFrameLayout = (FrameLayout)findViewById(R.id.currency_frame_layout);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(CurrencyFragment.TAG);
+        Fragment fragment = fragmentManager.findFragmentByTag(CurrencyAsyncTaskFragment.TAG);
         if (fragment == null) {
-            fragment = new CurrencyFragment();
-            fragmentManager.beginTransaction().add(mFrameLayout.getId(), fragment, CurrencyFragment.TAG).commit();
+//            fragment = new CurrencyAsyncTaskFragment();
+//            fragment = new CurrencyAsyncTaskLoaderFragment();
+//            fragment = new CurrencyStartServiceFragment();
+            fragment = new CurrencyBindServiceFragment();
+            fragmentManager.beginTransaction().add(
+                    mFrameLayout.getId(), fragment, CurrencyAsyncTaskFragment.TAG).commit();
         }
 
     }
+    
 }

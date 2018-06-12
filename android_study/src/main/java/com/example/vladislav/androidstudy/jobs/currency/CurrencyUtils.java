@@ -18,7 +18,7 @@ public class CurrencyUtils {
     public static List<CurrencyBean> retrieveCurrencies(InputStream inputStream) throws Exception {
         List<CurrencyBean> currenciesList;
         CurrenciesContainer currenciesContainer = parse(inputStream);
-        currenciesList = currenciesContainer.getmCurrenciesList();
+        currenciesList = currenciesContainer.getCurrenciesList();
         return currenciesList;
     }
 

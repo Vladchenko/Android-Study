@@ -10,10 +10,11 @@ import android.widget.EditText;
 import android.widget.GridLayout;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.logic.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.vladislav.androidstudy.Utils.showToast;
 
 // This activity is able to dynamically add or remove a buttons
 
@@ -129,11 +130,11 @@ public class AddButtonsActivity extends AppCompatActivity {
                     mButtons.add(newButton);
                     mButtonNames.add(mButtonName.getText().toString());
                     mLayout.addView(newButton);
-                    Utils.showToast(mActivity, "Button named "
+                    showToast(mActivity, "Button named "
                             + mButtonName.getText().toString()
                             + " was added");
                 } else {
-                    Utils.showToast(mActivity, "Such button exists");
+                    showToast(mActivity, "Such button exists");
                 }
             }
         };
@@ -145,11 +146,11 @@ public class AddButtonsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (removeButton(mButtonName.getText().toString())) {
-                    Utils.showToast(mActivity, "Button named "
+                    showToast(mActivity, "Button named "
                             + mButtonName.getText().toString()
                             + " has been removed");
                 } else {
-                    Utils.showToast(mActivity, "No such button");
+                    showToast(mActivity, "No such button");
                 }
             }
         };

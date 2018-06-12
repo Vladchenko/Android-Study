@@ -1,5 +1,8 @@
 package com.example.vladislav.androidstudy;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import java.util.List;
 
 /**
@@ -7,6 +10,12 @@ import java.util.List;
  */
 
 public class Utils {
+
+    public static final String TAG = Utils.class.getClass().toString();
+
+    public static void showToast(Context context, String text) {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+    }
 
     public static void printStrings(String[] list) {
         if (list != null) {

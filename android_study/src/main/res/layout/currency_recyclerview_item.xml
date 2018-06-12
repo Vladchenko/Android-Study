@@ -4,11 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_lightblue_2"
-    android:padding="@dimen/currency_recyclerview_item_padding"
-    android:layout_marginTop="@dimen/currency_recyclerview_item_margin"
-    android:layout_marginLeft="@dimen/currency_recyclerview_item_margin"
-    android:layout_marginRight="@dimen/currency_recyclerview_item_margin">
+    android:padding="@dimen/currency_recyclerview_item_padding">
 
     <TableRow
         android:layout_width="match_parent"

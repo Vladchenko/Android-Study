@@ -14,9 +14,10 @@ import android.widget.Button;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.intents.intentfiltercollision.IntentFilterCollisionInitialActivity;
-import com.example.vladislav.androidstudy.logic.Utils;
 import com.example.vladislav.androidstudy.receivers.BroadcastReceiverExample2;
 import com.example.vladislav.androidstudy.receivers.BroadcastReceiverSimple;
+
+import static com.example.vladislav.androidstudy.Utils.showToast;
 
 public class IntentsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -129,7 +130,7 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 if (mapIntent.resolveActivity(packageManager) != null) {
                     startActivity(mapIntent);
                 } else {
-                    Utils.showToast(this, "Intent cannot be resolved");
+                    showToast(this, "Intent cannot be resolved");
                 }
                 break;
             }
@@ -165,7 +166,7 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 if (mapIntent.resolveActivity(packageManager) != null) {
                     startActivity(mapIntent);
                 } else {
-                    Utils.showToast(this, "Intent cannot be resolved");
+                    showToast(this, "Intent cannot be resolved");
                 }
                 break;
             }

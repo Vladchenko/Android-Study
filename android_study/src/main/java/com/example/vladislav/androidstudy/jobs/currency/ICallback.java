@@ -8,10 +8,10 @@ import java.util.List;
  * Created by Влад on 30.05.2018.
  */
 
-public interface IAsyncTaskCallback {
+public interface ICallback {
 
     /**
-     * Callback informs that data has been downloaded by asynctask.
+     * Callback informs that data has been downloaded by asynctask / service.
      *
      * @param currenciesList list of currency beans downloaded
      */

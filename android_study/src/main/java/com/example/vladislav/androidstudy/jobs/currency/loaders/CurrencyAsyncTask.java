@@ -1,7 +1,8 @@
-package com.example.vladislav.androidstudy.jobs.currency;
+package com.example.vladislav.androidstudy.jobs.currency.loaders;
 
 import android.os.AsyncTask;
 
+import com.example.vladislav.androidstudy.jobs.currency.ICallback;
 import com.example.vladislav.androidstudy.jobs.currency.beans.CurrencyBean;
 
 import java.io.BufferedInputStream;
@@ -23,16 +24,14 @@ import static com.example.vladislav.androidstudy.jobs.currency.CurrencyUtils.ret
 
 public class CurrencyAsyncTask extends AsyncTask<String, Void, List<CurrencyBean>> {
 
-    private InputStream mInputStream;
-    private IAsyncTaskCallback mAsyncTaskCallback;
+    private ICallback mAsyncTaskCallback;
 
-    public CurrencyAsyncTask(IAsyncTaskCallback asyncTaskCallback) {
+    public CurrencyAsyncTask(ICallback asyncTaskCallback) {
         this.mAsyncTaskCallback = asyncTaskCallback;
     }
 
     @Override
     protected List<CurrencyBean> doInBackground(String... params) {
-
         URL url = null;
         List<CurrencyBean> currenciesList = null;
         try {

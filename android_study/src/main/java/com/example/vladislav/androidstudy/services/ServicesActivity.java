@@ -17,7 +17,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.logic.Utils;
+
+import static com.example.vladislav.androidstudy.Utils.showToast;
 
 public class ServicesActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -92,7 +93,7 @@ public class ServicesActivity extends AppCompatActivity implements View.OnClickL
             }
             case R.id.demo2_button: {
                 intent = new Intent(this, ServiceDemo2.class);
-                Utils.showToast(this, "Service2 is launched.");
+                showToast(this, "Service2 is launched.");
                 startService(intent);
                 break;
             }

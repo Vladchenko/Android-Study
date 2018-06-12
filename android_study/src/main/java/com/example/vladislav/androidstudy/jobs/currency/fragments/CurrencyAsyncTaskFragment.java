@@ -1,35 +1,41 @@
-package com.example.vladislav.androidstudy.jobs.currency;
+package com.example.vladislav.androidstudy.jobs.currency.fragments;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.jobs.currency.CurrencyRecyclerAdapter;
+import com.example.vladislav.androidstudy.jobs.currency.ICallback;
+import com.example.vladislav.androidstudy.jobs.currency.beans.CurrenciesContainer;
 import com.example.vladislav.androidstudy.jobs.currency.beans.CurrencyBean;
+import com.example.vladislav.androidstudy.jobs.currency.loaders.CurrencyAsyncTask;
 
-import java.io.InputStream;
 import java.util.List;
 
-import static com.example.vladislav.androidstudy.jobs.currency.CurrencyUtils.retrieveCurrencies;
+import static com.example.vladislav.androidstudy.jobs.currency.beans.CurrenciesContainer.CURRENCIES_TAG;
 
 /**
+ * Fragment that uses an AsyncTask to load currencies.
+ *
  * A simple {@link Fragment} subclass.
  */
-public class CurrencyFragment extends Fragment implements IAsyncTaskCallback {
+public class CurrencyAsyncTaskFragment extends Fragment implements ICallback {
 
-    public static final String TAG = CurrencyFragment.class.getSimpleName();
+    public static final String TAG = CurrencyAsyncTaskFragment.class.getSimpleName();
+    public static final String sUrl = "http://www.cbr.ru/scripts/XML_daily.asp";
 
-    private String mUrl = "http://www.cbr.ru/scripts/XML_daily.asp";
     private CurrencyAsyncTask mCurrencyAsyncTask;
     private RecyclerView mRecyclerView;
     private CurrencyRecyclerAdapter mAdapter;
@@ -40,7 +46,7 @@ public class CurrencyFragment extends Fragment implements IAsyncTaskCallback {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCurrencyAsyncTask = new CurrencyAsyncTask(this);
-        mCurrencyAsyncTask.execute(mUrl);
+        mCurrencyAsyncTask.execute(sUrl);
     }
 
     @Override
@@ -66,4 +72,5 @@ public class CurrencyFragment extends Fragment implements IAsyncTaskCallback {
         }
         mProgressBar.setVisibility(View.INVISIBLE);
     }
+
 }

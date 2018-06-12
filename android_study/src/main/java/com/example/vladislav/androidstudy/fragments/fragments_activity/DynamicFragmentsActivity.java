@@ -10,7 +10,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.logic.Utils;
+
+import static com.example.vladislav.androidstudy.Utils.showToast;
 
 public class DynamicFragmentsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -53,7 +54,7 @@ public class DynamicFragmentsActivity extends AppCompatActivity implements View.
                 }
                 if (mFragment1.isAdded()
                         && mFragment2.isAdded()) {
-                    Utils.showToast(this, getString(R.string.both_fragments_added));
+                    showToast(this, getString(R.string.both_fragments_added));
                     break;
                 }
                 if (mFragment.equals(mFragment1)) {
