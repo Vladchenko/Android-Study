@@ -133,7 +133,8 @@ public class CurrencyStartServiceFragment extends Fragment implements ICallback 
         }
 
         private CurrenciesContainer getCurrenciesList(Intent intent) {
-            CurrenciesContainer currenciesContainer = (CurrenciesContainer)intent.getExtras().get(CURRENCIES_TAG);
+            CurrenciesContainer currenciesContainer = (CurrenciesContainer)intent.getExtras()
+                    .get(CURRENCIES_TAG);
             return currenciesContainer;
         }
 

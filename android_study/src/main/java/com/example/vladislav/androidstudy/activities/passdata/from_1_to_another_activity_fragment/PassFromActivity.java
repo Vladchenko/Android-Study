@@ -21,7 +21,7 @@ public class PassFromActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_from);
-        startActivityWithData3();
+        startActivityWithParcelable();
 //        startFragmentWithData();
     }
 
@@ -83,12 +83,14 @@ public class PassFromActivity extends AppCompatActivity {
         // String value = getIntent().getExtras().getString(mKey)
     }
 
-    private void startActivityWithData4() {
+    private void startActivityWithParcelable() {
         // Starting an activity with passing some data into it, using bundle.
         // Do not forget to write unit tests on parcelables.
         Bundle bundle = new Bundle();
-        bundle.putParcelable("VALUE", new MyParcelable2());
-        startActivity(new Intent(this, PassToActivity.class), bundle);
+        bundle.putParcelable(mKey, new MyParcelable2());
+        Intent intent = new Intent(this, PassToActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     // Passing data from activity to fragment

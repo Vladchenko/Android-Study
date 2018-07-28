@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.android.support.test:runner-0.5">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/c896a6a39620103f488cf1b5c221b27251ac398f/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/c896a6a39620103f488cf1b5c221b27251ac398f/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://C:/AndroidSDK/extras/android/m2repository/com/android/support/test/runner/0.5/runner-0.5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://C:/AndroidSDK/extras/android/m2repository/com/android/support/test/runner/0.5/runner-0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

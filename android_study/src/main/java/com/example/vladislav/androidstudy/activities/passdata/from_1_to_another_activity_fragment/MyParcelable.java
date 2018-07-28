@@ -11,6 +11,15 @@ class MyParcelable implements Parcelable {
 
     private int mData;
 
+    public MyParcelable() {
+    }
+
+    // TODO Read next link
+    // https://teamtreehouse.com/community/why-should-we-use-a-private-constructor
+    MyParcelable(Parcel in) {
+        mData = in.readInt();
+    }
+
     public int describeContents() {
         return 0;
     }
@@ -20,7 +29,12 @@ class MyParcelable implements Parcelable {
     }
 
     public static final Parcelable.Creator<MyParcelable> CREATOR
-            = new Parcelable.Creator<MyParcelable>() {
+            = new ClassLoaderCreator<MyParcelable>() {
+        @Override
+        public MyParcelable createFromParcel(Parcel source, ClassLoader loader) {
+            return null;
+        }
+
         public MyParcelable createFromParcel(Parcel in) {
             return new MyParcelable(in);
         }
@@ -29,11 +43,5 @@ class MyParcelable implements Parcelable {
             return new MyParcelable[size];
         }
     };
-
-    // TODO Read next link
-    // https://teamtreehouse.com/community/why-should-we-use-a-private-constructor
-    MyParcelable(Parcel in) {
-        mData = in.readInt();
-    }
 
 }

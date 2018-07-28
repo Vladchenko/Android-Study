@@ -7,10 +7,14 @@ import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
 
+import static com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment.PassFromActivity.mKey;
+
 /**
  * This activity is meant to receive data to
  */
 public class PassToActivity extends AppCompatActivity {
+
+    MyParcelable2 mMyParcelable2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +26,10 @@ public class PassToActivity extends AppCompatActivity {
     private void getData() {
         Intent intent = getIntent();
         TextView textView = (TextView)findViewById(R.id.text_from_another_activity_text_view);
-        String string = intent.getExtras().getString(PassFromActivity.mKey);
-        textView.append(string);
+        String string = intent.getExtras().getString(mKey);
+        mMyParcelable2 = intent.getParcelableExtra(mKey);
+        if (string != null) {
+            textView.append(string);
+        }
     }
 }

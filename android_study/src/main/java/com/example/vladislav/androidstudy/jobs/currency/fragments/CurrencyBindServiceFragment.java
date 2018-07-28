@@ -1,14 +1,11 @@
 package com.example.vladislav.androidstudy.jobs.currency.fragments;
 
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,20 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.jobs.currency.CurrencyRecyclerAdapter;
 import com.example.vladislav.androidstudy.jobs.currency.ICallback;
 import com.example.vladislav.androidstudy.jobs.currency.RectangularItemDecoration;
-import com.example.vladislav.androidstudy.jobs.currency.beans.CurrenciesContainer;
 import com.example.vladislav.androidstudy.jobs.currency.beans.CurrencyBean;
 import com.example.vladislav.androidstudy.jobs.currency.loaders.CurrencyDownloadingBindService;
-import com.example.vladislav.androidstudy.jobs.currency.loaders.CurrencyDownloadingStartService;
 
 import java.util.List;
-
-import static com.example.vladislav.androidstudy.jobs.currency.beans.CurrenciesContainer.CURRENCIES_TAG;
 
 /**
  * Created by Влад on 02.06.2018.
@@ -41,7 +33,8 @@ public class CurrencyBindServiceFragment extends Fragment implements ICallback {
 
     public static final String sURL = "Url to download data from";
     public static final String TAG = CurrencyAsyncTaskFragment.class.getSimpleName();
-    public static final String BROADCAST_ACTION = "com.example.vladislav.androidstudy.jobs.currency.loaders.CurrencyDownloadingStartService";
+    public static final String BROADCAST_ACTION =
+            "com.example.vladislav.androidstudy.jobs.currency.loaders.CurrencyDownloadingStartService";
 
     private RecyclerView mRecyclerView;
     private CurrencyRecyclerAdapter mAdapter;
@@ -73,8 +66,8 @@ public class CurrencyBindServiceFragment extends Fragment implements ICallback {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
 
         Intent serviceIntent = new Intent(getActivity(), CurrencyDownloadingBindService.class);
         serviceIntent.setAction(BROADCAST_ACTION);
@@ -85,7 +78,7 @@ public class CurrencyBindServiceFragment extends Fragment implements ICallback {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Intent intent = new Intent(getActivity(), CurrencyDownloadingStartService.class);
+        Intent intent = new Intent(getActivity(), CurrencyDownloadingBindService.class);
         intent.putExtra(sURL, "http://www.cbr.ru/scripts/XML_daily.asp");
         getActivity().unbindService(mConnection);
     }
@@ -114,7 +107,8 @@ public class CurrencyBindServiceFragment extends Fragment implements ICallback {
             CurrencyDownloadingBindService.LocalBinder binder =
                     (CurrencyDownloadingBindService.LocalBinder) service;
             mService = binder.getServiceInstance(); //Get instance of your service!
-            mService.registerClient(CurrencyBindServiceFragment.this); //Activity register in the service as client for callbacks!
+            //Activity register in the service as client for callbacks!
+            mService.registerClient(CurrencyBindServiceFragment.this);
         }
 
         @Override

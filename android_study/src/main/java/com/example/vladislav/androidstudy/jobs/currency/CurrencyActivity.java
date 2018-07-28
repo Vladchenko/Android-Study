@@ -30,7 +30,8 @@ public class CurrencyActivity extends AppCompatActivity {
 //            fragment = new CurrencyStartServiceFragment();
             fragment = new CurrencyBindServiceFragment();
             fragmentManager.beginTransaction().add(
-                    mFrameLayout.getId(), fragment, CurrencyAsyncTaskFragment.TAG).commit();
+                    mFrameLayout.getId(), fragment, CurrencyAsyncTaskFragment.TAG)
+                    .commit();
         }
 
     }
