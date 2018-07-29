@@ -9,9 +9,12 @@ import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.processors.PublishProcessor;
 
 public class RxJava2Example1Activity extends AppCompatActivity {
 
@@ -31,15 +34,36 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                setupObservable();
-//                setupObserver();
-//                mObservable.subscribe(mObserver);
-
-                setupBoth();
-
+//                runObservable();
+                runFlowable();
             }
         });
+    }
+
+    private void setupObserver() {
+        mObserver = new Observer() {
+            @Override
+            public void onSubscribe(Disposable disposable) {
+                Log.i(TAG, "onSubscribe fired: " + disposable.toString());
+            }
+
+            @Override
+            public void onNext(Object o) {
+                Log.i(TAG, "onNext fired: " + o.toString());
+                mTextView.setText(o.toString());
+
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Log.i(TAG, "onError fired: " + throwable.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "onComplete fired");
+            }
+        };
     }
 
     void setupObservable() {
@@ -66,32 +90,13 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         // The defer() operator does not create the Observable until the observer subscribes,
         // and create a fresh Observable for each observer.
         mObservable = Observable.defer(() -> Observable.just("defer", "defer2"));
+
     }
 
-    void setupObserver() {
-            mObserver = new Observer() {
-                @Override
-                public void onSubscribe(Disposable disposable) {
-                    Log.i(TAG, "onSubscribe fired: " + disposable.toString());
-                }
-
-                @Override
-                public void onNext(Object o) {
-                    Log.i(TAG, "onNext fired: " + o.toString());
-                    mTextView.setText(o.toString());
-
-                }
-
-                @Override
-                public void onError(Throwable throwable) {
-                    Log.i(TAG, "onError fired: " + throwable.getMessage());
-                }
-
-                @Override
-                public void onComplete() {
-                    Log.i(TAG, "onComplete fired");
-                }
-            };
+    void runObservable() {
+        setupObservable();
+        setupObserver();
+        mObservable.subscribe(mObserver);
     }
 
     void setupBoth() {
@@ -120,6 +125,15 @@ public class RxJava2Example1Activity extends AppCompatActivity {
             }
         };
         observable.subscribe(observer);
+    }
+
+    // Doesn't do anything. Maybe one has to add a schedulers
+    void runFlowable() {
+        setupObservable();
+        PublishProcessor<String> pp = PublishProcessor.create();
+        Flowable<String> flowable = mObservable
+                .toFlowable(BackpressureStrategy.BUFFER);
+        flowable.subscribe(pp);
     }
 
 }
