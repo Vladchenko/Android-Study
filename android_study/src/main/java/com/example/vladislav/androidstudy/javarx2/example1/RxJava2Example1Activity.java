@@ -9,12 +9,16 @@ import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
 
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.processors.PublishProcessor;
+import io.reactivex.schedulers.Schedulers;
 
 public class RxJava2Example1Activity extends AppCompatActivity {
 
@@ -34,8 +38,15 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //                simpleExample();
+//                mapDemo();
+//                filterDemo();
+//                intervalRangeDemo();
+                concatMapDemo();
+
 //                runObservable();
-                runFlowable();
+//                runFlowable();
             }
         });
     }
@@ -136,4 +147,41 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         flowable.subscribe(pp);
     }
 
+    private void simpleExample() {
+        Observable.just("Hello world")
+                .subscribe(line -> System.out.println(line));
+    }
+
+    private void mapDemo() {
+        Observable.just(1,2,3,4,5,6)
+                .map(x -> x*3)  // Multiplies each value in 3
+//                .map(number -> (new Random()).nextInt())
+                .subscribe(y -> System.out.println(y)); // Here an argument has to be different to
+        // a previous one, say y
+    }
+
+    private void filterDemo() {
+        Observable.just(1,2,3,4,5,6)
+                .map(x -> x*3)  // Multiplies each value in 3
+                .filter(y -> y < 15)    // Processes only a values less than 15
+                .subscribe(z -> System.out.println(z));
+    }
+
+    private void intervalRangeDemo() {
+        Observable.intervalRange(0,30,500,500, TimeUnit.MILLISECONDS,
+                Schedulers.newThread())
+                .map(x -> x*3)  // Multiplies each value in 3
+                .blockingSubscribe(z -> System.out.println(z)); // This is done on a main thread
+        // Since intervalRange works in a separate thread, it finishes its job before main thread
+        // is able to print values. This is why, we need to use blockingSubscribe();
+    }
+
+    private void concatMapDemo() {
+        Random random = new Random();
+        Observable.intervalRange(0,30,500,500, TimeUnit.MILLISECONDS,
+                Schedulers.newThread())
+                .concatMap(x -> Observable.just(random.nextInt(50))
+                        .delay(random.nextInt(1000), TimeUnit.MILLISECONDS))  // Multiplies each value in 3
+                .blockingSubscribe(z -> System.out.println(z));
+    }
 }
