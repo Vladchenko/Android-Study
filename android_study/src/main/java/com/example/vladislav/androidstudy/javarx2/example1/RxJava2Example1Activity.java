@@ -43,7 +43,8 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 //                mapDemo();
 //                filterDemo();
 //                intervalRangeDemo();
-                concatMapDemo();
+//                concatMapDemo();
+                nullDemo();
 
 //                runObservable();
 //                runFlowable();
@@ -183,5 +184,16 @@ public class RxJava2Example1Activity extends AppCompatActivity {
                 .concatMap(x -> Observable.just(random.nextInt(50))
                         .delay(random.nextInt(1000), TimeUnit.MILLISECONDS))  // Multiplies each value in 3
                 .blockingSubscribe(z -> System.out.println(z));
+    }
+
+    private void nullDemo() {
+        Observable.fromCallable(() -> null)
+        .subscribe(System.out::println, Throwable::printStackTrace);
+    }
+
+    private void nullDemo2() {
+        Observable.just(1)
+                .map(v -> null)
+                .subscribe(System.out::println, Throwable::printStackTrace);
     }
 }
