@@ -16,7 +16,7 @@ import com.example.vladislav.androidstudy.R;
  */
 public class SimpleFragment extends Fragment {
 
-    public static final String TAG = SimpleFragment.class.getSimpleName();
+    private static final String TAG = SimpleFragment.class.getSimpleName();
     public static final String FRAGMENT_TAG = "SimpleFragment";
 
     @Override
@@ -74,7 +74,7 @@ public class SimpleFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.i(TAG, TAG + " onResume");
+        Log.i(TAG, TAG + " onPause");
     }
 
     @Override

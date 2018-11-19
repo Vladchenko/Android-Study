@@ -107,7 +107,7 @@ public class CurrencyBindServiceFragment extends Fragment implements ICallback {
             CurrencyDownloadingBindService.LocalBinder binder =
                     (CurrencyDownloadingBindService.LocalBinder) service;
             mService = binder.getServiceInstance(); //Get instance of your service!
-            //Activity register in the service as client for callbacks!
+            //Activity registers in the service as client for callbacks!
             mService.registerClient(CurrencyBindServiceFragment.this);
         }
 

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.example.vladislav.androidstudy"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -13,6 +13,9 @@ android {
         multiDexEnabled = true
         jackOptions {
             enabled true
+        }
+        repositories {
+            maven { url 'https://jitpack.io' }
         }
     }
     buildTypes {

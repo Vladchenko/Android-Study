@@ -11,7 +11,7 @@ import com.example.vladislav.androidstudy.R;
 import static com.example.vladislav.androidstudy.fragments.start_fragment.SimpleFragment.FRAGMENT_TAG;
 
 /**
- * Activity may display:
+ * This activity may display:
  * - android.app.Fragment;
  * or
  * - android.support.v4.app.Fragment;

@@ -17,9 +17,6 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        // Is there no way of referring to an mActivity itself
-//        RelativeLayout mLayout = (RelativeLayout) findViewById(R.mLayout.activity_result);
-//        Why is here no textView and button ?
         Button button = (Button) findViewById(R.id.go_back_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

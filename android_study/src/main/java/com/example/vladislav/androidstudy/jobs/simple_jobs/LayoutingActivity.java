@@ -15,8 +15,9 @@ import com.example.vladislav.androidstudy.R;
  */
 public class LayoutingActivity extends AppCompatActivity {
 
-    private Button button;
-    private LinearLayout linearLayout;
+    private Button mButton;
+    private LinearLayout mLinearLayout;
+    private View mLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,19 +27,23 @@ public class LayoutingActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_layouting);
-        button = (Button) findViewById(R.id.button);
-        linearLayout = (LinearLayout) findViewById(R.id.activity_layouting);
-        button.setOnClickListener(new View.OnClickListener() {
+        mButton = (Button) findViewById(R.id.button);
+        mLinearLayout = (LinearLayout) findViewById(R.id.layouting_activity);
+        // Referring to an activity's layout
+        mLayout = findViewById(R.id.layouting_activity);
+        // Showing that we can do something with this view.
+        mLayout.setBackground(getDrawable(R.drawable.customborder));
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // Getting a mLayout attributes programmatically.
+                // Getting a layout attributes programmatically.
                 LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT);
                 System.out.println("Linear mLayout gravity is: " + mLayoutParams.gravity);
                 // This row does nothing.
-                setContentView(linearLayout, mLayoutParams);
+                setContentView(mLinearLayout, mLayoutParams);
 
             }
         });

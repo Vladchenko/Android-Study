@@ -56,7 +56,7 @@ public class WidgetsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        animateButton();
+//        animateButton();
     }
 
     // Code taken from activity, make it work if possible

@@ -269,10 +269,19 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity
             android:name=".fragments.start_fragment.SimpleFragmentActivity"
             android:label="@string/title_activity_simple_fragment"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".jobs.simple_jobs.CommonActivity" />
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity android:name=".jobs.simple_jobs.CommonActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".jobs.criminalrecords.ui.CriminalRecordsActivity" />
-        <activity android:name=".jobs.currency.CurrencyActivity" />
+        <activity android:name=".jobs.currency.CurrencyActivity">
+
+        </activity>
 
         <service
             android:name=".jobs.currency.loaders.CurrencyDownloadingBindService"
@@ -285,11 +294,7 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".javarx2.example2.ColorsActivity" />
         <activity android:name=".javarx2.example2.SchedulerActivity" />
         <activity android:name=".javarx2.example1.RxJava2Example1Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
     </application>
 
