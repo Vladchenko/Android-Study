@@ -43,7 +43,7 @@ public class CurrencyAsyncTask extends AsyncTask<String, Void, List<CurrencyBean
         HttpURLConnection urlConnection;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            // Why does it make a downloading work ?
+            // Presence of a following line, makes a downloading work, else it doesn't.
             urlConnection.getRequestMethod();
             in = new BufferedInputStream(urlConnection.getInputStream());
         } catch (IOException e) {

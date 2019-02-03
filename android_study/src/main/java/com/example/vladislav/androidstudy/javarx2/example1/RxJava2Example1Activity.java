@@ -16,7 +16,9 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.processors.PublishProcessor;
 import io.reactivex.schedulers.Schedulers;
 
@@ -39,12 +41,21 @@ public class RxJava2Example1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //                simpleExample();
+//                emptyExample();
+//                simpleExample();
+//                simpleExample_2();
+//                simpleExample_3();
+//                justExample_4();
+//                justExample_5();
+//                intervalDemo();
+//                timerDemo();
 //                mapDemo();
+//                flatmapDemo();
 //                filterDemo();
 //                intervalRangeDemo();
 //                concatMapDemo();
-                nullDemo();
+//                nullDemo();
+//                someExample();
 
 //                runObservable();
 //                runFlowable();
@@ -148,24 +159,141 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         flowable.subscribe(pp);
     }
 
-    private void simpleExample() {
-        Observable.just("Hello world")
-                .subscribe(line -> System.out.println(line));
+    private void nullDemo() {
+        Observable.fromCallable(() -> null)
+                .subscribe(System.out::println, Throwable::printStackTrace);
+    }
+
+    private void nullDemo2() {
+        Observable.just(1)
+                .map(v -> null)
+                .subscribe(System.out::println, Throwable::printStackTrace);
+    }
+
+    /**
+     * This is done on a UI thread. Emits only one event.
+     */
+    private void justExample() {
+        Observable<String> helloWorld = Observable.just("Hello world");
+        helloWorld.subscribe(line -> mTextView.setText(line));
+
+        // The shorter case of the same doing
+//        Observable.just("Hello world")
+//                .subscribe(line -> mTextView.setText(line));
+
+        // For multiline code in subscriber
+//        Observable.just("Hello world")
+//                .subscribe(line -> {
+//                    System.out.println(line);
+//                    mTextView.setText(line);
+//                });
+    }
+
+    /**
+     * This is done on a UI thread. Emits several events.
+     */
+    private void justExample_2() {
+        Observable.just("one, two, three, four, five")
+                .subscribe(line -> mTextView.setText(line));
+    }
+
+    private void justExample_3() {
+        Observable.just("one, two, three, four, five")
+                .subscribe(v -> System.out.println("Received: " + v),
+                        e -> System.out.println("Error: " + e),
+                        () -> System.out.println("Completed"));
+    }
+
+    /**
+     * Demonstrating doOn... methods
+     */
+    private void justExample_4() {
+        Observable.just("one", "two", new Exception("Oops"), "four", "five")
+                .doOnNext(v -> System.out.println("doOnNext: " + v))
+                .doOnError(v -> System.out.println("doOnError: " + v))
+                .doOnComplete(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        System.out.println("Complete");
+                    }
+                })
+                .subscribe(v -> System.out.println("Received: " + v + "\n"));
+    }
+
+    /**
+     * This is done on a worker thread and fetches the result on a UI thread.
+     */
+    private void justExample_5() {
+        Observable.just("Hello world 2")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(line -> mTextView.setText(line));
+    }
+
+    /**
+     * empty emits nothing
+     */
+    private void emptyExample() {
+        Observable.empty()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(x -> System.out.println(x));
     }
 
     private void mapDemo() {
         Observable.just(1,2,3,4,5,6)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .onErrorReturn(throwable -> -1)
                 .map(x -> x*3)  // Multiplies each value in 3
 //                .map(number -> (new Random()).nextInt())
                 .subscribe(y -> System.out.println(y)); // Here an argument has to be different to
         // a previous one, say y
+        // mTextView.setText throws exception saying there is no value for y
+    }
+
+    /**
+     * Main difference between Map and FlatMap that FlatMap returns an observable itself, so it is
+     * used to map over asynchronous operations.
+     */
+    private void flatmapDemo() {
+        Observable.just(1, 2, 3, 4, 5, 6)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .flatMap( s -> {
+                    return Observable.just(s)
+                            .delay(new Random().nextInt(1000), TimeUnit.MILLISECONDS);
+                })
+                .subscribe(y -> System.out.println(y));
     }
 
     private void filterDemo() {
         Observable.just(1,2,3,4,5,6)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .map(x -> x*3)  // Multiplies each value in 3
-                .filter(y -> y < 15)    // Processes only a values less than 15
+                .filter(y -> y < 15 && y > 6)    // Processes only a values less than 15 and bigger than 6
                 .subscribe(z -> System.out.println(z));
+    }
+
+    /**
+     * Prints sequence oа integers in increasing manner each second.
+     */
+    private void intervalDemo() {
+        Observable<Long> integers = Observable.interval(1,TimeUnit.SECONDS);
+        integers
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(z -> System.out.println(z));
+
+    }
+
+    /**
+     * Fires just once. IDK why.
+     */
+    private void timerDemo() {
+        Observable.timer(1, TimeUnit.SECONDS)
+                .subscribe(i -> System.out.println(i));
     }
 
     private void intervalRangeDemo() {
@@ -177,23 +305,26 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         // is able to print values. This is why, we need to use blockingSubscribe();
     }
 
+    /**
+     * ConcatMap works almost the same as flatMap, but preserves the order of items. But concatMap
+     * has one big flaw: it waits for each observable to finish all the work until next one is
+     * processed.
+     */
     private void concatMapDemo() {
         Random random = new Random();
         Observable.intervalRange(0,30,500,500, TimeUnit.MILLISECONDS,
-                Schedulers.newThread())
-                .concatMap(x -> Observable.just(random.nextInt(50))
-                        .delay(random.nextInt(1000), TimeUnit.MILLISECONDS))  // Multiplies each value in 3
-                .blockingSubscribe(z -> System.out.println(z));
+                Schedulers.io())
+                .concatMap(x -> Observable.just(random.nextInt(1000))
+                        .delay(x, TimeUnit.MILLISECONDS))  // Multiplies each value in 3
+                .blockingSubscribe(y -> System.out.println(y));
     }
 
-    private void nullDemo() {
-        Observable.fromCallable(() -> null)
-        .subscribe(System.out::println, Throwable::printStackTrace);
-    }
-
-    private void nullDemo2() {
-        Observable.just(1)
-                .map(v -> null)
-                .subscribe(System.out::println, Throwable::printStackTrace);
+    private void someExample() {
+        Observable.just("long", "longer", "longest")
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(c -> System.out.print("processing item on thread " + Thread.currentThread().getName() + ", "))
+                .subscribeOn(Schedulers.io())
+                .map(String::length)
+                .subscribe(length -> System.out.println("item length " + length));
     }
 }

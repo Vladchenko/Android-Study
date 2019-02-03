@@ -3,9 +3,10 @@ package com.example.vladislav.androidstudy.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,12 +15,12 @@ import android.widget.Toast;
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.activities.dynamic_layout.ProgrammaticLayoutActivity;
 import com.example.vladislav.androidstudy.activities.orientation_change.RotationActivity;
-import com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTasksActivity;
 import com.example.vladislav.androidstudy.intents.IntentsActivity;
+import com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTasksActivity;
 import com.example.vladislav.androidstudy.jobs.listviewing.ListsViewActivity;
+import com.example.vladislav.androidstudy.jobs.simple_jobs.LayoutingActivity;
 import com.example.vladislav.androidstudy.logic.ButtonsHandlers;
 import com.example.vladislav.androidstudy.services.ServicesActivity;
-import com.example.vladislav.androidstudy.jobs.simple_jobs.LayoutingActivity;
 
 /**
  * This activity is picked to be the foremost that is invoked
@@ -55,6 +56,12 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
 
         Log.i(mLogTag, "onCreate");
 //        utils.showToast(this, "onCreate");
+    }
+
+    public static Intent newIntent(Context context, String id, String value) {
+        Intent intent = new Intent(context, InitialActivity.class);
+        intent.putExtra(id, value);
+        return intent;
     }
 
     // region Lifecycle
@@ -166,13 +173,14 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
             }
         });
-//        mButton = (Button) findViewById(R.id.youtube_runner_button);
-//        mButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                runYoutube(mYouTubeVideoID);
-//            }
-//        });
+        mButton = (Button) findViewById(R.id.youtube_runner_button);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // It seems that emulator won't run video, one has to use a mobile device for it.
+                runYoutubeVideo(mYouTubeVideoID);
+            }
+        });
 //
 //        ((Button) findViewById(R.id.banks_details_button)).setOnClickListener(
 //                new View.OnClickListener() {
@@ -317,5 +325,9 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             }
         }
+    }
+
+    private void runYoutubeVideo(String videoLink) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(videoLink)));
     }
 }

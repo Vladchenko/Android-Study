@@ -4,7 +4,7 @@
     android:versionName="1.0"> <!-- This part is optional -->
     <!--
 The package name serves as a unique identifier for the application. It's also the default
-    name for the application process (see the <application> element's process process attribute)
+    name for the application process (see the <application> element's process attribute)
     and the default task affinity of an activity (see the <activity> element's taskAffinity
     attribute).
     -->
@@ -95,6 +95,7 @@ Caution: Once you publish your application, you cannot change the package name. 
 
             <!-- android:screenOrientation="landscape" makes orientation to be only landscape -->
             <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
+
 
         </activity>
         <activity
@@ -272,11 +273,6 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity android:name=".jobs.simple_jobs.CommonActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".jobs.criminalrecords.ui.CriminalRecordsActivity" />
         <activity android:name=".jobs.currency.CurrencyActivity">
@@ -294,7 +290,11 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".javarx2.example2.ColorsActivity" />
         <activity android:name=".javarx2.example2.SchedulerActivity" />
         <activity android:name=".javarx2.example1.RxJava2Example1Activity">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
