@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -56,9 +58,10 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 //                concatMapDemo();
 //                nullDemo();
 //                someExample();
-
 //                runObservable();
 //                runFlowable();
+//                combinationOfSeveralOps();
+                fromIterableExample();
             }
         });
     }
@@ -190,13 +193,16 @@ public class RxJava2Example1Activity extends AppCompatActivity {
     }
 
     /**
-     * This is done on a UI thread. Emits several events.
+     * Emits one event and puts it to some textview
      */
     private void justExample_2() {
-        Observable.just("one, two, three, four, five")
+        Observable.just("one")
                 .subscribe(line -> mTextView.setText(line));
     }
 
+    /**
+     * Using observable with v, e, () lambda arguments
+     */
     private void justExample_3() {
         Observable.just("one, two, three, four, five")
                 .subscribe(v -> System.out.println("Received: " + v),
@@ -205,7 +211,9 @@ public class RxJava2Example1Activity extends AppCompatActivity {
     }
 
     /**
-     * Demonstrating doOn... methods
+     * Demonstrating doOn... methods.
+     *
+     * Although there is an exception among the emissions, it doesn't come out as an error.
      */
     private void justExample_4() {
         Observable.just("one", "two", new Exception("Oops"), "four", "five")
@@ -231,13 +239,13 @@ public class RxJava2Example1Activity extends AppCompatActivity {
     }
 
     /**
-     * empty emits nothing
+     * empty() emits nothing
      */
     private void emptyExample() {
         Observable.empty()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(x -> System.out.println(x));
+                .subscribe(x -> System.out.println("x = " + x));
     }
 
     private void mapDemo() {
@@ -327,4 +335,33 @@ public class RxJava2Example1Activity extends AppCompatActivity {
                 .map(String::length)
                 .subscribe(length -> System.out.println("item length " + length));
     }
+
+    /**
+     * 1. Emitting 5 objects
+     * 2. Getting a first char from each emission and pass further on
+     * 3. Getting only an emissions whose values are bigger than 112 (i.e. bigger than "p")
+     * 4. Count the number of these emissions.
+     * 5. Print them out.
+     */
+    private void combinationOfSeveralOps() {
+        char ch = 112;
+        Observable.just("one", "two", "three", "four", "five")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .map(x -> (int)x.charAt(0))
+                .filter(y -> y > ch)
+                .count()
+                .subscribe(z -> System.out.println("The number of emissions bigger than 112 (letter \"p\") = " + z));
+    }
+
+    /**
+     * Demonstrates fromIterable() performing. Returns true if any of an emissions has "Gamma".
+     */
+    private void fromIterableExample() {
+        List<String> items = Arrays.asList("Alpha", "Beta", "Gamma", "Delta", "Epsilon");
+        Observable.fromIterable(items)
+                .contains("Gamma")
+                .subscribe(result -> System.out.println(result));
+    }
+
 }
