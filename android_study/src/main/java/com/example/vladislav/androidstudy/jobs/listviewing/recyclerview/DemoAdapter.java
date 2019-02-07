@@ -13,7 +13,6 @@ import com.example.vladislav.androidstudy.R;
  *
  * Created by Влад on 23.12.2017.
  */
-
 public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.ViewHolder> {
 
     private String[] mDataset;
@@ -21,12 +20,12 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.ViewHolder> {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         private TextView mTextView;
         ViewHolder(View v) {
             super(v);
-            mTextView = (TextView)v.findViewById(R.id.textView21);
+            mTextView = (TextView)v.findViewById(R.id.recycler_item_text_view);
         }
     }
 
