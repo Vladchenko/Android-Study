@@ -96,7 +96,6 @@ Caution: Once you publish your application, you cannot change the package name. 
             <!-- android:screenOrientation="landscape" makes orientation to be only landscape -->
             <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
 
-
         </activity>
         <activity
             android:name=".separatestudypackage.TestStandActivity"
@@ -123,8 +122,7 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".services.ServicesActivity" />
         <activity android:name=".activities.ParcelableActivity" />
         <activity android:name=".activities.dynamic_layout.buttons_inserting.AddButtonsActivity" />
-        <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity">
-        </activity>
+        <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity"></activity>
         <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassToActivity" />
         <activity
             android:name=".fragments.fragments_activity.OneFragmentActivity"
@@ -250,12 +248,7 @@ Caution: Once you publish your application, you cannot change the package name. 
             </intent-filter>
         </service>
 
-        <activity android:name=".jobs.listviewing.recyclerview.RecyclerViewActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".jobs.listviewing.recyclerview.RecyclerViewActivity">
         </activity>
         <activity android:name=".jobs.simple_jobs.ContextActivity" />
         <activity
@@ -276,14 +269,10 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity
             android:name=".fragments.start_fragment.SimpleFragmentActivity"
             android:label="@string/title_activity_simple_fragment"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity android:name=".jobs.simple_jobs.CommonActivity">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".jobs.simple_jobs.CommonActivity"></activity>
         <activity android:name=".jobs.criminalrecords.ui.CriminalRecordsActivity" />
-        <activity android:name=".jobs.currency.CurrencyActivity">
-
-        </activity>
+        <activity android:name=".jobs.currency.CurrencyActivity"></activity>
 
         <service
             android:name=".jobs.currency.loaders.CurrencyDownloadingBindService"
@@ -295,8 +284,13 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".javarx2.example2.BooksActivity" />
         <activity android:name=".javarx2.example2.ColorsActivity" />
         <activity android:name=".javarx2.example2.SchedulerActivity" />
-        <activity android:name=".javarx2.example1.RxJava2Example1Activity">
-
+        <activity android:name=".javarx2.example1.RxJava2Example1Activity"></activity>
+        <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
