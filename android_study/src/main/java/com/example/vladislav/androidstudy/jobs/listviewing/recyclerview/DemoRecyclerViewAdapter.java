@@ -13,14 +13,14 @@ import com.example.vladislav.androidstudy.R;
  *
  * Created by Влад on 23.12.2017.
  */
-public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.ViewHolder> {
+public class DemoRecyclerViewAdapter extends RecyclerView.Adapter<DemoRecyclerViewAdapter.ViewHolder> {
 
     private String[] mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         private TextView mTextView;
         ViewHolder(View v) {
@@ -30,7 +30,7 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public DemoAdapter(String[] myDataset) {
+    public DemoRecyclerViewAdapter(String[] myDataset) {
         mDataset = myDataset;
     }
 
@@ -47,7 +47,7 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(DemoAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(DemoRecyclerViewAdapter.ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset[position]);
@@ -57,10 +57,5 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return mDataset.length;
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
     }
 }

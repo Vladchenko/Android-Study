@@ -34,7 +34,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(decoration);
 
         String[] strings = new String[]{"1", "2", "3", "4", "5", "6"};
-        mAdapter = new DemoAdapter(strings);
+        mAdapter = new DemoRecyclerView2ItemsAdapter(strings);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
