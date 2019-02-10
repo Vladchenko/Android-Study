@@ -11,5 +11,5 @@
         android:id="@+id/group_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="TextView" />
+        tools:text="Child text" />
 </android.support.constraint.ConstraintLayout>

@@ -12,17 +12,20 @@ import com.example.vladislav.androidstudy.R;
 import java.util.List;
 import java.util.Map;
 
-public class DemoExpandableListAdapter extends BaseExpandableListAdapter {
+public class DemoExpandableList2ViewsAdapter extends BaseExpandableListAdapter {
 
     private List<String> mGroupDataset;
     private Map<String, List<String>> mChildrenDataset;
     private Context mContext = null;
+    private ChildViews[] mChildViews;
 
-    public DemoExpandableListAdapter(List<String> groupDataset,
-            Map<String, List<String>> childrenDataset,
-                                     Context context) {
+    public DemoExpandableList2ViewsAdapter(List<String> groupDataset,
+                                           Map<String, List<String>> childrenDataset,
+                                           ChildViews[] childViews,
+                                           Context context) {
         mGroupDataset = groupDataset;
         mChildrenDataset = childrenDataset;
+        mChildViews = childViews;
         mContext = context;
     }
 
@@ -76,8 +79,14 @@ public class DemoExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
         if (view == null) {
-            view = ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-                    .from(mContext).inflate(R.layout.expandable_list_child_view, null);
+            if (mChildViews[i1] == ChildViews.TEXT) {
+                view = ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+                        .from(mContext).inflate(R.layout.expandable_list_child_view, null);
+            }
+            if (mChildViews[i1] == ChildViews.IMAGE_AND_TEXT) {
+                view = ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+                        .from(mContext).inflate(R.layout.expandable_list_child_view_2, null);
+            }
         }
         // Setting a custom border
 //        view.setBackground(mContext.getResources().getDrawable(R.drawable.customborder));
@@ -90,5 +99,20 @@ public class DemoExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int i, int i1) {
         return true;
+    }
+
+    /**
+     * Child view types
+     */
+    public enum ChildViews {
+
+        TEXT(1),
+        IMAGE_AND_TEXT(2);
+
+        private final int viewType;
+
+        private ChildViews(int viewType) {
+            this.viewType = viewType;
+        }
     }
 }

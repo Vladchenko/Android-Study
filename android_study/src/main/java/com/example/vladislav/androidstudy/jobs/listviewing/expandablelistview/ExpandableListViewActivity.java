@@ -25,18 +25,55 @@ public class ExpandableListViewActivity extends AppCompatActivity {
 
         mExpandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
 
-//        mLayoutManager = new LinearLayoutManager(this);
-//        mRecyclerView.setLayoutManager(mLayoutManager);
-//
-//        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
-//        mExpandableListView.addItemDecoration(decoration);
-
-        String[] strings = new String[]{"1", "2", "3", "4", "5", "6"};
+        String[] strings = new String[]{"1", "2", "3", "4", "5", "6", "1", "2", "3", "4", "5", "6",
+                "1", "2", "3", "4", "5", "6", "1", "2", "3", "4", "5", "6", "1", "2", "3", "4", "5",
+                "6", "1", "2", "3", "4", "5", "6"};
+        /**
+         * These will stand for a child view types
+         */
+        DemoExpandableList2ViewsAdapter.ChildViews[] childTypes =
+                new DemoExpandableList2ViewsAdapter.ChildViews[]
+                        {DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT,
+                                DemoExpandableList2ViewsAdapter.ChildViews.IMAGE_AND_TEXT};
         HashMap<String, List<String>> expandable = new HashMap<String, List<String>>();
         expandable.put("group", Arrays.asList(strings));
 
-        mExpandableAdapter = new DemoExpandableListAdapter(Collections.singletonList("group"),
-                expandable, this);
+        mExpandableAdapter = new DemoExpandableList2ViewsAdapter(Collections.singletonList("group"),
+                expandable, childTypes,this);
         mExpandableListView.setAdapter(mExpandableAdapter);
     }
 }
