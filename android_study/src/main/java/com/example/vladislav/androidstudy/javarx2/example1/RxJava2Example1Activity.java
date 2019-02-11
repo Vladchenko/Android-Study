@@ -21,6 +21,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.processors.PublishProcessor;
 import io.reactivex.schedulers.Schedulers;
 
@@ -37,18 +38,19 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_java2_example1);
 
-        mTextView = (TextView)findViewById(R.id.rxjava2_example1_text_view);
-        mButton = (Button)findViewById(R.id.rxjava2_example1_button);
+        mTextView = (TextView) findViewById(R.id.rxjava2_example1_text_view);
+        mButton = (Button) findViewById(R.id.rxjava2_example1_button);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 //                emptyExample();
-//                simpleExample();
-//                simpleExample_2();
-//                simpleExample_3();
+//                justExample();
+//                justExample_2();
+//                justExample_3();
 //                justExample_4();
 //                justExample_5();
+//                justExample_6();
 //                intervalDemo();
 //                timerDemo();
 //                mapDemo();
@@ -61,7 +63,10 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 //                runObservable();
 //                runFlowable();
 //                combinationOfSeveralOps();
-                fromIterableExample();
+//                fromArrayExample();
+//                fromIterableExample();
+//                fromCallableExample();
+                deferExample();
             }
         });
     }
@@ -93,16 +98,6 @@ public class RxJava2Example1Activity extends AppCompatActivity {
     }
 
     void setupObservable() {
-//        mObservable = Observable.just(null);    // NPE
-//        mObservable = Observable.just("just");
-//        mObservable = Observable.just("just", "just2"); // just2 appears
-//        mObservable = Observable.fromArray("fromArray", "fromArray2");
-//        mObservable = Observable.fromIterable(Arrays.asList("fromIterable", "fromIterable2"));
-
-//        mObservable = Observable.fromCallable(() -> {
-//            Thread.sleep(2000);
-//            return "fromCallable";
-//        });
 
 //        mObservable = Observable.create(new ObservableOnSubscribe<String>() {
 //            @Override
@@ -112,10 +107,6 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 //                observableEmitter.onComplete();
 //            }
 //        });
-
-        // The defer() operator does not create the Observable until the observer subscribes,
-        // and create a fresh Observable for each observer.
-        mObservable = Observable.defer(() -> Observable.just("defer", "defer2"));
 
     }
 
@@ -204,7 +195,7 @@ public class RxJava2Example1Activity extends AppCompatActivity {
      * Using observable with v, e, () lambda arguments
      */
     private void justExample_3() {
-        Observable.just("one, two, three, four, five")
+        Observable.just("one", "two", "three", "four", "five")
                 .subscribe(v -> System.out.println("Received: " + v),
                         e -> System.out.println("Error: " + e),
                         () -> System.out.println("Completed"));
@@ -212,7 +203,7 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 
     /**
      * Demonstrating doOn... methods.
-     *
+     * <p>
      * Although there is an exception among the emissions, it doesn't come out as an error.
      */
     private void justExample_4() {
@@ -228,10 +219,23 @@ public class RxJava2Example1Activity extends AppCompatActivity {
                 .subscribe(v -> System.out.println("Received: " + v + "\n"));
     }
 
+    private void justExample_5() {
+        Consumer<Integer> onNext = i -> System.out.println("RECEIVED: " + i);
+        Consumer<Throwable> onError = Throwable::printStackTrace;
+        Action onComplete = () -> System.out.println("Done!");
+
+        Observable<String> source = Observable.just("Alpha", "Beta", "Gamma", "Delta", "Epsilon");
+        source.map(String::length)
+                .filter(i -> i >= 5)
+                .subscribe(onNext,
+                        onError,
+                        onComplete);
+    }
+
     /**
      * This is done on a worker thread and fetches the result on a UI thread.
      */
-    private void justExample_5() {
+    private void justExample_6() {
         Observable.just("Hello world 2")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -249,11 +253,11 @@ public class RxJava2Example1Activity extends AppCompatActivity {
     }
 
     private void mapDemo() {
-        Observable.just(1,2,3,4,5,6)
+        Observable.just(1, 2, 3, 4, 5, 6)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .onErrorReturn(throwable -> -1)
-                .map(x -> x*3)  // Multiplies each value in 3
+                .map(x -> x * 3)  // Multiplies each value in 3
 //                .map(number -> (new Random()).nextInt())
                 .subscribe(y -> System.out.println(y)); // Here an argument has to be different to
         // a previous one, say y
@@ -268,7 +272,7 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         Observable.just(1, 2, 3, 4, 5, 6)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .flatMap( s -> {
+                .flatMap(s -> {
                     return Observable.just(s)
                             .delay(new Random().nextInt(1000), TimeUnit.MILLISECONDS);
                 })
@@ -276,24 +280,23 @@ public class RxJava2Example1Activity extends AppCompatActivity {
     }
 
     private void filterDemo() {
-        Observable.just(1,2,3,4,5,6)
+        Observable.just(1, 2, 3, 4, 5, 6)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .map(x -> x*3)  // Multiplies each value in 3
+                .map(x -> x * 3)  // Multiplies each value in 3
                 .filter(y -> y < 15 && y > 6)    // Processes only a values less than 15 and bigger than 6
                 .subscribe(z -> System.out.println(z));
     }
 
     /**
-     * Prints sequence oа integers in increasing manner each second.
+     * Prints sequence of integers in increasing manner each second.
      */
     private void intervalDemo() {
-        Observable<Long> integers = Observable.interval(1,TimeUnit.SECONDS);
+        Observable<Long> integers = Observable.interval(1, TimeUnit.SECONDS);
         integers
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(z -> System.out.println(z));
-
     }
 
     /**
@@ -301,13 +304,15 @@ public class RxJava2Example1Activity extends AppCompatActivity {
      */
     private void timerDemo() {
         Observable.timer(1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(i -> System.out.println(i));
     }
 
     private void intervalRangeDemo() {
-        Observable.intervalRange(0,30,500,500, TimeUnit.MILLISECONDS,
+        Observable.intervalRange(0, 30, 500, 500, TimeUnit.MILLISECONDS,
                 Schedulers.newThread())
-                .map(x -> x*3)  // Multiplies each value in 3
+                .map(x -> x * 3)  // Multiplies each value in 3
                 .blockingSubscribe(z -> System.out.println(z)); // This is done on a main thread
         // Since intervalRange works in a separate thread, it finishes its job before main thread
         // is able to print values. This is why, we need to use blockingSubscribe();
@@ -320,7 +325,7 @@ public class RxJava2Example1Activity extends AppCompatActivity {
      */
     private void concatMapDemo() {
         Random random = new Random();
-        Observable.intervalRange(0,30,500,500, TimeUnit.MILLISECONDS,
+        Observable.intervalRange(0, 30, 500, 500, TimeUnit.MILLISECONDS,
                 Schedulers.io())
                 .concatMap(x -> Observable.just(random.nextInt(1000))
                         .delay(x, TimeUnit.MILLISECONDS))  // Multiplies each value in 3
@@ -348,10 +353,18 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         Observable.just("one", "two", "three", "four", "five")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .map(x -> (int)x.charAt(0))
+                .map(x -> (int) x.charAt(0))
                 .filter(y -> y > ch)
                 .count()
                 .subscribe(z -> System.out.println("The number of emissions bigger than 112 (letter \"p\") = " + z));
+    }
+
+    void fromArrayExample() {
+        mObservable = Observable.fromArray("fromArray", "fromArray2");
+        mObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(x -> System.out.println("Value = " + x));
     }
 
     /**
@@ -361,6 +374,25 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         List<String> items = Arrays.asList("Alpha", "Beta", "Gamma", "Delta", "Epsilon");
         Observable.fromIterable(items)
                 .contains("Gamma")
+                .subscribe(result -> System.out.println(result));
+    }
+
+    private void fromCallableExample() {
+        Observable.fromCallable(() -> {
+            Thread.sleep(2000);
+            return "fromCallable fired";
+        })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(result -> System.out.println(result));
+    }
+
+    private void deferExample() {
+//         The defer() operator does not create the Observable until the observer subscribes,
+//         and create a fresh Observable for each observer.
+        mObservable.defer(() -> Observable.just("defer", "defer2"))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(result -> System.out.println(result));
     }
 
