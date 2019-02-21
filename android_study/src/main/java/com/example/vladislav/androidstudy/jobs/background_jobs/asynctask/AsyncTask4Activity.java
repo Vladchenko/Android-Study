@@ -4,8 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,15 +48,15 @@ public class AsyncTask4Activity extends AppCompatActivity {
     @Override public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         // The goal is - to not download an image again, but to get it from a bundle.
-        // Seems there is no to do this, using this mechanism, but to save to disk and then restore.
+        // Seems there is no way to do this, using this mechanism, but to save to disk and then restore.
         outState.putParcelable("image", mImage);
     }
 
-    public Bitmap getmImage() {
+    public Bitmap getImage() {
         return mImage;
     }
 
-    public void setmImage(Bitmap mImage) {
+    public void setImage(Bitmap mImage) {
         this.mImage = mImage;
     }
 
@@ -98,7 +98,7 @@ public class AsyncTask4Activity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Bitmap result) {
             mTextView.setText("Download complete");
-            activity.setmImage(result);
+            activity.setImage(result);
             ((ImageView) activity.findViewById(R.id.asynctask4_image_view)).setImageBitmap(result);
             activity.findViewById(R.id.asynctask4_progress_bar).setVisibility(TextView.GONE);
         }

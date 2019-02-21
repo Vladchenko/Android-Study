@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.activities.dynamic_layout.ProgrammaticLayoutActivity;
 import com.example.vladislav.androidstudy.activities.orientation_change.RotationActivity;
+import com.example.vladislav.androidstudy.beans.Planet;
 import com.example.vladislav.androidstudy.intents.IntentsActivity;
 import com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTasksActivity;
 import com.example.vladislav.androidstudy.jobs.listviewing.ListsViewActivity;
@@ -200,8 +201,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InitialActivity.this, RotationActivity.class);
-                startActivity(intent);
+                startActivity(RotationActivity.newIntent(InitialActivity.this,
+                        new Planet(10, 15, 20)));
             }
         });
         mButton = (Button) findViewById(R.id.alert_dialogue_button);

@@ -111,7 +111,8 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".fragments.fragments_activity.DynamicFragmentsActivity" />
         <activity android:name=".services.ServicesDemo1Activity" />
         <activity android:name=".activities.dynamic_layout.ProgrammaticLayoutActivity" />
-        <activity android:name=".activities.orientation_change.RotationActivity" />
+        <activity android:name=".activities.orientation_change.RotationActivity">
+        </activity>
         <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
         <activity android:name=".activities.ContextMenuActivity" />
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTasksActivity" />
@@ -253,7 +254,15 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".jobs.simple_jobs.ContextActivity" />
         <activity
             android:name=".activities.orientation_change.OneOrTwoFragments.SomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenSize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".activities.dynamic_layout.DynamicButtonsSizeActivity" />
         <activity android:name=".separatestudypackage.two_actions_activity.ButtonsActivity" />
         <activity android:name=".separatestudypackage.two_actions_activity.TimeDateActivity">
@@ -285,11 +294,6 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".javarx2.example2.ColorsActivity" />
         <activity android:name=".javarx2.example2.SchedulerActivity" />
         <activity android:name=".javarx2.example1.RxJava2Example1Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity">
 
