@@ -5,15 +5,7 @@ import android.os.AsyncTask;
 import com.example.vladislav.androidstudy.jobs.currency.ICallback;
 import com.example.vladislav.androidstudy.jobs.currency.beans.CurrencyBean;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
-
-import static com.example.vladislav.androidstudy.jobs.currency.CurrencyUtils.retrieveCurrencies;
 
 /**
  * Downloading a currencies data.
@@ -32,29 +24,7 @@ public class CurrencyAsyncTask extends AsyncTask<String, Void, List<CurrencyBean
 
     @Override
     protected List<CurrencyBean> doInBackground(String... params) {
-        URL url = null;
-        List<CurrencyBean> currenciesList = null;
-        try {
-            url = new URL(params[0]);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        InputStream in = null;
-        HttpURLConnection urlConnection;
-        try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-            // Presence of a following line, makes a downloading work, else it doesn't.
-            urlConnection.getRequestMethod();
-            in = new BufferedInputStream(urlConnection.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            currenciesList = retrieveCurrencies(in);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return currenciesList;
+        return new CurrencyDownloader(params[0]).getLoadedCurrencies().getCurrenciesList();
     }
 
     @Override

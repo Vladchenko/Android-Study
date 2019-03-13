@@ -255,13 +255,6 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity
             android:name=".activities.orientation_change.OneOrTwoFragments.SomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
         </activity>
         <activity android:name=".activities.dynamic_layout.DynamicButtonsSizeActivity" />
         <activity android:name=".separatestudypackage.two_actions_activity.ButtonsActivity" />
@@ -281,7 +274,13 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".jobs.simple_jobs.CommonActivity"></activity>
         <activity android:name=".jobs.criminalrecords.ui.CriminalRecordsActivity" />
-        <activity android:name=".jobs.currency.CurrencyActivity"></activity>
+        <activity android:name=".jobs.currency.CurrencyActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".jobs.currency.loaders.CurrencyDownloadingBindService"
@@ -294,6 +293,7 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".javarx2.example2.ColorsActivity" />
         <activity android:name=".javarx2.example2.SchedulerActivity" />
         <activity android:name=".javarx2.example1.RxJava2Example1Activity">
+
         </activity>
         <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity">
 

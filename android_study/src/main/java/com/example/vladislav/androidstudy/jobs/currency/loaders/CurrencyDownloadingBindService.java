@@ -8,21 +8,12 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
-import android.os.Messenger;
 import android.support.annotation.Nullable;
 
 import com.example.vladislav.androidstudy.Utils;
 import com.example.vladislav.androidstudy.jobs.currency.ICallback;
 import com.example.vladislav.androidstudy.jobs.currency.beans.CurrenciesContainer;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import static com.example.vladislav.androidstudy.jobs.currency.CurrencyUtils.parse;
 import static com.example.vladislav.androidstudy.jobs.currency.fragments.CurrencyStartServiceFragment.sURL;
 
 public class CurrencyDownloadingBindService extends Service {
@@ -126,27 +117,7 @@ public class CurrencyDownloadingBindService extends Service {
         @Override
         public void handleMessage(Message msg) {
 
-            URL url = null;
-            try {
-                url = new URL(mLink);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            InputStream in = null;
-            HttpURLConnection urlConnection;
-            try {
-                urlConnection = (HttpURLConnection) url.openConnection();
-                // Why does it make a downloading work ?
-                urlConnection.getRequestMethod();
-                in = new BufferedInputStream(urlConnection.getInputStream());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                mCurrenciesContainer = parse(in);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            mCurrenciesContainer = new CurrencyDownloader(mLink).getLoadedCurrencies();
 //            // Stop the service using the startId, so that we don't stop
 //            // the service in the middle of handling another job
 //            stopSelf();

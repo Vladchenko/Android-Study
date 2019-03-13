@@ -1,14 +1,13 @@
 package com.example.vladislav.androidstudy.jobs.currency;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.jobs.currency.fragments.CurrencyAsyncTaskFragment;
-import com.example.vladislav.androidstudy.jobs.currency.fragments.CurrencyBindServiceFragment;
 import com.example.vladislav.androidstudy.jobs.currency.fragments.CurrencyStartServiceFragment;
 
 public class CurrencyActivity extends AppCompatActivity {
@@ -27,8 +26,10 @@ public class CurrencyActivity extends AppCompatActivity {
         if (fragment == null) {
 //            fragment = new CurrencyAsyncTaskFragment();
 //            fragment = new CurrencyAsyncTaskLoaderFragment();
-//            fragment = new CurrencyStartServiceFragment();
-            fragment = new CurrencyBindServiceFragment();
+            fragment = new CurrencyStartServiceFragment();
+//            fragment = new CurrencyBindServiceFragment();
+//            fragment = new CurrencyRXLoaderFragment();
+
             fragmentManager.beginTransaction().add(
                     mFrameLayout.getId(), fragment, CurrencyAsyncTaskFragment.TAG)
                     .commit();

@@ -15,15 +15,20 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.BackpressureStrategy;
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.processors.PublishProcessor;
 import io.reactivex.schedulers.Schedulers;
+
+import static java.lang.Thread.sleep;
 
 public class RxJava2Example1Activity extends AppCompatActivity {
 
@@ -66,11 +71,24 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 //                fromArrayExample();
 //                fromIterableExample();
 //                fromCallableExample();
-                deferExample();
+//                deferExample();
+
+                operatorsExample();
+
+//                singleExample2();
+//                singleExample3();
+
+//                maybeExample2();
+
+//                completableExample();
+//                completableExample2();
+
+//                observableExample();
             }
         });
     }
 
+    //region Observable
     private void setupObserver() {
         mObserver = new Observer() {
             @Override
@@ -116,33 +134,6 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         mObservable.subscribe(mObserver);
     }
 
-    void setupBoth() {
-        Observable<Integer> observable = Observable.range(0, 3);
-        Observer observer = new Observer() {
-            @Override
-            public void onSubscribe(Disposable disposable) {
-                Log.i(TAG, "onSubscribe fired: " + disposable.toString());
-            }
-
-            @Override
-            public void onNext(Object o) {
-                Log.i(TAG, "onNext fired: " + o.toString());
-                mTextView.setText(o.toString());
-
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                Log.i(TAG, "onError fired: " + throwable.getMessage());
-            }
-
-            @Override
-            public void onComplete() {
-                Log.i(TAG, "onComplete fired");
-            }
-        };
-        observable.subscribe(observer);
-    }
 
     // Doesn't do anything. Maybe one has to add a schedulers
     void runFlowable() {
@@ -379,7 +370,7 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 
     private void fromCallableExample() {
         Observable.fromCallable(() -> {
-            Thread.sleep(2000);
+            sleep(2000);
             return "fromCallable fired";
         })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -396,4 +387,156 @@ public class RxJava2Example1Activity extends AppCompatActivity {
                 .subscribe(result -> System.out.println(result));
     }
 
+    /**
+     * Showing some operators operating
+     */
+    private void operatorsExample() {
+        // Skipping one emission
+        Observable.just("defer", "defer2")
+                .skip(1)
+//                .skipLast(1)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(result -> System.out.println(result));
+
+        // Prints numbers from 0 to 3
+        Observable.range(0, 3)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(result -> System.out.println(result));
+
+        // Prints "Alpha", "Beta", "Gamma"
+        Observable.just("Alpha", "Beta", "Gamma", "Delta", "Epsilon")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .take(3)
+                .subscribe(s -> System.out.println("RECEIVED: " + s));
+
+        //  Emits numbers every 300 milliseconds, but take() emissions for only 2 seconds
+        // Ignores .just("Alpha", "Beta", "Gamma", "Delta", "Epsilon")
+        Observable.just("Alpha", "Beta", "Gamma", "Delta", "Epsilon")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .interval(400, TimeUnit.MILLISECONDS)
+                .take(3, TimeUnit.SECONDS)
+                .subscribe(s -> System.out.println("RECEIVED: " + s));
+    }
+    //endregion Observable
+
+    //region Single
+    /**
+     * The Single must have one emission, and you should prefer it if you only have one emission to
+     * provide. This means that instead of using Observable.just("Alpha"), you should try to use
+     * Single.just("Alpha") instead
+     */
+    private void singleExample() {
+        Single.just("Alpha")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> System.out.println(result));
+    }
+
+    private void singleExample2() {
+        Single.just("singleExample")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(System.out::println,
+                        Throwable::printStackTrace);    // These are lambdas for onSuccess and onError
+    }
+
+    /**
+     * This example doesn't operate the way it should
+     */
+    private void singleExample3() {
+        Observable<String> source = Observable.just("", "Alpha", "Beta", "Gamma");
+        source.first("Replaced") //returns Maybe
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(System.out::println);
+        //  ... if you instead want a filtering operator, you may have better luck with Take(1) or
+        // ElementAt(0).    http://reactivex.io/documentation/operators/first.html
+    }
+    //endregion Single
+
+    //region Maybe
+    /**
+     * If there are 0 or 1 emissions, you will want to use Maybe
+     */
+    private void maybeExample() {
+        Maybe.just("maybeExample")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> System.out.println(result));
+    }
+
+    /**
+     * Observable.firstElement() emits first or no element, if it is absent, thus emitting Maybe<T>
+     */
+    private void maybeExample2() {
+        Observable<String> source = Observable.just("Alpha", "Beta", "Gamma");
+        source.firstElement() //returns Maybe
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                // Having onSuccess(), onError(), onComplete() lambdas provided
+                .subscribe(System.out::println,
+                        Throwable::printStackTrace,
+                        () -> System.out.println("Done!"));
+//                .subscribe(System.out::println);
+    }
+
+    /**
+     * Maybe that emits no emissions.
+     */
+    private void maybeExample3() {
+        Maybe.empty()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> System.out.println(result));
+    }
+    //endregion Maybe
+
+    //region Completable
+    private void completableExample() {
+        Completable.complete();
+        System.out.println("Completable.complete() finished");
+    }
+
+    private void completableExample2() {
+        Completable.fromRunnable(
+                () -> runProcess())
+                .subscribe(() -> System.out.println("Done!")
+                );
+    }
+
+    public static void runProcess() {
+        //run process here
+    }
+    //endregion Completable
+
+    //region Disposable
+    private void observableExample() {
+        Observable<Long> seconds = Observable.interval(1, TimeUnit.SECONDS);
+        Disposable disposable = seconds.subscribe(l -> System.out.println("Received: " + l));
+        //sleep 5 seconds
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //dispose and stop emissions
+        disposable.dispose();
+        //sleep 5 seconds to prove there are no more emissions
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        /**
+         * Here, we let Observable.interval() run for five seconds with an Observer, but we save
+         * the Disposable returned from the subscribe() method. Then we call the Disposable's
+         * dispose() method to stop the process and free any resources that were being used. Then,
+         * we sleep for another five seconds just to prove that no more emissions are happening.
+         */
+    }
+    //endregion Disposable
 }
