@@ -22,6 +22,7 @@ import com.example.vladislav.androidstudy.jobs.currency.loaders.CurrencyDownload
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -46,39 +47,13 @@ public class CurrencyRXLoaderFragment extends Fragment implements ICallback {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCurrenciesSingle = Observable.create(
-                emitter -> {
-                    Thread thread = new Thread(() -> {
-                        try {
-                            mCurrenciesContainer = new CurrencyDownloader(sUrl).getLoadedCurrencies();
-                            emitter.onNext(mCurrenciesContainer.getCurrenciesList());
-                        } catch (Exception e) {
-                            emitter.onError(e);
-                        }
-                    });
-                    // Imitating some work by putting thread to sleep
-                    thread.sleep(3000);
-                    thread.start();
-                }
-                )
+        mCurrenciesSingle = createObservable()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> loadedData(mCurrenciesContainer.getCurrenciesList()),
                         result -> handleError());
-//        Single
-//                .create(emitter -> {
-//                    Thread thread = new Thread(() -> {
-//                        try {
-//                            mCurrenciesContainer = new CurrencyDownloader(sUrl).getLoadedCurrencies();
-//                            emitter.onSuccess(mCurrenciesContainer.getCurrenciesList());
-//                        } catch (Exception e) {
-//                            emitter.onError(e);
-//                        }
-//                    });
-//                    // Imitating some work by putting thread to sleep
-//                    thread.sleep(3000);
-//                    thread.start();
-//                })
+
+//        createSingle()
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(result -> loadedData(mCurrenciesContainer.getCurrenciesList()),
@@ -111,6 +86,40 @@ public class CurrencyRXLoaderFragment extends Fragment implements ICallback {
 
     public void handleError() {
         System.out.println("Error");
+    }
+
+    private Observable createObservable() {
+        return Observable.create(
+                emitter -> {
+                    Thread thread = new Thread(() -> {
+                        try {
+                            mCurrenciesContainer = new CurrencyDownloader(sUrl).getLoadedCurrencies();
+                            emitter.onNext(mCurrenciesContainer.getCurrenciesList());
+                        } catch (Exception e) {
+                            emitter.onError(e);
+                        }
+                    });
+                    // Imitating some work by putting thread to sleep
+                    thread.sleep(3000);
+                    thread.start();
+                }
+        );
+    }
+
+    private Single createSingle() {
+        return Single.create(emitter -> {
+            Thread thread = new Thread(() -> {
+                try {
+                    mCurrenciesContainer = new CurrencyDownloader(sUrl).getLoadedCurrencies();
+                    emitter.onSuccess(mCurrenciesContainer.getCurrenciesList());
+                } catch (Exception e) {
+                    emitter.onError(e);
+                }
+            });
+            // Imitating some work by putting thread to sleep
+            thread.sleep(3000);
+            thread.start();
+        });
     }
 
 }

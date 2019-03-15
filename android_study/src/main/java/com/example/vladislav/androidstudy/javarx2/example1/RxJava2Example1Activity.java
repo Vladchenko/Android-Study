@@ -49,6 +49,7 @@ public class RxJava2Example1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                nullDemo2();
 //                emptyExample();
 //                justExample();
 //                justExample_2();
@@ -63,7 +64,6 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 //                filterDemo();
 //                intervalRangeDemo();
 //                concatMapDemo();
-//                nullDemo();
 //                someExample();
 //                runObservable();
 //                runFlowable();
@@ -73,7 +73,7 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 //                fromCallableExample();
 //                deferExample();
 
-                operatorsExample();
+//                operatorsExample();
 
 //                singleExample2();
 //                singleExample3();
@@ -144,11 +144,13 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         flowable.subscribe(pp);
     }
 
+    // Throws NullPointerException: Callable returned null
     private void nullDemo() {
         Observable.fromCallable(() -> null)
                 .subscribe(System.out::println, Throwable::printStackTrace);
     }
 
+    // Throws NullPointerException: The mapper function returned a null value.
     private void nullDemo2() {
         Observable.just(1)
                 .map(v -> null)
@@ -162,7 +164,7 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         Observable<String> helloWorld = Observable.just("Hello world");
         helloWorld.subscribe(line -> mTextView.setText(line));
 
-        // The shorter case of the same doing
+        // The shorter representation of the same doing
 //        Observable.just("Hello world")
 //                .subscribe(line -> mTextView.setText(line));
 
@@ -410,7 +412,7 @@ public class RxJava2Example1Activity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .take(3)
-                .subscribe(s -> System.out.println("RECEIVED: " + s));
+                .subscribe(s -> System.out.println("take RECEIVED: " + s));
 
         //  Emits numbers every 300 milliseconds, but take() emissions for only 2 seconds
         // Ignores .just("Alpha", "Beta", "Gamma", "Delta", "Epsilon")
@@ -419,7 +421,15 @@ public class RxJava2Example1Activity extends AppCompatActivity {
                 .subscribeOn(Schedulers.io())
                 .interval(400, TimeUnit.MILLISECONDS)
                 .take(3, TimeUnit.SECONDS)
-                .subscribe(s -> System.out.println("RECEIVED: " + s));
+                .subscribe(s -> System.out.println("interval take example RECEIVED: " + s));
+
+        Observable.range(1,100)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .takeWhile(i -> i < 5)  // filter does the same, but
+                // filter will remove all items from the stream that do not satisfy the condition.
+                // takeWhile will abort the stream on the first occurrence of an item which does not satisfy the condition.
+                .subscribe(i -> System.out.println("takeWhile example RECEIVED: " + i));
     }
     //endregion Observable
 
