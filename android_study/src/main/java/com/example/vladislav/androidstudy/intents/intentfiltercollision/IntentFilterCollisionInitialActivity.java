@@ -1,8 +1,8 @@
 package com.example.vladislav.androidstudy.intents.intentfiltercollision;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,7 +17,7 @@ public class IntentFilterCollisionInitialActivity extends AppCompatActivity {
 //     This action has to be the same for both the activities -
 //      1. for IntentFilterCollisionActivity and
 //
-// 2. for IntentFilterCollisionActivity2 in the AndroidManifest.xml file, i.e.
+//      2. for IntentFilterCollisionActivity2 in the AndroidManifest.xml file, i.e.
 //     <activity android:name=".intentfiltercollision.IntentFilterCollisionActivity">
 //          <intent-filter>
 //               <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
@@ -29,7 +29,7 @@ public class IntentFilterCollisionInitialActivity extends AppCompatActivity {
 //              <action android:name=".intentfiltercollision.IntentFilterCollisionActivity"> </action>
 //              <category android:name="android.intent.category.DEFAULT"> </category>
 //          </intent-filter>
-//      </activity>
+//     </activity>
     static final String action = ".intentfiltercollision.IntentFilterCollisionActivity";
 
     @Override
@@ -37,7 +37,10 @@ public class IntentFilterCollisionInitialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intent_filter_collision_initial);
         getButton(R.id.run_activities_same_intents_button).setOnClickListener(
+                setOnClickListener());
+        getButton(R.id.run_activities_same_intents_button_2).setOnClickListener(
                 setOnClickListenerWithChooser());
+
     }
 
     private Button getButton(int buttonId) {

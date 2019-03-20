@@ -45,6 +45,7 @@
     <string name="handler_tasks_run_on_separate_thread_and_update_UI_text">
         "Computing on a UI thread and updating it"</string>
     <string name="same_intents_button_text">"Run intent"</string>
+    <string name="same_intents_button_text_2">"Run intent with chooser"</string>
     <string name="same_intents_text_view_text">"Click button that runs an intent that matches the intent-filters in 2 activities"</string>
     <string name="web_browser_run_request_button">"Go"</string>
 

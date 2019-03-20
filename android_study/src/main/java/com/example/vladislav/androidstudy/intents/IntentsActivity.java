@@ -1,14 +1,12 @@
 package com.example.vladislav.androidstudy.intents;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -130,7 +128,7 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 if (mapIntent.resolveActivity(packageManager) != null) {
                     startActivity(mapIntent);
                 } else {
-                    showToast(this, "Intent cannot be resolved");
+                    showToast(this, "Intent cannot be resolved. Maybe google maps not present on the device.");
                 }
                 break;
             }
@@ -166,7 +164,7 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
                 if (mapIntent.resolveActivity(packageManager) != null) {
                     startActivity(mapIntent);
                 } else {
-                    showToast(this, "Intent cannot be resolved");
+                    showToast(this, "Intent cannot be resolved. Maybe map app is not present in the phone.");
                 }
                 break;
             }

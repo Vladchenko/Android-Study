@@ -47,11 +47,25 @@ public class CurrencyRXLoaderFragment extends Fragment implements ICallback {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // ! Check if this code could be implemented here, and not in interactor/presenter
         mCurrenciesSingle = createObservable()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> loadedData(mCurrenciesContainer.getCurrenciesList()),
                         result -> handleError());
+
+//        mCurrenciesSingle = createObservable()
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doOnNext(result -> loadedData(mCurrenciesContainer.getCurrenciesList()))
+//                .doOnError(result -> System.out.println("Error"))
+//                .doOnComplete(new Action() {
+//                    @Override
+//                    public void run() throws Exception {
+//                        System.out.println("Completed");
+//                    }
+//                })
+//                .subscribe(result -> loadedData(mCurrenciesContainer.getCurrenciesList()));
 
 //        createSingle()
 //                .subscribeOn(Schedulers.io())

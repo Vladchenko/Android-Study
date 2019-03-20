@@ -49,10 +49,9 @@ public class RxJava2Example1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                nullDemo2();
+//                nullDemo2();
 //                emptyExample();
 //                justExample();
-//                justExample_2();
 //                justExample_3();
 //                justExample_4();
 //                justExample_5();
@@ -177,14 +176,6 @@ public class RxJava2Example1Activity extends AppCompatActivity {
     }
 
     /**
-     * Emits one event and puts it to some textview
-     */
-    private void justExample_2() {
-        Observable.just("one")
-                .subscribe(line -> mTextView.setText(line));
-    }
-
-    /**
      * Using observable with v, e, () lambda arguments
      */
     private void justExample_3() {
@@ -206,12 +197,15 @@ public class RxJava2Example1Activity extends AppCompatActivity {
                 .doOnComplete(new Action() {
                     @Override
                     public void run() throws Exception {
-                        System.out.println("Complete");
+                        System.out.println("Completed");
                     }
                 })
                 .subscribe(v -> System.out.println("Received: " + v + "\n"));
     }
 
+    /**
+     * Example using Consumers and Action
+     */
     private void justExample_5() {
         Consumer<Integer> onNext = i -> System.out.println("RECEIVED: " + i);
         Consumer<Throwable> onError = Throwable::printStackTrace;
