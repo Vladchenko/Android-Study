@@ -3,6 +3,8 @@ package com.example.vladislav.androidstudy.fragments.fragments_activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +26,10 @@ public class DynamicFragmentsActivity extends AppCompatActivity implements View.
     private CheckBox mCheckBox;
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, DynamicFragmentsActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,5 +97,4 @@ public class DynamicFragmentsActivity extends AppCompatActivity implements View.
         }
         mFragmentTransaction.commit();
     }
-
 }

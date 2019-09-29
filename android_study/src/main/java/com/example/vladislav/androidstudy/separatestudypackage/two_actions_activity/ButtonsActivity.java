@@ -1,5 +1,6 @@
 package com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,10 @@ public class ButtonsActivity extends AppCompatActivity {
     public static final String DATE_ACTION = "com.example.vladislav.androidstudy.separatestudypackage.date";
     private Button mTimeButton;
     private Button mDateButton;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, ButtonsActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

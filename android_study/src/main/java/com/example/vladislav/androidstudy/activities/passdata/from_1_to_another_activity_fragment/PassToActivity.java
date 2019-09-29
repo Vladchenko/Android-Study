@@ -1,11 +1,13 @@
 package com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.activities.dynamic_layout.ProgrammaticLayoutActivity;
 
 import static com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment.PassFromActivity.mKey;
 
@@ -15,6 +17,10 @@ import static com.example.vladislav.androidstudy.activities.passdata.from_1_to_a
 public class PassToActivity extends AppCompatActivity {
 
     MyParcelable2 mMyParcelable2;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, PassToActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -85,20 +85,26 @@ public class CriminalRecordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Removing an existing entry, since we'll need to add a modified one
-                mDbHelper.removeCrimeById(mDbHelper.getReadableDatabase(), mId);
+                String message;
+                Crime crime = mDbHelper.getCrimeById(mDbHelper.getReadableDatabase(), mId);
                 mCrime.setDescription(mDescriptionEditText.getText().toString());
                 mCrime.setTitle(mTitleEditText.getText().toString());
                 mCrime.setSolved(mSolvedCheckBox.isChecked());
                 if (!mCrime.getTitle().isEmpty()
                         && !mCrime.getDescription().isEmpty()) {
-                    mDbHelper.putCrimeToTable(mDbHelper.getWritableDatabase(), mCrime);
-//                    mDbHelper.close();
-                    String message;
-                    if (mId == null) {
-                        message = "New crime has been added";
-                    } else {
+                    if (crime != null) {
+                        mDbHelper.updateCrime(mDbHelper.getWritableDatabase(), crime);
                         message = "Crime has been modified";
+                    } else {
+                        mDbHelper.putCrimeToTable(mDbHelper.getWritableDatabase(), mCrime);
+                        message = "New crime has been added";
                     }
+//                    mDbHelper.close();
+//                    if (mId == null) {
+//                        message = "New crime has been added";
+//                    } else {
+//                        message = "Crime has been modified";
+//                    }
                     Toast.makeText(getActivity(), message,
                             Toast.LENGTH_SHORT).show();
                     // Make a callback to inform a list fragment that a new entry is added or an

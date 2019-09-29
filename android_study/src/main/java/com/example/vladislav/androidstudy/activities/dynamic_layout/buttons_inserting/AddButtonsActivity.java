@@ -1,6 +1,8 @@
 package com.example.vladislav.androidstudy.activities.dynamic_layout.buttons_inserting;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -33,6 +35,10 @@ public class AddButtonsActivity extends AppCompatActivity {
     private GridLayout mLayout;
     private EditText mButtonName;
     private Activity mActivity;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, AddButtonsActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.activities.orientation_change.OneOrTwoFragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -9,11 +11,16 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity.TimeDateActivity;
 
 /**
  * The idea is to make a portrait mode to display one fragment and two in a landscape mode.
  */
 public class SomeActivity extends AppCompatActivity {
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, TimeDateActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

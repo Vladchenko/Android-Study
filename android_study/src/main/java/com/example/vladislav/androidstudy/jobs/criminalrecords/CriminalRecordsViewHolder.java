@@ -20,15 +20,15 @@ public class CriminalRecordsViewHolder extends RecyclerView.ViewHolder {
     private TextView mCrimeDescriptionTextView;
     private TextView mCrimeCreationDateTextView;
 
-    private ICrimeItemClickListener crimeClickListener;
+    private ICrimeItemClickListener mCrimeClickListener;
 
-    public CriminalRecordsViewHolder(View itemView, CriminalRecordListFragment fragment) {
+    public CriminalRecordsViewHolder(View itemView, ICrimeItemClickListener fragment) {
         super(itemView);
         mCrimeTitleTextView = (TextView) itemView.findViewById(R.id.crime_title_text_view);
         mCrimeDescriptionTextView = (TextView) itemView.findViewById(R.id.crime_description_text_view);
         mCrimeCreationDateTextView = (TextView) itemView.findViewById(R.id.crime_date_text_view);
         itemView.setOnClickListener(addItemClickListener());
-        crimeClickListener = fragment;
+        mCrimeClickListener = fragment;
     }
 
     public void setPosition(int position) {
@@ -51,7 +51,7 @@ public class CriminalRecordsViewHolder extends RecyclerView.ViewHolder {
         return new AdapterView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                crimeClickListener.onCrimeItemClick(mPosition);
+                mCrimeClickListener.onCrimeItemClick(mPosition);
             }
         };
     }

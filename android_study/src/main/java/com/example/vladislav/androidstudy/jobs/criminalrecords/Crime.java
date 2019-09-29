@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -17,38 +18,44 @@ public class Crime implements Parcelable {
     private String mDescription;
     private Date mDate = new Date();
     private boolean mSolved;
+    private boolean mCreated;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Crime crime = (Crime) o;
-
-        if (mSolved != crime.mSolved) return false;
-        if (!mTitle.equals(crime.mTitle)) return false;
-        if (!mDescription.equals(crime.mDescription)) return false;
-        return mDate.equals(crime.mDate);
-
+        return mSolved == crime.mSolved &&
+                mCreated == crime.mCreated &&
+                Objects.equals(mId, crime.mId) &&
+                Objects.equals(mTitle, crime.mTitle) &&
+                Objects.equals(mDescription, crime.mDescription) &&
+                Objects.equals(mDate, crime.mDate);
     }
 
     @Override
     public int hashCode() {
-        int result = mTitle.hashCode();
-        result = 31 * result + mDescription.hashCode();
-        result = 31 * result + mDate.hashCode();
-        result = 31 * result + (mSolved ? 1 : 0);
-        return result;
+
+        return Objects.hash(mId, mTitle, mDescription, mDate, mSolved, mCreated);
+    }
+
+    public boolean isCreated() {
+        return mCreated;
+    }
+
+    public void setCreated(boolean mCreated) {
+        this.mCreated = mCreated;
     }
 
     @Override
     public String toString() {
         return "Crime{" +
-                "Id='" + mId + '\'' +
-                ", Title='" + mTitle + '\'' +
-                ", Description='" + mDescription + '\'' +
-                ", Date=" + mDate +
-                ", Solved=" + mSolved +
+                "mId='" + mId + '\'' +
+                ", mTitle='" + mTitle + '\'' +
+                ", mDescription='" + mDescription + '\'' +
+                ", mDate=" + mDate +
+                ", mSolved=" + mSolved +
+                ", mCreated=" + mCreated +
                 '}';
     }
 

@@ -1,5 +1,6 @@
 package com.example.vladislav.androidstudy.fragments.fragments_activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,10 @@ import com.example.vladislav.androidstudy.R;
 public class FragmentsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button mButton;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, FragmentsActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -142,6 +142,28 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
     }
 
+    public void updateCrime(SQLiteDatabase db, Crime crime) {
+        Log.i(TAG, "Checking if a Crime is already present in a database");
+        Cursor cursor = db.query(mDatabaseName, new String[]{mColumns[0]},
+                mColumns[0] + "=" + crime.getId(), null, null, null, null);
+        if (cursor.getCount() == 0) {
+            Log.i(TAG, "There is no crime with such an ID.");
+            return;
+        }
+        if (cursor.getCount() > 1) {
+            Log.i(TAG, "There are more than one crime in a database with such an ID. Integrity broken !!!");
+            return;
+        }
+        Log.i(TAG, "Putting Crime to a database");
+        db.execSQL("UPDATE " + mDatabaseName + " Set "
+                + mColumns[1] + "=" + crime.getTitle() + ", "
+                + mColumns[2] + "=" + crime.getDescription() + ", "
+                + mColumns[4] + "=" + (crime.isSolved() ? 1:0)
+                + " Where Id=" + crime.initId());
+        Log.i(TAG, "Crime has been put to a database");
+        cursor.close();
+    }
+
     private Crime getCrimeFromCursor(Cursor cursor) {
         Crime crime = new Crime();
         crime.setId(cursor.getString(0));
@@ -149,6 +171,7 @@ public class DBHelper extends SQLiteOpenHelper {
         crime.setDescription(cursor.getString(2));
         crime.setDate(new Date(Date.parse(cursor.getString(3))));
         crime.setSolved(Boolean.parseBoolean(cursor.getString(4)));
+        crime.setCreated(true);
         return crime;
     }
 

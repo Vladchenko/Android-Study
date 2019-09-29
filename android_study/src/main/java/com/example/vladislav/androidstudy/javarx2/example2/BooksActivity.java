@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.javarx2.example2;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +25,10 @@ public class BooksActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private SimpleStringAdapter stringAdapter;
     private RestClient restClient;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, BooksActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

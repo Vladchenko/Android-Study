@@ -57,9 +57,9 @@ public class WidgetsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        animateButton();
+        logicFromActivity();
     }
 
-    // Code taken from activity, make it work if possible
     private void logicFromActivity() {
 
         mActivity = getActivity();
@@ -72,9 +72,9 @@ public class WidgetsFragment extends Fragment {
 //        toast.setText("!");
         toast.show();
 
-        progressBar = (ProgressBar) mActivity.findViewById(R.id.progressBar);
+        progressBar = mActivity.findViewById(R.id.progressBar);
 
-        Button button = (Button) mActivity.findViewById(R.id.button);
+        Button button = mActivity.findViewById(R.id.button);
         // This is the way a button click is processed.
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,15 +87,22 @@ public class WidgetsFragment extends Fragment {
 
         // OnFocusListener doesn't work for TextView and for some other components. But it should
         // work for textEdit.
-        textView = (TextView) mActivity.findViewById(R.id.helloworld_text_view);
-        textView.setOnTouchListener(new View.OnTouchListener() {
+        textView = mActivity.findViewById(R.id.helloworld_text_view);
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public void onClick(View view) {
                 Toast toast = Toast.makeText(mContext,
                         R.id.helloworld_text_view + " has been touched", Toast.LENGTH_SHORT);
                 toast.show();
-                return true;
             }
+
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                Toast toast = Toast.makeText(mContext,
+//                        R.id.helloworld_text_view + " has been touched", Toast.LENGTH_SHORT);
+//                toast.show();
+//                return true;
+//            }
         });
 
         radioButton = (RadioButton) mActivity.findViewById(R.id.radioButton);
@@ -103,7 +110,7 @@ public class WidgetsFragment extends Fragment {
         radioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // This way we call another mActivity.
+                // This way we call another activity.
 //                Intent intent = new Intent(WidgetsActivity.this, Widgets2Activity.class);
 //                startActivity(intent);
             }

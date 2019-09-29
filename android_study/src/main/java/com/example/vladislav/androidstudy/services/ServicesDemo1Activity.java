@@ -49,6 +49,10 @@ public class ServicesDemo1Activity extends AppCompatActivity {
     public static final String BROADCAST_ID = "AndroidStudyBroadcast";
 //    public static String BROADCAST_ID2 = "AndroidStudyBroadcast2";
 
+    public static Intent newIntent(Context context) {
+        return new Intent(context, ServicesDemo1Activity.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

@@ -27,7 +27,7 @@ public class CrimesViewPagerFragment extends Fragment {
 
     public static final String FRAGMENT_TAG = CriminalRecordFragment.class.getSimpleName();
 
-    private DBHelper mDbHelper;
+//    private DBHelper mDbHelper;
     private ArrayList<Crime> mCrimes;
     private int position;
 

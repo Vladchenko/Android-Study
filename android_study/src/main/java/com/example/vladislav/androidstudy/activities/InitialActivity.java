@@ -162,8 +162,7 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InitialActivity.this, ResultActivity.class);
-                startActivityForResult(intent, 1);
+                startActivityForResult(ResultActivity.newIntent(InitialActivity.this), 1);
             }
         });
         mButton = (Button) findViewById(R.id.list_button);

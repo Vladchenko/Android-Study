@@ -1,10 +1,8 @@
 package com.example.vladislav.androidstudy.jobs.criminalrecords.ui;
 
 
-import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -31,15 +29,19 @@ import com.example.vladislav.androidstudy.jobs.criminalrecords.ParcelableCrimesL
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * Fragment representing a list of a crimes
  */
-public class CriminalRecordListFragment extends Fragment implements ICrimeItemClickListener,
-        LoaderManager.LoaderCallbacks<Cursor> {
+public class CriminalRecordListRXFragment extends Fragment implements ICrimeItemClickListener {
 
-    public static final String FRAGMENT_TAG = CriminalRecordListFragment.class.getSimpleName();
-    static final String CRIME_POSITION = "Crime position";
-    static final String CRIMES_LIST = "Crimes list";
+    public static final String FRAGMENT_TAG = CriminalRecordListRXFragment.class.getSimpleName();
+    public static final String CRIME_POSITION = "Crime position";
+    public static final String CRIMES_LIST = "Crimes list";
 
     private ParcelableCrimesList mCrimes;
 
@@ -51,9 +53,10 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
     private ProgressBar mProgressBar;
 
     private DBHelper mDbHelper;
+    private Disposable mCrimesObservable;
 
-    public static CriminalRecordListFragment newInstance() {
-        CriminalRecordListFragment fragment = new CriminalRecordListFragment();
+    public static CriminalRecordListRXFragment newInstance() {
+        CriminalRecordListRXFragment fragment = new CriminalRecordListRXFragment();
         // Dropping a database in case a previous one is obsolete
 //        mDbHelper.dropTable(mDbHelper.getWritableDatabase());
 //        Bundle args = new Bundle();
@@ -70,6 +73,11 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
 //        mDbHelper.dropTable(mDbHelper.getReadableDatabase());
         // Creating a table if it doesn't exist
         mDbHelper.createTableWithColumns(mDbHelper.getWritableDatabase());
+        mCrimesObservable = createObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> processSuccess(),
+                        result -> processError());
         View view = inflater.inflate(R.layout.fragment_criminal_record_list, container, false);
         // Inflate the layout for this fragment
         return view;
@@ -87,7 +95,6 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -100,20 +107,13 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
             }
         });
         setupAddButtonForegroundColor(R.color.color_white);
-        // Getting loadermanager for cursorloader and initializing it.
-        getActivity().getSupportLoaderManager().initLoader(0, null, this);
-        if (mCrimes == null) {
-            getActivity().getSupportLoaderManager().getLoader(0).startLoading();
-        } else {
-            setupRecyclerView(mCrimes);
-            mProgressBar.setVisibility(View.INVISIBLE);
-        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mDbHelper.close();
+        mCrimesObservable.dispose();
     }
 
     // Callback method. It is invoked when a recyclerview's crime item clicked.
@@ -122,7 +122,34 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         addCrimeViewPagerFragment(true, crimeId);
     }
 
-    public void setupRecyclerView(List<Crime> crimes) {
+    private void processSuccess() {
+        initViews();
+        setupRecyclerView(mCrimes);
+    }
+
+    private void processError() {
+        //TODO
+    }
+
+    private Observable createObservable() {
+        return Observable.create(
+                emitter -> {
+                    Thread thread = new Thread(() -> {
+                        try {
+                            mCrimes = mDbHelper.getCrimeData(mDbHelper.getReadableDatabase());
+                            emitter.onNext(mCrimes);
+                        } catch (Exception e) {
+                            emitter.onError(e);
+                        }
+                    });
+                    // Imitating some work by putting thread to sleep
+                    thread.sleep(3000);
+                    thread.start();
+                }
+        );
+    }
+
+    private void setupRecyclerView(List<Crime> crimes) {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new CriminalRecordsAdapter(crimes, this);
@@ -131,27 +158,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         mAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Uri contentUri = Uri.parse("content://com.example.vladislav.androidstudy.jobs." +
-                "criminalrecords.data_providing.CrimesContentProvider/crimes");
-        return new CursorLoader(getActivity(), contentUri, null, null, null, null);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        if (cursor != null) {
-            cursor.requery();   // stackoverflow says this is done on ui thread and might provide ANR
-            mCrimes = mDbHelper.getCrimeData(cursor);
-            setupRecyclerView(mCrimes);
-            mProgressBar.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) { }
-
-    public void addCrimeViewPagerFragment(boolean addToBackStack, int crimePosition) {
+    private void addCrimeViewPagerFragment(boolean addToBackStack, int crimePosition) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         Fragment crimesViewPagerFragment = fragmentManager.findFragmentByTag(
                 CrimesViewPagerFragment.FRAGMENT_TAG);
@@ -173,7 +180,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
                 .commit();
     }
 
-    public void addCrimeFragment(boolean addToBackStack, Bundle bundle) {
+    private void addCrimeFragment(boolean addToBackStack, Bundle bundle) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         Fragment criminalRecordFragment = fragmentManager.findFragmentByTag(
                 CriminalRecordFragment.FRAGMENT_TAG);
@@ -198,7 +205,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         d.setColorFilter(getResources().getColor(color), mMode);
     }
 
-    public void displayEmptyListMessage(List<Crime> crimes) {
+    private void displayEmptyListMessage(List<Crime> crimes) {
         if (crimes == null || crimes.size() == 0) {
             mEmptyListTextView.setVisibility(View.VISIBLE);
         } else {
@@ -206,11 +213,7 @@ public class CriminalRecordListFragment extends Fragment implements ICrimeItemCl
         }
     }
 
-    public void setCrimes(ParcelableCrimesList mCrimes) {
-        this.mCrimes = mCrimes;
-    }
-
-    public ProgressBar getProgressBar() {
-        return mProgressBar;
+    private void initViews() {
+        mProgressBar.setVisibility(View.GONE);
     }
 }

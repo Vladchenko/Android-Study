@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.javarx2.example2;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +20,10 @@ public class ColorsActivity extends AppCompatActivity {
     RecyclerView colorListView;
     SimpleStringAdapter simpleStringAdapter;
     private Disposable disposable;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, ColorsActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

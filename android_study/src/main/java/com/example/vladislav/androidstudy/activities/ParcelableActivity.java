@@ -21,6 +21,10 @@ import com.example.vladislav.androidstudy.beans.Planet;
  */
 public class ParcelableActivity extends AppCompatActivity {
 
+    public static Intent newIntent(Context context) {
+        return new Intent(context, ParcelableActivity.class);
+    }
+
     private static final String PARCELABLE_PLANET =
             "com.example.vladislav.androidstudy.activities.ParcelableActivity.PARCELABLE_PLANET";
 

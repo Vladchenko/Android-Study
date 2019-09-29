@@ -2,6 +2,7 @@ package com.example.vladislav.androidstudy.services;
 
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.fragments.fragments_activity.DynamicFragmentsActivity;
 
 import static com.example.vladislav.androidstudy.Utils.showToast;
 
@@ -43,6 +45,10 @@ public class ServicesActivity extends AppCompatActivity implements View.OnClickL
             Log.i(LOG_TAG, " argument received:" + Integer.toString(state));
             textView.setText(Integer.toString(state));
         }
+    }
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, ServicesActivity.class);
     }
 
     @Override

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.activities.dynamic_layout.buttons_inserting.AddButtonsActivity;
+import com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity.TimeDateActivity;
 
 // This activity is made to run(test) different pieces of code.
 public class TestStandActivity extends AppCompatActivity {
@@ -27,6 +28,10 @@ public class TestStandActivity extends AppCompatActivity {
     public static final String mKey2 = "someConstant2";
     private static final String LOG_TAG = TestStandActivity.class.getSimpleName();
     private Handler handler;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, TimeDateActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.javarx2.example2;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.services.ServicesDemo1Activity;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -28,6 +31,10 @@ public class RxJavaSimpleActivity extends AppCompatActivity {
         emitter.onNext(5);
         emitter.onComplete();
     });
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, RxJavaSimpleActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,6 +3,7 @@ package com.example.vladislav.androidstudy.activities.passdata.from_1_to_another
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,10 @@ public class PassFromActivity extends AppCompatActivity {
 
     public static final String mKey = "someConstant";
     public static final String mKey2 = "someConstant2";
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, PassFromActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

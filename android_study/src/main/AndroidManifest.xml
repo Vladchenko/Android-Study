@@ -133,11 +133,7 @@ Caution: Once you publish your application, you cannot change the package name. 
         <activity android:name=".fragments.fragments_activity.FragmentsActivity" />
         <activity android:name=".jobs.banksdetails.BanksDetailsActivity" />
         <activity android:name=".intents.IntentsActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+
         </activity>
         <activity android:name=".intents.SimpleIntentActivity" />
         <activity android:name=".intents.IntentWithActionActivity">
@@ -278,8 +274,15 @@ Caution: Once you publish your application, you cannot change the package name. 
             android:name=".fragments.start_fragment.SimpleFragmentActivity"
             android:label="@string/title_activity_simple_fragment"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".jobs.simple_jobs.CommonActivity"></activity>
-        <activity android:name=".jobs.criminalrecords.ui.CriminalRecordsActivity" />
+        <activity android:name=".jobs.simple_jobs.CommonActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".jobs.criminalrecords.ui.CriminalRecordsActivity">
+        </activity>
         <activity android:name=".jobs.currency.CurrencyActivity">
 
         </activity>

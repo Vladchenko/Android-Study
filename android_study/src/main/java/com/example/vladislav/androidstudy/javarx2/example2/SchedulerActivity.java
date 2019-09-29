@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.javarx2.example2;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +30,10 @@ public class SchedulerActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView messagearea;
     private View button;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, SchedulerActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

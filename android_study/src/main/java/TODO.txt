@@ -1,11 +1,11 @@
 Implement following tasks in this app:
     - Replace all the intents for startActivity() with newIntent()
+        ! About half of an activities done
     - Implement setTargetFragment() in some fragment
-    - WidgetsFragment - //Code taken from activity, make it work if possible
+        ? Already don't remember what it is about
     - Work through an addition of a fragment using its id
     - Make a deletion button
         - Make a deletion button to be not seen when a crime is created
-    - When a crime is edited, its creation date is changed when saved, make not do so.
     - Separate list for a resolved and not resolved crimes ?
     - Make a look of a list items to be more separated
     - Make a look of a date button's text to be more black

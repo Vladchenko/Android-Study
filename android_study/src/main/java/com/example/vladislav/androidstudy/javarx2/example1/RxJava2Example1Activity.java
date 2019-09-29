@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.javarx2.example1;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +14,7 @@ import com.example.vladislav.androidstudy.R;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.BackpressureStrategy;
@@ -37,6 +40,10 @@ public class RxJava2Example1Activity extends AppCompatActivity {
     private Observer mObserver;
     private TextView mTextView;
     private Button mButton;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, RxJava2Example1Activity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +78,7 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 //                fromIterableExample();
 //                fromCallableExample();
 //                deferExample();
+                fromCallableExample2();
 
 //                operatorsExample();
 
@@ -417,7 +425,7 @@ public class RxJava2Example1Activity extends AppCompatActivity {
                 .take(3, TimeUnit.SECONDS)
                 .subscribe(s -> System.out.println("interval take example RECEIVED: " + s));
 
-        Observable.range(1,100)
+        Observable.range(1, 100)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .takeWhile(i -> i < 5)  // filter does the same, but
@@ -425,9 +433,27 @@ public class RxJava2Example1Activity extends AppCompatActivity {
                 // takeWhile will abort the stream on the first occurrence of an item which does not satisfy the condition.
                 .subscribe(i -> System.out.println("takeWhile example RECEIVED: " + i));
     }
+
+    private void fromCallableExample2() {
+        Observable.fromCallable(
+                new Callable<String>() {
+                    @Override
+                    public String call() throws Exception {
+                        Thread thread = new Thread(() -> System.out.println("!"));
+                        thread.sleep(3000);
+                        thread.start();
+                        return thread.getName();
+                    }
+                }
+        ).subscribeOn(Schedulers.newThread())
+                .observeOn(Schedulers.newThread())
+                .subscribe(System.out::println, Throwable::printStackTrace);
+    }
+
     //endregion Observable
 
     //region Single
+
     /**
      * The Single must have one emission, and you should prefer it if you only have one emission to
      * provide. This means that instead of using Observable.just("Alpha"), you should try to use
@@ -463,6 +489,7 @@ public class RxJava2Example1Activity extends AppCompatActivity {
     //endregion Single
 
     //region Maybe
+
     /**
      * If there are 0 or 1 emissions, you will want to use Maybe
      */

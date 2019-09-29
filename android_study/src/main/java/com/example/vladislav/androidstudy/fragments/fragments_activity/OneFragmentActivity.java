@@ -2,6 +2,8 @@ package com.example.vladislav.androidstudy.fragments.fragments_activity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,10 @@ public class OneFragmentActivity extends AppCompatActivity implements View.OnCli
     private FragmentManager mFragmentManager;
     private Fragment fragment1 = new Fragment1();
     private Fragment fragment2 = new Fragment2();
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, OneFragmentActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

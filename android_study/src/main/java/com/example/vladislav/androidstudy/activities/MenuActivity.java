@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,8 +9,13 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment.PassFromActivity;
 
 public class MenuActivity extends AppCompatActivity {
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, MenuActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

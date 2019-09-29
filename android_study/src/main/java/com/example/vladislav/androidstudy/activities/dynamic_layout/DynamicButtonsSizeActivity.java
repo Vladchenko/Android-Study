@@ -1,6 +1,8 @@
 package com.example.vladislav.androidstudy.activities.dynamic_layout;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -16,6 +18,10 @@ public class DynamicButtonsSizeActivity extends Activity {
 
     private LinearLayout.LayoutParams lParams1;
     private LinearLayout.LayoutParams lParams2;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, DynamicButtonsSizeActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.jobs.criminalrecords.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +13,10 @@ import com.example.vladislav.androidstudy.R;
 public class CriminalRecordsActivity extends AppCompatActivity {
 
     public static final String DATABASE_NAME = "CrimesRecords";
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, CriminalRecordsActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +35,11 @@ public class CriminalRecordsActivity extends AppCompatActivity {
     public void addCriminalRecordListFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment criminalRecordFragment = fragmentManager.findFragmentByTag(
-                CriminalRecordListFragment.FRAGMENT_TAG);
+                CriminalRecordListRXFragment.FRAGMENT_TAG);
+//                CriminalRecordListFragment.FRAGMENT_TAG);
         if (criminalRecordFragment == null) {
-            criminalRecordFragment = CriminalRecordListFragment.newInstance();
+//            criminalRecordFragment = CriminalRecordListFragment.newInstance();
+            criminalRecordFragment = CriminalRecordListRXFragment.newInstance();
             criminalRecordFragment.setRetainInstance(true);
         }
         FragmentTransaction transaction = fragmentManager.beginTransaction();

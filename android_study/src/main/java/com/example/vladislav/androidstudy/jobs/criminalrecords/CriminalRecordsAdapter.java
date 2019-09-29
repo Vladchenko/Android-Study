@@ -21,11 +21,11 @@ public class CriminalRecordsAdapter extends RecyclerView.Adapter<CriminalRecords
 
     public static final DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy", Locale.US);
 
-    private CriminalRecordListFragment mFragment;
+    private ICrimeItemClickListener mFragment;
     private List<Crime> mCrimes;
     private int mIndex = 0;
 
-    public CriminalRecordsAdapter(List<Crime> crimes, CriminalRecordListFragment fragment) {
+    public CriminalRecordsAdapter(List<Crime> crimes, ICrimeItemClickListener fragment) {
         mCrimes = crimes;
         mFragment = fragment;
     }

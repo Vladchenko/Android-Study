@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.activities.dynamic_layout;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +18,11 @@ import android.widget.TextView;
  * <p>
  * Created by vladislav on 15.05.17.
  */
-
 public class ProgrammaticLayoutActivity extends AppCompatActivity {
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, ProgrammaticLayoutActivity.class);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

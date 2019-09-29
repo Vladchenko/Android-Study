@@ -1,5 +1,6 @@
 package com.example.vladislav.androidstudy.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,9 +10,15 @@ import android.widget.EditText;
 
 import com.example.vladislav.androidstudy.R;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ResultActivity extends AppCompatActivity {
 
     EditText mEditText;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, ResultActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

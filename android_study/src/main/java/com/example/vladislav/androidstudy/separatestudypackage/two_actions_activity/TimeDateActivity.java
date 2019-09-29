@@ -1,5 +1,6 @@
 package com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.jobs.criminalrecords.ui.CriminalRecordsActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,6 +23,10 @@ public class TimeDateActivity extends AppCompatActivity {
 
     private TextView mInscriptionTextView;
     private TextView mValueTextView;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, TimeDateActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
