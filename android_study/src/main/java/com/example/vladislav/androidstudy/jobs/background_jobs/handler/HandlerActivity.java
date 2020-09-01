@@ -2,7 +2,7 @@ package com.example.vladislav.androidstudy.jobs.background_jobs.handler;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;

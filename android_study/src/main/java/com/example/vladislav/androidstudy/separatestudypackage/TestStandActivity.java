@@ -9,10 +9,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.activities.dynamic_layout.buttons_inserting.AddButtonsActivity;
 import com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity.TimeDateActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 // This activity is made to run(test) different pieces of code.
 public class TestStandActivity extends AppCompatActivity {

@@ -1,10 +1,9 @@
 package com.example.vladislav.androidstudy.fragments.start_fragment;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
 
@@ -27,7 +26,7 @@ public class SimpleFragmentActivity extends AppCompatActivity {
     }
 
     void startFragment() {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         SimpleFragment fragment = (SimpleFragment)fragmentManager.findFragmentByTag(FRAGMENT_TAG);
         if (fragment == null) {
@@ -40,8 +39,8 @@ public class SimpleFragmentActivity extends AppCompatActivity {
     // "support" means the one that has a backward compatibility with an older versions of android
     // API
     void startSupportFragment() {
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
         SimpleSupportFragment fragment = (SimpleSupportFragment)fragmentManager
                 .findFragmentByTag(SimpleSupportFragment.FRAGMENT_TAG);
         if (fragment == null) {

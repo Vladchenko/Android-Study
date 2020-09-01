@@ -1,30 +1,25 @@
 package com.example.vladislav.androidstudy.jobs.currency.fragments;
 
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.jobs.currency.CurrencyRecyclerAdapter;
 import com.example.vladislav.androidstudy.jobs.currency.ICallback;
-import com.example.vladislav.androidstudy.jobs.currency.beans.CurrenciesContainer;
 import com.example.vladislav.androidstudy.jobs.currency.beans.CurrencyBean;
 import com.example.vladislav.androidstudy.jobs.currency.loaders.CurrencyAsyncTask;
 
 import java.util.List;
-
-import static com.example.vladislav.androidstudy.jobs.currency.beans.CurrenciesContainer.CURRENCIES_TAG;
 
 /**
  * Fragment that uses an AsyncTask to load currencies.

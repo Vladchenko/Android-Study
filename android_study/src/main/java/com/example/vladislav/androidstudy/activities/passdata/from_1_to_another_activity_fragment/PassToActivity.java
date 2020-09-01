@@ -2,12 +2,12 @@ package com.example.vladislav.androidstudy.activities.passdata.from_1_to_another
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.activities.dynamic_layout.ProgrammaticLayoutActivity;
 
 import static com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment.PassFromActivity.mKey;
 

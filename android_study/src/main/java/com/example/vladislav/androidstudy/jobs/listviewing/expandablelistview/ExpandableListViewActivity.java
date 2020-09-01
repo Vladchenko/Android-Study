@@ -1,7 +1,7 @@
 package com.example.vladislav.androidstudy.jobs.listviewing.expandablelistview;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 

@@ -1,7 +1,8 @@
 package com.example.vladislav.androidstudy.jobs.criminalrecords.ui;
 
-import android.support.v4.view.ViewPager;
 import android.view.View;
+
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by Влад on 08.04.2018.

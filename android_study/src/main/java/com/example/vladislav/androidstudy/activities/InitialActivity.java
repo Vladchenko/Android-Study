@@ -5,8 +5,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.multidex.MultiDex;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.multidex.MultiDex;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -109,6 +110,7 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
     // OnClickListener() in a android:id="@+id/go_back_button" mButton.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         // When nothing retrieved, finish the method.
         if (data != null) { // btw, can data be null at all ?
             String text = data.getStringExtra(InitialActivity.ACTIVITY_RESULT_ID);

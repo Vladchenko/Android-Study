@@ -42,5 +42,7 @@
     <dimen name="web_browser_web_view_padding">8dp</dimen>
     <dimen name="web_browser_layout_margin">16dp</dimen>
     <dimen name="week_days_margin">12dp</dimen>
-
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="planets_specs_margin">70dp</dimen>
 </resources>

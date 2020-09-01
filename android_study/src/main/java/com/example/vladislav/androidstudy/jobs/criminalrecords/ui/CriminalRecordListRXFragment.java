@@ -4,21 +4,19 @@ package com.example.vladislav.androidstudy.jobs.criminalrecords.ui;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.jobs.criminalrecords.Crime;
@@ -26,13 +24,13 @@ import com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsAd
 import com.example.vladislav.androidstudy.jobs.criminalrecords.DBHelper;
 import com.example.vladislav.androidstudy.jobs.criminalrecords.ICrimeItemClickListener;
 import com.example.vladislav.androidstudy.jobs.criminalrecords.ParcelableCrimesList;
+import com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesRxLoader;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Fragment representing a list of a crimes
@@ -73,11 +71,15 @@ public class CriminalRecordListRXFragment extends Fragment implements ICrimeItem
 //        mDbHelper.dropTable(mDbHelper.getReadableDatabase());
         // Creating a table if it doesn't exist
         mDbHelper.createTableWithColumns(mDbHelper.getWritableDatabase());
-        mCrimesObservable = createObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> processSuccess(),
-                        result -> processError());
+
+//        mCrimesObservable = createObservable()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(result -> processSuccess(),
+//                        result -> processError());
+
+        setupRecyclerView(getCrimes());
+
         View view = inflater.inflate(R.layout.fragment_criminal_record_list, container, false);
         // Inflate the layout for this fragment
         return view;
@@ -147,6 +149,11 @@ public class CriminalRecordListRXFragment extends Fragment implements ICrimeItem
                     thread.start();
                 }
         );
+    }
+
+    private List<Crime> getCrimes() {
+        CrimesRxLoader crimesRxLoader = new CrimesRxLoader(mDbHelper);
+        return crimesRxLoader.getCrimes();
     }
 
     private void setupRecyclerView(List<Crime> crimes) {

@@ -8,7 +8,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.example.vladislav.androidstudy.jobs.currency.beans.CurrenciesContainer;
 

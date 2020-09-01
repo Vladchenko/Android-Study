@@ -2,7 +2,7 @@ package com.example.vladislav.androidstudy.jobs.background_jobs.asynctask;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.TextView;

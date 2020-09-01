@@ -7,8 +7,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.example.vladislav.androidstudy.R;

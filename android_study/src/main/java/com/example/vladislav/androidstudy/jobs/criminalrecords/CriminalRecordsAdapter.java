@@ -1,12 +1,12 @@
 package com.example.vladislav.androidstudy.jobs.criminalrecords;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.jobs.criminalrecords.ui.CriminalRecordListFragment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,9 +1,10 @@
 package com.example.vladislav.androidstudy.jobs.currency;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
 import android.widget.FrameLayout;
 
 import com.example.vladislav.androidstudy.R;

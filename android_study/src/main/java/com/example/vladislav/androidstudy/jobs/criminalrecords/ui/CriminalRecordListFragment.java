@@ -6,21 +6,22 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.jobs.criminalrecords.Crime;
@@ -28,6 +29,7 @@ import com.example.vladislav.androidstudy.jobs.criminalrecords.CriminalRecordsAd
 import com.example.vladislav.androidstudy.jobs.criminalrecords.DBHelper;
 import com.example.vladislav.androidstudy.jobs.criminalrecords.ICrimeItemClickListener;
 import com.example.vladislav.androidstudy.jobs.criminalrecords.ParcelableCrimesList;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 

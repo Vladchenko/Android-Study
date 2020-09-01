@@ -1,12 +1,12 @@
 package com.example.vladislav.androidstudy.jobs.criminalrecords;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.jobs.criminalrecords.ui.CriminalRecordListFragment;
 
 /**
  * Created by Влад on 13.03.2018.

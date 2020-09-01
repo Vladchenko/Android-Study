@@ -3,15 +3,14 @@ package com.example.vladislav.androidstudy.activities.dynamic_layout;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.view.Gravity;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.support.v7.widget.LinearLayoutCompat.LayoutParams;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * This is how one creates a contents of a current activity programmatically.
@@ -33,7 +32,8 @@ public class ProgrammaticLayoutActivity extends AppCompatActivity {
         // установим вертикальную ориентацию
         linLayout.setOrientation(LinearLayout.VERTICAL);
         // создаем LayoutParams
-        LayoutParams linLayoutParam = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams linLayoutParam = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         // устанавливаем linLayout как корневой элемент экрана
         setContentView(linLayout, linLayoutParam);
 
@@ -57,7 +57,7 @@ public class ProgrammaticLayoutActivity extends AppCompatActivity {
         linLayout.addView(btn1, leftMarginParams);
 
         LinearLayout.LayoutParams rightGravityParams = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         rightGravityParams.gravity = Gravity.RIGHT;
 
         Button btn2 = new Button(this);
