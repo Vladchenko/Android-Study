@@ -125,4 +125,8 @@
         startActivity(intent);"
     </string>
     <string name="both_fragments_added">"Both fragments added, cannot add more"</string>
+    <string name="first_text">First text</string>
+    <string name="second_text">Second text</string>
+    <string name="third_text">Third text</string>
+    <string name="fourth_text">Fourth text</string>
 </resources>

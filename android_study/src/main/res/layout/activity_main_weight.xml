@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.MainWeightActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="20">
+
+        <TextView
+            android:id="@+id/first_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@color/colorPrimary"
+            android:text="@string/first_text"
+            android:textSize="@dimen/activities_title_text_size" />
+
+        <TextView
+            android:id="@+id/second_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:background="@color/colorAccent"
+            android:text="@string/second_text"
+            android:textSize="@dimen/activities_title_text_size" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/third_text_view"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@color/color_green"
+        android:text="@string/third_text"
+        android:textSize="@dimen/activities_title_text_size"
+        android:gravity="end"/>
+
+    <TextView
+        android:id="@+id/fourth_text_view"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@color/color_yellow"
+        android:text="@string/fourth_text"
+        android:textSize="@dimen/activities_title_text_size"
+        android:gravity="center"/>
+
+</LinearLayout>
