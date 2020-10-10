@@ -46,7 +46,7 @@ public class SimpleFragmentActivity extends AppCompatActivity {
         if (fragment == null) {
             fragment = new SimpleSupportFragment();
         }
-        transaction.add(R.id.frame_for_fragment, new SimpleSupportFragment());
+        transaction.add(R.id.frame_for_fragment, fragment);
         transaction.commit();
     }
 }

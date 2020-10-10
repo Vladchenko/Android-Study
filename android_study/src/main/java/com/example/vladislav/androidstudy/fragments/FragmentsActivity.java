@@ -16,6 +16,4 @@ public class FragmentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragments_two);
     }
-
-
 }
