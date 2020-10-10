@@ -1,13 +1,16 @@
-package com.example.kotlinstudy.demo
+package com.example.vladislav.androidstudy.kotlin.demo
 
+import android.content.Context
 import androidx.constraintlayout.solver.widgets.Rectangle
+import androidx.core.util.toClosedRange
 import androidx.core.util.toRange
-import com.example.kotlinstudy.Utils
-import com.example.kotlinstudy.models.SomeModel
+import com.example.vladislav.androidstudy.kotlin.models.SomeModel
+import com.example.vladislav.androidstudy.kotlin.utils.createFilesDirIfAbsent
 import java.io.File
 import java.math.BigDecimal
 import java.nio.file.Files
 import java.nio.file.Paths
+import javax.inject.Inject
 
 /**
  * Study Kotlin from https://kotlinlang.org/docs/reference/ & https://developer.android.com/kotlin/learn
@@ -16,285 +19,148 @@ import java.nio.file.Paths
  */
 class Basics {
 
-    // var unknownType     // Property must be initialized or be abstract
-    private val COUNT = 42       // This is a constant, type is automatically inferred as int
-    internal val CONST = "intenal"       // internal - visibility modifier saying that this property
-    // is visible only in its module
+    // val unknownType          // Property must be initialized or be abstract
+    // val knownType: Float     // Property must be initialized or be abstract
+    /**
+     * By default, top-level properties, just like any other properties, are exposed to Java code as accessor methods
+     * (a getter for a val property and a getter/setter pair for a var property). If you want to expose a constant to
+     * Java code as a public static final field, to make its usage more natural, you can mark it with the const modifier
+     * (this is allowed for properties of primitive types, as well as String)
+     */
+    private val knownType: Float = 1.1f // Type may be omitted
 
-    // !!! Kotlin is a statically-typed language. This means that the type is resolved at
-    // compile time and never changes.
-    private var mVariable = 255 // This is a variable, type is automatically inferred as int
-    private var mInt: Int = 0xFF
-    private var mBigInt: Int = Int.MAX_VALUE     // Integer variable with max value
-    private var mDoubleVar: Double = Double.MIN_VALUE     // Double variable with min value
-    private var mLongValue = 1L             // Long value
-    private var mLongValue2 = 3000000000    // Long value
-
-    //    private val mString1: String  // Property must be initialized or be abstract
-//    private val string1: String = null   // Null can not be a value of a non-null type string
-    private val languageName: String = "Kotlin"
-    private val STRING2: String? = null
-    private val STRING3: String? = String.toString()
-    private var mLongString = """This is a 
-        long string that may contain several rows
-    """
-    private val CHARNUMBER = "Васька".count { letter -> letter == 'а' } // Counts letters "a" in a
-
-    // string "Васька", using anonymous function
-    // Anonymous function. Returns a length of a passed string
-    private val STRINGLENGTHFUNC: (String) -> Int = { input ->
-        input.length
-    }
-
-    private var mChar: Char = '░'
-
-    private val MAP = mapOf("a" to 1, "b" to 2, "c" to 3)   // readonly map
-
-    private val validNumbers = arrayOf(1, 2, 3)
-
-    val borderColor: String get() = "black" // What's this get() ?
-    val isEmpty: Boolean get() = STRING3!!.isEmpty()
-    var stringRepresentation: String
-        get() = this.toString()
-        set(value) {    // Custom setter. "value" can be named differently
-            STRINGLENGTHFUNC(value) // parses the string and assigns values to other properties
-        }
-    var setterVisibility: String = "abc"
-        private set // the setter is private and has the default implementation
-
-    var setterWithAnnotation: Any? = null
-//        @Inject set // annotate the setter with Inject (also with a default implementation)
-
-    var counter = 0 // Note: the initializer assigns the backing field directly
-        set(value) {
-            if (value >= 0) field = value
-        }
+    // !!! Kotlin is a statically-typed language. This means that the type is resolved at compile time and never changes.
 
     fun noReturnType() {    // This function has no return type
     }
 
-    fun noReturnTypeAlso(): Unit {  // Unit stands for no type, like void in Java
+    fun noReturnTypeAlso(): Unit {  // Unit stands for no type, like void in Java. Could be and should be omitted.
     }
 
     fun theAnswer(): Int {
         return 42
-    } // That is equivalent to a next fun
+    }
 
-    fun theAnswer2() = 42    // Single expression function
+    fun theAnswer2(): Int = 42      // That is equivalent to a previous fun
 
-    fun args(name: String = "Vlad", lastName: String = "Yan") {}
+    fun theAnswer3() = 42       // That is equivalent to a previous fun
+
+    fun singleExpressionFunction(): String = "Hello world"    // Single expression function
+
+    fun singleExpressionFunction2() = "Hello world"    // Single expression function (type can be omitted)
+
+    fun args(name: String = "Vlad", lastName: String = "Yan") {}    // Default values for a parameters
 
     fun argsDemo() {
         args()  // Params will get default values
         args(name = "Ha")   // lastName param will get default value
         args(lastName = "Yanchenko")    // name param will get default value
         args(name = "Yan", lastName = "Vladchenko")
-        args(
-            lastName = "Yanchenko",
-            name = "Lily"
-        ) // Params may have a wrong order, since they are named
+        // Params may also have a wrong order, since they are named
     }
-
-    fun singleExpressionFunction(): String = "Hello world"    // Single expression function
-
-    fun singleExpressionFunction2() = "Hello world"    // Single expression function
 
     fun singleExpressionFunction3(word: String) =
         println("Hello $word")    // Single expression function
 
     fun stringLengthFunc2(row: String) = row.length
 
-    fun elvisOperatorDemo(name:String?) = name ?: "no name" // If name is not null, return it,
-    // otherwise, make it to be "no name"
+    private fun elvisOperatorDemo(name: String?) = name ?: "no name" // If name is not null, return it,
+    // otherwise, make it to be "no name";  ?: - Elvis operator
 
-    fun numbersDemo() {
-        println(mBigInt)
-        println("int = " + mInt)
-        println("int.toString() = " + mInt.toString())
-        println("bigInt = $mBigInt")
-        if (mVariable is Int) {
-            println("variable is of Int type")
-        } else {
-            println("variable is NOT of Int type")
+    private val isEmpty: Boolean get() = "Some string".isEmpty()  // Extension property
+
+    // private val isEmpty2(string: String): Boolean get() = "Some string".isEmpty()  // Why it is an error
+
+    private fun isEven(i: Int): Boolean = i % 2 == 0
+
+    private var setterWithAnnotation: Any? = null
+        @Inject set // annotate the setter with Inject (also with a default implementation)
+
+    private var counter = 0 // Note: the initializer assigns the backing field directly
+        set(value) {
+            if (value >= 0) field = value
         }
-        println("doubleVar is Double = ${mDoubleVar is Double}")
-//         println("bigInt is Char = ${mBigInt is Char}")
-        println("3.14 to Int = " + (3.14.toInt()))
-        println("65 to Char = " + (65.toChar()))
-        println("char to Double = " + (mChar.toDouble()))
-//        mInt = mLongValue   // Error - Type mismatch. Because Kotlin has no implicit conversion.
-        mInt = mLongValue.toInt();  // This way will do
-    }
 
-    fun stringsDemo() {
-        println("Hello world")
-        println(STRING3)
-        println(mLongString)
-        println("1 + 2 = ${1 + 2}")
-        println("\"asrgthyuujmhngb\".length = ${"asrgthyuujmhngb".length}")
-        println("\"asrgthyuujmhngb\".count() = ${"asrgthyuujmhngb".count()}")
-        println("Equals str1 with str2 = ${"str1".equals("str2")}")
-        println("Compare row and row = ${"row".compareTo("row")}")
-        println("Compare row and row2 = ${"row".compareTo("row2")}")
-        println("Compare row2 and row = ${"row2".compareTo("row")}")
-        println("\"some string\".get(2) = ${"some string".get(2)}")
-        println("\"some string\"[2] = ${"some string"[2]}")
-        println("\"some string\".subSequence(2, 8) = ${"some string".subSequence(2, 8)}")
-//        val p: String by lazy {
-//            // compute the string
-//        }
-        val p = "Some String".also(::println)   // Assigns and prints the string
-    }
+    internal val internalModifier = 0;
+    // Internal is a new modifier available in Kotlin that's not there in Java. Setting a declaration as internal
+    // means that it'll be available in the same module only. By module in Kotlin, we mean a group of files that
+    // are compiled together.
 
     fun arraysDemo() {
-        var arrayInt = arrayOf(1, 2, 3, 4, 5)
-        val array = arrayOf(1, 2.3, "3.4", 567, 789.01)
-        val array2 = Array(5, { x -> x * x })
-        val array3: Array<Int> = arrayOf(1, 2, 3)
+        val array: Array<Int> = arrayOf(1, 2, 3)   // Type maybe omitted
+        val array2 = arrayOf(1, 2.3, "3.4", 567, 789.01)
+        val array3 = byteArrayOf(1, 2, 3, 4, 2, 3, 1, 2, 3, 4, 1).distinct()  // Only unique values - 1,2,3,4
 
-        println(array)
-        println(array[0])
-        println(array.get(1))
-        println("array.size = ${array.size}")
-        println("array contains 345 = ${array.contains(345)}")
-        println("index of 567 = ${array.indexOf(567)}")
-        for (i in 0..array2.size - 1) {
-            println(array2[i])
-        }
-        for (i in array2.indices) {
-            println("item at $i is ${array2[i]}")
-        }
-        for ((index, value) in array.withIndex()) {
-            println("the element at $index is $value")
-        }
-        println(array2.joinToString(" "))   // Another way of printing array
-        array.forEach {                         // Another way of printing array
-                item ->
-            println(item)
-        }
-        array.forEachIndexed { i, item -> println("Item $item is at index $i") }  // Another way of printing array
-        array.forEach {
-            // Another way of printing array
+        println(array2)
+        println(array2[0])   // 1st item of array, also can be printed by println(array.get(0))
+        println("array.size = ${array2.size}")   // Printing a size of an array
+        println("array contains 345 = ${array2.contains(345)}")
+        println("index of 567 = ${array2.indexOf(567)}")
+        array3.forEach { // Check a LoopsDemo.kt to see a several ways to traverse through collections
+            // Printing an array
             println(it)
         }
-        array.forEach(System.out::println)       // Another way of printing array
-        println(array.map { it })
-    }
-
-    fun loopsDemo() {
-        // Take a look to an arraysDemo() as well
-        var x = 10
-//        for ((index, value) in array.withIndex()) {
-//            println("the element at $index is $value")
-//        }
-        for (x in 1..10 step 2) {
-            print(x)
-        }
-        println()
-        for (x in 9 downTo 0 step 3) {  // This one doesn't work
-            print(x)
-        }
-//        for (item in collection) print(item)
-//        for (item: Int in ints) {
-//            // ...
-//        }
-
-        while (x > 0) {
-            x--
-        }
-
-//        do {
-//            val y = retrieveData()
-//        } while (y != null) // y is visible here!
+        array3.distinctBy { it }   // TODO Understand distinctBy and implement other methods
     }
 
     fun listDemo() {
-        val list = listOf("q", "a", "z")    // Immutable list (one cannot add items to it)
+        val someList = arrayOf(1, 2, 3, 4).asList()
+        val list = listOf("q", "a", "z", "zz")    // Immutable list (one cannot add items to it)
         val mutableList = mutableListOf("w", "s", "x")    // Mutable list (one can add items to it)
         println(list[0])
         println(list.get(0))
-        fun printList() {
-            list.forEach { item -> println(item) }
-        }
+        list.forEach { item -> println(item) }
         listOf(1, 2, 3, 4, 5).forEach {
             if (it == 3) return // non-local return directly to the caller of foo()
             print(it)
         }
         list.forEach(System.out::print)
         println(list.map { it })
+        println(list) //[1,2,3,4,5] invokes toString()
+        list.first() // first element in list
+        list.last() // last element in list
+        list.last { it.contains("z") }   // FIXME Doesn't work
     }
 
-    fun mapDemo() {
-        println(MAP["key"])
-        MAP.forEach { key, value -> println("$key -> $value") }
-        val mutableMap =
-            mutableMapOf(1 to "1", 2 to "2", 3 to "3") // Map that one can add values to
-        mutableMap.put(4, "4")
+    fun setDemo() {
+        println("Kotlin" in setOf("Java", "Scala")) //false
+        println(setOf(4, 7, 2, 9, 12, 10, 11).maxOrNull()) //12
     }
 
     fun rangesDemo() {
         val range1 = 1..10
         val range2 = 'A'..'Z'
         val range3 = 1.1..10.1
-        println(range1.joinToString(" "))
+        val range4 = listOf("Scala", "Java", "Kotlin", "Python", "Ruby")
+        println(range1.joinToString(" "))   // Adds space after each item
+        println(range1.joinToString("/"))
+        println(range1.joinToString(";"))
         println(range2.joinToString(" "))
         println("range2::class = " + range2::class)
-        println("D in range2 + ${'D' in range2}")
-        println("range3.contains(7.1) = " + range3.contains(7.1))
-        println("range3 = " + range3.toRange()) // Won't iterate through this range, one needs
-        // to make own iterator
+        println("D in range2 = ${'D' in range2}")   // class kotlin.ranges.CharRange (Kotlin reflection is not available)
+        println("range3.contains(7.1) = " + range3.contains(7.1))   // true
+        println("range3 = " + range3.toRange()) // [1.1, 10.1]
+        println("Kotlin" in range4) // true
+        arrayOf(range3.toRange()).iterator().forEach { println(it) }    // [1.1, 10.1]
     }
 
-    fun otherDemo() {
-        mLongString?.toUpperCase()  // Checking for a null before casting to uppercase
-        println("variable::class = " + mVariable::class)
-        println("variable::class.java = " + mVariable::class.java)
+    fun javaRelatedDemo() {
+        println("variable::class = " + knownType::class)
+        println("variable::class.java = " + knownType::class.java)
 //        println("variable::javaClass = " + mVariable::javaClass)  // CompilationException: Back-end (JVM) Internal error: wrong bytecode generated
     }
 
-    fun whenDemo() {
-        val answerString: String = when {
-            COUNT == 42 -> "I have the answer."
-            COUNT > 35 -> "The answer is close."
-            else -> "The answer eludes me."
-        }
-        println(answerString)
+    fun updateWeather(degrees: Int) = when (degrees) {
+        in Int.MIN_VALUE..10 -> Pair("cold", Color.BLUE)
+        in 25..30 -> Pair("mild", Color.YELLOW)
+        else -> Pair("hot", Color.RED)
     }
 
-    fun whenDemo2(color: String): Int {
-        return when (color) {
-            "Red" -> 0
-            "Green" -> 1
-            "Blue" -> 2
-            else -> throw IllegalArgumentException("Invalid color param value")
-        }
+    fun updateWeather2(degrees: Int) = when {
+        degrees < 10 -> Pair("cold", Color.BLUE)
+        degrees < 25 -> "mild" to Color.YELLOW  // another way of making Pair
+        else -> Pair("hot", Color.RED)
     }
-
-    fun whenDemo3(color: String) = when (color) {
-        "Red" -> 0
-        "Green" -> 1
-        "Blue" -> 2
-        else -> throw IllegalArgumentException("Invalid color param value")
-    }
-
-    fun whenDemo4(x: Int) =
-        when (x) {
-            -1, 0 -> print("0 or 1")
-            getInt(x) -> print("s encodes x")
-            in 1..10 -> print("x is in the range")
-            in validNumbers -> print("x is valid")
-            !in 10..20 -> print("x is outside the range")
-            else -> print("none of the above")
-        }
-
-    // Another demo of "when"
-    fun hasPrefix(x: Any) =
-        when (x) {
-            is String -> x.startsWith("prefix")
-            else -> false
-        }
-
-    fun getInt(x: Int): Int = x * x
 
     fun tryCatchDemo() {
         fun test() {
@@ -306,24 +172,6 @@ class Basics {
 
             // Working with result
         }
-    }
-
-    fun ifDemo(param: Int) {
-        val result = if (param == 1) {
-            "one"
-        } else if (param == 2) {
-            "two"
-        } else {
-            "three"
-        }
-    }
-
-    fun ifDemo2(param: Int) = if (param == 1) {
-        "one"
-    } else if (param == 2) {
-        "two"
-    } else {
-        "three"
     }
 
     fun withDemo() {    // Calling multiple methods on an object instance (with)
@@ -347,15 +195,26 @@ class Basics {
     }
 
     fun lambdaDemo() {
+        val predicate = ::elvisOperatorDemo
+        println(predicate)  // "function elvisOperatorDemo"
+        // println(::predicate)  // "Error - References to a variables are not supported yet"
+        val array2 = Array(5, { x -> x * x })
+        val array3 = Array(5) { x -> x * x }
         val fruits = listOf("banana", "avocado", "apple", "kiwifruit")
+        val ordinalsList = listOf(1, 2, 3, 4)
         fruits
             .filter { it.startsWith("a") }
             .sortedBy { it }
             .map { it.toUpperCase() }
             .forEach { println(it) }
+        ordinalsList.any(::isEven)  // Passes through each items in ordinalsList and runs isEven on them.
+        // Prints true
+        ordinalsList.filter { isEven(it) }  // [2, 4]
+        // same as
+        ordinalsList.filter(::isEven)  // [2, 4]
     }
 
-    fun idiomsDemo() {
+    fun idiomsDemo(context: Context) {
         val list = listOf(0, 1, 2, 3, 4, 5)
         val positives = list.filter { x -> x > 0 }
         // same as
@@ -383,7 +242,10 @@ class Basics {
         }
 
         // Java 7's try with resources analog
-        val stream = Files.newInputStream(Paths.get("/some/file.txt"))
+        createFilesDirIfAbsent(context) //Creating files dir first, else any file won't be created in android.
+        val file = File(context.filesDir.path + "/some/file.txt")
+        file.createNewFile()    // Creating file now
+        val stream = Files.newInputStream(file.toPath())    // FIXME - IOException: No such file or directory
         stream.buffered().reader().use { reader ->
             println(reader.readText())
         }
@@ -439,13 +301,6 @@ class Basics {
 
     private fun transformValue(it: Any) {}
 
-    fun extensionFunctionDemo() {
-        fun String.spaceToCamelCase() {
-            this.length
-        }
-        println("Convert this to camelcase".spaceToCamelCase())
-    }
-
     fun functionAsParameter() {
         listOf(1, 2, 3, 4, 5).forEach(fun(value: Int) {
             if (value == 3) return  // local return to the caller of the anonymous fun, i.e. the forEach loop
@@ -487,8 +342,6 @@ class Basics {
 
     fun generateAnswerString4(count: Int) = if (count == 42) "yes" else "no"
 
-    fun generateAnswerString5() = if (mVariable == 42) "yes" else "no"
-
     fun instantiationDemo() {
 //        val abstractModel: Any = AbstractModel()  // Error - Cannot create an instance of an abstract class
         var model: Any = SomeModel()                // Creating an instance of some class
@@ -498,19 +351,12 @@ class Basics {
     }
 
     fun temp() {
-        STRINGLENGTHFUNC("qwertyu")
-        println(CHARNUMBER) // prints 2
-        println(Utils.charToInt('4'))
-        println(Utils.charToInt('0'))
-//        println(Utils.charToInt('b'))   // IllegalArgumentException
-        println("os.name = " + System.getProperty("os.name"))
+//         isNotDigit('3')
+//         println(Utils.charToInt('4'))
+//         println(Utils.charToInt('0'))
+// //        println(Utils.charToInt('b'))   // IllegalArgumentException
+//         println("os.name = " + System.getProperty("os.name"))
     }
-
-    fun sayHello(map: Map<String, String>) =
-        map.forEach { greeting, subject -> println("$greeting, $subject") }
-
-    fun sayHello(greeting: String, list: List<String>) =
-        list.forEach { item -> println("$greeting, $item") }
 
     // Higher-order functions
     fun stringMapper(str: String, mapper: (String) -> Int): Int {
@@ -528,11 +374,41 @@ class Basics {
         input.length
     }
 
+    fun someExample() {
+        val x: Int? = 1
+        val y: Int = 2
+        val sum = x ?: 0 + y    // x ?: 0 has to be put into (), for result could be 3
+        println(sum)    //1
+    }
+
+    fun safeCast() {
+        val s = ""
+        println(s as? Int)    // null
+        println(s as Int?)    // exception
+    }
+
+    fun destructuringDeclaration() {
+        val (number, name) = 1 to "one" // Destructuring declaration
+        val collection = listOf(1, 2, 3)
+        for ((index, element) in collection.withIndex())    // Destructuring declaration
+        {
+            println("$index: $element")
+        }
+        val map = mapOf(1 to "one", 2 to "two")
+        for ((key, value) in map) {
+            println("$key to $value")
+        }
+    }
+
     companion object {
         const val CONST = ""  // The val keyword is also used for read-only properties.
+
         // But the main difference between the const and val is that the val properties
         // can be initialised at the runtime also.
         // IMHO - Not sure if this is true !
+        internal const val CONST2 = "internal"       // internal - visibility modifier saying that this property
+        // is visible only in its module
 
+        private const val COUNT = 42       // This is a constant, type is automatically inferred as int
     }
 }

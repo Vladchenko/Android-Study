@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
@@ -29,14 +30,20 @@ import static com.example.vladislav.androidstudy.Utils.showToast;
 
 public class AddButtonsActivity extends AppCompatActivity {
 
-    private static final String KEY = "buttons";
+    private static final String BUTTONS_PARCELLABLE_KEY = "BUTTONS_PARCELLABLE_KEY";
 
-    private List<Button> mButtons = new ArrayList<>();
-    private List<String> mButtonNames = new ArrayList<>();
+    private final List<Button> mButtons = new ArrayList<>();
+    private final List<String> mButtonNames = new ArrayList<>();
     private GridLayout mLayout;
     private EditText mButtonName;
     private Activity mActivity;
 
+    /**
+     * Получить Intent для запуска активити
+     *
+     * @param context {@link android.content.Context}
+     * @return инстанс Intent для запуска AddButtonsActivity
+     */
     public static Intent newIntent(Context context) {
         return new Intent(context, AddButtonsActivity.class);
     }
@@ -61,19 +68,19 @@ public class AddButtonsActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // MAKE UP A JAVADOC !
         Bundle bundle = new Bundle();
-        bundle.putParcelable(KEY, new ButtonNames(mButtonNames));
-        outState.putBundle(KEY, bundle);
+        bundle.putParcelable(BUTTONS_PARCELLABLE_KEY, new ButtonNames(mButtonNames));
+        outState.putBundle(BUTTONS_PARCELLABLE_KEY, bundle);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Bundle bundle = savedInstanceState.getParcelable(KEY);
-        ButtonNames buttons = bundle.getParcelable(KEY);
+        Bundle bundle = savedInstanceState.getParcelable(BUTTONS_PARCELLABLE_KEY);
+        ButtonNames buttons = bundle.getParcelable(BUTTONS_PARCELLABLE_KEY);
         Button button;
         for (String string : buttons.getButtonNames()) {
             button = new Button(this);

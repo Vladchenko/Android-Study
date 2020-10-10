@@ -59,7 +59,8 @@
         <activity android:name=".services.ServicesDemo1Activity" />
         <activity android:name=".activities.dynamic_layout.ProgrammaticLayoutActivity" />
         <activity android:name=".activities.orientation_change.RotationActivity" />
-        <activity android:name=".activities.ContextMenuActivity" /> <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
+        <activity android:name=".activities.ContextMenuActivity" />
+        <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTasksActivity" />
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTask1Activity" />
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTask2Activity" />
@@ -67,7 +68,9 @@
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTask4Activity" />
         <activity android:name=".services.ServicesActivity" />
         <activity android:name=".activities.ParcelableActivity" />
-        <activity android:name=".activities.dynamic_layout.buttons_inserting.AddButtonsActivity" />
+        <activity android:name=".activities.dynamic_layout.buttons_inserting.AddButtonsActivity">
+
+        </activity>
         <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity" />
         <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassToActivity" />
         <activity
@@ -153,7 +156,7 @@
         <activity android:name=".jobs.WebBrowserActivity" />
         <activity android:name=".jobs.sqlite.DBActivity" />
         <activity
-            android:name=".fragments.start_fragment.SimpleFragmentActivity"
+            android:name=".fragments.start_fragment.TwoFragmentDisplayActivity"
             android:label="@string/title_activity_simple_fragment"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".jobs.simple_jobs.CommonActivity" />

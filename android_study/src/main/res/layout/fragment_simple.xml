@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".fragments.start_fragment.SimpleFragment"
+    tools:context=".fragments.start_fragment.CallbacksOverviewFragment"
     android:orientation="vertical">
 
     <TextView

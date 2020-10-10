@@ -7,6 +7,9 @@ package com.example.kotlinstudy.demo
  */
 abstract class AbstractClasses {
 
+    /**
+     * "open" class means it can be inherited from, otherwise it is final.
+     */
     open class Polygon {
         open fun draw() {}
     }

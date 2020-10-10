@@ -3,6 +3,8 @@ package com.example.vladislav.androidstudy;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.vladislav.androidstudy.kotlin.demo.ExtensionFunctionsDemoKt;
+
 import java.util.List;
 
 /**
@@ -31,6 +33,11 @@ public class Utils {
 
     public static void printList(List<String> list) {
         printStrings((String[])list.toArray());
+    }
+
+    private static void KotlinExtesionsDemo() {
+        // This is how an extension function is called from Kotlin, within Java
+        System.out.println(ExtensionFunctionsDemoKt.lastChar(""));
     }
 
 }

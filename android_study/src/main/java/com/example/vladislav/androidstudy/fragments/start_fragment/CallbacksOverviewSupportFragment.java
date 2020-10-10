@@ -18,10 +18,10 @@ import com.example.vladislav.androidstudy.R;
  * Fragment that extends android.support.v4.app.Fragment, but not android.app.Fragment. This is a
  * fragment that is compatible with an older versions of android OS.
  */
-public class SimpleSupportFragment extends Fragment {
+public class CallbacksOverviewSupportFragment extends Fragment {
 
-    private static final String TAG = SimpleFragment.class.getSimpleName();
-    public static final String FRAGMENT_TAG = "SimpleSupportFragment";
+    private static final String TAG = CallbacksOverviewFragment.class.getSimpleName();
+    public static final String FRAGMENT_TAG = "CallbacksOverviewSupportFragment";
 
     @Override
     public void onAttach(Context context) {

@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.example.vladislav.androidstudy.R;
 
-import static com.example.vladislav.androidstudy.fragments.start_fragment.SimpleFragment.FRAGMENT_TAG;
+import static com.example.vladislav.androidstudy.fragments.start_fragment.CallbacksOverviewFragment.FRAGMENT_TAG;
 
 /**
  * This activity may display:
@@ -15,7 +15,7 @@ import static com.example.vladislav.androidstudy.fragments.start_fragment.Simple
  * or
  * - android.support.v4.app.Fragment;
  */
-public class SimpleFragmentActivity extends AppCompatActivity {
+public class TwoFragmentDisplayActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +28,9 @@ public class SimpleFragmentActivity extends AppCompatActivity {
     void startFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        SimpleFragment fragment = (SimpleFragment)fragmentManager.findFragmentByTag(FRAGMENT_TAG);
+        CallbacksOverviewFragment fragment = (CallbacksOverviewFragment)fragmentManager.findFragmentByTag(FRAGMENT_TAG);
         if (fragment == null) {
-            fragment = new SimpleFragment();
+            fragment = new CallbacksOverviewFragment();
         }
         transaction.add(R.id.frame_for_fragment, fragment, FRAGMENT_TAG);
         transaction.commit();
@@ -41,10 +41,10 @@ public class SimpleFragmentActivity extends AppCompatActivity {
     void startSupportFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        SimpleSupportFragment fragment = (SimpleSupportFragment)fragmentManager
-                .findFragmentByTag(SimpleSupportFragment.FRAGMENT_TAG);
+        CallbacksOverviewSupportFragment fragment = (CallbacksOverviewSupportFragment)fragmentManager
+                .findFragmentByTag(CallbacksOverviewSupportFragment.FRAGMENT_TAG);
         if (fragment == null) {
-            fragment = new SimpleSupportFragment();
+            fragment = new CallbacksOverviewSupportFragment();
         }
         transaction.add(R.id.frame_for_fragment, fragment);
         transaction.commit();

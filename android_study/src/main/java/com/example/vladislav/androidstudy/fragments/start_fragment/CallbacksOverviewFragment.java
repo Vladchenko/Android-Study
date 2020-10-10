@@ -15,10 +15,10 @@ import com.example.vladislav.androidstudy.R;
 /**
  * This fragment displays its lifecycle callbacks
  */
-public class SimpleFragment extends Fragment {
+public class CallbacksOverviewFragment extends Fragment {
 
-    private static final String TAG = SimpleFragment.class.getSimpleName();
-    public static final String FRAGMENT_TAG = "SimpleFragment";
+    private static final String TAG = CallbacksOverviewFragment.class.getSimpleName();
+    public static final String FRAGMENT_TAG = "CallbacksOverviewFragment";
 
     @Override
     public void onAttach(Context context) {

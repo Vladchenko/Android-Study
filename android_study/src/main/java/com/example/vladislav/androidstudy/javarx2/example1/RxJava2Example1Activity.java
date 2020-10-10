@@ -39,7 +39,6 @@ public class RxJava2Example1Activity extends AppCompatActivity {
     private Observable<String> mObservable;
     private Observer mObserver;
     private TextView mTextView;
-    private Button mButton;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, RxJava2Example1Activity.class);
@@ -50,13 +49,11 @@ public class RxJava2Example1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_java2_example1);
 
-        mTextView = (TextView) findViewById(R.id.rxjava2_example1_text_view);
-        mButton = (Button) findViewById(R.id.rxjava2_example1_button);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mTextView =  findViewById(R.id.rxjava2_example1_text_view);
+        Button button = findViewById(R.id.rxjava2_example1_button);
+        button.setOnClickListener(v -> {
 
-//                nullDemo2();
+               // nullDemo2();
 //                emptyExample();
 //                justExample();
 //                justExample_3();
@@ -72,13 +69,13 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 //                concatMapDemo();
 //                someExample();
 //                runObservable();
-//                runFlowable();
+//            runFlowable();
 //                combinationOfSeveralOps();
 //                fromArrayExample();
 //                fromIterableExample();
 //                fromCallableExample();
 //                deferExample();
-                fromCallableExample2();
+//                 fromCallableExample2();
 
 //                operatorsExample();
 
@@ -91,7 +88,6 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 //                completableExample2();
 
 //                observableExample();
-            }
         });
     }
 
@@ -144,11 +140,19 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 
     // Doesn't do anything. Maybe one has to add a schedulers
     void runFlowable() {
-        setupObservable();
+        // setupObservable();
         PublishProcessor<String> pp = PublishProcessor.create();
-        Flowable<String> flowable = mObservable
-                .toFlowable(BackpressureStrategy.BUFFER);
+        Flowable<String> flowable = Flowable.just("flowable just");
         flowable.subscribe(pp);
+        flowable.doOnComplete(() -> System.out.println("flowable complete"));
+        pp.onNext("Flowable ");
+        pp.onComplete();
+
+        // Working example
+        // Flowable.range(1, 5)
+        //         .observeOn(AndroidSchedulers.mainThread())
+        //         .subscribeOn(Schedulers.io())
+        //         .subscribe(System.out::println);
     }
 
     // Throws NullPointerException: Callable returned null
@@ -159,6 +163,16 @@ public class RxJava2Example1Activity extends AppCompatActivity {
 
     // Throws NullPointerException: The mapper function returned a null value.
     private void nullDemo2() {
+        // Crashes the app since null cannot be passed to Observable
+        // Observable.just(null)
+        //         .subscribe(System.out::println);
+
+        // Crashes the app since null cannot be passed to Observable
+        // Observable.just(1)
+        //         .map(v -> null)
+        //         .subscribe(System.out::println);
+
+        // Prints a thrown exception
         Observable.just(1)
                 .map(v -> null)
                 .subscribe(System.out::println, Throwable::printStackTrace);

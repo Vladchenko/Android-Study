@@ -1,4 +1,4 @@
-package com.example.kotlinstudy.demo
+package com.example.vladislav.androidstudy.kotlin.demo
 
 /**
  * Classes operating in Kotlin
@@ -35,8 +35,12 @@ val base = object : Base("Rose") {
     // In this class one can override any properties or functions
 }
 
+class FinalRectangle: Rectangle() {
+    final override fun draw() { /* ... */ } //Final method cannot be overridden further on.
+}
+
 class FilledRectangle: Rectangle() {
-    override fun draw() { /* ... */ }
+    override fun draw() { /* ... */ }   // Overridden methods are always open (can be overridden further on).
 //    val borderColor: String get() = "black"
 
     inner class Filler {
@@ -52,11 +56,11 @@ class FilledRectangle: Rectangle() {
     }
 }
 
-
-
+// Class can be inherited from
 open class Rectangle {
     val borderColor: String get() = "black"
-    open fun draw() { /* ... */ }
+    open fun draw() { /* ... */ }   // Method that can be overridden.
+    open fun getSquare() { /* ... */ }   // final method (can NOT be overridden).
 }
 
 interface Polygon {

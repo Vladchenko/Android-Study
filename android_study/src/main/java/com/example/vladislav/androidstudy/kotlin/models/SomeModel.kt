@@ -1,4 +1,6 @@
-package com.example.kotlinstudy.models
+package com.example.vladislav.androidstudy.kotlin.models
+
+import com.example.vladislav.androidstudy.kotlin.models.AbstractModel
 
 /**
  * Subclass of AbstractModel

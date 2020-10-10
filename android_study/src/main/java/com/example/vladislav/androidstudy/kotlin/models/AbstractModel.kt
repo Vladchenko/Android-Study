@@ -1,9 +1,10 @@
-package com.example.kotlinstudy.models
+package com.example.vladislav.androidstudy.kotlin.models
 
 /**
  * Некоторая абстрактная модель
  *
- * @author Yanchenko Vladislav on 05.08.2020.
+ * @author Yanchenko Vladislav
+ * @since 05.08.2020.
  */
 abstract class AbstractModel {
 

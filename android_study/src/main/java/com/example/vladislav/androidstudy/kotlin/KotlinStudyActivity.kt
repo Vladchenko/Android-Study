@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.kotlinstudy.Main
 import com.example.vladislav.androidstudy.R
 
 class KotlinStudyActivity : AppCompatActivity() {
