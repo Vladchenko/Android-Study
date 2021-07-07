@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.constraintlayout.solver.widgets.Rectangle
 import androidx.core.util.toClosedRange
 import androidx.core.util.toRange
+import com.example.kotlinstudy.KotlinKoans
 import com.example.vladislav.androidstudy.kotlin.models.SomeModel
 import com.example.vladislav.androidstudy.kotlin.utils.createFilesDirIfAbsent
 import java.io.File
@@ -47,9 +48,14 @@ class Basics {
 
     fun singleExpressionFunction(): String = "Hello world"    // Single expression function
 
-    fun singleExpressionFunction2() = "Hello world"    // Single expression function (type can be omitted)
+    fun singleExpressionFunction2() =
+        "Hello world"    // Single expression function (type can be omitted)
 
-    fun args(name: String = "Vlad", lastName: String = "Yan") {}    // Default values for a parameters
+    fun args(
+        name: String = "Vlad",
+        lastName: String = "Yan"
+    ) {
+    }    // Default values for a parameters
 
     fun argsDemo() {
         args()  // Params will get default values
@@ -64,7 +70,8 @@ class Basics {
 
     fun stringLengthFunc2(row: String) = row.length
 
-    private fun elvisOperatorDemo(name: String?) = name ?: "no name" // If name is not null, return it,
+    private fun elvisOperatorDemo(name: String?) =
+        name ?: "no name" // If name is not null, return it,
     // otherwise, make it to be "no name";  ?: - Elvis operator
 
     private val isEmpty: Boolean get() = "Some string".isEmpty()  // Extension property
@@ -89,7 +96,8 @@ class Basics {
     fun arraysDemo() {
         val array: Array<Int> = arrayOf(1, 2, 3)   // Type maybe omitted
         val array2 = arrayOf(1, 2.3, "3.4", 567, 789.01)
-        val array3 = byteArrayOf(1, 2, 3, 4, 2, 3, 1, 2, 3, 4, 1).distinct()  // Only unique values - 1,2,3,4
+        val array3 =
+            byteArrayOf(1, 2, 3, 4, 2, 3, 1, 2, 3, 4, 1).distinct()  // Only unique values - 1,2,3,4
 
         println(array2)
         println(array2[0])   // 1st item of array, also can be printed by println(array.get(0))
@@ -245,7 +253,8 @@ class Basics {
         createFilesDirIfAbsent(context) //Creating files dir first, else any file won't be created in android.
         val file = File(context.filesDir.path + "/some/file.txt")
         file.createNewFile()    // Creating file now
-        val stream = Files.newInputStream(file.toPath())    // FIXME - IOException: No such file or directory
+        val stream =
+            Files.newInputStream(file.toPath())    // FIXME - IOException: No such file or directory
         stream.buffered().reader().use { reader ->
             println(reader.readText())
         }
@@ -406,9 +415,11 @@ class Basics {
         // But the main difference between the const and val is that the val properties
         // can be initialised at the runtime also.
         // IMHO - Not sure if this is true !
-        internal const val CONST2 = "internal"       // internal - visibility modifier saying that this property
+        internal const val CONST2 =
+            "internal"       // internal - visibility modifier saying that this property
         // is visible only in its module
 
-        private const val COUNT = 42       // This is a constant, type is automatically inferred as int
+        private const val COUNT =
+            42       // This is a constant, type is automatically inferred as int
     }
 }

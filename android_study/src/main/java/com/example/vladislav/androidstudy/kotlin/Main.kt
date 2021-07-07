@@ -1,6 +1,7 @@
 package com.example.vladislav.androidstudy.kotlin
 
 import android.content.Context
+import com.example.kotlinstudy.KotlinKoans
 import com.example.vladislav.androidstudy.kotlin.demo.Basics
 import com.example.vladislav.androidstudy.kotlin.demo.FilesDemo
 import java.nio.file.Files
@@ -46,6 +47,7 @@ class Main {
 //        println(Stepik().containsEven(listOf(1,2,3,4,5)))
 //         println(Pair(Stepik.RationalNumber(1,2),Stepik.RationalNumber(1,2)))
 //        println(KotlinKoans().joinOptions(listOf("1", "2", "3")))
+//        println(KotlinKoans().getPattern())
 //        Utils.printArray(arrayOf(1,2,3,4))
 //         println(evaluateGuess2().evaluateGuess("ABCD", "ABCD"))
 //         println(evaluateGuess2().main(arrayOf("")))
