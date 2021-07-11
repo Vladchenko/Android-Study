@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.kotlin.study
+package com.example.vladislav.androidstudy.kotlin.study.coursera
 
 /**
  * Another template on "mastermind" task

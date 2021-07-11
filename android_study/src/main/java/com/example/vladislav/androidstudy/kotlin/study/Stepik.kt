@@ -27,12 +27,12 @@ class Stepik {
     /**
      * https://stepik.org/lesson/46347/step/1?after_pass_reset=true&unit=24386
      */
-    public fun joinOptions(options: Collection<String>) = options.joinToString(prefix = "[", postfix = "]")
+    fun joinOptions(options: Collection<String>) = options.joinToString(prefix = "[", postfix = "]")
 
     /**
      * https://stepik.org/lesson/46349/step/1?after_pass_reset=true&unit=24388
      */
-    public fun containsEven(collection: Collection<Int>): Boolean = collection.any {
+    fun containsEven(collection: Collection<Int>) = collection.any {
             it % 2 == 0
     }
 

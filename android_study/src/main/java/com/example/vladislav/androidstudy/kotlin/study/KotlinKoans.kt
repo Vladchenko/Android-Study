@@ -42,10 +42,6 @@ class KotlinKoans {
     #question = "$question"
     #answer = $answer""".trimMargin("#")
 
-    fun main() {
-        println(tripleQuotedString)
-    }
-
     // Task 5 - String templates
     val month = "(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)"
     fun getPattern(): String = """\d{2} $month \d{4}"""
@@ -210,6 +206,53 @@ class KotlinKoans {
         }
     }
 
+    //Task 15 - Conventions - Ranges
+    fun checkInRange(date: MyDate, first: MyDate, last: MyDate): Boolean {
+        return date in first..last
+    }
+
+    //Task 15 - Conventions - Ranges
+    // Old realization
+    class DateRange(val start: MyDate, val endInclusive: MyDate) {
+        operator fun contains(d: MyDate): Boolean {
+            if (d in start..endInclusive) {
+                return true
+            }
+            return false
+        }
+    }
+
+    fun checkInRange2(date: MyDate, first: MyDate, last: KotlinKoans.MyDate): Boolean {
+        return date in DateRange(first, last)
+    }
+
+    //Task 16 - Conventions - For loop
+//    class DateRange3(val start: MyDate, val end: MyDate):Iterable<MyDate> {
+//        override fun iterator(): Iterator<MyDate> {
+//            return MyDateIterator(start, end)
+//        }
+//    }
+//
+//    class MyDateIterator(val start: MyDate, val end: MyDate):Iterator<MyDate> {
+//        var date: MyDate = start
+//        override fun hasNext(): Boolean {
+//            return date <= end
+//        }
+//        override fun next(): MyDate {
+//            val resultDate = date
+//            date = date.followingDate()     // code of this method is present in
+//            // https://play.kotlinlang.org/koans/Conventions/For%20loop/DateUtil.kt. Sadly, it cannot be copied.
+//            return resultDate
+//        }
+//    }
+//
+//    fun iterateOverDateRange(firstDate: MyDate, secondDate: MyDate, handler: (MyDate) -> Unit) {
+//        for (date in firstDate..secondDate) {
+//            handler(date)
+//        }
+//    }
+
+
 
 
 
@@ -243,19 +286,7 @@ class KotlinKoans {
 
     // Conventions
 
-    // 14 task - In Range
-    class DateRange(val start: MyDate, val endInclusive: MyDate) {
-        operator fun contains(d: MyDate): Boolean {
-            if (d in start..endInclusive) {
-                return true
-            }
-            return false
-        }
-    }
 
-    fun checkInRange(date: MyDate, first: MyDate, last: KotlinKoans.MyDate): Boolean {
-        return date in DateRange(first, last)
-    }
 
     // 15 task - Range to
     operator fun KotlinKoans.MyDate.rangeTo(other: KotlinKoans.MyDate) =
@@ -266,11 +297,8 @@ class KotlinKoans {
         override val endInclusive: KotlinKoans.MyDate
     ) : ClosedRange<KotlinKoans.MyDate>
 
-    fun checkInRange2(
-        date: KotlinKoans.MyDate,
-        first: KotlinKoans.MyDate,
-        last: KotlinKoans.MyDate
-    ): Boolean {
-        return date in first..last
+
+    fun main() {
+        println(tripleQuotedString)
     }
 }

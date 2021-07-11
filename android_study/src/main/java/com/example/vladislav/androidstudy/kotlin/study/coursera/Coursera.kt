@@ -1,7 +1,7 @@
 package com.example.vladislav.androidstudy.kotlin.study.coursera
 
 /**
- * Tasks given from Coursera Kotlin study course - https://www.coursera.org/learn/kotlin-for-java-developers/
+ * Coursera Kotlin study course - https://www.coursera.org/learn/kotlin-for-java-developers/
  *
  * @author Yanchenko Vladislav
  * @since 09.03.2021
@@ -14,7 +14,7 @@ package com.example.vladislav.androidstudy.kotlin.study.coursera
  * https://www.coursera.org/learn/kotlin-for-java-developers/ungradedWidget/Yqyi3/kotlin-playground-checking-identifier
  */
 fun isValidIdentifier(s: String): Boolean {
-    if (s.isNullOrBlank()) {
+    if (s.isBlank()) {
         return false
     }
     when {
@@ -38,14 +38,16 @@ fun isValidIdentifier2(s: String): Boolean {
         return false
     }
 
-    s.forEachIndexed { index, char ->   // forEachIndexed could be replaced with mapIndexed
-        if (index == 0 && !isValidFirstCharacter(char)) {
-            return false
-        }
+    if (!isValidFirstCharacter(s[0])) {     // Checking first letter
+        return false
+    }
+
+    s.drop(1).forEachIndexed { index, char ->   // forEachIndexed could be replaced with mapIndexed
         if (index > 0 && !isValidCharacter(char)) {
             return false
         }
     }
+    // Instead of s.drop(1).forEachIndexed, one could have used - for (i in 1 until s.length - 1)
 
     return true
 }

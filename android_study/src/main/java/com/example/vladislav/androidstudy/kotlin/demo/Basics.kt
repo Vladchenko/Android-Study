@@ -6,6 +6,14 @@ import androidx.core.util.toClosedRange
 import androidx.core.util.toRange
 import com.example.kotlinstudy.KotlinKoans
 import com.example.vladislav.androidstudy.kotlin.models.SomeModel
+import com.example.vladislav.androidstudy.kotlin.utils.Utils
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.isPalindrome
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.numbersQuantity
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.wordsNumber
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.charNumberInString
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.longestWord
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.removeRepetitives
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.stringPosition
 import com.example.vladislav.androidstudy.kotlin.utils.createFilesDirIfAbsent
 import java.io.File
 import java.math.BigDecimal
@@ -407,6 +415,21 @@ class Basics {
         for ((key, value) in map) {
             println("$key to $value")
         }
+    }
+
+    fun testIsPalindromeMethod() {
+//        println("words number - " + "".removeRepetitives())
+//        println("words number -  |" + " ".removeRepetitives())
+        println("1".removeRepetitives())
+        println("1й ".removeRepetitives())
+        println(" eer 1 2й qq wertttt 4445666655".removeRepetitives())
+        println("555565 66676777".removeRepetitives())
+        println("6666 6".removeRepetitives())
+        println("666656 77".removeRepetitives())
+        println("6666266 77 ".removeRepetitives())
+        println("666616661 77 455".removeRepetitives())
+//        println("words number - 1 2 2 22|" + "1 2 wrethgfe 2 22|".removeRepetitives())
+
     }
 
     companion object {

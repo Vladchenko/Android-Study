@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.kotlin.study
+package com.example.vladislav.androidstudy.kotlin.study.coursera
 
 data class Evaluation(val rightPosition: Int, val wrongPosition: Int)
 
