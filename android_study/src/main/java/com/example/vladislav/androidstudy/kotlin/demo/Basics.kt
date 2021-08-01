@@ -2,23 +2,18 @@ package com.example.vladislav.androidstudy.kotlin.demo
 
 import android.content.Context
 import androidx.constraintlayout.solver.widgets.Rectangle
-import androidx.core.util.toClosedRange
 import androidx.core.util.toRange
-import com.example.kotlinstudy.KotlinKoans
 import com.example.vladislav.androidstudy.kotlin.models.SomeModel
-import com.example.vladislav.androidstudy.kotlin.utils.Utils
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.isPalindrome
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.numbersQuantity
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.wordsNumber
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.charNumberInString
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.longestWord
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.removeRepetitives
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.stringPosition
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.checkIfBracesPaired
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.removeAllExceptDigits
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.removeAllExceptDigitsAndLetters
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.removeRepetitiveSymbols
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.retrieveWords
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.solveExpression
 import com.example.vladislav.androidstudy.kotlin.utils.createFilesDirIfAbsent
 import java.io.File
 import java.math.BigDecimal
 import java.nio.file.Files
-import java.nio.file.Paths
 import javax.inject.Inject
 
 /**
@@ -418,18 +413,21 @@ class Basics {
     }
 
     fun testIsPalindromeMethod() {
-//        println("words number - " + "".removeRepetitives())
-//        println("words number -  |" + " ".removeRepetitives())
-        println("1".removeRepetitives())
-        println("1й ".removeRepetitives())
-        println(" eer 1 2й qq wertttt 4445666655".removeRepetitives())
-        println("555565 66676777".removeRepetitives())
-        println("6666 6".removeRepetitives())
-        println("666656 77".removeRepetitives())
-        println("6666266 77 ".removeRepetitives())
-        println("666616661 77 455".removeRepetitives())
-//        println("words number - 1 2 2 22|" + "1 2 wrethgfe 2 22|".removeRepetitives())
-
+        println("Result is = " + "10 + 2 / 4 - 3 * 6 + 1".solveExpression())    //6.5
+        println("Result is = " + "10 + 2".solveExpression())
+        println("Result is = " + "10 / 2".solveExpression())
+        println("Result is = " + "10 / 2 * 3".solveExpression())
+        println("Result is = " + "10 / 2 * 3.55678965 + 2".solveExpression())
+        println("Result is = " + "10 / 2 * 3 + 2 / 6".solveExpression())
+//        println("}sdv(c)wefef[c]s".checkIfBracesPaired())
+//        println(")wefv[ccsd]dv".checkIfBracesPaired())
+//        println("]dcerg[".checkIfBracesPaired())
+//        println("a is a palindrome - " + "a".isPalindrome())
+//        println("aa is a palindrome - " + "aa".isPalindrome())
+//        println("ab is a palindrome - " + "ab".isPalindrome())
+//        println("aba is a palindrome - " + "aba".isPalindrome())
+//        println("abba is a palindrome - " + "abba".isPalindrome())
+//        println("abbc is a palindrome - " + "abbc".isPalindrome())
     }
 
     companion object {

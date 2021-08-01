@@ -1,7 +1,5 @@
 package com.example.vladislav.androidstudy.kotlin.utils
 
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.longestWord
-
 /**
  * This method is same to the one placed inside of a companion object of a class
  */
@@ -9,6 +7,8 @@ fun isNotDigit(c: Char) = c !in '0'..'9'
 
 /**
  * Some utils class
+ *
+ * Several tasks from http://www.itmathrepetitor.ru/prog/zadachi-na-stroki/ implemented.
  *
  * @author Yanchenko Vladislav on 05.08.2020.
  */
@@ -22,14 +22,16 @@ class Utils {
         }
 
         fun <T> printArray(array: Array<T>) {
+//            for (element in array) {
+//                println(element)
+//            }
 //            array.forEach(System.out::print)
+//            array.forEach(::print)
 //            println(array.joinToString(" "))
-            for (element in array) {
-                println(element)
-            }
+            array.map { println(it) }
         }
 
-        fun isLetter(c: Char) = c in 'a'..'z' && c in 'A'..'Z'
+        fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'  // c.isLetter()
 
         fun String.isPalindrome(): Boolean {
             if (this.length == 1) return true
@@ -42,36 +44,36 @@ class Utils {
         }
 
         /**
-         * Removes all the unnecessary spaces
+         * Retrieves a list of words, separated with spaces
          */
         fun String.retrieveWords() = this.trim().split(Regex("\\s+"), 0)
 
         /**
-         * Gets a quantity of a words present in string (numbers included)
+         * Gets a quantity of a words present in a string (numbers included)
          */
         fun String.wordsNumber() = this.trim().split(Regex("\\s+"), 0).size
 
         /**
-         * Gets a quantity of a numbers present in string
+         * Retrieves a quantity of a numbers present in a string
          */
         fun String.numbersQuantity() = this.trim().split(Regex("\\s+"), 0).count {
             it.toIntOrNull() != null
         }
 
         /**
-         * Gets a number of a words in a string (numbers are not considered)
+         * Retrieves a number of a words in a string (numbers are not considered)
          */
         fun String.wordsQuantity() = this.trim().split(Regex("\\s+"), 0).count {
             it.toIntOrNull() == null
         }
 
         /**
-         * Gets a number of char present in a string
+         * Retrieves a number of char present in a string
          */
         fun String.charNumberInString(char: Char) = this.count { it == char }
 
         /**
-         * Gets the longest word (first occurence is taken)
+         * Retrieves the longest word (first occurence is taken)
          */
         fun String.longestWord() = this.trim().split(Regex("\\s+"), 0).maxOrNull()
 
@@ -112,12 +114,24 @@ class Utils {
         }
 
         /**
-         * Removes digits and spaces characters from string
+         * Removes excessive spaces (ones that come in a sequence) from string
+         */
+        fun String.removeExcessiveSpaces() = this.split(Regex("\\s+")).toString()
+
+        /**
+         * Same functionality as removeExcessiveSpaces()
+         */
+        fun String.removeExcessiveSpaces2() = this.filterIndexed { index, char ->
+                index < this.length - 1 && !(char == this[index + 1] && char == ' ')
+            }.trim()
+
+        /**
+         * Removes digits, spaces and special characters from string, keeping only letters.
          */
         fun String.removeAllExceptLetters() = this.filter { it.isLetter() }
 
         /**
-         * Removes digits and spaces characters from string
+         * Removes letters, spaces and special characters from string.
          */
         fun String.removeAllExceptDigits() = this.filter { it.isDigit() }
 
@@ -137,7 +151,7 @@ class Utils {
         fun String.lowercaseLettersCount() = this.count { it.isLowerCase() }
 
         /**
-         * Returns [true], if symbols (, {, [ have respective pairs and [false] otherwise.
+         * Returns true, if symbols (, {, [ have respective pairs and false otherwise.
          */
         fun String.checkIfBracesPaired(): Boolean {
             var squareBrackets = 0
@@ -183,8 +197,8 @@ class Utils {
                 var index = 0;
                 do {
                     when (operands[index]) {
-                        "*","/" -> {
-                            value = performOperation(values[index], values[index + 1], operands[index])
+                        "*", "/" -> {
+                            value = performArithmeticOperation(values[index], values[index + 1], operands[index])
                             operands = operands.take(index) + operands.takeLast(operands.size - index - 1)
                             values = values.take(index) + value + values.subList(index + 2, values.size)
                         }
@@ -194,13 +208,137 @@ class Utils {
                 value = values[0]
                 var operandIndex = 0
                 values.drop(1).map {
-                    value = performOperation(value, it, operands[operandIndex++])
+                    value = performArithmeticOperation(value, it, operands[operandIndex++])
                 }
             }
             return value
         }
 
-        private fun performOperation(
+        /**
+         * Replaces digits with its symbolic representation, say "462 3" -> "four six two three"
+         */
+        fun String.replaceDigitsWithSymbolicRepresentation(): String {
+            var resultString = ""
+            this.trim().map {
+                if (it.isDigit()) {
+                    resultString = resultString.plus(
+                        it.getDigitSymbolicRepresentation()
+                    )
+                }
+            }
+            return resultString
+        }
+
+        /**
+         * Replaces numbers with its symbolic representation,
+         * say "462 740 400" -> "four hundred sixty two, seven hundred forty, four hundred".
+         *
+         * ! Only numbers up to hundreds are processable.
+         */
+        fun String.replaceNumbersWithSymbolicRepresentation(): String {
+            var resultNumberString = ""
+            var resultString = ""
+            this.trim().split(Regex("\\s+")).map {
+                val reversedNumber = it.reversed()
+                resultNumberString = ""
+                if (reversedNumber[0] == '0') {
+                    if (reversedNumber.length > 1) {
+                        if (reversedNumber[1] == '0') {
+                            // Hundreds are checked lower in a code
+                        } else {
+                            resultNumberString = if (reversedNumber[1] == '1') {
+                                "ten "
+                            } else {
+                                reversedNumber[1].getTensSymbolicRepresentation()
+                            }
+                        }
+                    } else {
+                        resultNumberString = "zero"
+                    }
+                } else {
+                    if (reversedNumber.length > 1) {
+                        if (reversedNumber[1] == '1') {
+                            resultNumberString =
+                                reversedNumber[0].getTenToTwentySymbolicRepresentation() + resultNumberString
+                        } else {
+                            resultNumberString = reversedNumber[0].getDigitSymbolicRepresentation() + resultNumberString
+                            resultNumberString = reversedNumber[1].getTensSymbolicRepresentation() + resultNumberString
+                        }
+                    } else {
+                        resultNumberString = reversedNumber[0].getDigitSymbolicRepresentation() + resultNumberString
+                    }
+                }
+                if (reversedNumber.length > 2 && reversedNumber[2] != '0') {
+                    resultNumberString =
+                        reversedNumber[2].getDigitSymbolicRepresentation() + "hundred " + resultNumberString
+                }
+                resultString = "${resultString.trim()}, ${resultNumberString.trim()}"
+            }
+            return resultString.drop(2)
+        }
+
+        private fun Char.getTenToTwentySymbolicRepresentation() =
+            when (this) {
+                '0' -> ""
+                '1' -> "eleven "
+                '2' -> "twelve "
+                '3' -> "thirteen "
+                '4' -> "fourteen "
+                '5' -> "fifteen "
+                '6' -> "sixteen "
+                '7' -> "seventeen "
+                '8' -> "eighteen "
+                '9' -> "nineteen "
+                else -> ""
+            }
+
+        private fun Char.getDigitSymbolicRepresentation() =
+            when (this) {
+                '0' -> "zero "
+                '1' -> "one "
+                '2' -> "two "
+                '3' -> "three "
+                '4' -> "four "
+                '5' -> "five "
+                '6' -> "six "
+                '7' -> "seven "
+                '8' -> "eight "
+                '9' -> "nine "
+                else -> ""
+            }
+
+        private fun Char.getTensSymbolicRepresentation() =
+            when (this) {
+                '0' -> ""
+                '1' -> ""
+                '2' -> "twenty "
+                '3' -> "thirty "
+                '4' -> "forty "
+                '5' -> "fifty "
+                '6' -> "sixty "
+                '7' -> "seventy "
+                '8' -> "eighty "
+                '9' -> "ninety "
+                else -> ""
+            }
+
+        // Not useful as of now
+        private fun Char.getHundredsSymbolicRepresentation() =
+            when (this) {
+                '0' -> ""
+                '1' -> "one hundred"
+                '2' -> "two hundred"
+                '3' -> "three hundred"
+                '4' -> "four hundred"
+                '5' -> "five hundred"
+                '6' -> "six hundred"
+                '7' -> "seven hundred"
+                '8' -> "eight hundred"
+                '9' -> "nine hundred"
+                else -> ""
+            }
+
+        private fun performArithmeticOperation(
             operand1: String,
             operand2: String,
             operation: String

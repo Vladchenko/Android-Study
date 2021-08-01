@@ -4,6 +4,12 @@ import android.content.Context
 import com.example.kotlinstudy.KotlinKoans
 import com.example.vladislav.androidstudy.kotlin.demo.Basics
 import com.example.vladislav.androidstudy.kotlin.demo.FilesDemo
+import com.example.vladislav.androidstudy.kotlin.study.AdventOfCode2020
+import com.example.vladislav.androidstudy.kotlin.utils.Utils
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.removeExcessiveSpaces
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.removeExcessiveSpaces2
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.replaceDigitsWithSymbolicRepresentation
+import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.replaceNumbersWithSymbolicRepresentation
 import java.nio.file.Files
 
 /**
@@ -26,7 +32,7 @@ class Main {
 //         Basics().setDemo()
 //        Basics().whenDemo()
 //       Basics().temp()
-        Basics().testIsPalindromeMethod()
+//        Basics().testIsPalindromeMethod()
 //         Basics().someExample()
 //        Basics().lambdaDemo()
 //        Basics().varArgsDemo2(1, 2.0, 'c', "arg1")
@@ -50,10 +56,14 @@ class Main {
 //        println(KotlinKoans().joinOptions(listOf("1", "2", "3")))
 //        println(KotlinKoans().getPattern())
 //        Utils.printArray(arrayOf(1,2,3,4))
+//         println("485 23 0-".replaceDigitsWithSymbolicRepresentation())
+        println("  sd    fg   df vb к        ео   ".removeExcessiveSpaces2())
+        // println("0 5 8 10 13 19 200 400 305 514 685".replaceNumbersWithSymbolicRepresentation())
 //         println(evaluateGuess2().evaluateGuess("ABCD", "ABCD"))
 //         println(evaluateGuess2().main(arrayOf("")))
 //         mapVsFlatmap()
 //         example1()
 //         FilesDemo(context).filesDemo()
+//         AdventOfCode2020().task1()
     }
 }
