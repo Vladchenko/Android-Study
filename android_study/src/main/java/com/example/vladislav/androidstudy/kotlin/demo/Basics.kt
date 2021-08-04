@@ -4,13 +4,8 @@ import android.content.Context
 import androidx.constraintlayout.solver.widgets.Rectangle
 import androidx.core.util.toRange
 import com.example.vladislav.androidstudy.kotlin.models.SomeModel
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.checkIfBracesPaired
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.removeAllExceptDigits
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.removeAllExceptDigitsAndLetters
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.removeRepetitiveSymbols
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.retrieveWords
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.solveExpression
 import com.example.vladislav.androidstudy.kotlin.utils.createFilesDirIfAbsent
+import com.example.vladislav.androidstudy.kotlin.utils.solveExpression
 import java.io.File
 import java.math.BigDecimal
 import java.nio.file.Files

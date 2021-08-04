@@ -1,16 +1,7 @@
 package com.example.vladislav.androidstudy.kotlin
 
 import android.content.Context
-import com.example.kotlinstudy.KotlinKoans
-import com.example.vladislav.androidstudy.kotlin.demo.Basics
-import com.example.vladislav.androidstudy.kotlin.demo.FilesDemo
-import com.example.vladislav.androidstudy.kotlin.study.AdventOfCode2020
-import com.example.vladislav.androidstudy.kotlin.utils.Utils
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.removeExcessiveSpaces
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.removeExcessiveSpaces2
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.replaceDigitsWithSymbolicRepresentation
-import com.example.vladislav.androidstudy.kotlin.utils.Utils.Companion.replaceNumbersWithSymbolicRepresentation
-import java.nio.file.Files
+import com.example.vladislav.androidstudy.kotlin.utils.retrieveNumbers
 
 /**
  * Main class
@@ -57,7 +48,8 @@ class Main {
 //        println(KotlinKoans().getPattern())
 //        Utils.printArray(arrayOf(1,2,3,4))
 //         println("485 23 0-".replaceDigitsWithSymbolicRepresentation())
-        println("  sd    fg   df vb к        ео   ".removeExcessiveSpaces2())
+//         println("  sd    fg   df vb к        ео   ".removeExcessiveSpaces2())
+        println("вап 567 см 23.3 5 апр 6пр 34,5 вап 345678".retrieveNumbers())
         // println("0 5 8 10 13 19 200 400 305 514 685".replaceNumbersWithSymbolicRepresentation())
 //         println(evaluateGuess2().evaluateGuess("ABCD", "ABCD"))
 //         println(evaluateGuess2().main(arrayOf("")))
