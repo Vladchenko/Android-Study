@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.kotlin.utils
 
+import java.util.stream.IntStream
+
 /**
  * Some utils class.
  *
@@ -297,6 +299,26 @@ fun String.isEveryCharUnique(): Boolean {
     }
     return true
 }
+
+/**
+ * Retrieves distinct chars.
+ */
+fun String.distinctChars() = this.toCharArray().distinct()
+
+/**
+ * Retrieves distinct chars.
+ */
+fun String.distinctChars2() = this.toCharArray().toSet()
+
+/**
+ * Retrieves chars in ascending order
+ */
+fun String.toAscendingOrderChars() = this.toCharArray().toSortedSet()
+
+/**
+ * Retrieves chars in descending order
+ */
+fun String.toDescendingOrderChars() = this.toCharArray().toSortedSet().reversed()
 
 /**
  * Retrieves a substring most often met in a given string.

@@ -13,6 +13,7 @@ import javax.inject.Inject
 
 /**
  * Study Kotlin from https://kotlinlang.org/docs/reference/ & https://developer.android.com/kotlin/learn
+ * Some Collections ops - http://developer.alexanderklimov.ru/android/kotlin/collection.php
  *
  * Basic class
  */
@@ -46,13 +47,9 @@ class Basics {
 
     fun singleExpressionFunction(): String = "Hello world"    // Single expression function
 
-    fun singleExpressionFunction2() =
-        "Hello world"    // Single expression function (type can be omitted)
+    fun singleExpressionFunction2() = "Hello world"    // Single expression function (type can be omitted)
 
-    fun args(
-        name: String = "Vlad",
-        lastName: String = "Yan"
-    ) {
+    fun args(name: String = "Vlad", lastName: String = "Yan") {
     }    // Default values for a parameters
 
     fun argsDemo() {
@@ -63,8 +60,7 @@ class Basics {
         // Params may also have a wrong order, since they are named
     }
 
-    fun singleExpressionFunction3(word: String) =
-        println("Hello $word")    // Single expression function
+    fun singleExpressionFunction3(word: String) = println("Hello $word")    // Single expression function
 
     fun stringLengthFunc2(row: String) = row.length
 
@@ -74,7 +70,7 @@ class Basics {
 
     private val isEmpty: Boolean get() = "Some string".isEmpty()  // Extension property
 
-    // private val isEmpty2(string: String): Boolean get() = "Some string".isEmpty()  // Why it is an error
+    private fun isEmpty2(string: String) = string.isEmpty()
 
     private fun isEven(i: Int): Boolean = i % 2 == 0
 
@@ -94,8 +90,7 @@ class Basics {
     fun arraysDemo() {
         val array: Array<Int> = arrayOf(1, 2, 3)   // Type maybe omitted
         val array2 = arrayOf(1, 2.3, "3.4", 567, 789.01)
-        val array3 =
-            byteArrayOf(1, 2, 3, 4, 2, 3, 1, 2, 3, 4, 1).distinct()  // Only unique values - 1,2,3,4
+        val array3 = byteArrayOf(1, 2, 3, 4, 2, 3, 1, 2, 3, 4, 1).distinct()  // Only unique values - 1,2,3,4
 
         println(array2)
         println(array2[0])   // 1st item of array, also can be printed by println(array.get(0))
@@ -106,31 +101,135 @@ class Basics {
             // Printing an array
             println(it)
         }
-        array3.distinctBy { it }   // TODO Understand distinctBy and implement other methods
+        for (item in array3) print(item)
+        println(array2.distinctBy {
+            it.toString().toIntOrNull()
+        })   // TODO Understand distinctBy and implement other methods
+        println(array2.getOrNull(40) ?: "Неизвестный индекс")
+        println(
+            array3.toList() // Turns array into list
+                .distinct() // Takes only unique items
+                .map { it * it }    // Multiplies item onto itself
+                .filter { it > 3 }  // Takes items greater than 3
+        )   // [4, 9, 16]
+        array3.toByteArray()
+        array3.toHashSet()
+        array3.toMutableList()
+        array3.toMutableSet()
+        array3.toSet()
+        array3.toSortedSet()
     }
 
     fun listDemo() {
         val someList = arrayOf(1, 2, 3, 4).asList()
         val list = listOf("q", "a", "z", "zz")    // Immutable list (one cannot add items to it)
         val mutableList = mutableListOf("w", "s", "x")    // Mutable list (one can add items to it)
-        println(list[0])
-        println(list.get(0))
+        println(list[0])    // Same to println(list.get(0))
+        list.getOrElse(5) { list[0] }   // Answer: q    // Retrieves first element instead of 5th, which is absent.
+        list.getOrNull(5)   // Retrieves null, instread IOOB exception
         list.forEach { item -> println(item) }
+        list.forEach(System.out::print)
+        for (item in list) { print(item) }
+        println(list.map { it })
+        println(list) //[1,2,3,4,5] invokes toString()
         listOf(1, 2, 3, 4, 5).forEach {
             if (it == 3) return // non-local return directly to the caller of foo()
             print(it)
         }
-        list.forEach(System.out::print)
-        println(list.map { it })
-        println(list) //[1,2,3,4,5] invokes toString()
         list.first() // first element in list
         list.last() // last element in list
-        list.last { it.contains("z") }   // FIXME Doesn't work
+        println(list.last { it.contains("z") })   // Answer: zz
+        println(listOf(1, 2, 3, 4, 5).fold(0) { total, next -> total + next })  // Answer: 15
+        println(listOf(1, 2, 3).reduce { total, next -> total + next }) // Answer: 6. Same as .fold(), but without
+        // an initial state
+        println(listOf(1, 2, 3).sumBy { it + 5 }) // Answer: 21. Increasing all the items in 5, add then sum up
+        val list2 = listOf(1, 2, 3, 4, 5)
+        // есть ли элемент, который делится без остатка?
+        println(list2.any { it % 2 == 0 }) // true
+        // есть ли элемент больше 10?
+        println(list2.any { it > 10 }) // false
+        // Выражение !any можно заменить на all.    Выражение !all можно заменить на any.
+        // все элементы меньше 7?
+        println(list2.all { it < 7 }) // true
+        // все элементы больше 6?
+        println(list2.none { it > 6 }) // true
+        println(listOf(1, 2, 3, 4, 5).drop(2)) // [3, 4, 5]
+        println(listOf(1, 2, 3, 4, 5).dropWhile({ it < 3}))  // [3, 4, 5]
+        println(listOf(1, 2, 3, 4, 5).dropLastWhile { it > 4 })  // [1, 2, 3, 4]
+        // оставим первые два элемента
+        println(listOf(12, 32, 34, 45, 45).take(2)) // [12, 32]
+        // оставим последние два элемента
+        println(listOf(12, 32, 34, 45, 45).takeLast(2)) // [45, 45]
+        println(listOf(1, 2, 3, 4, 5).takeWhile{it < 3}) // [1, 2]
+        // takeWhile() и filter(). Первая функция будет отбирать элементы, пока выполняется условие и прервётся,
+        // а вторая пройдётся по всему списку до конца.
+        // takeIf() будет выбирать элементы, если выполняется условие (предикат).
+        val cats = listOf("Рыжик", "Мурзик", "Барсик", "Васька")
+        cats.takeIf {
+            it.contains("Пушистик")
+        }.apply {
+            this?.forEach{
+                println(it)
+            }
+        }
+        // Выбрать элементы, если список не содержит Пушистика
+        val cats2 = listOf("Рыжик", "Мурзик", "Барсик", "Васька")
+        cats2.takeUnless {
+            it.contains("Пушистик")
+        }.apply {
+            this?.forEach{
+                println(it)
+            }
+        }
+        // Содержит "ик", сортируем по длине слова
+        val cats3 = listOf("Барсик", "Мурзик", "Пикассо", "Васька", "Рыжик")
+        val filtered = cats3.filter { it.contains("ик") }.sortedBy { it.length }
+        println(filtered)
+        // Начинается на "П" и оканчивается на "к"
+        val cats4 = listOf("Барсик", "Мурзик", "Пикассо", "Васька", "Рыжик", "Пушок")
+        val filtered2 = cats4.filter { it.startsWith('П') } .filter { it.endsWith('к') }
+        println(filtered2) // Пушок
+        // оставляем нечётные числа
+        println(listOf(1, 2, 3, 4, 5).filterNot { it % 2 == 0 }) // [1, 3, 5]
+        // filterNotNullTo() уберёт все элементы null и добавит оставшиеся элементы в новый список.
+        val cats5 = listOf("Мурзик", null, "Барсик", "Рыжик", null, "Васька", "Пушистик", null)
+        val allCats = mutableListOf("Мурка", "Милка")
+        cats5.filterNotNullTo(allCats)
+        println(allCats.joinToString())
+        // Мурка, Милка, Мурзик, Барсик, Рыжик, Васька, Пушистик
+        // содержится ли в списке Барсик и Мурзик
+        val cats6 = listOf("Мурзик", "Барсик", "Рыжик")
+        println("Барсик и Мурзик в списке: ${cats6.containsAll(listOf("Барсик", "Мурзик"))}")
+        println(listOf(1, 2, 3, 4, 5).elementAt(3)) // 4    // Также доступны elementAtOrElse, elementAtOrNull.
+        listOf(1, 2, 3, 4, 5).find { it > 3 }   // 4
+        listOf(1, 2, 3, 4, 5).findLast { it > 3 }   // 5
+        // Функция single() вернёт один уникальный элемент из списка. Если элементов, соответствующих условию, будет
+        // несколько будет исключение. singleOrNull вместо исключения вернёт null.
+        println(listOf(1, 6, 3, 4, 5).singleOrNull { it % 3 == 0 }) // null
+        // Сортировка списка - http://developer.alexanderklimov.ru/android/kotlin/collection.php
+        //TODO Stopped @ Сортировка по условию. Отсортируем по именам котов при помощи sortBy(). http://developer.alexanderklimov.ru/android/kotlin/collection.php
     }
 
     fun setDemo() {
         println("Kotlin" in setOf("Java", "Scala")) //false
         println(setOf(4, 7, 2, 9, 12, 10, 11).maxOrNull()) //12
+        println(mapOf(setOf(4, 7, 2, 9, 12, 10, 11) to setOf(4, 7, 2, 9, 12, 10, 11)))
+        // {[4, 7, 2, 9, 12, 10, 11]=[4, 7, 2, 9, 12, 10, 11]}
+        val set: Set<Int> = emptySet()    // Empty integer set
+        val set2: Set<Int> = setOf(1, 2, 3, 4, 5, 6)    // Empty integer set
+        val map = set2.partition { it % 2 == 0 }    // Splitting lists which conclude pair
+        println(map)
+        val mutableSet: MutableSet<Int> = mutableSetOf()          // Empty integer mutable set
+        val mutableSet2: MutableSet<Int> = mutableSetOf(1, 2, 3, 4)   // Integer mutable set with default values
+        mutableSet2.add(5)
+        val hashSet = hashSetOf(1, 2, 3)
+        hashSet.add(4)
+        val sortedSet = sortedSetOf(5, 20, 3, 1, 9) // Creates treeSet that has sorted set in it
+        sortedSet.add(0)
+        println(sortedSet)  // 1,3,5,9,20
+        hashSet.addAll(sortedSet)   // Merging two sets, same as hashSet.union(sortedSet)
+
+        println(setOfNotNull(null, 5, "s", null, "fgh"))    // [5, s, fgh]
     }
 
     fun rangesDemo() {
@@ -424,6 +523,9 @@ class Basics {
 //        println("abba is a palindrome - " + "abba".isPalindrome())
 //        println("abbc is a palindrome - " + "abbc".isPalindrome())
     }
+
+    // 'operator' modifier is inapplicable on this function: receiver must be a supertype of the return type
+    // operator fun Int.inc() = this+this
 
     companion object {
         const val CONST = ""  // The val keyword is also used for read-only properties.

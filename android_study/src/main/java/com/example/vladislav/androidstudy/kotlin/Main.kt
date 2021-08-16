@@ -1,7 +1,11 @@
 package com.example.vladislav.androidstudy.kotlin
 
 import android.content.Context
+import com.example.vladislav.androidstudy.kotlin.demo.Basics
+import com.example.vladislav.androidstudy.kotlin.utils.distinctChars
 import com.example.vladislav.androidstudy.kotlin.utils.retrieveNumbers
+import com.example.vladislav.androidstudy.kotlin.utils.toAscendingOrderChars
+import com.example.vladislav.androidstudy.kotlin.utils.toDescendingOrderChars
 
 /**
  * Main class
@@ -16,7 +20,7 @@ class Main {
         // Basics().destructuringDeclaration()
         // Basics().extensionFunctionDemo()
         // Basics().idiomsDemo(context)
-        // Basics().listDemo()
+        Basics().listDemo()
         // Basics().loopsDemo()
         // Basics().rangesDemo()
 //        Basics().otherDemo()
@@ -49,7 +53,7 @@ class Main {
 //        Utils.printArray(arrayOf(1,2,3,4))
 //         println("485 23 0-".replaceDigitsWithSymbolicRepresentation())
 //         println("  sd    fg   df vb к        ео   ".removeExcessiveSpaces2())
-        println("вап 567 см 23.3 5 апр 6пр 34,5 вап 345678".retrieveNumbers())
+//         println("вап 567 см 23.3 5 апр 6пр 34,5 вап 345678".distinctChars())
         // println("0 5 8 10 13 19 200 400 305 514 685".replaceNumbersWithSymbolicRepresentation())
 //         println(evaluateGuess2().evaluateGuess("ABCD", "ABCD"))
 //         println(evaluateGuess2().main(arrayOf("")))
@@ -57,5 +61,6 @@ class Main {
 //         example1()
 //         FilesDemo(context).filesDemo()
 //         AdventOfCode2020().task1()
+//         println("wio4efnkjscjhvkjfipo2qkwdl".toDescendingOrderChars())
     }
 }
