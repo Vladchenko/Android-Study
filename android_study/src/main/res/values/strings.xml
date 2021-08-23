@@ -180,5 +180,8 @@
         startActivity(intent);"
     </string>
     <string name="both_fragments_added">"Both fragments added, cannot add more"</string>
+    <string name="download_error_message">"File downloading error - %1s"</string>
+    <string name="file_downloaded_to_message">"File is downloaded to - %1s"</string>
+    <string name="downloading_by_url">"Downloading by url - %1s"</string>
 
 </resources>
