@@ -1,0 +1,2 @@
+This code is based upon the one present in example3.
+- Con: It has downloading and saving in one class - SOLID breaks

@@ -1,28 +1,33 @@
-package com.example.vladislav.androidstudy.javarx2.example3
+package com.example.vladislav.androidstudy.javarx2.example4
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.ERROR
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.example.vladislav.androidstudy.R
 import com.example.vladislav.androidstudy.kotlin.utils.createFilesDirIfAbsent
+import io.reactivex.Observable
+import io.reactivex.Observer
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Action
+import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import java.io.File
 
 /**
- * This example performs a file downloading, using JavaRx.
- * Once downloading complete, progress bar stops to move and textview says where file has been downloaded.
+ * This example performs a file downloading, with a progress, using JavaRx.
+ * Once downloading complete, textview says where file has been downloaded.
  */
-class RxJava2Example3Activity : AppCompatActivity() {
+class RxJava2Example4Activity : AppCompatActivity() {
 
     private var button: Button? = null
     private var textView: TextView? = null
@@ -54,15 +59,13 @@ class RxJava2Example3Activity : AppCompatActivity() {
     private fun downloadUrlToFile(url: String, fileName: String) {
         val filePath = createFilesDirIfAbsent(this).path + File.pathSeparator + fileName
         // !!! https://stackoverflow.com/questions/27687907/android-os-networkonmainthreadexception-using-rxjava-on-android
-        Single.fromCallable {
-            NetworkApiMapper().downloadData(url)
-        }
-            .map { response ->
-                ResponseSaver().saveDataToFile(
-                    filePath,
-                    response
-                )
-            }
+        NetworkApiMapper().downloadData(url, filePath)
+            // .map { response: Response? ->
+            //     ResponseSaver().saveDataToFile(
+            //         filePath,
+            //         response!!
+            //     )
+            // }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -70,7 +73,10 @@ class RxJava2Example3Activity : AppCompatActivity() {
                 button!!.visibility = View.INVISIBLE
                 textView!!.text = getString(R.string.downloading_by_url, url)
             }
-            .doOnSuccess { unused: File? ->
+            .doOnNext { text ->
+                textView!!.text = text
+            }
+            .doOnComplete {
                 progressBar!!.visibility = View.INVISIBLE
                 button!!.visibility = View.VISIBLE
             }
@@ -78,31 +84,48 @@ class RxJava2Example3Activity : AppCompatActivity() {
                 progressBar!!.visibility = View.INVISIBLE
                 textView!!.text = getString(R.string.download_error_message, error.message)
             }
-            .subscribe(
-                { file: File? -> showSuccessfulStatus(file!!) },
-                { exception -> showFailedStatus(exception) }
-            )
+            .subscribe { ProgressObservableEmitter() } /** Here has to be some subscriber, else its not gonna run ! */
     }
 
-    private fun showSuccessfulStatus(file: File) {
-        textView!!.text = getString(R.string.file_downloaded_to_message, file.absolutePath)
+    private fun showSuccessfulStatus(file: Unit) {
+        textView!!.text = getString(R.string.file_downloaded_to_message, "Done")
     }
 
     private fun showFailedStatus(exception: Throwable) {
-        Log.e(TAG, exception.message.toString())
         textView!!.text = exception.message
     }
 
     /**
-     * Retrieves [Intent] using [context], to run this activity
+     * TODO
+     * @param context
+     * @return
      */
     fun newIntent(context: Context): Intent {
-        return Intent(context, RxJava2Example3Activity::class.java)
+        return Intent(context, RxJava2Example4Activity::class.java)
     }
 
     companion object {
-        private const val URL = "https://mezzoforte.ru/s/linkin_park/numb.mp3"
+        private const val URL = "https://mp3bob.ru/download/muz/Numb_[mp3pulse.ru].mp3"
         private const val FILE_NAME = "downloadedFile"
         private const val TAG = "RxJava2Example3Activity"
+    }
+}
+
+class SomeObserver : Observer<String> {
+
+    override fun onNext(p0: String?) {
+        println(p0)
+    }
+
+    override fun onError(p0: Throwable?) {
+        println(p0!!.message)
+    }
+
+    override fun onComplete() {
+        println("Done")
+    }
+
+    override fun onSubscribe(p0: Disposable?) {
+        println(p0.toString())
     }
 }

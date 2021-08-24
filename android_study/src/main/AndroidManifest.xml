@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainWeightActivity"></activity>
+        <activity android:name=".activities.MainWeightActivity" />
         <activity
             android:name=".activities.InitialActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -59,8 +59,7 @@
         <activity android:name=".services.ServicesDemo1Activity" />
         <activity android:name=".activities.dynamic_layout.ProgrammaticLayoutActivity" />
         <activity android:name=".activities.orientation_change.RotationActivity" />
-        <activity android:name=".activities.ContextMenuActivity" />
-        <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
+        <activity android:name=".activities.ContextMenuActivity" /> <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTasksActivity" />
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTask1Activity" />
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTask2Activity" />
@@ -68,9 +67,7 @@
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTask4Activity" />
         <activity android:name=".services.ServicesActivity" />
         <activity android:name=".activities.ParcelableActivity" />
-        <activity android:name=".activities.dynamic_layout.buttons_inserting.AddButtonsActivity">
-
-        </activity>
+        <activity android:name=".activities.dynamic_layout.buttons_inserting.AddButtonsActivity"></activity>
         <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity" />
         <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassToActivity" />
         <activity
@@ -80,7 +77,7 @@
         <activity android:name=".fragments.FragmentsActivity" />
         <activity android:name=".fragments.fragments_activity.FragmentsActivity" />
         <activity android:name=".jobs.banksdetails.BanksDetailsActivity" />
-        <activity android:name=".intents.IntentsActivity"></activity>
+        <activity android:name=".intents.IntentsActivity" />
         <activity android:name=".intents.SimpleIntentActivity" />
         <activity android:name=".intents.IntentWithActionActivity">
             <intent-filter>
@@ -127,8 +124,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".kotlin.KotlinStudyActivity">
-        </activity>
+        <activity android:name=".kotlin.KotlinStudyActivity"></activity>
         <activity android:name=".jobs.listviewing.recyclerview.RecyclerViewActivity" />
         <activity android:name=".jobs.simple_jobs.ContextActivity" /> <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
         <!-- // This receiver should not accept any broadcasts, but in fact it is overridden in code and -->
@@ -156,21 +152,23 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".jobs.simple_jobs.CommonActivity" />
         <activity android:name=".jobs.criminalrecords.ui.CriminalRecordsActivity" />
-        <activity android:name=".jobs.currency.CurrencyActivity"></activity>
+        <activity android:name=".jobs.currency.CurrencyActivity" />
         <activity android:name=".javarx2.example2.MainRXActivity" />
         <activity android:name=".javarx2.example2.RxJavaSimpleActivity" />
         <activity android:name=".javarx2.example2.BooksActivity" />
         <activity android:name=".javarx2.example2.ColorsActivity" />
         <activity android:name=".javarx2.example2.SchedulerActivity" />
-        <activity android:name=".javarx2.example1.RxJava2Example1Activity"></activity>
+        <activity android:name=".javarx2.example1.RxJava2Example1Activity" />
         <activity android:name=".javarx2.example3.RxJava2Example3Activity">
+        </activity>
+        <activity android:name=".javarx2.example4.RxJava2Example4Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity"></activity>
+        <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
 
         <provider
             android:name=".jobs.criminalrecords.data_providing.CrimesContentProvider"
