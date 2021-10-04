@@ -161,13 +161,15 @@
         <activity android:name=".javarx2.example1.RxJava2Example1Activity" />
         <activity android:name=".javarx2.example3.RxJava2Example3Activity">
         </activity>
-        <activity android:name=".javarx2.example4.RxJava2Example4Activity">
+        <activity android:name=".javarx2.example4.RxJava2Example4Activity"/>
+        <activity android:name=".javarx2.example5.RxJava2Example5Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
 
         <provider

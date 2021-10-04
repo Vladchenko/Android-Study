@@ -87,14 +87,6 @@ class RxJava2Example4Activity : AppCompatActivity() {
             .subscribe { ProgressObservableEmitter() } /** Here has to be some subscriber, else its not gonna run ! */
     }
 
-    private fun showSuccessfulStatus(file: Unit) {
-        textView!!.text = getString(R.string.file_downloaded_to_message, "Done")
-    }
-
-    private fun showFailedStatus(exception: Throwable) {
-        textView!!.text = exception.message
-    }
-
     /**
      * TODO
      * @param context

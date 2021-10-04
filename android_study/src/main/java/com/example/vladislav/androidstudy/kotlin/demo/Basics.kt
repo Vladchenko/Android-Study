@@ -27,9 +27,13 @@ class Basics {
      * Java code as a public static final field, to make its usage more natural, you can mark it with the const modifier
      * (this is allowed for properties of primitive types, as well as String)
      */
-    private val knownType: Float = 1.1f // Type may be omitted
+    private val knownType: Float = 1.1f // Type may be omitted, since automatically defined from a value itself.
 
     // !!! Kotlin is a statically-typed language. This means that the type is resolved at compile time and never changes.
+
+    internal val internalModifier = 0;  // Internal is a new modifier available in Kotlin that's not there in Java.
+    // Setting a declaration as internal means that it'll be available in the same module only. By module in Kotlin,
+    // we mean a group of files that are compiled together.
 
     fun noReturnType() {    // This function has no return type
     }
@@ -49,43 +53,38 @@ class Basics {
 
     fun singleExpressionFunction2() = "Hello world"    // Single expression function (type can be omitted)
 
-    fun args(name: String = "Vlad", lastName: String = "Yan") {
-    }    // Default values for a parameters
+    fun args(name: String = "Vlad", lastName: String = "Yan") {}    // Default values for a parameters
 
     fun argsDemo() {
         args()  // Params will get default values
-        args(name = "Ha")   // lastName param will get default value
-        args(lastName = "Yanchenko")    // name param will get default value
+        args(name = "Ha")   // "lastName" param will get default value
+        args(lastName = "Yanchenko")    // "name" param will get default value
         args(name = "Yan", lastName = "Vladchenko")
         // Params may also have a wrong order, since they are named
     }
 
     fun singleExpressionFunction3(word: String) = println("Hello $word")    // Single expression function
 
-    fun stringLengthFunc2(row: String) = row.length
+    fun stringLength(row: String) = row.length  // Same to String.stringLength() = this.length
 
-    private fun elvisOperatorDemo(name: String?) =
-        name ?: "no name" // If name is not null, return it,
-    // otherwise, make it to be "no name";  ?: - Elvis operator
+    private fun elvisOperatorDemo(name: String?) = name ?: "no name" // Return "name", it it is not null,
+    // else return "no name"
 
     private val isEmpty: Boolean get() = "Some string".isEmpty()  // Extension property
 
-    private fun isEmpty2(string: String) = string.isEmpty()
+    private fun isEmpty2(string: String) = string.isEmpty()     // Alternative to isEmpty()
 
-    private fun isEven(i: Int): Boolean = i % 2 == 0
+    private fun String.isEmpty3() = this.isEmpty()      // One more alternative to isEmpty()
+
+    private fun isEven(i: Int): Boolean = i % 2 == 0    // Almost same as - fun Int.isEven(): Boolean = this % 2 == 0
 
     private var setterWithAnnotation: Any? = null
-        @Inject set // annotate the setter with Inject (also with a default implementation)
+        @Inject set // Annotate the setter with Inject (also with a default implementation)
 
     private var counter = 0 // Note: the initializer assigns the backing field directly
         set(value) {
-            if (value >= 0) field = value
+            if (value >= 0) field = value   // Is this "field" is kind of container for counter's value ?
         }
-
-    internal val internalModifier = 0;
-    // Internal is a new modifier available in Kotlin that's not there in Java. Setting a declaration as internal
-    // means that it'll be available in the same module only. By module in Kotlin, we mean a group of files that
-    // are compiled together.
 
     fun arraysDemo() {
         val array: Array<Int> = arrayOf(1, 2, 3)   // Type maybe omitted
@@ -98,8 +97,7 @@ class Basics {
         println("array contains 345 = ${array2.contains(345)}")
         println("index of 567 = ${array2.indexOf(567)}")
         array3.forEach { // Check a LoopsDemo.kt to see a several ways to traverse through collections
-            // Printing an array
-            println(it)
+            println(it)     // Printing an array
         }
         for (item in array3) print(item)
         println(array2.distinctBy {
@@ -126,23 +124,25 @@ class Basics {
         val mutableList = mutableListOf("w", "s", "x")    // Mutable list (one can add items to it)
         println(list[0])    // Same to println(list.get(0))
         list.getOrElse(5) { list[0] }   // Answer: q    // Retrieves first element instead of 5th, which is absent.
-        list.getOrNull(5)   // Retrieves null, instread IOOB exception
-        list.forEach { item -> println(item) }
-        list.forEach(System.out::print)
-        for (item in list) { print(item) }
-        println(list.map { it })
-        println(list) //[1,2,3,4,5] invokes toString()
+        list.getOrNull(5)   // Retrieves null, instead of IOOB exception
+        list.forEach { item -> println(item) }  // Printing list
+        list.forEach(System.out::print)     // Printing list
+        for (item in list) {    // Printing list
+            print(item)
+        }
+        println(list.map { it })    // Printing list
+        println(list) //[1,2,3,4,5] invokes toString()  // Printing list
         listOf(1, 2, 3, 4, 5).forEach {
             if (it == 3) return // non-local return directly to the caller of foo()
             print(it)
         }
-        list.first() // first element in list
-        list.last() // last element in list
+        list.first() // First element in list
+        list.last() // Last element in list
         println(list.last { it.contains("z") })   // Answer: zz
         println(listOf(1, 2, 3, 4, 5).fold(0) { total, next -> total + next })  // Answer: 15
         println(listOf(1, 2, 3).reduce { total, next -> total + next }) // Answer: 6. Same as .fold(), but without
         // an initial state
-        println(listOf(1, 2, 3).sumBy { it + 5 }) // Answer: 21. Increasing all the items in 5, add then sum up
+        println(listOf(1, 2, 3).sumBy { it + 5 }) // Answer: 21. Increasing all the items in 5, add, then sum them up
         val list2 = listOf(1, 2, 3, 4, 5)
         // есть ли элемент, который делится без остатка?
         println(list2.any { it % 2 == 0 }) // true
@@ -151,16 +151,16 @@ class Basics {
         // Выражение !any можно заменить на all.    Выражение !all можно заменить на any.
         // все элементы меньше 7?
         println(list2.all { it < 7 }) // true
-        // все элементы больше 6?
+        // Ни один элемент не больше 6?
         println(list2.none { it > 6 }) // true
         println(listOf(1, 2, 3, 4, 5).drop(2)) // [3, 4, 5]
-        println(listOf(1, 2, 3, 4, 5).dropWhile({ it < 3}))  // [3, 4, 5]
+        println(listOf(1, 2, 3, 4, 5).dropWhile({ it < 3 }))  // [3, 4, 5]
         println(listOf(1, 2, 3, 4, 5).dropLastWhile { it > 4 })  // [1, 2, 3, 4]
         // оставим первые два элемента
         println(listOf(12, 32, 34, 45, 45).take(2)) // [12, 32]
         // оставим последние два элемента
         println(listOf(12, 32, 34, 45, 45).takeLast(2)) // [45, 45]
-        println(listOf(1, 2, 3, 4, 5).takeWhile{it < 3}) // [1, 2]
+        println(listOf(1, 2, 3, 4, 5).takeWhile { it < 3 }) // [1, 2]
         // takeWhile() и filter(). Первая функция будет отбирать элементы, пока выполняется условие и прервётся,
         // а вторая пройдётся по всему списку до конца.
         // takeIf() будет выбирать элементы, если выполняется условие (предикат).
@@ -168,7 +168,7 @@ class Basics {
         cats.takeIf {
             it.contains("Пушистик")
         }.apply {
-            this?.forEach{
+            this?.forEach {
                 println(it)
             }
         }
@@ -177,26 +177,26 @@ class Basics {
         cats2.takeUnless {
             it.contains("Пушистик")
         }.apply {
-            this?.forEach{
+            this?.forEach {
                 println(it)
             }
         }
-        // Содержит "ик", сортируем по длине слова
         val cats3 = listOf("Барсик", "Мурзик", "Пикассо", "Васька", "Рыжик")
+        // Содержит "ик", сортируем по длине слова
         val filtered = cats3.filter { it.contains("ик") }.sortedBy { it.length }
         println(filtered)
-        // Начинается на "П" и оканчивается на "к"
         val cats4 = listOf("Барсик", "Мурзик", "Пикассо", "Васька", "Рыжик", "Пушок")
-        val filtered2 = cats4.filter { it.startsWith('П') } .filter { it.endsWith('к') }
+        // Начинается на "П" и оканчивается на "к"
+        val filtered2 = cats4.filter { it.startsWith('П') }.filter { it.endsWith('к') }
         println(filtered2) // Пушок
         // оставляем нечётные числа
-        println(listOf(1, 2, 3, 4, 5).filterNot { it % 2 == 0 }) // [1, 3, 5]
+        println(listOf(1, 2, 3, 4, 5).filterNot { it % 2 == 0 }) // [1, 3, 5] It is same as
+        println(listOf(1, 2, 3, 4, 5).filter { it % 2 != 0 }) // [1, 3, 5]
         // filterNotNullTo() уберёт все элементы null и добавит оставшиеся элементы в новый список.
         val cats5 = listOf("Мурзик", null, "Барсик", "Рыжик", null, "Васька", "Пушистик", null)
         val allCats = mutableListOf("Мурка", "Милка")
         cats5.filterNotNullTo(allCats)
-        println(allCats.joinToString())
-        // Мурка, Милка, Мурзик, Барсик, Рыжик, Васька, Пушистик
+        println(allCats.joinToString()) // Мурка, Милка, Мурзик, Барсик, Рыжик, Васька, Пушистик
         // содержится ли в списке Барсик и Мурзик
         val cats6 = listOf("Мурзик", "Барсик", "Рыжик")
         println("Барсик и Мурзик в списке: ${cats6.containsAll(listOf("Барсик", "Мурзик"))}")
