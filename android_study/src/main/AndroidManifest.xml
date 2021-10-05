@@ -11,6 +11,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".kotlin.demo.graphics.GraphicsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.MainWeightActivity" />
         <activity
             android:name=".activities.InitialActivity"
@@ -67,7 +74,7 @@
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTask4Activity" />
         <activity android:name=".services.ServicesActivity" />
         <activity android:name=".activities.ParcelableActivity" />
-        <activity android:name=".activities.dynamic_layout.buttons_inserting.AddButtonsActivity"></activity>
+        <activity android:name=".activities.dynamic_layout.buttons_inserting.AddButtonsActivity" />
         <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity" />
         <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassToActivity" />
         <activity
@@ -124,7 +131,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".kotlin.KotlinStudyActivity"></activity>
+        <activity android:name=".kotlin.KotlinStudyActivity">
+        </activity>
         <activity android:name=".jobs.listviewing.recyclerview.RecyclerViewActivity" />
         <activity android:name=".jobs.simple_jobs.ContextActivity" /> <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
         <!-- // This receiver should not accept any broadcasts, but in fact it is overridden in code and -->
@@ -159,17 +167,9 @@
         <activity android:name=".javarx2.example2.ColorsActivity" />
         <activity android:name=".javarx2.example2.SchedulerActivity" />
         <activity android:name=".javarx2.example1.RxJava2Example1Activity" />
-        <activity android:name=".javarx2.example3.RxJava2Example3Activity">
-        </activity>
-        <activity android:name=".javarx2.example4.RxJava2Example4Activity"/>
-        <activity android:name=".javarx2.example5.RxJava2Example5Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+        <activity android:name=".javarx2.example3.RxJava2Example3Activity"></activity>
+        <activity android:name=".javarx2.example4.RxJava2Example4Activity" />
+        <activity android:name=".javarx2.example5.RxJava2Example5Activity"></activity>
         <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
 
         <provider

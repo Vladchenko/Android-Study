@@ -6,4 +6,6 @@
     <color name="color_green">#3ACF45</color>
     <color name="color_yellow">#FACF00</color>
     <color name="common_border_color">#000000</color>
+    <color name="colorBackground">#FFFF5500</color>
+    <color name="colorPaint">#FFFFEB3B</color>
 </resources>
