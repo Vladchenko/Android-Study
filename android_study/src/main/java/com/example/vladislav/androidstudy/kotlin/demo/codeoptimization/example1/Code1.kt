@@ -19,8 +19,7 @@ class Code1 {
             )
         }
         if (user.address.isEmpty()) {
-            throw
-            IllegalArgumentException(
+            throw IllegalArgumentException(
                 "Cannot save user ${user.id}: Address is empty"
             )
         }

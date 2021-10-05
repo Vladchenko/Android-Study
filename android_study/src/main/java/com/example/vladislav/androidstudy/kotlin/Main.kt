@@ -1,6 +1,7 @@
 package com.example.vladislav.androidstudy.kotlin
 
 import android.content.Context
+import com.example.vladislav.androidstudy.kotlin.arraylists.ArraysListsDemo
 import com.example.vladislav.androidstudy.kotlin.demo.Basics
 import com.example.vladislav.androidstudy.kotlin.utils.distinctChars
 import com.example.vladislav.androidstudy.kotlin.utils.retrieveNumbers
@@ -16,11 +17,12 @@ import com.example.vladislav.androidstudy.kotlin.utils.toDescendingOrderChars
 class Main {
 
     fun main(context: Context) {    // An entry point of a Kotlin application is the main function
+        // ArraysListsDemo().demo()
         // Basics().arraysDemo()
         // Basics().destructuringDeclaration()
         // Basics().extensionFunctionDemo()
         // Basics().idiomsDemo(context)
-        Basics().listDemo()
+        // Basics().listDemo()
         // Basics().loopsDemo()
         // Basics().rangesDemo()
 //        Basics().otherDemo()

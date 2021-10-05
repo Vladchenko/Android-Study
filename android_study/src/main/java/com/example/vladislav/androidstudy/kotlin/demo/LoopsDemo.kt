@@ -29,6 +29,7 @@ fun loopsDemo() {
     for (x in 9 downTo 0 step 3) {  // This one doesn't work
         print(x)
     }
+    // No iteration for float / double
     val fios = listOf<FIO>()
     for (fio in fios) print(fio)
     println()
