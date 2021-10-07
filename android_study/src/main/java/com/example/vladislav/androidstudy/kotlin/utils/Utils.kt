@@ -1,7 +1,5 @@
 package com.example.vladislav.androidstudy.kotlin.utils
 
-import java.util.stream.IntStream
-
 /**
  * Some utils class.
  *
@@ -46,48 +44,65 @@ fun String.isPalindrome(): Boolean {
 }
 
 /**
- * Retrieves a list of words
+ * Retrieve a list of words
  */
 fun String.retrieveWords() = this.trim().split(Regex("\\s+"), 0)
 
 /**
- * Retrieves a list of numbers
+ * Retrieve a list of palindromes
+ */
+fun String.retrievePalindromes() = this.retrieveWords().filter { it.isPalindrome() }
+
+/**
+ * Retrieve a number of palindromes
+ */
+fun String.retrievePalindromesNumber() = this.retrieveWords().count { it.isPalindrome() }
+
+/**
+ * Retrieve a list of integer and real numbers
  */
 fun String.retrieveNumbers() = this.trim().split(Regex("\\s+"), 0).filter {
     it.toDoubleOrNull() != null
 }
 
 /**
- * Gets a quantity of a words present in a string (numbers included)
+ * Retrieve a list of integer numbers
+ */
+fun String.retrieveIntegerNumbers() = this.trim().split(Regex("\\s+"), 0).filter {
+    it.toIntOrNull() != null
+}
+
+/**
+ * Get a quantity of a words present in a string (numbers included)
  */
 fun String.wordsNumber() = this.trim().split(Regex("\\s+"), 0).size // Or .count()
 
 /**
- * Retrieves a quantity of a numbers present in a string
+ * Retrieve a quantity of a numbers (integral or real) present in a string
  */
 fun String.numbersQuantity() = this.trim().split(Regex("\\s+"), 0).count {
     it.toDoubleOrNull() != null
 }
 
 /**
- * Retrieves a number of a words in a string (numbers are not considered)
+ * Retrieve a number of a words in a string (numbers are not considered)
  */
 fun String.wordsQuantity() = this.trim().split(Regex("\\s+"), 0).count {
     it.toDoubleOrNull() == null
 }
 
 /**
- * Retrieves a number of char present in a string
+ * Retrieve a number of char present in a string
  */
 fun String.charNumberInString(char: Char) = this.count { it == char }   // Or just String.size
 
 /**
- * Retrieves the longest word (first occurence is taken)
+ * Retrieve the longest word (first occurence is taken)
  */
 fun String.longestWord() = this.trim().split(Regex("\\s+"), 0).maxOrNull()
 
 /**
- * Gets position of a subString in a string (first occurence)
+ * Retrieve position of a subString in a string (first occurence)
  */
 fun String.stringPosition(subString: String) = this.indexOf(subString)
 
@@ -97,7 +112,7 @@ fun String.stringPosition(subString: String) = this.indexOf(subString)
  * 11 22 344 -> 1 2 34
  * 555565 66676777 -> 565 6767
  */
-fun String.removeRepetitiveSymbols(): String {
+fun String.removeRepetitiveChars(): String {
     if (this.length < 2) return this
     var string = ""
     this.mapIndexed { index, char ->
@@ -111,8 +126,12 @@ fun String.removeRepetitiveSymbols(): String {
     return string
 }
 
+fun String.charAppearanceNumber(char: Char) = this.count {
+    it == char
+}
+
 /**
- * Retrieves an index of a longest word in a string.
+ * Retrieve an index of a longest word in a string.
  */
 fun String.indexOfLongestWord(): Int {
     val longestWord = this.longestWord()
@@ -135,29 +154,29 @@ fun String.removeExcessiveSpaces2() = this.filterIndexed { index, char ->
 }.trim()
 
 /**
- * Removes digits, spaces and special characters from string, keeping only letters.
+ * Removes digits, spaces and special characters from string, keeping only Chars.
  */
-fun String.removeAllExceptLetters() = this.filter { it.isLetter() }
+fun String.removeAllExceptChars() = this.filter { it.isLetter() }
 
 /**
- * Removes letters, spaces and special characters from string.
+ * Removes Chars, spaces and special characters from string.
  */
 fun String.removeAllExceptDigits() = this.filter { it.isDigit() }
 
 /**
- * Removes all characters, except digits and letters from string
+ * Removes all characters, except digits and Chars from string
  */
-fun String.removeAllExceptDigitsAndLetters() = this.filter { it.isLetterOrDigit() }
+fun String.removeAllExceptDigitsAndChars() = this.filter { it.isLetterOrDigit() }
 
 /**
- * Counts a number of a capital letters in a string
+ * Counts a number of a capital Chars in a string
  */
-fun String.capitalLettersCount() = this.count { it.isUpperCase() }
+fun String.capitalCharsCount() = this.count { it.isUpperCase() }
 
 /**
- * Counts a number of a lowercase letters in a string
+ * Counts a number of a lowercase Chars in a string
  */
-fun String.lowercaseLettersCount() = this.count { it.isLowerCase() }
+fun String.lowercaseCharsCount() = this.count { it.isLowerCase() }
 
 /**
  * Returns true, if symbols (, {, [ have respective pairs and false otherwise.
@@ -222,6 +241,16 @@ fun String.solveExpression(): String {
     }
     return value
 }
+
+/**
+ * Replace a [replaceableString] with a [replacingString].
+ */
+fun String.replaceString(replaceableString: String, replacingString: String) =
+    this.trim().split(Regex("\\s+")).joinToString {
+        if (it == replaceableString) {
+            replacingString
+        } else it
+    }
 
 /**
  * Replaces digits with its symbolic representation, say "462 3" -> "four six two three"
@@ -301,27 +330,68 @@ fun String.isEveryCharUnique(): Boolean {
 }
 
 /**
- * Retrieves distinct chars.
+ * Retrieve distinct chars.
  */
 fun String.distinctChars() = this.toCharArray().distinct()
 
 /**
- * Retrieves distinct chars.
+ * Retrieve distinct chars.
  */
 fun String.distinctChars2() = this.toCharArray().toSet()
 
 /**
- * Retrieves chars in ascending order
+ * Retrieve distinct strings
+ */
+fun String.distinctStrings() = this.split(Regex("\\s+")).distinct()
+
+/**
+ * Retrieve chars in ascending order
  */
 fun String.toAscendingOrderChars() = this.toCharArray().toSortedSet()
 
 /**
- * Retrieves chars in descending order
+ * Retrieve chars in descending order
  */
 fun String.toDescendingOrderChars() = this.toCharArray().toSortedSet().reversed()
 
 /**
- * Retrieves a substring most often met in a given string.
+ * Retrieve string in backwards order of its chars.
+ */
+fun String.toBackwardsOrderChars() = this.reversed()
+
+/**
+ * Retrieve string in backwards order of its incorporating strings.
+ */
+fun String.toBackwardsOrderStrings() = this.split(Regex("\\s+")).reversed()
+
+/**
+ * Retrieve string in sorted order of its incorporating strings.
+ */
+fun String.toSortedOrderStrings() = this.split(Regex("\\s+")).sorted()
+
+/**
+ * Retrieve shortest string.
+ */
+fun String.findShortestString() = this.split(Regex("\\s+")).minByOrNull { it.length }
+// TODO How to retrieve map here? Say, word=2
+
+/**
+ * Retrieve distance between 2 string in chars number.
+ */
+fun String.getDistanceBetween2Strings(string1: String, string2: String):Int {
+    var index1 = -1
+    var index2 = -1
+    index1 = this.indexOf(string1)
+    index2 = this.indexOf(string2)
+    return if (index1 > index2) {
+        index1 - index2 - string2.length
+    } else {
+        index2 - index1 - string1.length
+    }
+}
+
+/**
+ * Retrieve a substring most often met in a given string.
  * String "as sd df fg as" returns "as=2".
  */
 fun String.mostOftenMetString(): String {

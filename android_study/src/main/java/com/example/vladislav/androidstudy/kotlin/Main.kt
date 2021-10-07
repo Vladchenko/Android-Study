@@ -1,12 +1,10 @@
 package com.example.vladislav.androidstudy.kotlin
 
 import android.content.Context
-import com.example.vladislav.androidstudy.kotlin.arraylists.ArraysListsDemo
-import com.example.vladislav.androidstudy.kotlin.demo.Basics
-import com.example.vladislav.androidstudy.kotlin.utils.distinctChars
-import com.example.vladislav.androidstudy.kotlin.utils.retrieveNumbers
-import com.example.vladislav.androidstudy.kotlin.utils.toAscendingOrderChars
-import com.example.vladislav.androidstudy.kotlin.utils.toDescendingOrderChars
+import com.example.vladislav.androidstudy.kotlin.utils.findShortestString
+import com.example.vladislav.androidstudy.kotlin.utils.getDistanceBetween2Strings
+import com.example.vladislav.androidstudy.kotlin.utils.toBackwardsOrderStrings
+import com.example.vladislav.androidstudy.kotlin.utils.toSortedOrderStrings
 
 /**
  * Main class
@@ -53,6 +51,10 @@ class Main {
 //        println(KotlinKoans().joinOptions(listOf("1", "2", "3")))
 //        println(KotlinKoans().getPattern())
 //        Utils.printArray(arrayOf(1,2,3,4))
+//         println("dfd fgbyuk uyksef sfd vgv".retrievePalindromesNumber())
+//         println("xcv vvbn fgh asd yui iop".replaceString("asd", "VFD"))
+//         println("чя ва ми ва as ва hj".distinctStrings())
+        // println("null 123 123.3".retrieveIntegerNumbers()) //2
 //         println("485 23 0-".replaceDigitsWithSymbolicRepresentation())
 //         println("  sd    fg   df vb к        ео   ".removeExcessiveSpaces2())
 //         println("вап 567 см 23.3 5 апр 6пр 34,5 вап 345678".distinctChars())
@@ -64,5 +66,10 @@ class Main {
 //         FilesDemo(context).filesDemo()
 //         AdventOfCode2020().task1()
 //         println("wio4efnkjscjhvkjfipo2qkwdl".toDescendingOrderChars())
+//         println("jdeгвав".toBackwardsOrder())
+//         println("vc8s6cz16c".charAppearanceNumber('c'))
+//         println("as df см ап".toSortedOrderStrings())
+//         println("ыва апр ыва sd укеннг вмро s ыа asdf".findShortestString())
+//         println("dv u erth sdvty df ".getDistanceBetween2Strings("erth", "dv"))
     }
 }
