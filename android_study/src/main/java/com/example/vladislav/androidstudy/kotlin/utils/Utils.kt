@@ -14,10 +14,10 @@ package com.example.vladislav.androidstudy.kotlin.utils
 fun isNotDigit(c: Char) = c !in '0'..'9'    // Or !c.isDigit()
 
 /**
- * Character on integer conversion.
+ * Character to integer conversion.
  */
 fun charToInt(c: Char): Int {
-    if (c !in '0'..'9') throw IllegalArgumentException("Argument is wrong -> $c, it has to be a digit")
+    if (c !in '0'..'9') throw IllegalArgumentException("$c argument is wrong, it has to be a digit")
     else return c.toInt() - 48
 }
 
@@ -31,7 +31,7 @@ fun <T> printArray(array: Array<T>) {
     array.map { println(it) }
 }
 
-fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'  // c.isLetter()
+fun isLetter(c: Char) = c in 'a'..'z' || c.isLetter() in 'A'..'Z'  // c.isLetter()
 
 fun String.isPalindrome(): Boolean {
     if (this.length == 1) return true
@@ -57,6 +57,11 @@ fun String.retrievePalindromes() = this.retrieveWords().filter { it.isPalindrome
  * Retrieve a number of palindromes
  */
 fun String.retrievePalindromesNumber() = this.retrieveWords().count { it.isPalindrome() }
+
+/**
+ * Retrieve a longest palindrome
+ */
+fun String.retrieveLongestPalindrome() = this.retrievePalindromes().maxByOrNull { it.length }
 
 /**
  * Retrieve a list of integer and real numbers
@@ -94,7 +99,7 @@ fun String.wordsQuantity() = this.trim().split(Regex("\\s+"), 0).count {
 /**
  * Retrieve a number of char present in a string
  */
-fun String.charNumberInString(char: Char) = this.count { it == char }   // Or just String.size
+fun String.charNumberInString(char: Char) = this.count { it == char }
 
 /**
  * Retrieve the longest word (first occurence is taken)
@@ -102,7 +107,7 @@ fun String.charNumberInString(char: Char) = this.count { it == char }   // Or ju
 fun String.longestWord() = this.trim().split(Regex("\\s+"), 0).maxOrNull()
 
 /**
- * Retrieve position of a subString in a string (first occurence)
+ * Retrieve position of a subString in a string (first occurrence)
  */
 fun String.stringPosition(subString: String) = this.indexOf(subString)
 
@@ -315,97 +320,6 @@ fun String.replaceNumbersWithSymbolicRepresentation(): String {
     return resultString.drop(2)
 }
 
-/**
- * Checks if every char is unique in given string.
- * "qwerty" - returns true
- * "asdfa" - return false.
- */
-fun String.isEveryCharUnique(): Boolean {
-    val map: MutableMap<Char, Int> = mutableMapOf()
-    this.map {
-        if (it in map) return false
-        map[it] = 1
-    }
-    return true
-}
-
-/**
- * Retrieve distinct chars.
- */
-fun String.distinctChars() = this.toCharArray().distinct()
-
-/**
- * Retrieve distinct chars.
- */
-fun String.distinctChars2() = this.toCharArray().toSet()
-
-/**
- * Retrieve distinct strings
- */
-fun String.distinctStrings() = this.split(Regex("\\s+")).distinct()
-
-/**
- * Retrieve chars in ascending order
- */
-fun String.toAscendingOrderChars() = this.toCharArray().toSortedSet()
-
-/**
- * Retrieve chars in descending order
- */
-fun String.toDescendingOrderChars() = this.toCharArray().toSortedSet().reversed()
-
-/**
- * Retrieve string in backwards order of its chars.
- */
-fun String.toBackwardsOrderChars() = this.reversed()
-
-/**
- * Retrieve string in backwards order of its incorporating strings.
- */
-fun String.toBackwardsOrderStrings() = this.split(Regex("\\s+")).reversed()
-
-/**
- * Retrieve string in sorted order of its incorporating strings.
- */
-fun String.toSortedOrderStrings() = this.split(Regex("\\s+")).sorted()
-
-/**
- * Retrieve shortest string.
- */
-fun String.findShortestString() = this.split(Regex("\\s+")).minByOrNull { it.length }
-// TODO How to retrieve map here? Say, word=2
-
-/**
- * Retrieve distance between 2 string in chars number.
- */
-fun String.getDistanceBetween2Strings(string1: String, string2: String):Int {
-    var index1 = -1
-    var index2 = -1
-    index1 = this.indexOf(string1)
-    index2 = this.indexOf(string2)
-    return if (index1 > index2) {
-        index1 - index2 - string2.length
-    } else {
-        index2 - index1 - string1.length
-    }
-}
-
-/**
- * Retrieve a substring most often met in a given string.
- * String "as sd df fg as" returns "as=2".
- */
-fun String.mostOftenMetString(): String {
-    val map: MutableMap<String, Int> = mutableMapOf()
-    this.split(Regex("\\s+")).map {
-        if (map[it] != null) {
-            map[it] = map[it]?.plus(1) as Int
-        } else {
-            map[it] = 1
-        }
-    }
-    return map.maxByOrNull { it.value }.toString()
-}
-
 private fun Char.getTenToTwentySymbolicRepresentation() =
     when (this) {
         '0' -> ""
@@ -466,6 +380,157 @@ private fun Char.getHundredsSymbolicRepresentation() =
         '9' -> "nine hundred"
         else -> ""
     }
+
+/**
+ * Checks if every char is unique in given string.
+ * "qwerty" - returns true
+ * "asdfa" - return false.
+ */
+fun String.isEveryCharUnique(): Boolean {
+    val map: MutableMap<Char, Int> = mutableMapOf()
+    this.map {
+        if (it in map) return false
+        map[it] = 1
+    }
+    return true
+}
+
+/**
+ * Retrieve distinct(unique) chars.
+ */
+fun String.distinctChars() = this.toCharArray().distinct()
+
+/**
+ * Retrieve distinct(unique) chars.
+ */
+fun String.distinctChars2() = this.toCharArray().toSet()
+
+/**
+ * Retrieve distinct(unique) letters (a-z, A-Z).
+ */
+fun String.distinctLetters() = this.toCharArray().distinct().map { it.isLetter() }
+
+/**
+ * Retrieve distinct(unique) digits (0-9).
+ */
+fun String.distinctDigits() = this.toCharArray().distinct().map { it.isDigit() }
+
+/**
+ * Retrieve distinct(unique) strings
+ */
+fun String.distinctStrings() = this.split(Regex("\\s+")).distinct()
+
+/**
+ * Retrieve chars in ascending order
+ */
+fun String.toAscendingOrderChars() = this.toCharArray().toSortedSet()
+
+/**
+ * Retrieve chars in descending order
+ */
+fun String.toDescendingOrderChars() = this.toCharArray().toSortedSet().reversed()
+
+/**
+ * Retrieve string in backwards order of its chars.
+ */
+fun String.toBackwardsOrderChars() = this.reversed()
+
+/**
+ * Retrieve string in backwards order of its incorporating strings.
+ */
+fun String.toBackwardsOrderStrings() = this.split(Regex("\\s+")).reversed()
+
+/**
+ * Retrieve string in sorted order of its incorporating strings.
+ */
+fun String.toAlphabetSortedStrings() = this.split(Regex("\\s+")).sorted()
+
+/**
+ * Get all Java versions, say "java Java 5, Java  6, Java 1.6" should yield [Java 5, Java  6, Java 1.6]
+ */
+fun String.getAllJavaVersions(): List<String> {
+    val numberPattern =
+        "([0-9]+[.])?[0-9]+".toRegex()  // TODO How to fix leading zero, when it is only one present - Java 0 ?
+    val stringsList = this.split(Regex("[\\s]+"))
+    val stringsListFinal: MutableList<String> = mutableListOf()
+    stringsList.forEachIndexed { index, currentString ->
+        if (currentString == "Java"
+            && index != stringsList.size - 1
+            && numberPattern.matches(stringsList[index + 1])
+            && stringsList[index + 1] != "0"    // TODO Remove this condition when a regex is to exclude 0.
+        ) {
+            stringsListFinal.add(currentString + " " + stringsList[index + 1])
+        }
+    }
+    return stringsListFinal
+}
+
+/**
+ * Retrieve string in sorted order of a lengths of its incorporating strings.
+ */
+fun String.toLenghtSortedStrings() = this.split(Regex("\\s+")).sortedBy {
+    it.length
+}
+
+/**
+ * Retrieve shortest string.
+ */
+fun String.findShortestString() = this.split(Regex("\\s+")).minByOrNull { it.length }
+
+/**
+ * Retrieve shortest string, like (string, string length), say (s, 1)
+ */
+fun String.findShortestStringMap() = this.split(Regex("\\s+")).map { it to it.length }.minByOrNull { it.second }
+
+/**
+ * Retrieve distance between 2 string in chars number.
+ */
+fun String.getDistanceBetween2Strings(string1: String, string2: String): Int {
+    var index1 = -1
+    var index2 = -1
+    index1 = this.indexOf(string1)
+    index2 = this.indexOf(string2)
+    return if (index1 > index2) {
+        index1 - index2 - string2.length
+    } else {
+        index2 - index1 - string1.length
+    }
+}
+
+/**
+ * Retrieve a substring most often met in a given string.
+ * String "as sd df fg as" returns "as=2".
+ */
+fun String.mostOftenMetString(): String {
+    val map: MutableMap<String, Int> = mutableMapOf()
+    this.split(Regex("\\s+")).map {
+        if (map[it] != null) {
+            map[it] = map[it]?.plus(1) as Int
+        } else {
+            map[it] = 1
+        }
+    }
+    return map.maxByOrNull { it.value }.toString()
+}
+
+/**
+ * Retrieve a number of lucky tickets, whose sum of first 3 digits equal to sum of 3 last digits.
+ */
+fun retrieveNumberOfLuckyTickets(): Int {
+    var sum = 0
+    var sumI: Int
+    var sumJ: Int
+    for (i in 1..999) {
+        sumI = i.toString().sumOf { it.toInt() - 49 }
+        for (j in 1..999) {
+            sumJ = j.toString().sumOf { it.toInt() - 49 }
+            if (sumI == sumJ) {
+                sum++
+            }
+        }
+    }
+    return sum
+}
 
 private fun performArithmeticOperation(
     operand1: String,

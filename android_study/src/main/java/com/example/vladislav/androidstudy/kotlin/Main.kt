@@ -2,9 +2,10 @@ package com.example.vladislav.androidstudy.kotlin
 
 import android.content.Context
 import com.example.vladislav.androidstudy.kotlin.utils.findShortestString
+import com.example.vladislav.androidstudy.kotlin.utils.getAllJavaVersions
 import com.example.vladislav.androidstudy.kotlin.utils.getDistanceBetween2Strings
 import com.example.vladislav.androidstudy.kotlin.utils.toBackwardsOrderStrings
-import com.example.vladislav.androidstudy.kotlin.utils.toSortedOrderStrings
+import com.example.vladislav.androidstudy.kotlin.utils.toLenghtSortedStrings
 
 /**
  * Main class
@@ -71,5 +72,7 @@ class Main {
 //         println("as df см ап".toSortedOrderStrings())
 //         println("ыва апр ыва sd укеннг вмро s ыа asdf".findShortestString())
 //         println("dv u erth sdvty df ".getDistanceBetween2Strings("erth", "dv"))
+//         println("sfghhr vcse s fbrythm ыва аиптпрт вы".toLenghtSortedStrings())
+        println("Java java 4 Java X Java0 Java 0 Java 0.1 Java 1 Java 1.0 Java 1.1 Java   5 Java 1.8 Java 10 Java 11".getAllJavaVersions())
     }
 }

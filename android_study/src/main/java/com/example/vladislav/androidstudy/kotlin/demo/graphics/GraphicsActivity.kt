@@ -6,7 +6,8 @@ import android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
 import com.example.vladislav.androidstudy.R
 
 /**
- * TODO
+ * Android graphics exmple taken from
+ * https://developer.android.com/codelabs/advanced-android-kotlin-training-canvas#5
  */
 class GraphicsActivity : AppCompatActivity() {
 
