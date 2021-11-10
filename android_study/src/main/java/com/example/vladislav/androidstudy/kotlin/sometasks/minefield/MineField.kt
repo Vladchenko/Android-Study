@@ -8,7 +8,8 @@ package com.example.vladislav.androidstudy.kotlin.sometasks.minefield
 class MineField {
 
     private val mineField: Array<Array<MineCell>> = Array(50) { Array(50) { MineCell(0, 0, " ") } }
-    private val stepsMap: LinkedHashMap<Int, MutableMap<Int, Int>> = linkedMapOf()
+    private val mineFieldOptimized: Array<Array<MineCell>> = Array(50) { Array(50) { MineCell(0, 0, " ") } }
+    private val stepsMap: LinkedHashMap<String, Int> = linkedMapOf()
 
     fun initializeMineField() {
         for (x in mineField.indices) {
@@ -20,10 +21,19 @@ class MineField {
         }
     }
 
-    fun printField() {
-        for (x in mineField.indices) {
-            for (y in mineField[0].indices) {
-                print("${mineField[y][x].direction} ")
+    fun printInitialField() {
+        printField(mineField)
+    }
+
+    fun printOptimizedField() {
+        getOptimizedRobotPath()
+        printField(mineFieldOptimized)
+    }
+
+    private fun printField(array: Array<Array<MineCell>>) {
+        for (x in array.indices) {
+            for (y in array[0].indices) {
+                print("${array[y][x].direction} ")
             }
             println()
         }
@@ -34,8 +44,7 @@ class MineField {
         var x = mineField.size / 2
         var y = mineField[0].size / 2
         mineField[x][y].direction = START_POSITION
-        stepsMap[x] = mutableMapOf()
-        stepsMap[x]?.put(y,0)
+        stepsMap[getCellKey(x,y)] = 0
         val turns = (1 until turnsNumber).random()
         var steps :Int
         for (turn in 0 until turns) {
@@ -60,23 +69,45 @@ class MineField {
                 if (y == -1) {
                     y = mineField[0].size - 1
                 }
-                mineField[x][y].direction = direction
-                if (stepsMap[x] == null) {
-                    stepsMap[x] = mutableMapOf()
+                if (mineField[x][y].direction != START_POSITION) {
+                    mineField[x][y].direction = direction
                 }
-                if (stepsMap[x]?.get(y) == null) {
-                    stepsMap[x]?.put(y, 0)
+                if (stepsMap[getCellKey(x,y)] == null) {
+                    stepsMap[getCellKey(x,y)] = 0
                 }
-                stepsMap[x]?.put(y, stepsMap[x]?.get(y)?.plus(1)!!)
-                if (stepsMap[x]?.get(y)?.compareTo(2)!!>=0) {
+                stepsMap[getCellKey(x,y)] = stepsMap[getCellKey(x,y)]?.plus(1)!!
+                if (stepsMap[getCellKey(x,y)]?.compareTo(2)!! >= 0) {
                     print("  x=$x, y=$y; ")
+                    removeExplicitSteps(stepsMap, x, y)
                 }
             }
             direction = getDirection(direction)
             println()
         }
         mineField[x][y].direction = FINISH_POSITION
-        // println(stepsMap)
+    }
+
+    private fun getOptimizedRobotPath() {
+        stepsMap.map {
+            mineFieldOptimized[
+                Integer.parseInt(
+                    it.key.subSequence(0, it.key.indexOf("|")).toString()
+                )
+            ][
+                Integer.parseInt(
+                    it.key.subSequence(it.key.indexOf("|") + 1, it.key.length).toString()
+                )
+            ].direction =
+                mineField[
+                    Integer.parseInt(
+                        it.key.subSequence(0, it.key.indexOf("|")).toString()
+                    )
+                ][
+                    Integer.parseInt(
+                        it.key.subSequence(it.key.indexOf("|") + 1, it.key.length).toString()
+                    )
+                ].direction
+        }
     }
 
     private fun getInitialDirection():String {
@@ -117,6 +148,15 @@ class MineField {
             }
         }
         return START_POSITION
+    }
+
+    private fun getCellKey(x: Int, y: Int) = "$x|$y"
+
+    private fun removeExplicitSteps(stepsMap: LinkedHashMap<String, Int>, x: Int, y: Int) {
+        stepsMap.entries.removeAll {
+            stepsMap.entries.indexOf(it) > stepsMap.keys.indexOf(getCellKey(x,y))
+        }
+        stepsMap.entries.last().setValue(1)
     }
 
     data class MineCell(val x: Int, val y: Int, var direction: String)
