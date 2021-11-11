@@ -4,6 +4,7 @@ package com.example.vladislav.androidstudy.kotlin.sometasks.minefield
  * http://svgimnazia1.grodno.by/sinica/Book_ABC/Book_ABC_pascal/olimp_resh/olimp_resh48.htm
  *
  * NOT YET COMPLETE
+ * ─│└ ┐┘┌ ├ ┤┬ ┴ ┼ ╵╴╶╷
  */
 class MineField {
 
@@ -44,18 +45,34 @@ class MineField {
         var x = mineField.size / 2
         var y = mineField[0].size / 2
         mineField[x][y].direction = START_POSITION
-        stepsMap[getCellKey(x,y)] = 0
+        stepsMap[getCellKey(x, y)] = 0
         val turns = (1 until turnsNumber).random()
-        var steps :Int
+        var steps: Int
         for (turn in 0 until turns) {
             steps = (1 until stepsNumber).random()
-            print("#$turn: steps=$steps $direction" )
+            print("#$turn: steps=$steps $direction")
             for (step in 0 until steps) {
                 when (direction) {
-                    DIRECTION_RIGHT -> x++
-                    DIRECTION_UP -> y--
-                    DIRECTION_LEFT -> x--
-                    DIRECTION_DOWN -> y++
+                    DIRECTION_RIGHT -> {
+                        mineField[x][y].direction = defineDirectionForCurrentChar(direction, x, y)
+                        x++
+                        mineField[x][y].direction = defineDirectionForNextChar(direction, x, y)
+                    }
+                    DIRECTION_UP -> {
+                        mineField[x][y].direction = defineDirectionForCurrentChar(direction, x, y)
+                        y--
+                        mineField[x][y].direction = defineDirectionForNextChar(direction, x, y)
+                    }
+                    DIRECTION_LEFT -> {
+                        mineField[x][y].direction = defineDirectionForCurrentChar(direction, x, y)
+                        x--
+                        mineField[x][y].direction = defineDirectionForNextChar(direction, x, y)
+                    }
+                    DIRECTION_DOWN -> {
+                        mineField[x][y].direction = defineDirectionForCurrentChar(direction, x, y)
+                        y++
+                        mineField[x][y].direction = defineDirectionForNextChar(direction, x, y)
+                    }
                 }
                 if (x == mineField.size) {
                     x = 0
@@ -69,14 +86,11 @@ class MineField {
                 if (y == -1) {
                     y = mineField[0].size - 1
                 }
-                if (mineField[x][y].direction != START_POSITION) {
-                    mineField[x][y].direction = direction
+                if (stepsMap[getCellKey(x, y)] == null) {
+                    stepsMap[getCellKey(x, y)] = 0
                 }
-                if (stepsMap[getCellKey(x,y)] == null) {
-                    stepsMap[getCellKey(x,y)] = 0
-                }
-                stepsMap[getCellKey(x,y)] = stepsMap[getCellKey(x,y)]?.plus(1)!!
-                if (stepsMap[getCellKey(x,y)]?.compareTo(2)!! >= 0) {
+                stepsMap[getCellKey(x, y)] = stepsMap[getCellKey(x, y)]?.plus(1)!!
+                if (stepsMap[getCellKey(x, y)]?.compareTo(2)!! >= 0) {
                     print("  x=$x, y=$y; ")
                     removeExplicitSteps(stepsMap, x, y)
                 }
@@ -110,7 +124,7 @@ class MineField {
         }
     }
 
-    private fun getInitialDirection():String {
+    private fun getInitialDirection(): String {
         return when ((0 until 4).random()) {
             0 -> DIRECTION_DOWN
             1 -> DIRECTION_UP
@@ -123,25 +137,25 @@ class MineField {
     private fun getDirection(direction: String): String {
         when (direction) {
             DIRECTION_RIGHT -> {
-                when((0 until 1).random()) {
+                when ((0 until 1).random()) {
                     0 -> return DIRECTION_UP
                     1 -> return DIRECTION_DOWN
                 }
             }
             DIRECTION_UP -> {
-                when((0 until 1).random()) {
+                when ((0 until 1).random()) {
                     0 -> return DIRECTION_LEFT
                     1 -> return DIRECTION_RIGHT
                 }
             }
             DIRECTION_LEFT -> {
-                when((0 until 1).random()) {
+                when ((0 until 1).random()) {
                     0 -> return DIRECTION_DOWN
                     1 -> return DIRECTION_UP
                 }
             }
             DIRECTION_DOWN -> {
-                when((0 until 1).random()) {
+                when ((0 until 1).random()) {
                     0 -> return DIRECTION_RIGHT
                     1 -> return DIRECTION_LEFT
                 }
@@ -154,10 +168,132 @@ class MineField {
 
     private fun removeExplicitSteps(stepsMap: LinkedHashMap<String, Int>, x: Int, y: Int) {
         stepsMap.entries.removeAll {
-            stepsMap.entries.indexOf(it) > stepsMap.keys.indexOf(getCellKey(x,y))
+            stepsMap.entries.indexOf(it) > stepsMap.keys.indexOf(getCellKey(x, y))
         }
         stepsMap.entries.last().setValue(1)
     }
+
+    private fun defineDirectionForCurrentChar(direction: String, x: Int, y: Int) =
+        when (direction) {
+            DIRECTION_RIGHT -> {
+                when (mineField[x][y].direction) {
+                    "│" -> "├"
+                    "┐" -> "┬"
+                    "┘" -> "┴"
+                    "┤" -> "┼"
+                    " " -> "╶"
+                    "╵" -> "└"
+                    "╷" -> "┌"
+                    "╴" -> "─"
+                    START_POSITION -> "╶"
+                    else -> mineField[x][y].direction
+                }
+            }
+            DIRECTION_UP -> {
+                when (mineField[x][y].direction) {
+                    "─" -> "┴"
+                    " " -> "╵"
+                    "┐" -> "┤"
+                    "┌" -> "├"
+                    "┬" -> "┼"
+                    "╴" -> "┘"
+                    "╶" -> "└"
+                    "╷" -> "│"
+                    START_POSITION -> "╵"
+                    else -> mineField[x][y].direction
+                }
+            }
+            DIRECTION_LEFT -> {
+                when (mineField[x][y].direction) {
+                    " " -> "╴"
+                    "│" -> "┤"
+                    "└" -> "┴"
+                    "┌" -> "┬"
+                    "├" -> "┼"
+                    "╵" -> "┘"
+                    "╷" -> "┐"
+                    "╶" -> "─"
+                    START_POSITION -> "╴"
+                    else -> mineField[x][y].direction
+                }
+            }
+            DIRECTION_DOWN -> {
+                when (mineField[x][y].direction) {
+                    " " -> "╷"
+                    "─" -> "┬"
+                    "└" -> "├"
+                    "┘" -> "┤"
+                    "┴" -> "┼"
+                    "╵" -> "│"
+                    "╴" -> "┐"
+                    "╶" -> "┌"
+                    START_POSITION -> "╷"
+                    else -> mineField[x][y].direction
+                }
+            }
+            else -> "?"
+        }
+
+    private fun defineDirectionForNextChar(direction: String, x: Int, y: Int) =
+        when (direction) {
+            DIRECTION_RIGHT -> {
+                when (mineField[x][y].direction) {
+                    " " -> "╴"
+                    "│" -> "┤"
+                    "└" -> "┴"
+                    "┌" -> "┬"
+                    "├" -> "┼"
+                    "╵" -> "┘"
+                    "╶" -> "─"
+                    "╷" -> "┐"
+                    START_POSITION -> ""
+                    else -> mineField[x][y].direction
+                }
+            }
+            DIRECTION_UP -> {
+                when (mineField[x][y].direction) {
+                    " " -> "╷"
+                    "─" -> "┬"
+                    "└" -> "├"
+                    "┘" -> "┤"
+                    "┴" -> "┼"
+                    "╵" -> "│"
+                    "╴" -> "┐"
+                    "╶" -> "┌"
+                    START_POSITION -> ""
+                    else -> mineField[x][y].direction
+                }
+            }
+            DIRECTION_LEFT -> {
+                when (mineField[x][y].direction) {
+                    "│" -> "├"
+                    "┐" -> "┬"
+                    "┘" -> "┴"
+                    "┤" -> "┼"
+                    "╵" -> "└"
+                    " " -> "╶"
+                    "╴" -> "─"
+                    "╷" -> "┌"
+                    START_POSITION -> ""
+                    else -> mineField[x][y].direction
+                }
+            }
+            DIRECTION_DOWN -> {
+                when (mineField[x][y].direction) {
+                    " " -> "╵"
+                    "─" -> "┴"
+                    "┐" -> "┤"
+                    "┌" -> "├"
+                    "┬" -> "┼"
+                    "╴" -> "┘"
+                    "╶" -> "└"
+                    "╷" -> "│"
+                    START_POSITION -> "╵"
+                    else -> mineField[x][y].direction
+                }
+            }
+            else -> "?"
+        }
 
     data class MineCell(val x: Int, val y: Int, var direction: String)
 
