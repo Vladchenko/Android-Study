@@ -1,11 +1,9 @@
 package com.example.vladislav.androidstudy.kotlin
 
 import android.content.Context
-import com.example.vladislav.androidstudy.kotlin.utils.findShortestString
-import com.example.vladislav.androidstudy.kotlin.utils.getAllJavaVersions
-import com.example.vladislav.androidstudy.kotlin.utils.getDistanceBetween2Strings
-import com.example.vladislav.androidstudy.kotlin.utils.toBackwardsOrderStrings
-import com.example.vladislav.androidstudy.kotlin.utils.toLenghtSortedStrings
+import com.example.vladislav.androidstudy.kotlin.sometasks.minefield.MineField
+import com.example.vladislav.androidstudy.kotlin.utils.isEveryCharUnique2
+import com.example.vladislav.androidstudy.kotlin.utils.removeAllExceptDigits
 
 /**
  * Main class
@@ -70,9 +68,20 @@ class Main {
 //         println("jdeгвав".toBackwardsOrder())
 //         println("vc8s6cz16c".charAppearanceNumber('c'))
 //         println("as df см ап".toSortedOrderStrings())
-//         println("ыва апр ыва sd укеннг вмро s ыа asdf".findShortestString())
+//         println("ыва апр ыва sd укеннг вмро s ыа asdf".findShortestStringMap())
 //         println("dv u erth sdvty df ".getDistanceBetween2Strings("erth", "dv"))
 //         println("sfghhr vcse s fbrythm ыва аиптпрт вы".toLenghtSortedStrings())
-        println("Java java 4 Java X Java0 Java 0 Java 0.1 Java 1 Java 1.0 Java 1.1 Java   5 Java 1.8 Java 10 Java 11".getAllJavaVersions())
+//         println("Java java 4 Java X Java0 Java 0 Java 0.1 Java 1 Java 1.0 Java 1.1 Java   5 Java 1.8 Java 10 Java 11".getAllJavaVersions())
+//         println(retrieveNumberOfLuckyTickets())
+
+        // val mineField = MineField()
+        // mineField.initializeMineField()
+        // mineField.makeRobotPath(20, 8)
+        // mineField.printInitialField()
+        // mineField.printOptimizedField()
+
+        println("dsa".isEveryCharUnique2())
+        println("adsa".isEveryCharUnique2())
+        println("dsaz".isEveryCharUnique2())
     }
 }

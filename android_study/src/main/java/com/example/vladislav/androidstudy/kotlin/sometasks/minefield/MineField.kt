@@ -102,26 +102,37 @@ class MineField {
     }
 
     private fun getOptimizedRobotPath() {
-        stepsMap.map {
-            mineFieldOptimized[
-                Integer.parseInt(
-                    it.key.subSequence(0, it.key.indexOf("|")).toString()
-                )
-            ][
-                Integer.parseInt(
-                    it.key.subSequence(it.key.indexOf("|") + 1, it.key.length).toString()
-                )
-            ].direction =
-                mineField[
-                    Integer.parseInt(
-                        it.key.subSequence(0, it.key.indexOf("|")).toString()
-                    )
-                ][
-                    Integer.parseInt(
-                        it.key.subSequence(it.key.indexOf("|") + 1, it.key.length).toString()
-                    )
-                ].direction
+        var currentCellX: Int
+        var currentCellY: Int
+        stepsMap.forEach {
+            currentCellX = Integer.parseInt(
+                it.key.subSequence(0, it.key.indexOf("|")).toString()
+            )
+            currentCellY = Integer.parseInt(
+                it.key.subSequence(it.key.indexOf("|") + 1, it.key.length).toString()
+            )
+            mineFieldOptimized[currentCellX][currentCellY].direction =
+                mineField[currentCellX][currentCellY].direction
         }
+        // Optimizing each char
+        // stepsMap.forEach {
+        //     currentCellX = Integer.parseInt(
+        //         it.key.subSequence(0, it.key.indexOf("|")).toString()
+        //     )
+        //     currentCellY = Integer.parseInt(
+        //         it.key.subSequence(it.key.indexOf("|") + 1, it.key.length).toString()
+        //     )
+        //     mineFieldOptimized[currentCellX][currentCellY].direction = when (mineFieldOptimized[currentCellX][currentCellY].direction) {
+        //         "┼" ->
+        //             if (mineFieldOptimized[currentCellX + 1][currentCellY].direction != " "
+        //                 && mineFieldOptimized[currentCellX - 1][currentCellY].direction != " ") {
+        //                 " "
+        //             } else {
+        //                 " "
+        //             }.toString()
+        //         }
+        //     }
+        // }
     }
 
     private fun getInitialDirection(): String {

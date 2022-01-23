@@ -17,7 +17,7 @@ fun isNotDigit(c: Char) = c !in '0'..'9'    // Or !c.isDigit()
  * Character to integer conversion.
  */
 fun charToInt(c: Char): Int {
-    if (c !in '0'..'9') throw IllegalArgumentException("$c argument is wrong, it has to be a digit")
+    if (!c.isDigit()) throw IllegalArgumentException("$c argument is wrong, it has to be a digit")
     else return c.toInt() - 48
 }
 
@@ -31,7 +31,7 @@ fun <T> printArray(array: Array<T>) {
     array.map { println(it) }
 }
 
-fun isLetter(c: Char) = c in 'a'..'z' || c.isLetter() in 'A'..'Z'  // c.isLetter()
+fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'  // c.isLetter()
 
 fun String.isPalindrome(): Boolean {
     if (this.length == 1) return true
@@ -43,10 +43,24 @@ fun String.isPalindrome(): Boolean {
     return true
 }
 
+fun String.isPalindrome2():Boolean {
+    val stringHalf =
+        if (this.length % 2 == 0)  {
+            this.drop(this.length / 2)
+        } else {
+            this.drop(this.length / 2 + 1)
+        }
+    stringHalf.forEachIndexed { index, c ->
+        if (c != this[this.length / 2 - index - 1]) return false
+        if (this.length / 2 == index) return true
+    }
+    return true
+}
+
 /**
  * Retrieve a list of words
  */
-fun String.retrieveWords() = this.trim().split(Regex("\\s+"), 0)
+fun String.retrieveWords() = this.trim().split(Regex("\\s+"), 0)    // One could use split(" ")
 
 /**
  * Retrieve a list of palindromes
@@ -99,7 +113,7 @@ fun String.wordsQuantity() = this.trim().split(Regex("\\s+"), 0).count {
 /**
  * Retrieve a number of char present in a string
  */
-fun String.charNumberInString(char: Char) = this.count { it == char }
+fun String.charNumberInString(char: Char) = this.count { it == char }   //this.map().count()    //this.length()
 
 /**
  * Retrieve the longest word (first occurence is taken)
@@ -131,6 +145,9 @@ fun String.removeRepetitiveChars(): String {
     return string
 }
 
+/**
+ * Retrieve a number of specific char in string
+ */
 fun String.charAppearanceNumber(char: Char) = this.count {
     it == char
 }
@@ -250,7 +267,7 @@ fun String.solveExpression(): String {
 /**
  * Replace a [replaceableString] with a [replacingString].
  */
-fun String.replaceString(replaceableString: String, replacingString: String) =
+fun String.replaceString(replaceableString: String, replacingString: String) =  // No need to make this function, since there is replace(...) fun for String
     this.trim().split(Regex("\\s+")).joinToString {
         if (it == replaceableString) {
             replacingString
@@ -395,6 +412,8 @@ fun String.isEveryCharUnique(): Boolean {
     return true
 }
 
+fun String.isEveryCharUnique2() = this.toCharArray().distinct().size == this.length     // One could use toSet() instead of toCharArray()
+
 /**
  * Retrieve distinct(unique) chars.
  */
@@ -468,7 +487,7 @@ fun String.getAllJavaVersions(): List<String> {
 /**
  * Retrieve string in sorted order of a lengths of its incorporating strings.
  */
-fun String.toLenghtSortedStrings() = this.split(Regex("\\s+")).sortedBy {
+fun String.toLengthSortedStrings() = this.split(Regex("\\s+")).sortedBy {
     it.length
 }
 
