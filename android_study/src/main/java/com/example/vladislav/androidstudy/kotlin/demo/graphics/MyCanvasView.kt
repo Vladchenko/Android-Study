@@ -10,6 +10,10 @@ import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.content.res.ResourcesCompat
 import com.example.vladislav.androidstudy.R
+import com.example.vladislav.androidstudy.kotlin.demo.graphics.models.Figure
+import com.example.vladislav.androidstudy.kotlin.demo.graphics.models.Circle
+import com.example.vladislav.androidstudy.kotlin.demo.graphics.models.Line
+import com.example.vladislav.androidstudy.kotlin.demo.graphics.models.Rectangle
 import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
@@ -28,6 +32,12 @@ class MyCanvasView(context: Context) : View(context) {
     private val touchTolerance = ViewConfiguration.get(context).scaledTouchSlop
     private val backgroundColor = ResourcesCompat.getColor(resources, R.color.colorBackground, null)
     private val drawColor = ResourcesCompat.getColor(resources, R.color.colorPaint, null)
+    private val drawableItems = listOf(
+        Circle(100f,90f,50f),
+        Line(520f, 120f, 630f, 30f),
+        Rectangle(340f, 40f, 460f, 60f),
+        Figure(250f, 120f)
+    )
 
     // Set up the paint with which to draw.
     private val paint = Paint().apply {
@@ -72,6 +82,9 @@ class MyCanvasView(context: Context) : View(context) {
                 canvas.width / 2f + dX,
                 canvas.height / 2f + dY, paint
             )
+        }
+        drawableItems.map {
+            it.drawFigure(canvas, paint)    // Polymorphism demo
         }
     }
 

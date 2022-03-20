@@ -29,9 +29,9 @@ class NetworkApiMapper {
                         .url(url)
                         .build()
                     OkHttpClient().newCall(request).execute().let {
-                        println(it.headers())
-                        val input = it.body()?.byteStream()
-                        val length: Long = it.body()?.contentLength()!!
+                        println(it.headers)
+                        val input = it.body?.byteStream()
+                        val length: Long = it.body?.contentLength()!!
                         /**
                         contentLength() will retrieve value only when header: Content-Length in the downloading file
                         is present.
