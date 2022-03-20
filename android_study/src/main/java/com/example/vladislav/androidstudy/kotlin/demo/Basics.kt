@@ -5,7 +5,7 @@ import androidx.constraintlayout.solver.widgets.Rectangle
 import androidx.core.util.toRange
 import com.example.vladislav.androidstudy.kotlin.models.SomeModel
 import com.example.vladislav.androidstudy.kotlin.utils.createFilesDirIfAbsent
-import com.example.vladislav.androidstudy.kotlin.utils.solveExpression
+import solveExpression
 import java.io.File
 import java.math.BigDecimal
 import java.nio.file.Files
@@ -67,7 +67,7 @@ class Basics {
 
     fun stringLength(row: String) = row.length  // Same to String.stringLength() = this.length
 
-    private fun elvisOperatorDemo(name: String?) = name ?: "no name" // Return "name", it it is not null,
+    private fun elvisOperatorDemo(name: String?) = name ?: "no name" // Return "name", if it is not null,
     // else return "no name"
 
     private val isEmpty: Boolean get() = "Some string".isEmpty()  // Extension property
@@ -77,6 +77,8 @@ class Basics {
     private fun String.isEmpty3() = this.isEmpty()      // One more alternative to isEmpty()
 
     private fun isEven(i: Int): Boolean = i % 2 == 0    // Almost same as - fun Int.isEven(): Boolean = this % 2 == 0
+
+    private fun isEven2(i: Int) = i % 2 == 0     // Type can be omitted
 
     private var setterWithAnnotation: Any? = null
         @Inject set // Annotate the setter with Inject (also with a default implementation)
@@ -100,8 +102,9 @@ class Basics {
             println(it)     // Printing an array
         }
         for (item in array3) print(item)
-        println(array2.distinctBy {
-            it.toString().toIntOrNull()
+        println()
+        println("distinctBy: " + array2.distinctBy {
+            it.toString().toIntOrNull()    // Prints [1, 2.3, 567], 2.3 is present because it yields null and null is unique value among others
         })   // TODO Understand distinctBy and implement other methods
         println(array2.getOrNull(40) ?: "Неизвестный индекс")
         println(
@@ -133,7 +136,7 @@ class Basics {
         println(list.map { it })    // Printing list
         println(list) //[1,2,3,4,5] invokes toString()  // Printing list
         listOf(1, 2, 3, 4, 5).forEach {
-            if (it == 3) return // non-local return directly to the caller of foo()
+            if (it == 3) return@forEach
             print(it)
         }
         list.first() // First element in list
@@ -171,20 +174,20 @@ class Basics {
             this?.forEach {
                 println(it)
             }
-        }
+        }   // Ничего не выводится
         // Выбрать элементы, если список не содержит Пушистика
         val cats2 = listOf("Рыжик", "Мурзик", "Барсик", "Васька")
         cats2.takeUnless {
             it.contains("Пушистик")
         }.apply {
-            this?.forEach {
+            this?.let {
                 println(it)
             }
-        }
+        }   // [Рыжик, Мурзик, Барсик, Васька]
         val cats3 = listOf("Барсик", "Мурзик", "Пикассо", "Васька", "Рыжик")
         // Содержит "ик", сортируем по длине слова
         val filtered = cats3.filter { it.contains("ик") }.sortedBy { it.length }
-        println(filtered)
+        println(filtered)   // [Рыжик, Барсик, Мурзик, Пикассо]
         val cats4 = listOf("Барсик", "Мурзик", "Пикассо", "Васька", "Рыжик", "Пушок")
         // Начинается на "П" и оканчивается на "к"
         val filtered2 = cats4.filter { it.startsWith('П') }.filter { it.endsWith('к') }
@@ -201,13 +204,43 @@ class Basics {
         val cats6 = listOf("Мурзик", "Барсик", "Рыжик")
         println("Барсик и Мурзик в списке: ${cats6.containsAll(listOf("Барсик", "Мурзик"))}")
         println(listOf(1, 2, 3, 4, 5).elementAt(3)) // 4    // Также доступны elementAtOrElse, elementAtOrNull.
-        listOf(1, 2, 3, 4, 5).find { it > 3 }   // 4
+        listOf(1, 2, 3, 4, 5).find { it > 3 }   // 4 (find находит только 1-е вхождение. Для всех надо использовать filter)
         listOf(1, 2, 3, 4, 5).findLast { it > 3 }   // 5
         // Функция single() вернёт один уникальный элемент из списка. Если элементов, соответствующих условию, будет
-        // несколько будет исключение. singleOrNull вместо исключения вернёт null.
+        // несколько, то вернёт null.
         println(listOf(1, 6, 3, 4, 5).singleOrNull { it % 3 == 0 }) // null
-        // Сортировка списка - http://developer.alexanderklimov.ru/android/kotlin/collection.php
-        //TODO Stopped @ Сортировка по условию. Отсортируем по именам котов при помощи sortBy(). http://developer.alexanderklimov.ru/android/kotlin/collection.php
+
+        val list3 = mutableListOf(1,2,3,4,5)
+        list3.reverse() // Reverses a mutable list itself (no need to write list3 = list3.reverse())
+        println("list3.reverse() = $list3")  // [5,4,3,2,1]
+        println(someList.reversed())    // Prints items in backwards order [4,3,2,1]
+
+        val list4 = mutableListOf(1,20,3,40,5)
+        list4.sort() // Sorts a mutable list itself (no need to write list4 = list4.reverse())
+        println("list3.sort() = $list4")  // [1,3,5,20,40]
+        println(someList.sorted())    // Sorts items [1,2,3,4]
+        println(listOf(4,8,2,4,9).sortedDescending())    // Sorts items [9,8,4,4,2]
+        println("listOf(4,8,2,4,9).sortedBy { it > 4 } = ${listOf(4,8,2,4,9).sortedBy { it > 4 }}") // [4, 2, 4, 8, 9]
+        println("listOf(4,8,2,4,9).sortedByDescending { it < 9 } = ${listOf(4,8,2,4,9).sortedByDescending { it < 9 }}") // [4, 8, 2, 4, 9]
+        println(listOf(2,9,5,null,1,5,0,3,null).sortedWith(
+            // nullsLast(compareBy { it })  // Will have nulls coming last in a list
+            nullsFirst(compareBy { it })
+        ))  // [null, null, 0, 1, 2, 3, 5, 5, 9]
+
+        data class Cat(val name: String, val age: Int, val weight: Int)
+        val cats7 = mutableListOf<Cat>()
+        cats7.add(Cat("Мурзик", 4, 5400))
+        cats7.add(Cat("Рыжик", 5, 6500))
+        cats7.add(Cat("Василий", 4, 5100))
+        cats7.add(Cat("Мурзик", 6, 5400))
+        println(cats7.sortedWith(
+            compareBy(
+                {it.name}, {it.age}
+            )
+        ))
+
+        //TODO Stopped @ Сортируем по длине имён в порядке возрастания, используя Comparator.
+        // http://developer.alexanderklimov.ru/android/kotlin/collection.php
     }
 
     fun setDemo() {

@@ -1,4 +1,4 @@
-package com.example.kotlinstudy.demo
+package com.example.vladislav.androidstudy.kotlin.demo
 
 /**
  * This is similar to a static area in Java

@@ -1,9 +1,13 @@
 package com.example.vladislav.androidstudy.kotlin
 
 import android.content.Context
+import com.example.vladislav.androidstudy.kotlin.demo.Basics
 import com.example.vladislav.androidstudy.kotlin.sometasks.minefield.MineField
-import com.example.vladislav.androidstudy.kotlin.utils.isEveryCharUnique2
-import com.example.vladislav.androidstudy.kotlin.utils.removeAllExceptDigits
+import indexOfLongestWord
+import removeExcessiveSpaces2
+import retrieveNumbers
+import toAlphabetSortedStrings
+import toAlphabetSortedStrings2
 
 /**
  * Main class
@@ -73,6 +77,7 @@ class Main {
 //         println("sfghhr vcse s fbrythm ыва аиптпрт вы".toLenghtSortedStrings())
 //         println("Java java 4 Java X Java0 Java 0 Java 0.1 Java 1 Java 1.0 Java 1.1 Java   5 Java 1.8 Java 10 Java 11".getAllJavaVersions())
 //         println(retrieveNumberOfLuckyTickets())
+        println("      4    5 3   6664   783      ".toAlphabetSortedStrings())
 
         // val mineField = MineField()
         // mineField.initializeMineField()
@@ -80,8 +85,6 @@ class Main {
         // mineField.printInitialField()
         // mineField.printOptimizedField()
 
-        println("dsa".isEveryCharUnique2())
-        println("adsa".isEveryCharUnique2())
-        println("dsaz".isEveryCharUnique2())
+        // ParametrizationDemo().showT()
     }
 }

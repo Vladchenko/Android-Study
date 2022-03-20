@@ -89,6 +89,13 @@ open class Base(val name: String) {     // "open" means one can inherit from suc
 class Derived(
     name: String,
     val lastName: String
+) : Base(name) {    // Calling a parent constructor with its parameter
+    //Some code
+}
+
+class Derived2(
+    name: String,
+    val lastName: String
 ) : Base(name.capitalize().also { println("Argument for Base: $it") }) {
 
     init { println("Initializing Derived") }
@@ -96,5 +103,4 @@ class Derived(
     override val size: Int =
         (super.size + lastName.length).also { println("Initializing size in Derived: $it") }
 }
-
 

@@ -8,9 +8,11 @@ import com.example.vladislav.androidstudy.kotlin.demo.ExtensionFunctionsDemoKt;
 import java.util.List;
 
 /**
- * Created by Влад on 27.05.2018.
+ * Some utils methods for whole app.
+ *
+ * @author Yanchenko Vladislav
+ * @date 27.05.2018.
  */
-
 public class Utils {
 
     public static final String TAG = Utils.class.getClass().toString();
@@ -35,7 +37,7 @@ public class Utils {
         printStrings((String[])list.toArray());
     }
 
-    private static void KotlinExtesionsDemo() {
+    private static void KotlinExtensionsDemo() {
         // This is how an extension function is called from Kotlin, within Java
         System.out.println(ExtensionFunctionsDemoKt.lastChar(""));
     }

@@ -1,5 +1,3 @@
-package com.example.vladislav.androidstudy.kotlin.utils
-
 /**
  * Some utils class.
  *
@@ -18,17 +16,7 @@ fun isNotDigit(c: Char) = c !in '0'..'9'    // Or !c.isDigit()
  */
 fun charToInt(c: Char): Int {
     if (!c.isDigit()) throw IllegalArgumentException("$c argument is wrong, it has to be a digit")
-    else return c.toInt() - 48
-}
-
-fun <T> printArray(array: Array<T>) {
-//            for (element in array) {
-//                println(element)
-//            }
-//            array.forEach(System.out::print)
-//            array.forEach(::print)
-//            println(array.joinToString(" "))
-    array.map { println(it) }
+    else return c.toInt() - 48      // c.digitToInt() - this one should work, but it cannot be imported
 }
 
 fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'  // c.isLetter()
@@ -60,7 +48,14 @@ fun String.isPalindrome2():Boolean {
 /**
  * Retrieve a list of words
  */
-fun String.retrieveWords() = this.trim().split(Regex("\\s+"), 0)    // One could use split(" ")
+fun String.retrieveWords() = this.trim().split(Regex("\\s+"), 0)
+// For split(), one could use split(" "), even split("") for space delimiter
+// trim() is redundant, since split(" ") or split("") removes leading and subsequent spaces.
+
+/**
+ * Get a quantity of a words present in a string (numbers included)
+ */
+fun String.wordsNumber() = this.trim().split(Regex("\\s+"), 0).size // Or .count()
 
 /**
  * Retrieve a list of palindromes
@@ -80,7 +75,7 @@ fun String.retrieveLongestPalindrome() = this.retrievePalindromes().maxByOrNull 
 /**
  * Retrieve a list of integer and real numbers
  */
-fun String.retrieveNumbers() = this.trim().split(Regex("\\s+"), 0).filter {
+fun String.retrieveNumbers() = this.split(" ").filter {
     it.toDoubleOrNull() != null
 }
 
@@ -90,11 +85,6 @@ fun String.retrieveNumbers() = this.trim().split(Regex("\\s+"), 0).filter {
 fun String.retrieveIntegerNumbers() = this.trim().split(Regex("\\s+"), 0).filter {
     it.toIntOrNull() != null
 }
-
-/**
- * Get a quantity of a words present in a string (numbers included)
- */
-fun String.wordsNumber() = this.trim().split(Regex("\\s+"), 0).size // Or .count()
 
 /**
  * Retrieve a quantity of a numbers (integral or real) present in a string
@@ -111,9 +101,19 @@ fun String.wordsQuantity() = this.trim().split(Regex("\\s+"), 0).count {
 }
 
 /**
- * Retrieve a number of char present in a string
+ * Retrieve a number of entries of char present in a string
  */
-fun String.charNumberInString(char: Char) = this.count { it == char }   //this.map().count()    //this.length()
+fun String.retrieveCharEntries(char: Char) = this.count { it == char }
+
+/**
+ * Retrieve a number of digit chars present in a string
+ */
+fun String.retrieveDigitCharsNumber() = this.count { it.isDigit() }
+
+/**
+ * Retrieve a number of non digit chars present in a string
+ */
+fun String.retrieveNonDigitCharsNumber() = this.count { !it.isDigit() }
 
 /**
  * Retrieve the longest word (first occurence is taken)
@@ -146,19 +146,12 @@ fun String.removeRepetitiveChars(): String {
 }
 
 /**
- * Retrieve a number of specific char in string
- */
-fun String.charAppearanceNumber(char: Char) = this.count {
-    it == char
-}
-
-/**
  * Retrieve an index of a longest word in a string.
  */
 fun String.indexOfLongestWord(): Int {
     val longestWord = this.longestWord()
     longestWord?.let {
-        return indexOf(it)
+        return this.indexOf(it)
     }
     return -1
 }
@@ -166,7 +159,7 @@ fun String.indexOfLongestWord(): Int {
 /**
  * Removes excessive spaces (ones that come in a sequence) from string
  */
-fun String.removeExcessiveSpaces() = this.split(Regex("\\s+")).toString()
+fun String.removeExcessiveSpaces() = this.split(Regex("\\s+")).toString()       // joinToString()
 
 /**
  * Same functionality as removeExcessiveSpaces()
@@ -176,27 +169,27 @@ fun String.removeExcessiveSpaces2() = this.filterIndexed { index, char ->
 }.trim()
 
 /**
- * Removes digits, spaces and special characters from string, keeping only Chars.
+ * Removes digits, spaces and special characters from string, keeping only symbolic Chars.
  */
 fun String.removeAllExceptChars() = this.filter { it.isLetter() }
 
 /**
- * Removes Chars, spaces and special characters from string.
+ * Removes chars, spaces and special characters from string.
  */
 fun String.removeAllExceptDigits() = this.filter { it.isDigit() }
 
 /**
- * Removes all characters, except digits and Chars from string
+ * Removes all characters, except digits and chars from string
  */
 fun String.removeAllExceptDigitsAndChars() = this.filter { it.isLetterOrDigit() }
 
 /**
- * Counts a number of a capital Chars in a string
+ * Counts a number of a capital chars in a string
  */
 fun String.capitalCharsCount() = this.count { it.isUpperCase() }
 
 /**
- * Counts a number of a lowercase Chars in a string
+ * Counts a number of a lowercase chars in a string
  */
 fun String.lowercaseCharsCount() = this.count { it.isLowerCase() }
 
@@ -337,7 +330,7 @@ fun String.replaceNumbersWithSymbolicRepresentation(): String {
     return resultString.drop(2)
 }
 
-private fun Char.getTenToTwentySymbolicRepresentation() =
+fun Char.getTenToTwentySymbolicRepresentation() =
     when (this) {
         '0' -> ""
         '1' -> "eleven "
@@ -412,7 +405,9 @@ fun String.isEveryCharUnique(): Boolean {
     return true
 }
 
-fun String.isEveryCharUnique2() = this.toCharArray().distinct().size == this.length     // One could use toSet() instead of toCharArray()
+fun String.isEveryCharUnique2() = this.toCharArray().distinct().size == this.length
+
+fun String.isEveryCharUnique3() = this.toSet().size == this.length
 
 /**
  * Retrieve distinct(unique) chars.
@@ -462,7 +457,12 @@ fun String.toBackwardsOrderStrings() = this.split(Regex("\\s+")).reversed()
 /**
  * Retrieve string in sorted order of its incorporating strings.
  */
-fun String.toAlphabetSortedStrings() = this.split(Regex("\\s+")).sorted()
+fun String.toAlphabetSortedStrings() = this.trim().split(Regex("\\s+")).sorted()      // trim() is needed here, else it provides empty item in 1st and 2nd positions
+
+/**
+ * Retrieve string in sorted order of its incorporating strings.
+ */
+fun String.toAlphabetSortedStrings2() = this.trim().split(Regex("\\s+")).toSortedSet()      // trim() is needed here, else it provides empty item in 1st position
 
 /**
  * Get all Java versions, say "java Java 5, Java  6, Java 1.6" should yield [Java 5, Java  6, Java 1.6]

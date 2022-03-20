@@ -26,6 +26,9 @@ class MapDemo {
         fun mapDemo() {
             println(map1["key"])
             map1.forEach { key, value -> println("$key -> $value") }
+            for ((key, value) in map1) {
+                print("$key -> $value,  ")
+            }
             val mutableMap =
                 mutableMapOf(1 to "1", 2 to "2", 3 to "3") // Map that one can add values to
             mutableMap.put(4, "4")

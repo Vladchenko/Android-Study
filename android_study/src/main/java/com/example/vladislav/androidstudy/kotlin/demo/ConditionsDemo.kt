@@ -81,6 +81,24 @@ fun whenDemo6(c1: Color, c2: Color) =
         else -> throw Exception("Dirty color")
     }
 
+fun whenDemo7() {
+    val items = listOf("apple", "banana", "kiwifruit")
+    when {
+        "orange" in items -> println("juicy")
+        "apple" in items -> println("apple is fine too")
+    }
+}
+
+fun whenDemo8(obj: Any): String =
+    when (obj) {
+        1 -> "One"
+        "Hello" -> "Greeting"
+        is Long -> "Long"
+        is Int -> "Int"
+        !is String -> "Not a string"
+        else -> "Unknown"
+    }
+
 // Another demo of "when"
 fun hasPrefix(x: Any) =
     when (x) {

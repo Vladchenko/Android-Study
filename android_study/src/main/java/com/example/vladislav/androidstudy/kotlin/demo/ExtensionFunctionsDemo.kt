@@ -1,5 +1,19 @@
 package com.example.vladislav.androidstudy.kotlin.demo
 
+class Temperature(var tempInCelsius: Float)
+
+var Temperature.tempInFahrenheit: Float     // This is an extension property
+    get() = (tempInCelsius * 9 / 5) + 32
+    set(value) {
+        tempInCelsius = (value - 32) * 5 / 9
+    }
+
+fun extensionPropertyDemo() {
+    val temp = Temperature(100f)
+    println(temp.tempInFahrenheit)
+}
+
+
 fun extensionFunctionDemo() {
     println("Convert this to camelcase".spaceToCamelCase())
     println("Last char here".last())
