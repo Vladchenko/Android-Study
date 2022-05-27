@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="5"
+    android:rowCount="4"
+    tools:context=".separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity">
+
+    <Button
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_rowSpan="2"
+        android:layout_columnSpan="2"
+        android:layout_gravity="fill"
+        android:id="@+id/button_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:id="@+id/button_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:id="@+id/button_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:id="@+id/button_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_columnSpan="2"
+        android:id="@+id/button_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:id="@+id/button_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:id="@+id/button_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="7" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_columnSpan="2"
+        android:id="@+id/button_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_columnSpan="2"
+        android:layout_rowSpan="2"
+        android:layout_gravity="fill"
+        android:id="@+id/button_9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="9" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:id="@+id/button_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:id="@+id/button_11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11" />
+
+    <Button
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:id="@+id/button_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12" />
+
+</GridLayout>
