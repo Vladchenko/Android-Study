@@ -6,10 +6,10 @@ import android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
 import com.example.vladislav.androidstudy.R
 
 /**
- * Android graphics exmple taken from
+ * Android graphics example taken from
  * https://developer.android.com/codelabs/advanced-android-kotlin-training-canvas#5
  */
-class GraphicsActivity : AppCompatActivity() {
+class GraphicsDemoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

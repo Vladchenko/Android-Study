@@ -21,7 +21,7 @@
         <activity
             android:name=".separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity"
             android:exported="false" />
-        <activity android:name=".kotlin.demo.graphics.GraphicsActivity"></activity>
+        <activity android:name=".kotlin.demo.graphics.GraphicsDemoActivity"></activity>
         <activity android:name=".activities.MainWeightActivity" />
         <activity
             android:name=".activities.InitialActivity"
