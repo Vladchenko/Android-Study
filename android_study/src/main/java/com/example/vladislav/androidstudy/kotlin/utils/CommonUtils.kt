@@ -44,7 +44,7 @@ fun calculateTwoNumbers(argument1: Double, argument2: Double, operation: String?
         "-" -> argument1 - argument2
         "+" -> argument1 + argument2
         "*" -> argument1 * argument2
-        else -> NEGATIVE_INFINITY
+        else -> throw IllegalArgumentException("Wrong operation")
     }
 }
 
@@ -54,8 +54,14 @@ private fun retrieveNumber(argument: String?) =
 
 @Throws(IllegalArgumentException::class)
 private fun checkOperation(operation: String?, availableOperations: String) =
-    if (operation.isNullOrBlank() && operation.toString() !in availableOperations) {
-        throw IllegalArgumentException("Wrong operation")
-    } else {
-        true
+    with (operation) {
+        if(isNullOrBlank()) {
+            throw IllegalArgumentException("Operation is empty")
+        }
+        if (this.length > 1) {
+            throw IllegalArgumentException("Operation has to be 1 symbol long and be one of $availableOperations")
+        }
+        if (operation.toString() !in availableOperations) {
+            throw IllegalArgumentException("Operation is not supported")
+        }
     }
