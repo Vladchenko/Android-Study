@@ -4,20 +4,24 @@
     android:versionName="1.0">
 
     <application
-        android:name=".MyApplication"
+        android:name=".separatestudypackage.weatherforecastapp.demo2.presentation.WeatherForecastApp"
         android:allowBackup="true"
         android:debuggable="true"
         android:icon="@mipmap/space_marine"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".kotlin.demo.graphics.GraphicsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".separatestudypackage.weatherforecastapp.demo1.MainActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".separatestudypackage.weatherforecastapp.demo2.presentation.WeatherForecastActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity"
+            android:exported="false" />
+        <activity android:name=".kotlin.demo.graphics.GraphicsActivity"></activity>
         <activity android:name=".activities.MainWeightActivity" />
         <activity
             android:name=".activities.InitialActivity"
@@ -127,11 +131,15 @@
         <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity2">
             <intent-filter>
                 <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".kotlin.KotlinStudyActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".jobs.listviewing.recyclerview.RecyclerViewActivity" />
         <activity android:name=".jobs.simple_jobs.ContextActivity" /> <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
@@ -167,9 +175,9 @@
         <activity android:name=".javarx2.example2.ColorsActivity" />
         <activity android:name=".javarx2.example2.SchedulerActivity" />
         <activity android:name=".javarx2.example1.RxJava2Example1Activity" />
-        <activity android:name=".javarx2.example3.RxJava2Example3Activity"></activity>
+        <activity android:name=".javarx2.example3.RxJava2Example3Activity" />
         <activity android:name=".javarx2.example4.RxJava2Example4Activity" />
-        <activity android:name=".javarx2.example5.RxJava2Example5Activity"></activity>
+        <activity android:name=".javarx2.example5.RxJava2Example5Activity" />
         <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
 
         <provider

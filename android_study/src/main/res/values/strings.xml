@@ -186,4 +186,9 @@
     <string name="file_downloaded_to_message">"File is downloaded to - %1s"</string>
     <string name="downloading_by_url">"Downloading by url - %1s"</string>
 
+    <!--Weather forecast app dimens-->
+    <string name="degrees_values">Value of degrees for an air in Celsius of Fahrenheit</string>
+    <string name="default_degrees_values">25</string>
+    <string name="default_degrees_type">C</string>
+
 </resources>

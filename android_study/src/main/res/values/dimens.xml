@@ -45,4 +45,11 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="planets_specs_margin">70dp</dimen>
+
+    <!--Weather forecast app dimens-->
+    <dimen name="activity_all_borders_padding">16dp</dimen>
+    <dimen name="text_views_margin">20dp</dimen>
+    <dimen name="degrees_value_text_size">60sp</dimen>
+    <dimen name="degrees_type_text_size">30sp</dimen>
+    <dimen name="image_size">100dp</dimen>
 </resources>
