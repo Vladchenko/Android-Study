@@ -61,7 +61,7 @@ fun example1() {
     println(heroes.any { item -> item.gender == Gender.FEMALE })    //true
 
     val mapByAge: Map<Int, List<Hero>> = heroes.groupBy { it.age }
-    val (age, group) = mapByAge.maxBy { (_, group) -> group.size }!!
+    val (age, group) = mapByAge.maxByOrNull { (_, group) -> group.size }!!
     println(age)                                        //29
 
     val mapByName: Map<String, Hero> = heroes.associateBy { it.name }   // maps(name->Hero)
@@ -81,13 +81,13 @@ fun example1() {
         .flatMap { first: Hero ->
             heroes.map { second -> first to second }
         }
-        .maxBy { it.first.age - it.second.age }!!
+        .maxByOrNull { it.first.age - it.second.age }!!
     println(first.name)                                 //The Captain
 
     // Another simple way to get the oldest
-    println(heroes.maxBy { it.age }?.name)              //The Captain
+    println(heroes.maxByOrNull { it.age }?.name)              //The Captain
     // Another simple way to get the youngest
-    println(heroes.minBy { it.age }?.name)              //The Kid
+    println(heroes.minByOrNull { it.age }?.name)              //The Kid
 }
 
 // Interchangeable predicates

@@ -19,7 +19,18 @@ fun charToInt(c: Char): Int {
     else return c.toInt() - 48      // c.digitToInt() - this one should work, but it cannot be imported
 }
 
-fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'  // c.isLetter()
+fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'  // c.isLetter(), method from CharJVM.kt
+
+/**
+ * Checks if all the symbols in string are letters.
+ */
+fun String.isLetters2() = this.all { it.isLetter()  }
+
+fun String.isNumber() = this.toDoubleOrNull() != null
+
+fun String.isIntegerNumber() = this.toIntOrNull() != null
+
+fun String.isRealNumber() = this.toIntOrNull() == null && this.toDoubleOrNull() != null
 
 fun String.isPalindrome(): Boolean {
     if (this.length == 1) return true
@@ -84,6 +95,27 @@ fun String.retrieveNumbers() = this.split(" ").filter {
  */
 fun String.retrieveIntegerNumbers() = this.trim().split(Regex("\\s+"), 0).filter {
     it.toIntOrNull() != null
+}
+
+/**
+ * Checks if all the char sequences are numbers
+ */
+fun String.isAllNumbers() = this.trim().split(Regex("\\s+"), 0).all {
+    it.toDoubleOrNull() != null
+}
+
+/**
+ * Checks if all the char sequences are integer numbers
+ */
+fun String.isAllIntegerNumbers() = this.trim().split(Regex("\\s+"), 0).all {
+    it.toIntOrNull() != null
+}
+
+/**
+ * Checks if all the char sequences are integer numbers
+ */
+fun String.isAllRealNumbers() = this.trim().split(Regex("\\s+"), 0).all {
+    it.toDoubleOrNull() != null && it.toIntOrNull() == null
 }
 
 /**
