@@ -37,7 +37,7 @@ public class AsyncTasksActivity extends AppCompatActivity implements View.OnClic
         Intent intent;
         switch (v.getId()) {
             case R.id.asynctask1_button: {
-                intent = new Intent(this, AsyncTask1Activity.class);
+                intent = AsyncTask1Activity.newIntent(this);
                 startActivity(intent);
                 break;
             }

@@ -2,6 +2,7 @@ package com.example.vladislav.androidstudy.jobs.background_jobs.asynctask;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ProgressBar;
@@ -9,23 +10,30 @@ import android.widget.TextView;
 
 import com.example.vladislav.androidstudy.R;
 
+import java.lang.ref.WeakReference;
+
+/**
+ * Async task demo.
+ */
 public class AsyncTask1Activity extends Activity {
 
     private DemoAsyncTask asyncTask;
-    private static TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_task1);
-        textView = (TextView) findViewById(R.id.asynctask1_text_view);
         asyncTask = (DemoAsyncTask) getLastNonConfigurationInstance();
         if (asyncTask == null) {
-            asyncTask = new DemoAsyncTask(this);
+            asyncTask = new DemoAsyncTask();
             asyncTask.execute();
         }
         // передаем в MyTask ссылку на текущее AsyncTask1Activity
         asyncTask.link(this);
+    }
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, AsyncTask1Activity.class);
     }
 
     public Object onRetainNonConfigurationInstance() {
@@ -36,28 +44,24 @@ public class AsyncTask1Activity extends Activity {
 
     static class DemoAsyncTask extends AsyncTask<String, Void, Integer> {
 
-        private Context mContext;
+        private WeakReference<AsyncTask1Activity> mActivityReference;
+        private WeakReference<TextView> mAsyncTaskInfoTextView;
 
-        private AsyncTask1Activity activity;
-
-        public DemoAsyncTask(Context context) {
-            mContext = context.getApplicationContext();
-        }
-
-        // получаем ссылку на AsyncTask1Activity
-        void link(AsyncTask1Activity act) {
-            activity = act;
+        // получаем ссылку на AsyncTask1Activity и textView
+        void link(AsyncTask1Activity activity) {
+            mActivityReference = new WeakReference<>(activity);
+            mAsyncTaskInfoTextView = new WeakReference<>(mActivityReference.get().findViewById(R.id.asynctask1_text_view));
         }
 
         // обнуляем ссылку
         void unLink() {
-            activity = null;
+            mActivityReference = null;
+            mAsyncTaskInfoTextView = null;
         }
 
         @Override
         protected void onPreExecute() {
-
-            textView.setText("Asynctask1 performs some operation ...");
+            mAsyncTaskInfoTextView.get().setText("Asynctask1 is performing some operation ...");
         }
 
         @Override
@@ -75,10 +79,10 @@ public class AsyncTask1Activity extends Activity {
         @Override
         protected void onPostExecute(Integer integer) {
             if (integer != -1) {
-                textView.setText("Asynctask1 finished performing its operation.");
-                ((ProgressBar) activity.findViewById(R.id.asynctask1_progress_bar)).setVisibility(TextView.INVISIBLE);
+                mAsyncTaskInfoTextView.get().setText("Asynctask1 finished performing its operation.");
+                (mActivityReference.get().findViewById(R.id.asynctask1_progress_bar)).setVisibility(TextView.INVISIBLE);
             } else {
-                textView.setText("Some trouble occurred while asynctask performed its operation.");
+                mAsyncTaskInfoTextView.get().setText("Some trouble occurred while asynctask performed its operation.");
             }
         }
     }
