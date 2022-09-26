@@ -18,7 +18,6 @@ class StringsDemo {
     """
     private val charNumber = "Васька".count { letter -> letter == 'а' } // Counts letters "a" in a
     // string "Васька", using anonymous function
-    // Anonymous function. Returns a length of a passed string
 
     private val borderColor: String get() = "black" // What's this get() ?
     private var stringRepresentation: String
@@ -29,6 +28,7 @@ class StringsDemo {
     var setterVisibility: String = "abc"
         private set // the setter is private and has the default implementation
 
+    // Anonymous function. Returns a length of a passed string
     private val stringLengthFunc: (String) -> Int = { input ->
         input.length
     }
@@ -51,7 +51,7 @@ class StringsDemo {
 //            // compute the string
 //        }
         val p = "Some String".also(::println)   // Assigns and prints the string
-        longString?.toUpperCase()  // Checking for a null before casting to uppercase
+        longString?.uppercase()  // Checking for a null before casting to uppercase
         stringLengthFunc("qwertyu")
     }
 }

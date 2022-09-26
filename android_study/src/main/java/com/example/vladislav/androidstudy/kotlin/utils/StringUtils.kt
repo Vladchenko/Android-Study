@@ -16,15 +16,15 @@ fun isNotDigit(c: Char) = c !in '0'..'9'    // Or !c.isDigit()
  */
 fun charToInt(c: Char): Int {
     if (!c.isDigit()) throw IllegalArgumentException("$c argument is wrong, it has to be a digit")
-    else return c.toInt() - 48      // c.digitToInt() - this one should work, but it cannot be imported
+    else return c.code - 48      // c.digitToInt() - this one should work, but it cannot be imported
 }
 
-fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'  // c.isLetter(), method from CharJVM.kt
+fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'
 
 /**
  * Checks if all the symbols in string are letters.
  */
-fun String.isLetters2() = this.all { it.isLetter()  }
+fun String.isLetters2() = this.all { it.isLetter()  } // c.isLetter(), method from CharJVM.kt
 
 fun String.isNumber() = this.toDoubleOrNull() != null
 
@@ -67,6 +67,11 @@ fun String.retrieveWords() = this.trim().split(Regex("\\s+"), 0)
  * Get a quantity of a words present in a string (numbers included)
  */
 fun String.wordsNumber() = this.trim().split(Regex("\\s+"), 0).size // Or .count()
+
+/**
+ * Get a quantity of a words present in a string (numbers included)
+ */
+fun String.wordsNumber2() = this.trim().split(Regex("\\s+"), 0).count()
 
 /**
  * Retrieve a list of palindromes
@@ -112,7 +117,7 @@ fun String.isAllIntegerNumbers() = this.trim().split(Regex("\\s+"), 0).all {
 }
 
 /**
- * Checks if all the char sequences are integer numbers
+ * Checks if all the char sequences are real numbers
  */
 fun String.isAllRealNumbers() = this.trim().split(Regex("\\s+"), 0).all {
     it.toDoubleOrNull() != null && it.toIntOrNull() == null
@@ -140,7 +145,7 @@ fun String.retrieveCharEntries(char: Char) = this.count { it == char }
 /**
  * Retrieve a number of digit chars present in a string
  */
-fun String.retrieveDigitCharsNumber() = this.count { it.isDigit() }
+fun String.retrieveDigitsNumber() = this.count { it.isDigit() }
 
 /**
  * Retrieve a number of non digit chars present in a string
@@ -572,9 +577,9 @@ fun retrieveNumberOfLuckyTickets(): Int {
     var sumI: Int
     var sumJ: Int
     for (i in 1..999) {
-        sumI = i.toString().sumOf { it.toInt() - 49 }
+        sumI = i.toString().sumOf { it.code - 49 }
         for (j in 1..999) {
-            sumJ = j.toString().sumOf { it.toInt() - 49 }
+            sumJ = j.toString().sumOf { it.code - 49 }
             if (sumI == sumJ) {
                 sum++
             }
