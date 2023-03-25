@@ -3,6 +3,7 @@ package com.example.vladislav.androidstudy.kotlin
 import android.content.Context
 import com.example.vladislav.androidstudy.kotlin.demo.Basics
 import com.example.vladislav.androidstudy.kotlin.sometasks.minefield.MineField
+import com.example.vladislav.androidstudy.kotlin.study.leetcode.Solution
 import indexOfLongestWord
 import removeExcessiveSpaces2
 import retrieveNumbers
@@ -77,7 +78,7 @@ class Main {
 //         println("sfghhr vcse s fbrythm ыва аиптпрт вы".toLenghtSortedStrings())
 //         println("Java java 4 Java X Java0 Java 0 Java 0.1 Java 1 Java 1.0 Java 1.1 Java   5 Java 1.8 Java 10 Java 11".getAllJavaVersions())
 //         println(retrieveNumberOfLuckyTickets())
-        println("      4    5 3   6664   783      ".toAlphabetSortedStrings())
+//        println("      4    5 3   6664   783      ".toAlphabetSortedStrings())
 
         // val mineField = MineField()
         // mineField.initializeMineField()
@@ -86,5 +87,7 @@ class Main {
         // mineField.printOptimizedField()
 
         // ParametrizationDemo().showT()
+
+        println(Solution().twoSum(intArrayOf(1,2,3,4,5,3,1,2,4), 6).contentToString())
     }
 }

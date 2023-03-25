@@ -1,7 +1,6 @@
 package com.example.vladislav.androidstudy.kotlin.demo
 
 import android.content.Context
-import androidx.constraintlayout.solver.widgets.Rectangle
 import androidx.core.util.toRange
 import com.example.vladislav.androidstudy.kotlin.models.SomeModel
 import com.example.vladislav.androidstudy.kotlin.utils.createFilesDirIfAbsent
@@ -145,7 +144,7 @@ class Basics {
         println(listOf(1, 2, 3, 4, 5).fold(0) { total, next -> total + next })  // Answer: 15
         println(listOf(1, 2, 3).reduce { total, next -> total + next }) // Answer: 6. Same as .fold(), but without
         // an initial state
-        println(listOf(1, 2, 3).sumBy { it + 5 }) // Answer: 21. Increasing all the items in 5, add, then sum them up
+        println(listOf(1, 2, 3).sumOf { it + 5 }) // Answer: 21. Increasing all the items in 5, add, then sum them up
         val list2 = listOf(1, 2, 3, 4, 5)
         // есть ли элемент, который делится без остатка?
         println(list2.any { it % 2 == 0 }) // true
@@ -314,10 +313,10 @@ class Basics {
 
     fun withDemo() {    // Calling multiple methods on an object instance (with)
         class Turtle {
-            fun penDown() {}
-            fun penUp() {}
-            fun turn(degrees: Double) {}
-            fun forward(pixels: Double) {}
+            fun penDown() { /** Empty for demo */ }
+            fun penUp() { /** Empty for demo */ }
+            fun turn(degrees: Double) { /** Empty for demo */ }
+            fun forward(pixels: Double) { /** Empty for demo */ }
         }
 
         val myTurtle = Turtle()
@@ -343,7 +342,7 @@ class Basics {
         fruits
             .filter { it.startsWith("a") }
             .sortedBy { it }
-            .map { it.toUpperCase() }
+            .map { it.uppercase() }
             .forEach { println(it) }
         ordinalsList.any(::isEven)  // Passes through each items in ordinalsList and runs isEven on them.
         // Prints true

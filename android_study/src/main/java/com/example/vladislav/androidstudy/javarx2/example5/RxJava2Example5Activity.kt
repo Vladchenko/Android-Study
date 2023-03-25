@@ -134,19 +134,19 @@ class RxJava2Example5Activity : AppCompatActivity() {
 
 class SomeObserver : Observer<String> {
 
-    override fun onNext(p0: String?) {
+    override fun onNext(p0: String) {
         println(p0)
     }
 
-    override fun onError(p0: Throwable?) {
-        println(p0!!.message)
+    override fun onError(p0: Throwable) {
+        println(p0.message)
     }
 
     override fun onComplete() {
         println("Done")
     }
 
-    override fun onSubscribe(p0: Disposable?) {
+    override fun onSubscribe(p0: Disposable) {
         println(p0.toString())
     }
 }

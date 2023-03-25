@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.example.vladislav.androidstudy"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionName="1.0">
+
+    <compatible-screens /> <!-- Which screens app supports -->
+    <supports-screens />
 
     <application
         android:name=".separatestudypackage.weatherforecastapp.demo2.presentation.WeatherForecastApp"
@@ -14,14 +16,14 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".separatestudypackage.weatherforecastapp.demo1.MainActivity"
-            android:exported="true"></activity>
+            android:exported="false"/>
         <activity
             android:name=".separatestudypackage.weatherforecastapp.demo2.presentation.WeatherForecastActivity"
-            android:exported="true"></activity>
+            android:exported="false"/>
         <activity
             android:name=".separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity"
             android:exported="false" />
-        <activity android:name=".kotlin.demo.graphics.GraphicsDemoActivity"></activity>
+        <activity android:name=".kotlin.demo.graphics.GraphicsDemoActivity"/>
         <activity android:name=".activities.MainWeightActivity" />
         <activity
             android:name=".activities.InitialActivity"
@@ -70,7 +72,7 @@
         <activity android:name=".services.ServicesDemo1Activity" />
         <activity android:name=".activities.dynamic_layout.ProgrammaticLayoutActivity" />
         <activity android:name=".activities.orientation_change.RotationActivity" />
-        <activity android:name=".activities.ContextMenuActivity" /> <!-- <activity android:name=".intentstudy.DataReceivingActivity" /> -->
+        <activity android:name=".activities.ContextMenuActivity" />
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTasksActivity" />
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTask1Activity" />
         <activity android:name=".jobs.background_jobs.asynctask.AsyncTask2Activity" />
@@ -90,51 +92,52 @@
         <activity android:name=".jobs.banksdetails.BanksDetailsActivity" />
         <activity android:name=".intents.IntentsActivity" />
         <activity android:name=".intents.SimpleIntentActivity" />
-        <activity android:name=".intents.IntentWithActionActivity">
+        <activity android:name=".intents.IntentWithActionActivity"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".intents.IntentWithActionActivity2"
-            android:label="activity 2">
+            android:label="activity 2"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".intents.IntentWithActionActivity3"
-            android:label="activity 3">
+            android:label="activity 3"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON2" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity> <!-- Activity may have more than 1 intent filters -->
         <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionInitialActivity" /> <!-- // Intent-filter collision -->
-        <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity">
-            <intent-filter>
-                <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity2">
+        <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity"
+            android:exported="false">
             <intent-filter>
                 <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".kotlin.KotlinStudyActivity">
+        <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity2"
+            android:exported="false">
+            <intent-filter>
+                <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".kotlin.KotlinStudyActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
@@ -152,7 +155,8 @@
         <!-- // android:exported = true -->
         <activity android:name=".activities.dynamic_layout.DynamicButtonsSizeActivity" />
         <activity android:name=".separatestudypackage.two_actions_activity.ButtonsActivity" />
-        <activity android:name=".separatestudypackage.two_actions_activity.TimeDateActivity">
+        <activity android:name=".separatestudypackage.two_actions_activity.TimeDateActivity"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.separatestudypackage.time" />
                 <action android:name="com.example.vladislav.androidstudy.separatestudypackage.date" />
@@ -182,15 +186,18 @@
 
         <provider
             android:name=".jobs.criminalrecords.data_providing.CrimesContentProvider"
-            android:authorities="com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesContentProvider" />
+            android:authorities="com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesContentProvider"
+            android:exported="false" />
 
         <receiver android:name=".receivers.BroadcastReceiverSimple" />
-        <receiver android:name=".receivers.AirPlaneStateReceiver">
+        <receiver android:name=".receivers.AirPlaneStateReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receivers.BroadcastReceiverExample">
+        <receiver android:name=".receivers.BroadcastReceiverExample"
+            android:exported="false">
             <intent-filter>
                 <action android:name=".receivers.BroadcastReceiverExample" />
             </intent-filter>
@@ -221,22 +228,22 @@
         <service
             android:name=".services.ServiceDemo3"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
         <service
             android:name=".services.IntentServiceDemo1"
             android:exported="false" />
         <service
             android:name=".services.ServiceDemo4"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
         <service
             android:name=".services.ServiceDemo5"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
         <service
             android:name=".jobs.currency.loaders.CurrencyDownloadingStartService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.jobs.currency.loaders.CurrencyDownloadingService" />
             </intent-filter>
@@ -244,15 +251,12 @@
         <service
             android:name=".jobs.currency.loaders.CurrencyDownloadingBindService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
 
         <uses-library
             android:name="com.google.android.wearable"
             android:required="false" />
     </application>
-
-    <compatible-screens /> <!-- Which screens app supports -->
-    <supports-screens />
 
     <uses-feature
         android:name="android.hardware.camera2"
@@ -280,6 +284,6 @@
 
     <uses-sdk
         android:maxSdkVersion="26"
-        android:targetSdkVersion="25" />
+        android:targetSdkVersion="33" />
 
 </manifest>

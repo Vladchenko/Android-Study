@@ -33,4 +33,8 @@ class ProgressObservableEmitter: ObservableEmitter<String> {
     override fun serialize(): ObservableEmitter<String> {
         TODO("Not yet implemented")
     }
+
+    override fun tryOnError(t: Throwable): Boolean {
+        TODO("Not yet implemented")
+    }
 }

@@ -108,5 +108,5 @@ fun hasPrefix(x: Any) =
 
 fun getInt(x: Int): Int = x * x
 
-private const val COUNT = 42       // This is a constant, type is automatically inferred as int
+const val COUNT = 42       // This is a constant, type is automatically inferred as int
 private val validNumbers = arrayOf(1, 2, 3)

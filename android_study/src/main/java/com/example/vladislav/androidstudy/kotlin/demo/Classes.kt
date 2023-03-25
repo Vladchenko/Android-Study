@@ -58,6 +58,10 @@ class FilledRectangle: Rectangle() {
 
 // Class can be inherited from
 open class Rectangle {
+    var x: Int = 0
+    var y: Int = 0
+    var width: Int = 0
+    var height: Int = 0
     val borderColor: String get() = "black"
     open fun draw() { /* ... */ }   // Method that can be overridden.
     open fun getSquare() { /* ... */ }   // final method (can NOT be overridden).
@@ -96,7 +100,7 @@ class Derived(
 class Derived2(
     name: String,
     val lastName: String
-) : Base(name.capitalize().also { println("Argument for Base: $it") }) {
+) : Base(name.replaceFirstChar { it.uppercase() }.also { println("Argument for Base: $it") }) {
 
     init { println("Initializing Derived") }
 
