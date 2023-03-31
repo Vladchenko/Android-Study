@@ -1,7 +1,7 @@
 package com.example.vladislav.androidstudy.kotlin.study.leetcode
 
-import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.substring
+import java.lang.System.arraycopy
+import java.util.*
 
 /**
  * Tasks taken from leetcode.com
@@ -198,7 +198,7 @@ class Solution {
      */
     fun isPalindrome(s: String): Boolean {
         val re = Regex("[^A-Za-z0-9\\*s]")
-        val string = re.replace(s, "").toLowerCase()
+        val string = re.replace(s, "").lowercase(Locale.getDefault())
         if (string.isEmpty() || string.length == 1) return true
         for (i in 0..string.length / 2) {
             if (string[i] != string[string.length - i - 1]) {
@@ -299,6 +299,53 @@ class Solution {
             return nums.lastIndex + 1
         }
         return 0
+    }
+
+    /**
+     * Problem is described at https://leetcode.com/problems/length-of-last-word/
+     */
+    fun lengthOfLastWord(s: String): Int {
+        return s.trim().split(Regex("\\s+"), 0).last().length
+    }
+
+    /**
+     * Problem is described at https://leetcode.com/problems/plus-one/
+     */
+    fun plusOne(digits: IntArray): IntArray {
+        if (digits.isEmpty()) {
+            return digits
+        }
+        for (index in digits.indices.reversed()) {
+            if (digits[index] == 9) {
+                digits[index] = 0
+            } else {
+                digits[index]++
+                return digits
+            }
+        }
+        if (digits[0] == 0) {
+            val numbers = IntArray(digits.size + 1)
+            arraycopy(digits, 0, numbers, 1, digits.size)
+            numbers[0] = 1
+            return numbers
+        }
+        return digits
+    }
+
+    /**
+     * Problem is described at https://leetcode.com/problems/add-binary/
+     */
+    fun addBinary(a: String, b: String): String {
+        if (a.isEmpty() || b.isEmpty()) {
+            return ""
+        }
+        var result: String
+        try {
+            result = (a.toLong(2) + b.toLong(2)).toString(radix = 2)
+        } catch (ex: NumberFormatException) {
+            return ""
+        }
+        return result
     }
 
     companion object {

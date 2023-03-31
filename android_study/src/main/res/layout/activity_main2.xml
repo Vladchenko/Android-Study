@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="@dimen/activity_all_borders_padding"
     android:background="@drawable/background"
-    tools:context=".separatestudypackage.weatherforecastapp.demo1.MainActivity">
+    tools:context=".separatestudypackage.weatherforecast.WeatherForecastActivity">
 
     <ImageView
         android:id="@+id/weather_type_image_view"
@@ -14,7 +14,8 @@
         android:layout_height="@dimen/image_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/city_name_text_view"
-        tools:srcCompat="@drawable/icon_clearsky" />
+        tools:srcCompat="@drawable/icon_clearsky"
+        android:contentDescription="Left blank in purpose"/>
 
     <TextView
         android:textColor="@color/common_border_color"

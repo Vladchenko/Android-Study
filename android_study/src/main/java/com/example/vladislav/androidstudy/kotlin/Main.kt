@@ -88,6 +88,121 @@ class Main {
 
         // ParametrizationDemo().showT()
 
-        println(Solution().twoSum(intArrayOf(1,2,3,4,5,3,1,2,4), 6).contentToString())
+//        println(Solution().twoSum(intArrayOf(1,2,3,4,5,3,1,2,4), 6).contentToString())
+
+//        println(Solution().isPalindrome2(1))
+//        println(Solution().isPalindrome2(12))
+//        println(Solution().isPalindrome2(121))
+//        println(Solution().isPalindrome2(1212))
+//        println(Solution().isPalindrome2(1221))
+//        println(Solution().isPalindrome2(12121))
+
+        val solution = Solution()
+//        println(solution.romanToInt("I"))
+//        println(solution.romanToInt("II"))
+//        println(solution.romanToInt("III"))
+//        println(solution.romanToInt("IV"))
+//        println(solution.romanToInt("V"))
+//        println(solution.romanToInt("VI"))
+//        println(solution.romanToInt("VII"))
+//        println(solution.romanToInt("VIII"))
+//        println(solution.romanToInt("IX"))
+//        println(solution.romanToInt("X"))
+//        println(solution.romanToInt("XI"))
+//        println(solution.romanToInt("XII"))
+//        println(solution.romanToInt("XIII"))
+//        println(solution.romanToInt("XIV"))
+//        println(solution.romanToInt("XV"))
+//        println(solution.romanToInt("XVI"))
+//        println(solution.romanToInt("XVII"))
+//        println(solution.romanToInt("XVIII"))
+//        println(solution.romanToInt("XIX"))
+//        println(solution.romanToInt("XX"))
+//        println(solution.romanToInt("XC"))  //40
+//        println(solution.romanToInt("CX"))  //60
+//        println(solution.romanToInt("CDXC"))  //490
+//        println(solution.romanToInt("DXC"))  //540
+//        println(solution.romanToInt("DD"))  //1000
+//        println(solution.romanToInt("MMXC"))  //2040
+
+//        println(solution.longestCommonPrefix(arrayOf("")))    //""
+//        println(solution.longestCommonPrefix(arrayOf("1", "2", "3")))    //""
+//        println(solution.longestCommonPrefix(arrayOf("1", "1", "1")))    //"1"
+//        println(solution.longestCommonPrefix(arrayOf("cir", "car")))    //"1"
+//        println(solution.longestCommonPrefix(arrayOf("123_", "123@", "123#")))    //"123"
+//        println(solution.longestCommonPrefix(arrayOf("vd_fgt_", "vdfgt", "vdfgt")))    //"vd"
+//        println(solution.longestCommonPrefix(arrayOf("Vlad123", "Vlad_123", "Vlad#456")))    //"Vlad"
+//        println(solution.longestCommonPrefix(arrayOf("flower","flow","flight")))    //"fl"
+//        println(solution.isValid("()"))
+//        println(solution.isValid("{}"))
+//        println(solution.isValid("[]"))
+//        println(solution.isValid("[{]"))
+//        println(solution.isValid("[{]}"))
+//        println(solution.isValid("[{}]"))
+//        println(solution.isValid("[]{}()"))
+//        println(solution.isPalindrome(".,"))
+//        println(solution.removeDuplicates(intArrayOf()))
+//        println(solution.removeDuplicates(intArrayOf(1)))
+//        println(solution.removeDuplicates(intArrayOf(1,1)))
+//        println(solution.removeDuplicates(intArrayOf(1,2)))
+//        println(solution.removeDuplicates(intArrayOf(1,1,2)))
+//        println(solution.removeDuplicates(intArrayOf(1,2,3)))
+//        println(solution.removeDuplicates(intArrayOf(1,2,3,4,5)))
+//        println(solution.removeDuplicates(intArrayOf(5,4,3,2,1)))
+//        println(solution.removeDuplicates(intArrayOf(1,2,3,4,0)))
+//        println(solution.removeDuplicates(intArrayOf(1,2,1,4,0)))
+//        println(solution.removeDuplicates(intArrayOf(1,2,1,2,0)))
+//
+//        println(solution.removeDuplicates2(intArrayOf(0,0,1,1,1,2,2,3,3,4)))
+//        println(solution.removeElement(intArrayOf(), 3))
+//        println(solution.removeElement(intArrayOf(3), 3))
+//        println(solution.removeElement(intArrayOf(3,3), 3))
+//        println(solution.removeElement(intArrayOf(3,2,2,3), 3))
+//        println(solution.removeElement(intArrayOf(3,2,4,2,3), 3))
+//        println(solution.removeElement(intArrayOf(3,3,3,2,4,5,2,3), 3))
+//        println(solution.removeElement(intArrayOf(3,1,3,2,1,1,1,4,5,2,1,3,1,1,1), 1))
+//        println(solution.strStr("", ""))
+//        println(solution.strStr("", "s"))
+//        println(solution.strStr("s", "s"))
+//        println(solution.strStr("s", ""))
+//        println(solution.strStr("ss", "s"))
+//        println(solution.strStr("_s", "s"))
+//        println(solution.strStr("sadbutsad", "sad"))
+//        println(solution.strStr("sqdbutsad", "sad"))
+//        println(solution.searchInsert(intArrayOf(), 1))
+//        println(solution.searchInsert(intArrayOf(2), 1))
+//        println(solution.searchInsert(intArrayOf(3), 6))
+//        println(solution.searchInsert(intArrayOf(1,2,3,4,5,6,7), 1))
+//        println(solution.searchInsert(intArrayOf(1,2,3,4,5,6,7), 4))
+//        println(solution.searchInsert(intArrayOf(1,2,3,4,5,6,7), 7))
+//        println(solution.searchInsert(intArrayOf(1,5,6,7), 4))
+//        println(solution.lengthOfLastWord(""))
+//        println(solution.lengthOfLastWord(" "))
+//        println(solution.lengthOfLastWord(" w"))
+//        println(solution.lengthOfLastWord("q "))
+//        println(solution.lengthOfLastWord("as"))
+//        println(solution.lengthOfLastWord(" gb"))
+//        println(solution.lengthOfLastWord("bn "))
+//        println(solution.lengthOfLastWord("v za"))
+//        println(solution.lengthOfLastWord("v gb bvn sdfdfghghjk"))
+//        solution.plusOne(intArrayOf()).forEach { print(it) }
+//        println()
+//        solution.plusOne(intArrayOf(0)).forEach { print(it) }
+//        println()
+//        solution.plusOne(intArrayOf(1)).forEach { print(it) }
+//        println()
+//        solution.plusOne(intArrayOf(9)).forEach { print(it) }
+//        println()
+//        solution.plusOne(intArrayOf(1, 0)).forEach { print(it) }
+//        println()
+//        solution.plusOne(intArrayOf(1, 9)).forEach { print(it) }
+//        println()
+//        solution.plusOne(intArrayOf(1, 0, 9)).forEach { print(it) }
+//        println()
+//        solution.plusOne(intArrayOf(1, 9, 9)).forEach { print(it) }
+//        println()
+//        solution.plusOne(intArrayOf(9, 9, 9)).forEach { print(it) }
+        println(solution.addBinary("1010","10101"))
+        println(solution.addBinary("0","1"))
     }
 }

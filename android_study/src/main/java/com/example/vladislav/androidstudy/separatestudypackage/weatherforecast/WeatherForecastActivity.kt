@@ -1,55 +1,50 @@
-package com.example.vladislav.androidstudy.separatestudypackage.weatherforecastapp.demo2.presentation
+package com.example.vladislav.androidstudy.separatestudypackage.weatherforecast
 
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.vladislav.androidstudy.R
-import com.example.vladislav.androidstudy.separatestudypackage.weatherforecastapp.demo2.presentation.viewmodel.WeatherForecastViewModel
-import com.example.vladislav.androidstudy.separatestudypackage.weatherforecastapp.demo2.presentation.viewmodel.WeatherForecastViewModelFactory
-import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import javax.inject.Inject
 import kotlin.math.roundToInt
 
 /**
- * TODO
+ * This app is developed using following udemy course.
+ * https://www.udemy.com/course/android-beginners-weather-forecast-app/learn/lecture/7899690#overview
+ *
+ * API link
+ * https://openweathermap.org/api
+ *
+ * Code is fully located in activity, as is in a course.
+ * There is a github implementation with Clean architecture, Retrofit, MVVM th- https://github.com/Vladchenko/WeatherForecast
  */
-@AndroidEntryPoint
 class WeatherForecastActivity : AppCompatActivity() {
 
     private enum class TemperatureType {
-        CELSIUS,
+        CELCIUS,
         FAHRENHEIT
     }
 
+    private lateinit var temperatureType: TemperatureType
     private lateinit var cityNameTextView: TextView
     private lateinit var dateTextView: TextView
     private lateinit var degreesTypeTextView: TextView
     private lateinit var degreesValueTextView: TextView
-    private lateinit var temperatureType: TemperatureType
     private lateinit var weatherTypeTextView: TextView
     private lateinit var weatherImageView: ImageView
-
-    private lateinit var viewModel: WeatherForecastViewModel
-    @Inject
-    lateinit var viewModelFactory: WeatherForecastViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         initViews()
-        temperatureType = TemperatureType.CELSIUS
-        viewModel = ViewModelProvider(this, viewModelFactory).get(WeatherForecastViewModel::class.java)
-        viewModel.getWeatherForecast("Kazan")   //TODO
-        // getResponse()
+        temperatureType = TemperatureType.CELCIUS
+        getResponse()
     }
 
     private fun initViews() {
@@ -99,7 +94,7 @@ class WeatherForecastActivity : AppCompatActivity() {
 
     private fun setDegreesValuesAndType(response: JSONObject) {
         val kelvinTemperature = response.getJSONObject("main").getDouble("temp")
-        if (temperatureType == TemperatureType.CELSIUS) {
+        if (temperatureType == TemperatureType.CELCIUS) {
             degreesValueTextView.text =
                 getCelsiusFromKelvinTemperature(kelvinTemperature).roundToInt().toString()
             degreesTypeTextView.text = "℃"

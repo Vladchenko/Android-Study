@@ -6,7 +6,6 @@
     <supports-screens />
 
     <application
-        android:name=".separatestudypackage.weatherforecastapp.demo2.presentation.WeatherForecastApp"
         android:allowBackup="true"
         android:debuggable="true"
         android:icon="@mipmap/space_marine"
@@ -15,10 +14,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".separatestudypackage.weatherforecastapp.demo1.MainActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".separatestudypackage.weatherforecastapp.demo2.presentation.WeatherForecastActivity"
+            android:name=".separatestudypackage.weatherforecast.WeatherForecastActivity"
             android:exported="false"/>
         <activity
             android:name=".separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity"

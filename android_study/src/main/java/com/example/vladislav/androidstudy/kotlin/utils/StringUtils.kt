@@ -266,7 +266,7 @@ fun String.checkIfBracesPaired(): Boolean {
  * Solves arithmetic expression in a string. Do not put any symbols different to digits, dot and operations (*+-/).
  */
 fun String.solveExpression(): String {
-    var value = ""
+    var value: String
     if (this.contains("[^a-zA-Z0-9.]")) {
         return "NAN"
     } else {
@@ -326,7 +326,7 @@ fun String.replaceDigitsWithSymbolicRepresentation(): String {
  * ! Only numbers up to hundreds are processable.
  */
 fun String.replaceNumbersWithSymbolicRepresentation(): String {
-    var resultNumberString = ""
+    var resultNumberString: String
     var resultString = ""
     this.trim().split(Regex("\\s+")).map {
         val reversedNumber = it.reversed()
@@ -542,10 +542,8 @@ fun String.findShortestStringMap() = this.split(Regex("\\s+")).map { it to it.le
  * Retrieve distance between 2 string in chars number.
  */
 fun String.getDistanceBetween2Strings(string1: String, string2: String): Int {
-    var index1 = -1
-    var index2 = -1
-    index1 = this.indexOf(string1)
-    index2 = this.indexOf(string2)
+    var index1 = this.indexOf(string1)
+    var index2 = this.indexOf(string2)
     return if (index1 > index2) {
         index1 - index2 - string2.length
     } else {
