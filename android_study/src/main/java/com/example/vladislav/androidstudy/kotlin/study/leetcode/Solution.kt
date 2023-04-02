@@ -2,6 +2,7 @@ package com.example.vladislav.androidstudy.kotlin.study.leetcode
 
 import java.lang.System.arraycopy
 import java.util.*
+import kotlin.math.sqrt
 
 /**
  * Tasks taken from leetcode.com
@@ -346,6 +347,27 @@ class Solution {
             return ""
         }
         return result
+    }
+
+    /**
+     * Problem is described at https://leetcode.com/problems/sqrtx/
+     */
+    fun mySqrt(x: Int): Int {
+        return sqrt(x.toDouble()).toInt()
+    }
+
+    /**
+     * Problem is described at https://leetcode.com/problems/single-number/
+     */
+    fun singleNumber(nums: IntArray): Int {
+        val map = mutableMapOf<Int, Int>()
+        var count: Int
+        if (nums.isEmpty()) return -1
+        nums.forEach {
+            count = map[it] ?: 0
+            map[it] = count + 1
+        }
+        return map.keys.first { map[it] == 1 }
     }
 
     companion object {
