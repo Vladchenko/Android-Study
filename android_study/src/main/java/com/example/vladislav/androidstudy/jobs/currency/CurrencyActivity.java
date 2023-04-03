@@ -8,19 +8,18 @@ import androidx.fragment.app.FragmentManager;
 import android.widget.FrameLayout;
 
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.jobs.currency.fragments.CurrencyAsyncTaskFragment;
 import com.example.vladislav.androidstudy.jobs.currency.fragments.CurrencyRXLoaderFragment;
+import com.example.vladislav.androidstudy.jobs.currency.workerthread.CurrencyDownloadingFragment;
+import com.example.vladislav.androidstudy.jobs.currency.fragments.CurrencyAsyncTaskFragment;
 
 public class CurrencyActivity extends AppCompatActivity {
-
-    private FrameLayout mFrameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency);
-        mFrameLayout = (FrameLayout)findViewById(R.id.currency_frame_layout);
+        FrameLayout mFrameLayout = findViewById(R.id.currency_frame_layout);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentByTag(CurrencyAsyncTaskFragment.TAG);
@@ -29,7 +28,8 @@ public class CurrencyActivity extends AppCompatActivity {
 //            fragment = new CurrencyAsyncTaskLoaderFragment();
 //            fragment = new CurrencyStartServiceFragment();
 //            fragment = new CurrencyBindServiceFragment();
-            fragment = new CurrencyRXLoaderFragment();
+//            fragment = new CurrencyRXLoaderFragment();
+            fragment = new CurrencyDownloadingFragment();
 
             fragmentManager.beginTransaction().add(
                     mFrameLayout.getId(), fragment, CurrencyAsyncTaskFragment.TAG)

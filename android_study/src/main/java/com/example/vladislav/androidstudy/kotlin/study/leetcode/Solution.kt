@@ -370,6 +370,51 @@ class Solution {
         return map.keys.first { map[it] == 1 }
     }
 
+    /**
+     * Problem is described at https://leetcode.com/problems/pascals-triangle/
+     */
+    fun generate(numRows: Int): List<List<Int>> {
+        val mainList = mutableListOf(mutableListOf<Int>())
+        composeList(mainList, numRows)
+        return mainList
+    }
+
+    private fun composeList(
+        mainList: MutableList<MutableList<Int>>,
+        numRows: Int
+    ): List<List<Int>> {
+        if (numRows == 0) {
+            return mainList
+        }
+        if (numRows == 1) {
+            mainList[0] = mutableListOf(1)
+            return mainList
+        }
+        if (numRows == 2) {
+            mainList[0] = mutableListOf(1)
+            mainList.add(mutableListOf(1, 1))
+            return mainList
+        }
+        return composeListFor3AndMoreLines(mainList, numRows)
+    }
+
+    private fun composeListFor3AndMoreLines(
+        mainList: MutableList<MutableList<Int>>,
+        numRows: Int
+    ): List<List<Int>> {
+        mainList[0] = mutableListOf(1)
+        mainList.add(mutableListOf(1, 1))
+        for (i in 2 until numRows) {
+            mainList.add(mutableListOf())
+            mainList[i].add(1)
+            for (j in 0..mainList[i - 1].size - 2) {
+                mainList[i].add(mainList[i - 1][j] + mainList[i - 1][j + 1])
+            }
+            mainList[i].add(1)
+        }
+        return mainList
+    }
+
     companion object {
         private const val BRACES = "braces"
         private const val BRACKETS = "brackets"
