@@ -415,6 +415,42 @@ class Solution {
         return mainList
     }
 
+    /**
+     * Problem is described at https://leetcode.com/problems/pascals-triangle-ii/
+     */
+    fun getRow(rowIndex: Int): List<Int> {
+        return when (rowIndex) {
+            0 -> {
+                mutableListOf(1)
+            }
+            1 -> {
+                mutableListOf(1,1)
+            }
+            in 2..Int.MAX_VALUE -> {
+                return getRowBiggerThan2(rowIndex)
+            }
+            else -> {
+                mutableListOf()
+            }
+        }
+    }
+
+    private fun getRowBiggerThan2(rowIndex: Int): MutableList<Int> {
+        var list1 = mutableListOf(1, 1)
+        val list2 = mutableListOf<Int>()
+        for (i in 2 until rowIndex + 1) {
+            list2.add(1)
+            for (j in 0..list1.size - 2) {
+                list2.add(list1[j] + list1[j + 1])
+            }
+            list2.add(1)
+            list1.clear()
+            list1 = list2.toMutableList()
+            list2.clear()
+        }
+        return list1
+    }
+
     companion object {
         private const val BRACES = "braces"
         private const val BRACKETS = "brackets"

@@ -24,6 +24,7 @@ class CurrencyDownloadingThread(
     }
 
     fun sendMessageToBackgroundThread(message: Message) {
+        // 2. Sending message from other thread (main thread in this case) to this one
         handler.sendMessage(message)
     }
 
@@ -40,6 +41,6 @@ class CurrencyDownloadingThread(
     }
 
     companion object {
-        const val TAG = "my_thread"
+        const val TAG = "CurrencyDownloadingThread"
     }
 }
