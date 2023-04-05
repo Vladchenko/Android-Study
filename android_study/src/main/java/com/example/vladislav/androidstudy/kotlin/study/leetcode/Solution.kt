@@ -9,8 +9,6 @@ import kotlin.math.sqrt
  */
 class Solution {
 
-    // https://leetcode.com/problemset/all/?difficulty=EASY&page=1
-
     /**
      * Problem is described at https://leetcode.com/problems/two-sum/
      */
@@ -424,7 +422,7 @@ class Solution {
                 mutableListOf(1)
             }
             1 -> {
-                mutableListOf(1,1)
+                mutableListOf(1, 1)
             }
             in 2..Int.MAX_VALUE -> {
                 return getRowBiggerThan2(rowIndex)
@@ -449,6 +447,122 @@ class Solution {
             list2.clear()
         }
         return list1
+    }
+
+    fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
+        var list11 = list1
+        var list22 = list2
+        var operatingListNode: ListNode?
+        val resultListNode: ListNode?
+
+        return if (list1 == null) {
+            list2
+        } else if (list2 == null) {
+            list1
+        } else {
+            if (list11?.`val`!! > list22?.`val`!!) {
+                operatingListNode = ListNode(list22.`val`)
+                resultListNode = operatingListNode
+                list22 = list22.next
+                if (list22 == null) {
+                    while (list11 != null) {
+                        operatingListNode = appendToList(operatingListNode, list11.`val`)
+                        list11 = list11.next
+                    }
+                }
+            } else if (list11.`val` < list22.`val`) {
+                operatingListNode = ListNode(list11.`val`)
+                resultListNode = operatingListNode
+                list11 = list11.next
+                if (list11 == null) {
+                    while (list22 != null) {
+                        operatingListNode = appendToList(operatingListNode, list22.`val`)
+                        list22 = list22.next
+                    }
+                }
+            } else {
+                operatingListNode = ListNode(list11.`val`)
+                operatingListNode.next = ListNode(list22.`val`)
+                resultListNode = operatingListNode
+                operatingListNode = operatingListNode.next
+                list11 = list11.next
+                list22 = list22.next
+            }
+
+            if (list11 != null && list22 != null) {
+                while (true) {
+                    if (list11?.`val`!! > list22?.`val`!!) {
+                        operatingListNode = appendToList(operatingListNode, list22?.`val`!!)
+                        list22 = list22?.next
+                        if (list22 == null) {
+                            // Copy all nodes from list11 to resultListNode                                    
+                            while (list11 != null) {
+                                operatingListNode = appendToList(operatingListNode, list11?.`val`!!)
+                                list11 = list11.next
+                            }
+                            return resultListNode
+                        }
+                    }
+                    if (list11?.`val`!! < list22?.`val`!!) {
+                        operatingListNode = appendToList(operatingListNode, list11?.`val`!!)
+                        list11 = list11?.next
+                        if (list11 == null) {
+                            // Copy all nodes from list22 to resultListNode                                
+                            while (list22 != null) {
+                                operatingListNode = appendToList(operatingListNode, list22?.`val`!!)
+                                list22 = list22.next
+                            }
+                            return resultListNode
+                        }
+                    }
+                    if (list11?.`val`!! == list22?.`val`!!) {
+                        operatingListNode = appendToList(operatingListNode, list11?.`val`!!)
+                        list11 = list11?.next
+                        operatingListNode = appendToList(operatingListNode, list22?.`val`!!)
+                        list22 = list22?.next
+                        if (list11 == null) {
+                            // Copy all nodes from list22 to resultListNode                                
+                            while (list22 != null) {
+                                operatingListNode = appendToList(operatingListNode, list22?.`val`!!)
+                                list22 = list22.next
+                            }
+                            return resultListNode
+                        }
+                        if (list22 == null) {
+                            // Copy all nodes from list11 to resultListNode                            
+                            while (list11 != null) {
+                                operatingListNode = appendToList(operatingListNode, list11?.`val`!!)
+                                list11 = list11.next
+                            }
+                            return resultListNode
+                        }
+                    }
+                }
+            }
+            return resultListNode
+        }
+    }
+
+    private fun appendToList(node: ListNode?, value: Int): ListNode {
+        val newNode = ListNode(value)
+        node?.next = newNode
+        return newNode
+    }
+
+    fun generateListNodes(): ListNode {
+        val maxIncrement = (Math.random() * 2).toInt() + 2
+        val listNode = ListNode((Math.random() * 3).toInt())
+        var listNodeNew = listNode
+        for (i in 1..(Math.random() * 5).toInt() + 5) {
+            listNodeNew.next =
+                ListNode(listNodeNew.`val`.plus((Math.random() * maxIncrement).toInt()))
+            listNodeNew = listNodeNew.next!!
+        }
+        return listNode
+    }
+
+    class ListNode(var `val`: Int) {
+        var next: ListNode? = null
     }
 
     companion object {
