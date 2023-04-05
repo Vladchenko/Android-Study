@@ -449,6 +449,9 @@ class Solution {
         return list1
     }
 
+    /**
+     * Problem is described at https://leetcode.com/problems/merge-two-sorted-lists/description/
+     */
     fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
         var list11 = list1
         var list22 = list2
@@ -495,7 +498,7 @@ class Solution {
                         operatingListNode = appendToList(operatingListNode, list22?.`val`!!)
                         list22 = list22?.next
                         if (list22 == null) {
-                            // Copy all nodes from list11 to resultListNode                                    
+                            // Copy all nodes from list11 to resultListNode
                             while (list11 != null) {
                                 operatingListNode = appendToList(operatingListNode, list11?.`val`!!)
                                 list11 = list11.next
@@ -507,7 +510,7 @@ class Solution {
                         operatingListNode = appendToList(operatingListNode, list11?.`val`!!)
                         list11 = list11?.next
                         if (list11 == null) {
-                            // Copy all nodes from list22 to resultListNode                                
+                            // Copy all nodes from list22 to resultListNode
                             while (list22 != null) {
                                 operatingListNode = appendToList(operatingListNode, list22?.`val`!!)
                                 list22 = list22.next
@@ -521,7 +524,7 @@ class Solution {
                         operatingListNode = appendToList(operatingListNode, list22?.`val`!!)
                         list22 = list22?.next
                         if (list11 == null) {
-                            // Copy all nodes from list22 to resultListNode                                
+                            // Copy all nodes from list22 to resultListNode
                             while (list22 != null) {
                                 operatingListNode = appendToList(operatingListNode, list22?.`val`!!)
                                 list22 = list22.next
@@ -529,7 +532,7 @@ class Solution {
                             return resultListNode
                         }
                         if (list22 == null) {
-                            // Copy all nodes from list11 to resultListNode                            
+                            // Copy all nodes from list11 to resultListNode
                             while (list11 != null) {
                                 operatingListNode = appendToList(operatingListNode, list11?.`val`!!)
                                 list11 = list11.next
@@ -541,6 +544,36 @@ class Solution {
             }
             return resultListNode
         }
+    }
+
+    /**
+     * Problem is described at https://leetcode.com/problems/merge-two-sorted-lists/description/
+     * Solution from chatGPT
+     */
+    fun mergeTwoListsFromChatGPT(list1: ListNode?, list2: ListNode?): ListNode? {
+        var l1 = list1
+        var l2 = list2
+        var result: ListNode? = null
+        var tail: ListNode? = null
+
+        while (l1 != null || l2 != null) {
+            val node = when {
+                l1 == null -> l2.also { l2 = l2?.next }
+                l2 == null -> l1.also { l1 = l1?.next }
+                l1?.`val`!! <= l2?.`val`!! -> l1.also { l1 = l1?.next }
+                else -> l2.also { l2 = l2?.next }
+            }
+
+            if (result == null) {
+                result = node
+                tail = node
+            } else {
+                tail!!.next = node
+                tail = node
+            }
+        }
+
+        return result
     }
 
     private fun appendToList(node: ListNode?, value: Int): ListNode {
