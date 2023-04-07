@@ -33,15 +33,23 @@ class RxJava2Example5Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rx_java2_example3)
         initViews()
-        button!!.setOnClickListener {
-            var i = 0
-            Handler().postDelayed({
-                while (i < URL_LIST.size) {
-                    runDownloading(URL_LIST[i])
-                    i++
-                }
-            }, 100)
-        }
+        button!!.setOnClickListener(getClickListener())
+    }
+
+    private fun initViews() {
+        textView = findViewById(R.id.rxjava2_example3_text_view)
+        button = findViewById(R.id.rxjava2_example3_button)
+        progressBar = findViewById(R.id.rxjava2_example3_progress_bar)
+    }
+
+    private fun getClickListener() = View.OnClickListener {
+        var i = 0
+        Handler().postDelayed({
+            while (i < URL_LIST.size) {
+                runDownloading(URL_LIST[i])
+                i++
+            }
+        }, 100)
     }
 
     private fun runDownloading(url: String) {
@@ -52,13 +60,12 @@ class RxJava2Example5Activity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { textView?.text = "File$1" }
             .doOnComplete { textView?.text = "File$1 downloaded" }
-            .subscribe { ProgressObservableEmitter() }
-    }
-
-    private fun initViews() {
-        textView = findViewById(R.id.rxjava2_example3_text_view)
-        button = findViewById(R.id.rxjava2_example3_button)
-        progressBar = findViewById(R.id.rxjava2_example3_progress_bar)
+            .doOnError { textView?.text = it.message }
+            // .subscribe { ProgressObservableEmitter() }
+            .subscribe(
+                { textView?.text = it.toString() },
+                { textView?.text = it.message }
+            )
     }
 
     /**
