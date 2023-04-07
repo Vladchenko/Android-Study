@@ -567,11 +567,9 @@ class Solution {
 
     /**
      * Problem is described at https://leetcode.com/problems/number-of-1-bits/
-     * TODO
      */
     fun hammingWeight(n:Int):Int {
-        println(n.toString(2).chars().filter { it == 1 })
-        return 0
+        return n.toUInt().toString(2).count { it == '1' }
     }
 
     companion object {

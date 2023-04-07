@@ -278,8 +278,12 @@ class Main {
 //        }
 //        println()
 
+        solution.hammingWeight(-1_000_000)
+        solution.hammingWeight(-1_000)
+        solution.hammingWeight(-1)
         solution.hammingWeight(0)
         solution.hammingWeight(1)
+        solution.hammingWeight(1000)
         solution.hammingWeight(Int.MAX_VALUE)
     }
 }
