@@ -15,11 +15,11 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".separatestudypackage.weatherforecast.WeatherForecastActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity"
             android:exported="false" />
-        <activity android:name=".kotlin.demo.graphics.GraphicsDemoActivity"/>
+        <activity android:name=".kotlin.demo.graphics.GraphicsDemoActivity" />
         <activity android:name=".activities.MainWeightActivity" />
         <activity
             android:name=".activities.InitialActivity"
@@ -88,7 +88,8 @@
         <activity android:name=".jobs.banksdetails.BanksDetailsActivity" />
         <activity android:name=".intents.IntentsActivity" />
         <activity android:name=".intents.SimpleIntentActivity" />
-        <activity android:name=".intents.IntentWithActionActivity"
+        <activity
+            android:name=".intents.IntentWithActionActivity"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION" />
@@ -97,8 +98,8 @@
         </activity>
         <activity
             android:name=".intents.IntentWithActionActivity2"
-            android:label="activity 2"
-            android:exported="false">
+            android:exported="false"
+            android:label="activity 2">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -106,8 +107,8 @@
         </activity>
         <activity
             android:name=".intents.IntentWithActionActivity3"
-            android:label="activity 3"
-            android:exported="false">
+            android:exported="false"
+            android:label="activity 3">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -118,14 +119,16 @@
             </intent-filter>
         </activity> <!-- Activity may have more than 1 intent filters -->
         <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionInitialActivity" /> <!-- // Intent-filter collision -->
-        <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity"
+        <activity
+            android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity"
             android:exported="false">
             <intent-filter>
                 <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity2"
+        <activity
+            android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity2"
             android:exported="false">
             <intent-filter>
                 <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
@@ -151,7 +154,8 @@
         <!-- // android:exported = true -->
         <activity android:name=".activities.dynamic_layout.DynamicButtonsSizeActivity" />
         <activity android:name=".separatestudypackage.two_actions_activity.ButtonsActivity" />
-        <activity android:name=".separatestudypackage.two_actions_activity.TimeDateActivity"
+        <activity
+            android:name=".separatestudypackage.two_actions_activity.TimeDateActivity"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.separatestudypackage.time" />
@@ -168,7 +172,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".jobs.simple_jobs.CommonActivity" />
         <activity android:name=".jobs.criminalrecords.ui.CriminalRecordsActivity" />
-        <activity android:name=".jobs.currency.CurrencyActivity" />
+        <activity
+            android:name=".jobs.currency.CurrencyActivity" android:exported="false">
+        </activity>
         <activity android:name=".javarx2.example2.MainRXActivity" />
         <activity android:name=".javarx2.example2.RxJavaSimpleActivity" />
         <activity android:name=".javarx2.example2.BooksActivity" />
@@ -186,13 +192,15 @@
             android:exported="false" />
 
         <receiver android:name=".receivers.BroadcastReceiverSimple" />
-        <receiver android:name=".receivers.AirPlaneStateReceiver"
+        <receiver
+            android:name=".receivers.AirPlaneStateReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receivers.BroadcastReceiverExample"
+        <receiver
+            android:name=".receivers.BroadcastReceiverExample"
             android:exported="false">
             <intent-filter>
                 <action android:name=".receivers.BroadcastReceiverExample" />
@@ -267,6 +275,7 @@
              Google Maps Android API v2, but you must specify either coarse or fine
              location permissions for the 'MyLocation' functionality.
     -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Such a permission is needed to check if wifi is on -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />

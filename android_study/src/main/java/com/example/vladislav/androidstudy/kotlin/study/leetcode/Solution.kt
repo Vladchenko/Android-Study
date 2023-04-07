@@ -565,6 +565,15 @@ class Solution {
         var next: ListNode? = null
     }
 
+    /**
+     * Problem is described at https://leetcode.com/problems/number-of-1-bits/
+     * TODO
+     */
+    fun hammingWeight(n:Int):Int {
+        println(n.toString(2).chars().filter { it == 1 })
+        return 0
+    }
+
     companion object {
         private const val BRACES = "braces"
         private const val BRACKETS = "brackets"

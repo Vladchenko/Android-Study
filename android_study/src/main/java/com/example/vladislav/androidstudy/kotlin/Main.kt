@@ -5,6 +5,7 @@ import com.example.vladislav.androidstudy.kotlin.demo.Basics
 import com.example.vladislav.androidstudy.kotlin.sometasks.minefield.MineField
 import com.example.vladislav.androidstudy.kotlin.study.leetcode.Solution
 import indexOfLongestWord
+import org.w3c.dom.NodeList
 import removeExcessiveSpaces2
 import retrieveNumbers
 import toAlphabetSortedStrings
@@ -133,6 +134,7 @@ class Main {
 //        println(solution.longestCommonPrefix(arrayOf("vd_fgt_", "vdfgt", "vdfgt")))    //"vd"
 //        println(solution.longestCommonPrefix(arrayOf("Vlad123", "Vlad_123", "Vlad#456")))    //"Vlad"
 //        println(solution.longestCommonPrefix(arrayOf("flower","flow","flight")))    //"fl"
+
 //        println(solution.isValid("()"))
 //        println(solution.isValid("{}"))
 //        println(solution.isValid("[]"))
@@ -141,6 +143,7 @@ class Main {
 //        println(solution.isValid("[{}]"))
 //        println(solution.isValid("[]{}()"))
 //        println(solution.isPalindrome(".,"))
+
 //        println(solution.removeDuplicates(intArrayOf()))
 //        println(solution.removeDuplicates(intArrayOf(1)))
 //        println(solution.removeDuplicates(intArrayOf(1,1)))
@@ -161,6 +164,7 @@ class Main {
 //        println(solution.removeElement(intArrayOf(3,2,4,2,3), 3))
 //        println(solution.removeElement(intArrayOf(3,3,3,2,4,5,2,3), 3))
 //        println(solution.removeElement(intArrayOf(3,1,3,2,1,1,1,4,5,2,1,3,1,1,1), 1))
+
 //        println(solution.strStr("", ""))
 //        println(solution.strStr("", "s"))
 //        println(solution.strStr("s", "s"))
@@ -176,6 +180,7 @@ class Main {
 //        println(solution.searchInsert(intArrayOf(1,2,3,4,5,6,7), 4))
 //        println(solution.searchInsert(intArrayOf(1,2,3,4,5,6,7), 7))
 //        println(solution.searchInsert(intArrayOf(1,5,6,7), 4))
+
 //        println(solution.lengthOfLastWord(""))
 //        println(solution.lengthOfLastWord(" "))
 //        println(solution.lengthOfLastWord(" w"))
@@ -185,6 +190,7 @@ class Main {
 //        println(solution.lengthOfLastWord("bn "))
 //        println(solution.lengthOfLastWord("v za"))
 //        println(solution.lengthOfLastWord("v gb bvn sdfdfghghjk"))
+
 //        solution.plusOne(intArrayOf()).forEach { print(it) }
 //        println()
 //        solution.plusOne(intArrayOf(0)).forEach { print(it) }
@@ -202,7 +208,78 @@ class Main {
 //        solution.plusOne(intArrayOf(1, 9, 9)).forEach { print(it) }
 //        println()
 //        solution.plusOne(intArrayOf(9, 9, 9)).forEach { print(it) }
-        println(solution.addBinary("1010","10101"))
-        println(solution.addBinary("0","1"))
+
+//        println(solution.addBinary("1010","10101"))
+//        println(solution.addBinary("0","1"))
+
+//        println(solution.mySqrt(0))
+//        println(solution.mySqrt(1))
+//        println(solution.mySqrt(2))
+//        println(solution.mySqrt(3))
+//        println(solution.mySqrt(8))
+//        println(solution.mySqrt(9))
+//        println(solution.mySqrt(100))
+
+//        println(solution.singleNumber(intArrayOf()))
+//        println(solution.singleNumber(intArrayOf(0)))
+//        println(solution.singleNumber(intArrayOf(0,1)))
+//        println(solution.singleNumber(intArrayOf(0,0,12)))
+//        println(solution.singleNumber(intArrayOf(4,1,2,1,2)))
+//        println(solution.singleNumber(intArrayOf(1,2,3,1,3,7,2)))
+
+//        println(solution.generate(0))
+//        println(solution.generate(1))
+//        println(solution.generate(2))
+//        println(solution.generate(3))
+//        println(solution.generate(4))
+//        println(solution.generate(5))
+//        println(solution.generate(6))
+//        println(solution.generate(7))
+
+//        println(solution.getRow(0))
+//        println(solution.getRow(1))
+//        println(solution.getRow(2))
+//        println(solution.getRow(3))
+//        println(solution.getRow(4))
+//        println(solution.getRow(5))
+//        println(solution.getRow(6))
+//        println(solution.getRow(7))
+
+//        var list = solution.generateListNodes()
+//        while (list.next != null) {
+//            println(list.`val`)
+//            list = list.next!!
+//        }
+
+        // generateListNodes() check
+//        val list1 = solution.generateListNodes()
+//        var list11: Solution.ListNode? = list1
+//        print("List1: ")
+//        while (list11 != null) {
+//            print("${list11.`val`} ")
+//            list11 = list11.next
+//        }
+//        println()
+//        print("List2: ")
+//        val list2 = solution.generateListNodes()
+//        list11 = list2
+//        while (list11 != null) {
+//            print("${list11.`val`} ")
+//            list11 = list11.next
+//        }
+//        println()
+//
+//        print("Result List: ")
+//        var list = solution.mergeTwoLists(list1, list2)
+//        var resultList = list
+//        while (resultList != null) {
+//            print("${resultList.`val`} ")
+//            resultList = resultList.next
+//        }
+//        println()
+
+        solution.hammingWeight(0)
+        solution.hammingWeight(1)
+        solution.hammingWeight(Int.MAX_VALUE)
     }
 }

@@ -47,7 +47,6 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.4.4'
-        kotlinCompilerVersion '1.4.4'
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -61,7 +60,7 @@ android {
 
 dependencies {
     def lifecycle_version = "2.4.0"
-    def compose_version = '1.4.0'
+    def compose_version = '1.4.1'
 
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
@@ -105,9 +104,9 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1'
 
     kapt "com.google.dagger:hilt-compiler:2.45"
+    kapt 'com.google.dagger:dagger-compiler:2.45'
 
     testImplementation 'junit:junit:4.13.2'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.45'
 }
 repositories {
     mavenCentral()
