@@ -1,2 +1,9 @@
 This code is based upon the one present in example3.
-- Con: It has downloading and saving in one class - SOLID breaks, but correcting it, is not required in this example
+- Cons: It has downloading and saving in one class - SOLID breaks, but correcting it, is not required in this example
+        All 3 files have 1 progress textview
+TODO
+    Implement display of a downloading files like
+        Name
+        Progress bar (Current downloaded %)
+    First, using only recyclerView then add a fragment, then add viewmodel.
+    Try replacing current network layer with Retrofit

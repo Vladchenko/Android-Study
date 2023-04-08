@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -20,14 +19,16 @@ import io.reactivex.schedulers.Schedulers
 import java.io.File
 
 /**
- * This example performs a file downloading, with a progress, using JavaRx.
+ * This example performs a files downloading, with a progress, using JavaRx.
  * Once downloading complete, textview says where file has been downloaded.
  */
 class RxJava2Example5Activity : AppCompatActivity() {
 
     private var button: Button? = null
-    private var textView: TextView? = null
+    private var errorTextView: TextView? = null
     private var progressBar: ProgressBar? = null
+    private var fileNameTextView: TextView? = null
+    private var percentageTextView: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,34 +38,30 @@ class RxJava2Example5Activity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        textView = findViewById(R.id.rxjava2_example3_text_view)
+        errorTextView = findViewById(R.id.errorTextView)
         button = findViewById(R.id.rxjava2_example3_button)
+        percentageTextView = findViewById(R.id.percentageTextView)
         progressBar = findViewById(R.id.rxjava2_example3_progress_bar)
+        fileNameTextView = findViewById(R.id.rxjava2_example3_text_view)
     }
 
     private fun getClickListener() = View.OnClickListener {
-        var i = 0
-        Handler().postDelayed({
-            while (i < URL_LIST.size) {
-                runDownloading(URL_LIST[i])
-                i++
-            }
-        }, 100)
+        runDownloading(URL_LIST)
     }
 
-    private fun runDownloading(url: String) {
-        downloadUrlToFile(
-            url,
-            url.substring(url.lastIndexOf('/') + 1, url.length - 1)
-        ).subscribeOn(Schedulers.io())
+    private fun runDownloading(urlsList: List<String>) {
+        Observable.fromIterable(urlsList)
+            // Downloading is carried out in parallel
+            .flatMap { downloadUrlToFile(it) }
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext { textView?.text = "File$1" }
-            .doOnComplete { textView?.text = "File$1 downloaded" }
-            .doOnError { textView?.text = it.message }
+            .doOnNext { fileNameTextView?.text = "File$1" }
+            .doOnComplete { fileNameTextView?.text = "File$1 downloaded" }
+            .doOnError { errorTextView?.text = it.message }
             // .subscribe { ProgressObservableEmitter() }
             .subscribe(
-                { textView?.text = it.toString() },
-                { textView?.text = it.message }
+                { fileNameTextView?.text = it.toString() },
+                { errorTextView?.text = it.message }
             )
     }
 
@@ -73,17 +70,12 @@ class RxJava2Example5Activity : AppCompatActivity() {
      * //TODO This code should be put to Presenter (MVP) or ViewModel (MVVM)
      */
     @SuppressLint("CheckResult")
-    private fun downloadUrlToFile(url: String, fileName: String): Observable<String> {
+    private fun downloadUrlToFile(url: String): Observable<String> {
         return Observable.create { emitter ->
+            val fileName = url.substring(url.lastIndexOf('/') + 1, url.length)
             val filePath = createFilesDirIfAbsent(this).path + File.pathSeparator + fileName
             // !!! https://stackoverflow.com/questions/27687907/android-os-networkonmainthreadexception-using-rxjava-on-android
             NetworkApiMapper().downloadData(url, filePath)
-                // .map { response: Response? ->
-                //     ResponseSaver().saveDataToFile(
-                //         filePath,
-                //         response!!
-                //     )
-                // }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
@@ -94,29 +86,34 @@ class RxJava2Example5Activity : AppCompatActivity() {
                     emitter.onNext(filePath)
                 }
                 .doOnNext { text ->
-                    // textView!!.text = text
+                    // Here percentage value of each file should be fed
+                    percentageTextView!!.text = text
                 }
                 .doOnComplete {
                     //TODO Tell recycler to remove progressbar in item
                     // progressBar!!.visibility = View.INVISIBLE
                     // button!!.visibility = View.VISIBLE
-                    emitter.onComplete()
+//                    emitter.onComplete()
+                    fileNameTextView?.text = "File $fileName downloaded"
                 }
                 .doOnError { error: Throwable ->
                     // progressBar!!.visibility = View.INVISIBLE
-                    // textView!!.text = getString(R.string.download_error_message, error.message)
+                    errorTextView!!.text = getString(R.string.download_error_message, error.message)
                 }
-                .subscribe { ProgressObservableEmitter() }
+                .subscribe(
+                    { percentageTextView?.text = it.toString() },
+                    { errorTextView?.text = it.message }
+                )
             /** Here has to be some subscriber, else its not gonna run ! */
         }
     }
 
     private fun showSuccessfulStatus(file: Unit) {
-        textView!!.text = getString(R.string.file_downloaded_to_message, "Done")
+        fileNameTextView!!.text = getString(R.string.file_downloaded_to_message, "Done")
     }
 
     private fun showFailedStatus(exception: Throwable) {
-        textView!!.text = exception.message
+        fileNameTextView!!.text = exception.message
     }
 
     /**
@@ -131,8 +128,8 @@ class RxJava2Example5Activity : AppCompatActivity() {
     companion object {
         private val URL_LIST = listOf(
             "https://mp3bob.ru/download/muz/Numb_[mp3pulse.ru].mp3",
-            "https://www.mp3pulse.ru/download/muz/Nickelback_-_Home_[pulse-mp3.ru].mp3",
-            "https://www.mp3pulse.ru/download/muz/Nickelback_-_After_The_Rain_[pulse-mp3.ru].mp3"
+            "https://mp3bob.ru/download/muz02/Ruki_Vverkh_-_Ottepel_sample.mp3",
+            "https://mp3bob.ru/download/muz/Ruki_Vverkh_-_Rasskazhi_Mne_[].mp3"
         )
         private const val FILE_NAME = "downloadedFile"
         private const val TAG = "RxJava2Example3Activity"
