@@ -1,48 +1,49 @@
 package com.example.vladislav.androidstudy.javarx2.example5
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.vladislav.androidstudy.R
-import com.example.vladislav.androidstudy.kotlin.utils.createFilesDirIfAbsent
 import io.reactivex.Observable
-import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.io.File
 
 /**
  * This example performs a files downloading, with a progress, using JavaRx.
- * Once downloading complete, textview says where file has been downloaded.
+ * Once downloading complete, textview informs about it.
  */
 class RxJava2Example5Activity : AppCompatActivity() {
 
-    private var button: Button? = null
-    private var errorTextView: TextView? = null
-    private var progressBar: ProgressBar? = null
-    private var fileNameTextView: TextView? = null
-    private var percentageTextView: TextView? = null
+    private lateinit var button: Button
+    private lateinit var resultTextView: TextView
+    private lateinit var recyclerView: RecyclerView
+    private var filesList = mutableListOf<FileModel>()
+    private lateinit var recyclerViewAdapter: FilesRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rx_java2_example3)
+        setContentView(R.layout.activity_rx_java2_example5)
         initViews()
-        button!!.setOnClickListener(getClickListener())
+        initRecyclerView()
+        button.setOnClickListener(getClickListener())
     }
 
     private fun initViews() {
-        errorTextView = findViewById(R.id.errorTextView)
-        button = findViewById(R.id.rxjava2_example3_button)
-        percentageTextView = findViewById(R.id.percentageTextView)
-        progressBar = findViewById(R.id.rxjava2_example3_progress_bar)
-        fileNameTextView = findViewById(R.id.rxjava2_example3_text_view)
+        resultTextView = findViewById(R.id.resultTextView)
+        button = findViewById(R.id.run_downloading_button)
+    }
+
+    private fun initRecyclerView() {
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerViewAdapter = FilesRecyclerViewAdapter()
+        recyclerView.adapter = recyclerViewAdapter
     }
 
     private fun getClickListener() = View.OnClickListener {
@@ -50,76 +51,98 @@ class RxJava2Example5Activity : AppCompatActivity() {
     }
 
     private fun runDownloading(urlsList: List<String>) {
-        Observable.fromIterable(urlsList)
+        val files = Observable.fromIterable(urlsList)
             // Downloading is carried out in parallel
             .flatMap { downloadUrlToFile(it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext { fileNameTextView?.text = "File$1" }
-            .doOnComplete { fileNameTextView?.text = "File$1 downloaded" }
-            .doOnError { errorTextView?.text = it.message }
-            // .subscribe { ProgressObservableEmitter() }
+            .doOnNext {
+                showResult("${it.fileName}=${it.progress}")
+            }
+            .doOnComplete {
+                showResult("All files download complete")
+            }
+            .doOnError {
+                showError(it.message ?: " Unknown error")
+            }
             .subscribe(
-                { fileNameTextView?.text = it.toString() },
-                { errorTextView?.text = it.message }
+                {
+                    // This is where current file begins its downloading
+                    showResult("${extractFileNameFromPath(it.fileName)} download has begun")
+                },
+                {
+                    showError(it.message ?: " Unknown error")
+                }
             )
     }
 
     /**
      * Downloading is performed on a worker thread and fetches the result on a UI thread.
-     * //TODO This code should be put to Presenter (MVP) or ViewModel (MVVM)
+     * //TODO This code should be put to Presenter (MVP) or ViewModel (MVVM), but not in this example
      */
-    @SuppressLint("CheckResult")
-    private fun downloadUrlToFile(url: String): Observable<String> {
+    private fun downloadUrlToFile(url: String): Observable<FileModel> {
         return Observable.create { emitter ->
-            val fileName = url.substring(url.lastIndexOf('/') + 1, url.length)
-            val filePath = createFilesDirIfAbsent(this).path + File.pathSeparator + fileName
+            val filePath = createFilePath(url, this)
             // !!! https://stackoverflow.com/questions/27687907/android-os-networkonmainthreadexception-using-rxjava-on-android
-            NetworkApiMapper().downloadData(url, filePath)
+            val fileObservable = NetworkApiMapper().downloadData(url, filePath)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
-                    //TODO Tell recycler to add an item
-                    // progressBar!!.visibility = View.VISIBLE
-                    // button!!.visibility = View.INVISIBLE
-                    // textView!!.text = getString(R.string.downloading_by_url, url)
-                    emitter.onNext(filePath)
+                    // Notifies that downloading has begun for a filePath
+                    emitter.onNext(FileModel(filePath, 0))
                 }
-                .doOnNext { text ->
-                    // Here percentage value of each file should be fed
-                    percentageTextView!!.text = text
+                .doOnNext { file ->
+                    // FileModels with a new percentage values are fed here
+                    updateListOnlyWithNewItems(file)
+                    recyclerViewAdapter.setFilesToDownload(filesList)
+                    recyclerViewAdapter.notifyDataSetChanged()
                 }
                 .doOnComplete {
-                    //TODO Tell recycler to remove progressbar in item
-                    // progressBar!!.visibility = View.INVISIBLE
-                    // button!!.visibility = View.VISIBLE
-//                    emitter.onComplete()
-                    fileNameTextView?.text = "File $fileName downloaded"
+                    showResult("Some file download complete")
+                    emitter.onComplete()
                 }
                 .doOnError { error: Throwable ->
-                    // progressBar!!.visibility = View.INVISIBLE
-                    errorTextView!!.text = getString(R.string.download_error_message, error.message)
+                    showError(error.message ?: "Unknown error")
+                    emitter.onError(error)
                 }
                 .subscribe(
-                    { percentageTextView?.text = it.toString() },
-                    { errorTextView?.text = it.message }
+                    {
+                        // FileModels with a new percentage values are fed here
+                        // Don't think this callback is needed
+                    },
+                    { showError(it.message ?: "Unknown error") }
                 )
             /** Here has to be some subscriber, else its not gonna run ! */
         }
     }
 
-    private fun showSuccessfulStatus(file: Unit) {
-        fileNameTextView!!.text = getString(R.string.file_downloaded_to_message, "Done")
+    // Feed percentage value only when it is different to a previous one, since
+    // it is fed every reading of data block and doesn't change for a long time.
+    private fun updateListOnlyWithNewItems(file: FileModel) {
+        var updated = false
+        for (i in 0 until filesList.size) {
+            if (filesList[i].fileName == file.fileName) {
+                filesList[i] = file
+                updated = true
+            }
+        }
+        if (!updated) {
+            filesList.add(file)
+        }
     }
 
-    private fun showFailedStatus(exception: Throwable) {
-        fileNameTextView!!.text = exception.message
+    private fun showError(message: String) {
+        resultTextView.setTextColor(getColor(R.color.colorAccent))
+        resultTextView.text = message
+    }
+
+    private fun showResult(message: String) {
+        resultTextView.setTextColor(getColor(R.color.color_green))
+        resultTextView.text = message
     }
 
     /**
-     * TODO
-     * @param context
-     * @return
+     * @return [Intent] for RxJava2Example5Activity, using [context]
      */
     fun newIntent(context: Context): Intent {
         return Intent(context, RxJava2Example5Activity::class.java)
@@ -131,26 +154,5 @@ class RxJava2Example5Activity : AppCompatActivity() {
             "https://mp3bob.ru/download/muz02/Ruki_Vverkh_-_Ottepel_sample.mp3",
             "https://mp3bob.ru/download/muz/Ruki_Vverkh_-_Rasskazhi_Mne_[].mp3"
         )
-        private const val FILE_NAME = "downloadedFile"
-        private const val TAG = "RxJava2Example3Activity"
-    }
-}
-
-class SomeObserver : Observer<String> {
-
-    override fun onNext(p0: String) {
-        println(p0)
-    }
-
-    override fun onError(p0: Throwable) {
-        println(p0.message)
-    }
-
-    override fun onComplete() {
-        println("Done")
-    }
-
-    override fun onSubscribe(p0: Disposable) {
-        println(p0.toString())
     }
 }

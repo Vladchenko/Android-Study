@@ -6,7 +6,6 @@ import io.reactivex.ObservableEmitter
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import java.io.File
 import java.io.IOException
 import java.io.FileOutputStream
 
@@ -21,8 +20,9 @@ class NetworkApiMapper {
      * Загружаем данные по [url] в [Response]
      */
     @Throws(IOException::class)
-    fun downloadData(url: String, filePath: String): Observable<String> =
+    fun downloadData(url: String, filePath: String): Observable<FileModel> =
         Observable.create { emitter ->
+            var percentage: Long = 0
             run {
                 try {
                     val request = Request.Builder()
@@ -32,6 +32,7 @@ class NetworkApiMapper {
                         println(it.headers)
                         val input = it.body?.byteStream()
                         val length: Long = it.body?.contentLength()!!
+
                         /**
                         contentLength() will retrieve value only when header: Content-Length in the downloading file
                         is present.
@@ -40,16 +41,24 @@ class NetworkApiMapper {
                         val output = FileOutputStream(filePath)
                         val data = ByteArray(1024)
 
-                        emitter.onNext("0%")
+                        // Emit FileModel for beginning of download
+                        emitFileModelForPercent(emitter, filePath, 0)
+
+                        var count: Int
                         var total: Long = 0
-                        var count: Int = 0
                         var percent: Long = 0
                         while (percent < 100) { //FIXME Lame code
                             count = input?.read(data)!!
                             total += count.toLong()
                             percent = total * 100 / length
-                            emitter.onNext("$percent%")
                             output.write(data, 0, count)
+                            // Since downloading is done with small data blocks, the downloaded
+                            // percent is not changed every such reading. For emitter not to feed
+                            // same percent value many times, next condition is implemented
+                            if (percentage != percent) {
+                                percentage = percent
+                                emitFileModelForPercent(emitter, filePath, percent)
+                            }
                         }
                         output.flush()
                         output.close()
@@ -60,9 +69,23 @@ class NetworkApiMapper {
                     ex.stackTrace.map { Log.e(TAG, it.toString()) }
                     throw ex
                 }
+                // This emits an event of current downloading being complete
                 emitter.onComplete()
             }
         }
+
+    private fun emitFileModelForPercent(
+        emitter: ObservableEmitter<FileModel>,
+        filePath: String,
+        percent: Long
+    ) {
+        emitter.onNext(
+            FileModel(
+                extractFileNameFromPath(filePath),
+                percent
+            )
+        )
+    }
 
     companion object {
         private const val TAG = "NetworkApiMapper"
