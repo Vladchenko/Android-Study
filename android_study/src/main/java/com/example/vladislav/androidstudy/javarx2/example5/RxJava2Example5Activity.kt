@@ -103,7 +103,8 @@ class RxJava2Example5Activity : AppCompatActivity() {
                 }
                 .doOnError { error: Throwable ->
                     showError(error.message ?: "Unknown error")
-                    emitter.onError(error)
+                    // If use following method, then undeliverable exception occurs
+                    // emitter.onError(error)
                 }
                 .subscribe(
                     {
