@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.javarx2.example5
+package com.example.vladislav.androidstudy.javarx2.example7
 
 import android.content.Context
 import android.content.Intent
@@ -10,7 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vladislav.androidstudy.R
-import io.reactivex.Observable
+import com.example.vladislav.androidstudy.javarx2.example5.FileModelsRecyclerViewAdapter
+import com.example.vladislav.androidstudy.javarx2.example5.FileProgressModel
+import com.example.vladislav.androidstudy.javarx2.example5.createFilePath
+import com.example.vladislav.androidstudy.javarx2.example5.extractFileNameFromPath
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -18,7 +21,7 @@ import io.reactivex.schedulers.Schedulers
  * This example performs a files downloading, with a progress, using JavaRx.
  * Once downloading complete, textview informs about it.
  */
-class RxJava2Example5Activity : AppCompatActivity() {
+class JavaRxExample7Activity : AppCompatActivity() {
 
     private lateinit var button: Button
     private lateinit var resultTextView: TextView
@@ -47,74 +50,57 @@ class RxJava2Example5Activity : AppCompatActivity() {
     }
 
     private fun getClickListener() = View.OnClickListener {
-        runDownloading(URL_LIST)
+        for (url in URL_LIST) {
+            runDownloading(url)
+        }
     }
 
-    private fun runDownloading(urlsList: List<String>) {
-        val files = Observable.fromIterable(urlsList)
-            // Downloading is carried out in parallel
-            .flatMap { downloadUrlToFile(it) }
+    private fun runDownloading(url: String) {
+        val filePath = createFilePath(url, this)
+        val fileObservable = FileDownLoadingApiMapper(
+            DownloadProgressListener({
+                updateListOnlyWithNewItems(
+                    FileProgressModel(
+                        extractFileNameFromPath(filePath),
+                        it
+                    )
+                )
+                // Switching back to UI thread, to fetch data
+//                lifecycleScope.launch {
+                recyclerViewAdapter.setFileProgressModels(filesList)
+                recyclerViewAdapter.notifyDataSetChanged()
+//                }
+            }
+            )).downloadFileWithProgress(url, filePath)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext {
-                showResult("${it.fileName}=${it.progress}")
+            .doOnSubscribe {
+                // Notifies that downloading has begun for a filePath
+                println("doOnSubscribe")
+//                emitter.onNext(FileProgressModel(filePath, 0))
+            }
+            .doOnNext { file ->
+                // FileModels with a new percentage values are fed here
+                updateListOnlyWithNewItems(file)
+                recyclerViewAdapter.setFileProgressModels(filesList)
+                recyclerViewAdapter.notifyDataSetChanged()
             }
             .doOnComplete {
-                showResult("All files download complete")
+                showResult("Some file download complete")
+//                emitter.onComplete()
             }
-            .doOnError {
-                showError(it.message ?: " Unknown error")
+            .doOnError { error: Throwable ->
+                showError(error.message ?: "Unknown error")
+                // If use following method, then undeliverable exception occurs
+                // emitter.onError(error)
             }
             .subscribe(
                 {
-                    // This is where current file begins its downloading
-                    showResult("${extractFileNameFromPath(it.fileName)} download has begun")
-                },
-                {
-                    showError(it.message ?: " Unknown error")
-                }
-            )
-    }
-
-    /**
-     * Downloading is performed on a worker thread and fetches the result on a UI thread.
-     * //TODO This code should be put to Presenter (MVP) or ViewModel (MVVM), but not in this example
-     */
-    private fun downloadUrlToFile(url: String): Observable<FileProgressModel> {
-        return Observable.create { emitter ->
-            val filePath = createFilePath(url, this)
-            // !!! https://stackoverflow.com/questions/27687907/android-os-networkonmainthreadexception-using-rxjava-on-android
-            val fileObservable = NetworkApiMapper().runFileDownloading(url, filePath)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe {
-                    // Notifies that downloading has begun for a filePath
-                    emitter.onNext(FileProgressModel(filePath, 0))
-                }
-                .doOnNext { file ->
                     // FileModels with a new percentage values are fed here
-                    updateListOnlyWithNewItems(file)
-                    recyclerViewAdapter.setFileProgressModels(filesList)
-                    recyclerViewAdapter.notifyDataSetChanged()
-                }
-                .doOnComplete {
-                    showResult("Some file download complete")
-                    emitter.onComplete()
-                }
-                .doOnError { error: Throwable ->
-                    showError(error.message ?: "Unknown error")
-                    // If use following method, then undeliverable exception occurs
-                    // emitter.onError(error)
-                }
-                .subscribe(
-                    {
-                        // FileModels with a new percentage values are fed here
-                        // Don't think this callback is needed
-                    },
-                    { showError(it.message ?: "Unknown error") }
-                )
-            /** Here has to be some subscriber, else its not gonna run ! */
-        }
+                    // Don't think this callback is needed
+                },
+                { showError(it.message ?: "Unknown error") }
+            )
     }
 
     // Feed percentage value only when it is different to a previous one, since
@@ -144,7 +130,7 @@ class RxJava2Example5Activity : AppCompatActivity() {
 
     /** @return [Intent] for RxJava2Example5Activity, using [context] */
     fun newIntent(context: Context): Intent {
-        return Intent(context, RxJava2Example5Activity::class.java)
+        return Intent(context, JavaRxExample7Activity::class.java)
     }
 
     companion object {

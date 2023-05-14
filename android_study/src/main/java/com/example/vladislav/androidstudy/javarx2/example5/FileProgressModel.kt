@@ -3,10 +3,10 @@ package com.example.vladislav.androidstudy.javarx2.example5
 /**
  * Presentation-layer model representing file to be downloaded.
  *
- * @param fileName file name
- * @param progress current progress for downloading a file
+ * @property fileName file name
+ * @property progress current progress for downloading a file
  */
-data class FileModel(
+data class FileProgressModel(
     val fileName: String,
     val progress: Long
 )

@@ -5,6 +5,35 @@
     <compatible-screens /> <!-- Which screens app supports -->
     <supports-screens />
 
+    <uses-sdk
+        android:maxSdkVersion="26"
+        android:targetSdkVersion="33" />
+
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="false" /> <!-- INFO ABOUT MANIFEST.XML -->
+    <!-- http://developer.alexanderklimov.ru/android/theory/AndroidManifestXML.php -->
+    <!-- https://developer.android.com/guide/topics/manifest/manifest-intro.html -->
+    <!-- https://developer.oculus.com/distribute/latest/concepts/publish-mobile-manifest/ -->
+    <!-- Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--
+             The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+             Google Maps Android API v2, but you must specify either coarse or fine
+             location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Such a permission is needed to check if wifi is on -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.androidtest.READ_DATABASE" />
+    <uses-permission android:name="com.android.androidtest.WRITE_DATABASE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES" />
+
     <application
         android:allowBackup="true"
         android:debuggable="true"
@@ -135,9 +164,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".kotlin.KotlinStudyActivity"
-            android:exported="true">
-        </activity>
+        <activity
+            android:name=".kotlin.KotlinStudyActivity"
+            android:exported="true"></activity>
         <activity android:name=".jobs.listviewing.recyclerview.RecyclerViewActivity" />
         <activity android:name=".jobs.simple_jobs.ContextActivity" /> <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
         <!-- // This receiver should not accept any broadcasts, but in fact it is overridden in code and -->
@@ -168,8 +197,8 @@
         <activity android:name=".jobs.simple_jobs.CommonActivity" />
         <activity android:name=".jobs.criminalrecords.ui.CriminalRecordsActivity" />
         <activity
-            android:name=".jobs.currency.CurrencyActivity" android:exported="false">
-        </activity>
+            android:name=".jobs.currency.CurrencyActivity"
+            android:exported="false"></activity>
         <activity android:name=".javarx2.example2.MainRXActivity" />
         <activity android:name=".javarx2.example2.RxJavaSimpleActivity" />
         <activity android:name=".javarx2.example2.BooksActivity" />
@@ -178,24 +207,31 @@
         <activity android:name=".javarx2.example1.RxJava2Example1Activity" />
         <activity android:name=".javarx2.example3.RxJava2Example3Activity" />
         <activity android:name=".javarx2.example4.RxJava2Example4Activity" />
-        <activity android:name=".javarx2.example5.RxJava2Example5Activity" android:exported="true">
-        </activity>
-        <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
-        <activity android:name=".jobs.background_jobs.handler.HandlerActivityKt"
-            android:exported="true">
-        </activity>
         <activity
-            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.looperthread.LooperThreadActivity"
-            android:exported="true">
-        </activity>
+            android:name=".javarx2.example5.RxJava2Example5Activity"
+            android:exported="true"></activity>
         <activity
-            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.handlerthread.HandlerThreadActivity"
+            android:name=".javarx2.example6.CoroutinesExample6Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".javarx2.example7.JavaRxExample7Activity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
+        <activity
+            android:name=".jobs.background_jobs.handler.HandlerActivityKt"
+            android:exported="true"></activity>
+        <activity
+            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.looperthread.LooperThreadActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.handlerthread.HandlerThreadActivity"
+            android:exported="true"></activity>
 
         <provider
             android:name=".jobs.criminalrecords.data_providing.CrimesContentProvider"
@@ -272,34 +308,5 @@
             android:name="com.google.android.wearable"
             android:required="false" />
     </application>
-
-    <uses-feature
-        android:name="android.hardware.camera2"
-        android:required="false" /> <!-- INFO ABOUT MANIFEST.XML -->
-    <!-- http://developer.alexanderklimov.ru/android/theory/AndroidManifestXML.php -->
-    <!-- https://developer.android.com/guide/topics/manifest/manifest-intro.html -->
-    <!-- https://developer.oculus.com/distribute/latest/concepts/publish-mobile-manifest/ -->
-    <!-- Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!--
-             The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-             Google Maps Android API v2, but you must specify either coarse or fine
-             location permissions for the 'MyLocation' functionality.
-    -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Such a permission is needed to check if wifi is on -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.android.androidtest.READ_DATABASE" />
-    <uses-permission android:name="com.android.androidtest.WRITE_DATABASE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES" />
-
-    <uses-sdk
-        android:maxSdkVersion="26"
-        android:targetSdkVersion="33" />
 
 </manifest>

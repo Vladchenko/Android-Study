@@ -11,21 +11,19 @@ import com.example.vladislav.androidstudy.R
 /**
  * Adapter for a recyclerview of List<FileModel>
  */
-class FilesRecyclerViewAdapter : RecyclerView.Adapter<FilesRecyclerViewAdapter.FilesViewHolder>() {
+class FileModelsRecyclerViewAdapter : RecyclerView.Adapter<FileModelsRecyclerViewAdapter.FilesViewHolder>() {
 
-    private var files: List<FileModel>? = null
+    private var fileProgressModels: List<FileProgressModel>? = null
 
-    /**
-     * Set list of [FileModel] to be downloaded
-     */
-    fun setFilesToDownload(files: List<FileModel>) {
-        this.files = files
+    /** Set list of [FileProgressModel] to be downloaded */
+    fun setFileProgressModels(models: List<FileProgressModel>) {
+        fileProgressModels = models
     }
 
     /**
-     * ViewHolder for FileModel
+     * ViewHolder for [FileProgressModel]
      *
-     * @constrcutor creates instance for class
+     * @constructor creates instance for class
      * @property itemView view for a current FileModel
      */
     class FilesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -40,9 +38,9 @@ class FilesRecyclerViewAdapter : RecyclerView.Adapter<FilesRecyclerViewAdapter.F
     }
 
     override fun onBindViewHolder(holder: FilesViewHolder, position: Int) {
-        holder.fileNameTextView.text = files!![position].fileName
-        holder.progressTextView.progress = files!![position].progress.toInt()
+        holder.fileNameTextView.text = fileProgressModels!![position].fileName
+        holder.progressTextView.progress = fileProgressModels!![position].progress.toInt()
     }
 
-    override fun getItemCount() = files?.size ?: 0
+    override fun getItemCount() = fileProgressModels?.size ?: 0
 }

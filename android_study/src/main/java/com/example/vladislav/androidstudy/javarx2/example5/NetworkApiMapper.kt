@@ -10,17 +10,17 @@ import java.io.IOException
 import java.io.FileOutputStream
 
 /**
- * Работа с сетью
+ * Network operating
  *
  * @author Yanchenko Vladislav
  */
 class NetworkApiMapper {
 
     /**
-     * Загружаем данные по [url] в [Response]
+     * Download data by [url] into [Response]
      */
     @Throws(IOException::class)
-    fun downloadData(url: String, filePath: String): Observable<FileModel> =
+    fun runFileDownloading(url: String, filePath: String): Observable<FileProgressModel> =
         Observable.create { emitter ->
             var percentage: Long = 0
             run {
@@ -34,23 +34,22 @@ class NetworkApiMapper {
                         val length: Long = it.body?.contentLength()!!
 
                         /**
-                        contentLength() will retrieve value only when header: Content-Length in the downloading file
-                        is present.
+                         * contentLength() will retrieve value only when header: Content-Length in the
+                         * downloading file is present.
                          */
-
                         val output = FileOutputStream(filePath)
-                        val data = ByteArray(1024)
+                        val data = ByteArray(KILOBYTE)
 
                         // Emit FileModel for beginning of download
-                        emitFileModelForPercent(emitter, filePath, 0)
+                        emitFileModelForPercent(emitter, filePath, ZERO_PERCENT)
 
                         var count: Int
-                        var total: Long = 0
-                        var percent: Long = 0
-                        while (percent < 100) { //FIXME Lame code
+                        var total  = ZERO_PERCENT
+                        var percent  = ZERO_PERCENT
+                        while (percent < HUNDRED_PERCENT) {
                             count = input?.read(data)!!
                             total += count.toLong()
-                            percent = total * 100 / length
+                            percent = total * HUNDRED_PERCENT / length
                             output.write(data, 0, count)
                             // Since downloading is done with small data blocks, the downloaded
                             // percent is not changed every such reading. For emitter not to feed
@@ -75,12 +74,12 @@ class NetworkApiMapper {
         }
 
     private fun emitFileModelForPercent(
-        emitter: ObservableEmitter<FileModel>,
+        emitter: ObservableEmitter<FileProgressModel>,
         filePath: String,
         percent: Long
     ) {
         emitter.onNext(
-            FileModel(
+            FileProgressModel(
                 extractFileNameFromPath(filePath),
                 percent
             )
@@ -88,6 +87,9 @@ class NetworkApiMapper {
     }
 
     companion object {
+        private const val KILOBYTE = 1024
+        private const val ZERO_PERCENT = 0L
+        private const val HUNDRED_PERCENT = 100
         private const val TAG = "NetworkApiMapper"
     }
 }
