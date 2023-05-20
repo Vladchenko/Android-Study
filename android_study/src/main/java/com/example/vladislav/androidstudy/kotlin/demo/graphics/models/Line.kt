@@ -4,7 +4,12 @@ import android.graphics.Canvas
 import android.graphics.Paint
 
 /**
- * TODO
+ * Represents a line (geometric figure)
+ *
+ * @param x1 x axis initial ordinate
+ * @param y1 y axis initial ordinate
+ * @param x2 x axis terminal ordinate
+ * @param y2 y axis terminal ordinate
  */
 data class Line(
     override val x1: Float,
