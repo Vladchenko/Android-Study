@@ -2,6 +2,7 @@ package com.example.vladislav.androidstudy.kotlin.study.leetcode
 
 import java.lang.System.arraycopy
 import java.util.*
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
@@ -42,9 +43,7 @@ class Solution {
         return isPalindrome
     }
 
-    /**
-     * Extra solution for isPalindrome
-     */
+    /** Extra solution for isPalindrome */
     fun isPalindrome2(x: Int): Boolean {    // This one is faster and takes less memory
         val string = x.toString()
         for (i in 0..string.length / 2) {
@@ -54,6 +53,9 @@ class Solution {
         }
         return true
     }
+
+    /** Extra solution for isPalindrome */
+    fun isPalindrome3(x: Int) = x.toString() == x.toString().reversed()
 
     /**
      * Problem is described at https://leetcode.com/problems/roman-to-integer/
@@ -601,9 +603,40 @@ class Solution {
     /**
      * Problem is described at https://leetcode.com/problems/number-of-1-bits/
      */
-    fun hammingWeight(n:Int):Int {
+    fun hammingWeight(n: Int): Int {
         return n.toUInt().toString(2).count { it == '1' }
     }
+
+    /**
+     * NOT PASSED
+     * Leetcode review throws following exception:
+     * unresolved reference: digitToInt
+     * char.digitToInt().toDouble().pow(2)
+     * Problem is described at https://leetcode.com/problems/happy-number/
+     */
+    fun isHappy(n: Int): Boolean {
+        var value = n
+        if (value in 0..4) {
+            return false
+        }
+        try {
+            while (value != 1) {
+                value = calculateSumOfDigitsSquaresForDigitsInInt(value)
+                if (value in 2..4) {
+                    return false
+                }
+            }
+            return true
+        } catch (aex: ArithmeticException) {
+            return false
+        }
+    }
+
+    private fun calculateSumOfDigitsSquaresForDigitsInInt(n: Int) =
+        n.toString().map { char ->
+            char.digitToInt().toDouble().pow(2)
+        }.sum()
+            .toInt()
 
     companion object {
         private const val BRACES = "braces"

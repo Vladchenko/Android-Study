@@ -68,7 +68,7 @@ class FilesDemo(private val context: Context) {
             folder.mkdir()
             println("Folder $folder has been created")
         } else {
-            println("Folder $folder has NOT been created, it already exists")
+            println("Folder $folder already exists")
         }
     }
 

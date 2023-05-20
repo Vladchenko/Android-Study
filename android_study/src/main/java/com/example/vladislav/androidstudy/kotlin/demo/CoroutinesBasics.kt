@@ -10,6 +10,7 @@ import kotlinx.coroutines.*
 class CoroutinesBasics {
 
     fun simpleCoroutineDemo() {
+        // GlobalScope coroutine will live while the app lives
         GlobalScope.launch { // launch a new coroutine in background and continue
             delay(1000L) // non-blocking delay for 1 second (default time unit is ms)
             println("World!") // print after delay
@@ -34,6 +35,39 @@ class CoroutinesBasics {
         }
         println("Hello,")
         job.join() // wait until child coroutine completes
+    }
+
+    fun simpleCoroutineDemo4() = runBlocking { // <Unit> can be omitted
+        GlobalScope.launch(Dispatchers.Main) {// Launch coroutine on main thread
+            delay(1000L)
+            println("First delay!")
+        }
+    }
+
+    fun simpleCoroutineDemo5() = runBlocking { // <Unit> can be omitted
+        GlobalScope.launch(newSingleThreadContext("My thread")) {// Launch coroutine on newly created thread
+            delay(1000L)
+            println("First delay!")
+        }
+    }
+
+    fun simpleCoroutineDemo6() = runBlocking { // <Unit> can be omitted
+        GlobalScope.launch(Dispatchers.IO) {// Launch coroutine on newly created thread
+            simulateNetworkCall()
+            withContext(Dispatchers.Main) {
+                // Update some UI views here
+            }
+        }
+    }
+
+    suspend fun simulateNetworkCall() {
+        delay(2000L)
+        println("Data downloaded!")
+    }
+
+    suspend fun secondDelay() {
+        delay(1000L)
+        println("Second delay!")
     }
 
 //    fun demoDispatchersAndThreads() {

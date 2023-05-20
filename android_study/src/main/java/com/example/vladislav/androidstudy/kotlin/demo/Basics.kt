@@ -122,7 +122,7 @@ class Basics {
 
     fun listDemo() {
         val someList = arrayOf(1, 2, 3, 4).asList()
-        val list = listOf("q", "a", "z", "zz")    // Immutable list (one cannot add items to it)
+        val list = listOf("q", "a", "z", "zz")    // Immutable list (one cannot add items to it or remove from)
         val mutableList = mutableListOf("w", "s", "x")    // Mutable list (one can add items to it)
         println(list[0])    // Same to println(list.get(0))
         list.getOrElse(5) { list[0] }   // Answer: q    // Retrieves first element instead of 5th, which is absent.
@@ -144,16 +144,16 @@ class Basics {
         println(listOf(1, 2, 3, 4, 5).fold(0) { total, next -> total + next })  // Answer: 15
         println(listOf(1, 2, 3).reduce { total, next -> total + next }) // Answer: 6. Same as .fold(), but without
         // an initial state
-        println(listOf(1, 2, 3).sumOf { it + 5 }) // Answer: 21. Increasing all the items in 5, add, then sum them up
+        println(listOf(1, 2, 3).sumOf { it + 5 }) // Answer: 21. Increasing all the items in 5, then sum them up
         val list2 = listOf(1, 2, 3, 4, 5)
-        // есть ли элемент, который делится без остатка?
+        // Is there an even element ?
         println(list2.any { it % 2 == 0 }) // true
-        // есть ли элемент больше 10?
+        // Is there an element bigger than 10 ?
         println(list2.any { it > 10 }) // false
-        // Выражение !any можно заменить на all.    Выражение !all можно заменить на any.
-        // все элементы меньше 7?
+        // "!any" expression can be replaced with "all".    "!all" expression can be replaced with "any".
+        // Are all elements less than 7 ?
         println(list2.all { it < 7 }) // true
-        // Ни один элемент не больше 6?
+        // None of the elements is bigger than 6 ?
         println(list2.none { it > 6 }) // true
         println(listOf(1, 2, 3, 4, 5).drop(2)) // [3, 4, 5]
         println(listOf(1, 2, 3, 4, 5).dropWhile({ it < 3 }))  // [3, 4, 5]
@@ -343,7 +343,7 @@ class Basics {
             .filter { it.startsWith("a") }
             .sortedBy { it }
             .map { it.uppercase() }
-            .forEach { println(it) }
+            .forEach { println(it) }    // APPLE    AVOCADO
         ordinalsList.any(::isEven)  // Passes through each items in ordinalsList and runs isEven on them.
         // Prints true
         ordinalsList.filter { isEven(it) }  // [2, 4]
@@ -360,11 +360,17 @@ class Basics {
         val files = File("Test").listFiles()
         println(files?.size ?: "empty") // If not null and else shorthand
 
-        val value = ""
+        var value: String? = null
 
         value?.let {
             // execute this block if not null
             println(value)
+        }
+
+        value?.let {
+            // execute this block if not null
+        } ?: run {
+            // execute this block if null
         }
 
         val mapped = value?.let { transformValue(it) } ?: list      // defaultValue is returned
@@ -526,6 +532,9 @@ class Basics {
     }
 
     fun destructuringDeclaration() {
+        // Also check
+        // 1) https://play.kotlinlang.org/byExample/08_productivity_boosters/03_Destructuring%20Declarations
+        // 2) https://www.baeldung.com/kotlin/destructuring-declarations
         val (number, name) = 1 to "one" // Destructuring declaration
         val collection = listOf(1, 2, 3)
         for ((index, element) in collection.withIndex())    // Destructuring declaration
@@ -539,6 +548,7 @@ class Basics {
     }
 
     fun testIsPalindromeMethod() {
+        println("Result is = " + "10 +- 2".solveExpression())    //6.5
         println("Result is = " + "10 + 2 / 4 - 3 * 6 + 1".solveExpression())    //6.5
         println("Result is = " + "10 + 2".solveExpression())
         println("Result is = " + "10 / 2".solveExpression())

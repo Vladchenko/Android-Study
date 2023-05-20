@@ -6,25 +6,19 @@
  * @author Yanchenko Vladislav on 05.08.2020.
  */
 
-/**
- * Checks if character is not a digit.
- */
+/** Checks if character is not a digit. */
 fun isNotDigit(c: Char) = c !in '0'..'9'    // Or !c.isDigit()
 
-/**
- * Character to integer conversion.
- */
+/** Character to integer conversion. */
 fun charToInt(c: Char): Int {
-    if (!c.isDigit()) throw IllegalArgumentException("$c argument is wrong, it has to be a digit")
+    if (!c.isDigit()) throw IllegalArgumentException("$c is not a digit")
     else return c.code - 48      // c.digitToInt() - this one should work, but it cannot be imported
 }
 
 fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'
 
-/**
- * Checks if all the symbols in string are letters.
- */
-fun String.isLetters2() = this.all { it.isLetter()  } // c.isLetter(), method from CharJVM.kt
+/** Checks if all the symbols in string are letters. */
+fun String.isLetters() = this.all { it.isLetter() } // c.isLetter(), method from CharJVM.kt
 
 fun String.isNumber() = this.toDoubleOrNull() != null
 
@@ -42,9 +36,9 @@ fun String.isPalindrome(): Boolean {
     return true
 }
 
-fun String.isPalindrome2():Boolean {
+fun String.isPalindrome2(): Boolean {
     val stringHalf =
-        if (this.length % 2 == 0)  {
+        if (this.length % 2 == 0) {
             this.drop(this.length / 2)
         } else {
             this.drop(this.length / 2 + 1)
@@ -56,110 +50,71 @@ fun String.isPalindrome2():Boolean {
     return true
 }
 
-/**
- * Retrieve a list of words
- */
+/** Retrieve a list of words */
 fun String.retrieveWords() = this.trim().split(Regex("\\s+"), 0)
 // For split(), one could use split(" "), even split("") for space delimiter
 // trim() is redundant, since split(" ") or split("") removes leading and subsequent spaces.
 
-/**
- * Get a quantity of a words present in a string (numbers included)
- */
-fun String.wordsNumber() = this.trim().split(Regex("\\s+"), 0).size // Or .count()
+/** Get a quantity of a words present in a string (numbers included) */
+fun String.wordsNumber() = this.trim().split(Regex("\\s+"), 0).size // Or .count instead of .size
 
-/**
- * Get a quantity of a words present in a string (numbers included)
- */
-fun String.wordsNumber2() = this.trim().split(Regex("\\s+"), 0).count()
-
-/**
- * Retrieve a list of palindromes
- */
+/** Retrieve a list of palindromes */
 fun String.retrievePalindromes() = this.retrieveWords().filter { it.isPalindrome() }
 
-/**
- * Retrieve a number of palindromes
- */
+/** Retrieve a number of palindromes */
 fun String.retrievePalindromesNumber() = this.retrieveWords().count { it.isPalindrome() }
 
-/**
- * Retrieve a longest palindrome
- */
+/** Retrieve a longest palindrome */
 fun String.retrieveLongestPalindrome() = this.retrievePalindromes().maxByOrNull { it.length }
 
-/**
- * Retrieve a list of integer and real numbers
- */
+/** Retrieve a list of integer and real numbers */
 fun String.retrieveNumbers() = this.split(" ").filter {
     it.toDoubleOrNull() != null
 }
 
-/**
- * Retrieve a list of integer numbers
- */
+/** Retrieve a list of integer numbers */
 fun String.retrieveIntegerNumbers() = this.trim().split(Regex("\\s+"), 0).filter {
     it.toIntOrNull() != null
 }
 
-/**
- * Checks if all the char sequences are numbers
- */
+/** Checks if all the char sequences are numbers */
 fun String.isAllNumbers() = this.trim().split(Regex("\\s+"), 0).all {
     it.toDoubleOrNull() != null
 }
 
-/**
- * Checks if all the char sequences are integer numbers
- */
+/** Checks if all the char sequences are integer numbers */
 fun String.isAllIntegerNumbers() = this.trim().split(Regex("\\s+"), 0).all {
     it.toIntOrNull() != null
 }
 
-/**
- * Checks if all the char sequences are real numbers
- */
+/** Checks if all the char sequences are real numbers */
 fun String.isAllRealNumbers() = this.trim().split(Regex("\\s+"), 0).all {
     it.toDoubleOrNull() != null && it.toIntOrNull() == null
 }
 
-/**
- * Retrieve a quantity of a numbers (integral or real) present in a string
- */
+/** Retrieve a quantity of a numbers (integral or real) present in a string */
 fun String.numbersQuantity() = this.trim().split(Regex("\\s+"), 0).count {
     it.toDoubleOrNull() != null
 }
 
-/**
- * Retrieve a number of a words in a string (numbers are not considered)
- */
+/** Retrieve a number of a words in a string (numbers are not considered) */
 fun String.wordsQuantity() = this.trim().split(Regex("\\s+"), 0).count {
     it.toDoubleOrNull() == null
 }
 
-/**
- * Retrieve a number of entries of char present in a string
- */
+/** Retrieve a number of entries of specific char present in a string */
 fun String.retrieveCharEntries(char: Char) = this.count { it == char }
 
-/**
- * Retrieve a number of digit chars present in a string
- */
+/** Retrieve a number of digit chars present in a string */
 fun String.retrieveDigitsNumber() = this.count { it.isDigit() }
 
-/**
- * Retrieve a number of non digit chars present in a string
- */
+/** Retrieve a number of non digit chars present in a string */
 fun String.retrieveNonDigitCharsNumber() = this.count { !it.isDigit() }
 
-/**
- * Retrieve the longest word (first occurence is taken)
- */
+/** Retrieve the longest word (first occurence is taken) */
 fun String.longestWord() = this.trim().split(Regex("\\s+"), 0).maxOrNull()
 
-/**
- * Retrieve position of a subString in a string (first occurrence)
- */
+/** Retrieve position of a subString in a string (first occurrence) */
 fun String.stringPosition(subString: String) = this.indexOf(subString)
 
 /**
@@ -182,9 +137,7 @@ fun String.removeRepetitiveChars(): String {
     return string
 }
 
-/**
- * Retrieve an index of a longest word in a string.
- */
+/** Retrieve an index of a longest word in a string. */
 fun String.indexOfLongestWord(): Int {
     val longestWord = this.longestWord()
     longestWord?.let {
@@ -193,46 +146,30 @@ fun String.indexOfLongestWord(): Int {
     return -1
 }
 
-/**
- * Removes excessive spaces (ones that come in a sequence) from string
- */
+/** Removes excessive spaces (ones that come in a sequence) from string */
 fun String.removeExcessiveSpaces() = this.split(Regex("\\s+")).toString()       // joinToString()
 
-/**
- * Same functionality as removeExcessiveSpaces()
- */
+/** Same functionality as removeExcessiveSpaces() */
 fun String.removeExcessiveSpaces2() = this.filterIndexed { index, char ->
     index < this.length - 1 && !(char == this[index + 1] && char == ' ')
 }.trim()
 
-/**
- * Removes digits, spaces and special characters from string, keeping only symbolic Chars.
- */
+/** Removes digits, spaces and special characters from string, keeping only symbolic Chars. */
 fun String.removeAllExceptChars() = this.filter { it.isLetter() }
 
-/**
- * Removes chars, spaces and special characters from string.
- */
+/** Removes chars, spaces and special characters from string. */
 fun String.removeAllExceptDigits() = this.filter { it.isDigit() }
 
-/**
- * Removes all characters, except digits and chars from string
- */
+/** Removes all characters, except digits and chars from string */
 fun String.removeAllExceptDigitsAndChars() = this.filter { it.isLetterOrDigit() }
 
-/**
- * Counts a number of a capital chars in a string
- */
+/** Counts a number of a capital chars in a string */
 fun String.capitalCharsCount() = this.count { it.isUpperCase() }
 
-/**
- * Counts a number of a lowercase chars in a string
- */
+/** Counts a number of a lowercase chars in a string */
 fun String.lowercaseCharsCount() = this.count { it.isLowerCase() }
 
-/**
- * Returns true, if symbols (, {, [ have respective pairs and false otherwise.
- */
+/** Returns true, if symbols (, {, [ have respective pairs and false otherwise. */
 fun String.checkIfBracesPaired(): Boolean {
     var squareBrackets = 0
     var brackets = 0
@@ -262,51 +199,49 @@ fun String.checkIfBracesPaired(): Boolean {
     return false
 }
 
-/**
- * Solves arithmetic expression in a string. Do not put any symbols different to digits, dot and operations (*+-/).
- */
+/** Solves arithmetic expression in a string. Do not put any symbols different to digits, dot and operations (*+-/). */
 fun String.solveExpression(): String {
     var value: String
     if (this.contains("[^a-zA-Z0-9.]")) {
         return "NAN"
     } else {
-        var operands = this.trim().split(Regex("[0-9.]+"))
+        var operations = this.trim().split(Regex("[0-9.]+")) // 0-9 same as /d
             .map { it.trim() }
             .filter { it.isNotBlank() }
-        var values = this.trim().split(Regex("[+/*\\-]"))
-        var index = 0;
+        if (operations.any { it.length > 1 }) {
+            return "Wrong operation"
+        }
+        var operands = this.trim().split(Regex("[+/*\\-]"))
+        var index = 0
         do {
-            when (operands[index]) {
+            when (operations[index]) {
                 "*", "/" -> {
-                    value = performArithmeticOperation(values[index], values[index + 1], operands[index])
-                    operands = operands.take(index) + operands.takeLast(operands.size - index - 1)
-                    values = values.take(index) + value + values.subList(index + 2, values.size)
+                    value = performArithmeticOperation(operands[index], operands[index + 1], operations[index])
+                    operations = operations.take(index) + operations.takeLast(operations.size - index - 1)
+                    operands = operands.take(index) + value + operands.subList(index + 2, operands.size)
                 }
             }
             index++
-        } while (index < operands.size)
-        value = values[0]
+        } while (index < operations.size)
+        value = operands[0]
         var operandIndex = 0
-        values.drop(1).map {
-            value = performArithmeticOperation(value, it, operands[operandIndex++])
+        operands.drop(1).map {
+            value = performArithmeticOperation(value, it, operations[operandIndex++])
         }
     }
     return value
 }
 
-/**
- * Replace a [replaceableString] with a [replacingString].
- */
-fun String.replaceString(replaceableString: String, replacingString: String) =  // No need to make this function, since there is replace(...) fun for String
+/** Replace a [replaceableString] with a [replacingString]. */
+fun String.replaceString(replaceableString: String, replacingString: String) =
+    // No need to make this function, since there is replace(...) fun for String
     this.trim().split(Regex("\\s+")).joinToString {
         if (it == replaceableString) {
             replacingString
         } else it
     }
 
-/**
- * Replaces digits with its symbolic representation, say "462 3" -> "four six two three"
- */
+/** Replaces digits with its symbolic representation, say "462 3" -> "four six two three" */
 fun String.replaceDigitsWithSymbolicRepresentation(): String {
     var resultString = ""
     this.trim().map {
@@ -323,7 +258,7 @@ fun String.replaceDigitsWithSymbolicRepresentation(): String {
  * Replaces numbers with its symbolic representation,
  * say "462 740 400" -> "four hundred sixty two, seven hundred forty, four hundred".
  *
- * ! Only numbers up to hundreds are processable.
+ * ! Only numbers up to a thousand are processable.
  */
 fun String.replaceNumbersWithSymbolicRepresentation(): String {
     var resultNumberString: String
@@ -442,29 +377,49 @@ fun String.isEveryCharUnique(): Boolean {
     return true
 }
 
+fun String.getUniqueChars(): Set<Char> {
+    val valuesMap: MutableMap<Char, Int> = mutableMapOf()
+    this.map {
+        valuesMap[it] = (valuesMap[it] ?: 0).plus(1)
+    }
+    return valuesMap.filter {
+        it.value == 1
+    }.keys
+}
+
+fun String.getUniqueChars2() = this.toList().groupingBy { it }.eachCount().filter { it.value == 1 }
+
+/** Taken from https://stackoverflow.com/questions/62232908/kotlin-unique-characters-in-string */
+fun uniqueCharacters(s: String): Boolean = s.groupBy { it }
+    .values
+    .stream()
+    .allMatch { it.size == 1 }
+
+/** Taken from https://stackoverflow.com/questions/62232908/kotlin-unique-characters-in-string */
+fun String.allUnique(): Boolean = all(hashSetOf<Char>()::add)
+
 fun String.isEveryCharUnique2() = this.toCharArray().distinct().size == this.length
 
 fun String.isEveryCharUnique3() = this.toSet().size == this.length
 
-/**
- * Retrieve distinct(unique) chars.
- */
+// Doesn't work
+fun String.isEveryCharUnique4() = this.chars().distinct().toString().length == this.length
+
+/** Retrieve distinct chars. */
 fun String.distinctChars() = this.toCharArray().distinct()
 
-/**
- * Retrieve distinct(unique) chars.
- */
+/** Retrieve distinct chars. */
 fun String.distinctChars2() = this.toCharArray().toSet()
 
-/**
- * Retrieve distinct(unique) letters (a-z, A-Z).
- */
-fun String.distinctLetters() = this.toCharArray().distinct().map { it.isLetter() }
+/** Retrieve distinct letters (a-z, A-Z). */
+fun String.distinctLetters() = this.toCharArray().distinct().filter { it.isLetter() }
+
+fun String.distinctLetters2() = this.toCharArray().distinctBy { it.isLetter() }
 
 /**
  * Retrieve distinct(unique) digits (0-9).
  */
-fun String.distinctDigits() = this.toCharArray().distinct().map { it.isDigit() }
+fun String.distinctDigits() = this.toCharArray().distinct().filter { it.isDigit() }
 
 /**
  * Retrieve distinct(unique) strings
@@ -494,12 +449,14 @@ fun String.toBackwardsOrderStrings() = this.split(Regex("\\s+")).reversed()
 /**
  * Retrieve string in sorted order of its incorporating strings.
  */
-fun String.toAlphabetSortedStrings() = this.trim().split(Regex("\\s+")).sorted()      // trim() is needed here, else it provides empty item in 1st and 2nd positions
+fun String.toAlphabetSortedStrings() = this.trim().split(Regex("\\s+"))
+    .sorted()      // trim() is needed here, else it provides empty item in 1st and 2nd positions
 
 /**
  * Retrieve string in sorted order of its incorporating strings.
  */
-fun String.toAlphabetSortedStrings2() = this.trim().split(Regex("\\s+")).toSortedSet()      // trim() is needed here, else it provides empty item in 1st position
+fun String.toAlphabetSortedStrings2() = this.trim().split(Regex("\\s+"))
+    .toSortedSet()      // trim() is needed here, else it provides empty item in 1st position
 
 /**
  * Get all Java versions, say "java Java 5, Java  6, Java 1.6" should yield [Java 5, Java  6, Java 1.6]

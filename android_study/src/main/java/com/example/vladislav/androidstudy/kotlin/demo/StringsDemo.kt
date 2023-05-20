@@ -34,6 +34,8 @@ class StringsDemo {
     }
 
     fun stringsDemo() {
+        stringRepresentation = "1234567"
+        println(stringRepresentation)   // What's this com.example.vladislav.androidstudy.kotlin.demo.StringsDemo@93ef7dd ?
         println("Hello world")
         println(string3)
         println(longString)
