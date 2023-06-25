@@ -2,38 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionName="1.0">
 
-    <compatible-screens /> <!-- Which screens app supports -->
-    <supports-screens />
-
-    <uses-sdk
-        android:maxSdkVersion="26"
-        android:targetSdkVersion="33" />
-
-    <uses-feature
-        android:name="android.hardware.camera2"
-        android:required="false" /> <!-- INFO ABOUT MANIFEST.XML -->
-    <!-- http://developer.alexanderklimov.ru/android/theory/AndroidManifestXML.php -->
-    <!-- https://developer.android.com/guide/topics/manifest/manifest-intro.html -->
-    <!-- https://developer.oculus.com/distribute/latest/concepts/publish-mobile-manifest/ -->
-    <!-- Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!--
-             The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-             Google Maps Android API v2, but you must specify either coarse or fine
-             location permissions for the 'MyLocation' functionality.
-    -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Such a permission is needed to check if wifi is on -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.android.androidtest.READ_DATABASE" />
-    <uses-permission android:name="com.android.androidtest.WRITE_DATABASE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES" />
-
     <application
         android:allowBackup="true"
         android:debuggable="true"
@@ -48,7 +16,9 @@
         <activity
             android:name=".separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity"
             android:exported="false" />
-        <activity android:name=".kotlin.demo.graphics.GraphicsDemoActivity" />
+        <activity android:name=".kotlin.demo.graphics.GraphicsDemoActivity"
+            android:exported="true">
+        </activity>
         <activity android:name=".activities.MainWeightActivity" />
         <activity
             android:name=".activities.InitialActivity"
@@ -166,7 +136,13 @@
         </activity>
         <activity
             android:name=".kotlin.KotlinStudyActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".jobs.listviewing.recyclerview.RecyclerViewActivity" />
         <activity android:name=".jobs.simple_jobs.ContextActivity" /> <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
         <!-- // This receiver should not accept any broadcasts, but in fact it is overridden in code and -->
@@ -212,16 +188,10 @@
             android:exported="true"></activity>
         <activity
             android:name=".javarx2.example6.CoroutinesExample6Activity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".javarx2.example7.JavaRxExample7Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
         <activity
             android:name=".jobs.background_jobs.handler.HandlerActivityKt"
@@ -307,6 +277,38 @@
         <uses-library
             android:name="com.google.android.wearable"
             android:required="false" />
-    </application>
+    </application> <!-- Which screens app supports -->
+    <compatible-screens />
+
+    <supports-screens />
+
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="false" /> <!-- INFO ABOUT MANIFEST.XML -->
+    <!-- http://developer.alexanderklimov.ru/android/theory/AndroidManifestXML.php -->
+    <!-- https://developer.android.com/guide/topics/manifest/manifest-intro.html -->
+    <!-- https://developer.oculus.com/distribute/latest/concepts/publish-mobile-manifest/ -->
+    <!-- Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--
+             The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+             Google Maps Android API v2, but you must specify either coarse or fine
+             location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Such a permission is needed to check if wifi is on -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.androidtest.READ_DATABASE" />
+    <uses-permission android:name="com.android.androidtest.WRITE_DATABASE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES" />
+
+    <uses-sdk
+        android:maxSdkVersion="26"
+        android:targetSdkVersion="33" />
 
 </manifest>
