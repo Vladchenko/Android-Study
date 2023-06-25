@@ -11,7 +11,7 @@ class CoroutinesBasics {
 
     fun simpleCoroutineDemo() {
         // GlobalScope coroutine will live while the app lives
-        GlobalScope.launch { // launch a new coroutine in background and continue
+        GlobalScope.launch { // launch a new coroutine in background and continue work in main thread
             delay(1000L) // non-blocking delay for 1 second (default time unit is ms)
             println("World!") // print after delay
         }
@@ -70,40 +70,46 @@ class CoroutinesBasics {
         println("Second delay!")
     }
 
-//    fun demoDispatchersAndThreads() {
-//        CoroutineScope(Main).apply {
-//            launch {
-//                println("main runBlocking       : I'm working in a thread ${Thread.currentThread().name}")
-//            }
-//            launch(Dispatchers.Unconfined) {
-//                println("Unconfined             : I'm working in a thread ${Thread.currentThread().name}")
-//            }
-//            launch(Dispatchers.Default) {
-//                println("Default                : I'm working in a thread ${Thread.currentThread().name}")
-//            }
-//            launch(newSingleThreadContext("MyOwnThread")) {
-//                println("Default                : I'm working in a thread ${Thread.currentThread().name}")
-//            }
-//        }
-//    }
+   fun demoDispatchersAndThreads() {
+       CoroutineScope(Dispatchers.Main).apply {
+           launch {
+               // main runBlocking       : I'm working in a thread main
+               println("main runBlocking       : I'm working in a thread ${Thread.currentThread().name}")
+           }
+           launch(Dispatchers.Unconfined) {
+               // Unconfined             : I'm working in a thread main
+               println("Unconfined             : I'm working in a thread ${Thread.currentThread().name}")
+           }
+           launch(Dispatchers.Default) {
+               // Default                : I'm working in a thread DefaultDispatcher-worker-2
+               println("Default                : I'm working in a thread ${Thread.currentThread().name}")
+           }
+           launch(newSingleThreadContext("MyOwnThread")) {
+               // MyOwnThread            : I'm working in a thread MyOwnThread
+               println("MyOwnThread            : I'm working in a thread ${Thread.currentThread().name}")
+           }
+       }
+   }
 
     fun demoDispatchersAndThreads2() = runBlocking<Unit> {
-        launch { // context of the parent, main runBlocking coroutine
+        launch {
+            // context of the parent, main runBlocking coroutine
+            // main runBlocking      : I'm working in thread main
             println("main runBlocking      : I'm working in thread ${Thread.currentThread().name}")
         }
-        launch(Dispatchers.Unconfined) { // not confined -- will work with main thread
+        launch(Dispatchers.Unconfined) {
+            // Unconfined            : I'm working in thread main
             println("Unconfined            : I'm working in thread ${Thread.currentThread().name}")
         }
-        launch(Dispatchers.Default) { // will get dispatched to DefaultDispatcher
+        launch(Dispatchers.Default) {
+            // will get dispatched to DefaultDispatcher
+            // Default               : I'm working in thread DefaultDispatcher-worker-2
             println("Default               : I'm working in thread ${Thread.currentThread().name}")
         }
-        launch(newSingleThreadContext("MyOwnThread")) { // will get its own new thread
-            println("newSingleThreadContext: I'm working in thread ${Thread.currentThread().name}")
+        launch(newSingleThreadContext("MyOwnThread")) {
+            // will get its own new thread
+            // MyOwnThread           : I'm working in thread MyOwnThread
+            println("MyOwnThread           : I'm working in thread ${Thread.currentThread().name}")
         }
-        // Output
-//        System.out: Unconfined            : I'm working in thread main
-//        System.out: Default               : I'm working in thread DefaultDispatcher-worker-1
-//        System.out: main runBlocking      : I'm working in thread main
-//        System.out: newSingleThreadContext: I'm working in thread MyOwnThread
     }
 }

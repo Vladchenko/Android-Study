@@ -9,8 +9,6 @@ import com.example.vladislav.androidstudy.R
 
 class KotlinStudyActivity : AppCompatActivity() {
 
-    val TAG = "MainActivity"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.kotlin_study_activity)
@@ -55,5 +53,9 @@ class KotlinStudyActivity : AppCompatActivity() {
             // Permission is already granted, call the function that does what you need
 //            onFileWritePermissionGranted()
         }
+    }
+
+    companion object {
+        private const val TAG = "KotlinStudyActivity"
     }
 }
