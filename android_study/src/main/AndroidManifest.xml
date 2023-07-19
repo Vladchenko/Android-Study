@@ -191,7 +191,8 @@
             android:exported="true"></activity>
         <activity
             android:name=".javarx2.example7.JavaRxExample7Activity"
-            android:exported="true"></activity>
+            android:exported="true">
+        </activity>
         <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
         <activity
             android:name=".jobs.background_jobs.handler.HandlerActivityKt"

@@ -2,6 +2,7 @@ package com.example.vladislav.androidstudy.kotlin
 
 import android.content.Context
 import com.example.vladislav.androidstudy.kotlin.demo.Basics
+import com.example.vladislav.androidstudy.kotlin.demo.CoroutinesBasics
 import com.example.vladislav.androidstudy.kotlin.sometasks.minefield.MineField
 import com.example.vladislav.androidstudy.kotlin.study.leetcode.Solution
 import indexOfLongestWord
@@ -40,6 +41,7 @@ class Main {
 //        Basics().sayHello(mapOf("Hi" to "Vlad", "Hello" to "Vladchenko", "Greetings" to "Vladon"))
 //        Basics().sayHello("Zdarova", listOf("Vlad", "Vladchenko", "Vladon"))
 //        Car(listOf(Car.Wheel())).demo()
+        CoroutinesBasics().twoNetworkCalls3()
 //        CoroutinesBasics().simpleCoroutineDemo3()
 //        Coroutines().demoDispatchersAndThreads2()
 //         testIsEmptyOrNull()
@@ -98,7 +100,7 @@ class Main {
 //        println(Solution().isPalindrome2(1221))
 //        println(Solution().isPalindrome2(12121))
 
-        val solution = Solution()
+//        val solution = Solution()
 //        println(solution.romanToInt("I"))
 //        println(solution.romanToInt("II"))
 //        println(solution.romanToInt("III"))
@@ -278,12 +280,12 @@ class Main {
 //        }
 //        println()
 
-        solution.hammingWeight(-1_000_000)
-        solution.hammingWeight(-1_000)
-        solution.hammingWeight(-1)
-        solution.hammingWeight(0)
-        solution.hammingWeight(1)
-        solution.hammingWeight(1000)
-        solution.hammingWeight(Int.MAX_VALUE)
+//        solution.hammingWeight(-1_000_000)
+//        solution.hammingWeight(-1_000)
+//        solution.hammingWeight(-1)
+//        solution.hammingWeight(0)
+//        solution.hammingWeight(1)
+//        solution.hammingWeight(1000)
+//        solution.hammingWeight(Int.MAX_VALUE)
     }
 }
