@@ -21,15 +21,15 @@ class FilesDemo(private val context: Context) {
      * Method that runs all the files ops demonstration.
      */
     fun filesDemo() {
-        createFilesRandomly()
-        traverseFilesAndFolders()
-        deleteAllFilesAndFolders()
+        createFoldersAndFilesRandomly()
+        traverseFoldersAndFiles()
+        deleteAllFoldersAndFiles()
     }
 
-    private fun createFilesRandomly() {
+    private fun createFoldersAndFilesRandomly() {
         println("\n\nAll the files and folders are located in " + context.filesDir)
         println("\n\n>>>>>>>>> Files and folders creation has begun >>>>>>>>>")
-        createDirsAndFiles(
+        createFoldersAndFiles(
             folderToCreateAndEnterInitial = "",
             filesPerFolderMax = 3,
             foldersInOneLevelMax = 2,
@@ -38,13 +38,13 @@ class FilesDemo(private val context: Context) {
         println("<<<<<<<<< Files and folders creation has finished <<<<<<<<<")
     }
 
-    private fun traverseFilesAndFolders() {
-        println("\n\n>>>>>>>>> Files and folders traverse has begun >>>>>>>>>")
+    private fun traverseFoldersAndFiles() {
+        println("\n\n>>>>>>>>> Folders and Files traversal has begun >>>>>>>>>")
         getFolderContents(context.filesDir, -1)
-        println("<<<<<<<<< Files and folders traverse has finished <<<<<<<<<\n\n")
+        println("<<<<<<<<< Folders and Files traversal has finished <<<<<<<<<\n\n")
     }
 
-    private fun deleteAllFilesAndFolders() {
+    private fun deleteAllFoldersAndFiles() {
         println("\n\n>>>>>>>>> Files and folders deletion has begun >>>>>>>>>")
         context.filesDir.listFiles()?.map {
             it.deleteRecursively()
@@ -157,7 +157,7 @@ class FilesDemo(private val context: Context) {
         }
     }
 
-    private fun createDirsAndFiles(
+    private fun createFoldersAndFiles(
         folderToCreateAndEnterInitial: String,
         filesPerFolderMax: Int,
         foldersInOneLevelMax: Int,
@@ -175,7 +175,7 @@ class FilesDemo(private val context: Context) {
             val folderToCreateAndEnter = folderToCreateAndEnterInitial + File.separator + FOLDER.nameSuffix()
             createFolder(folderToCreateAndEnter)
             if (folderLevelsMax - 1 > 0) {
-                createDirsAndFiles(
+                createFoldersAndFiles(
                     folderToCreateAndEnter,
                     filesPerFolderMax,
                     foldersInOneLevelMax,
