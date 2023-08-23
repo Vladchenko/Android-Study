@@ -13,9 +13,9 @@ import kotlin.math.roundToInt
  */
 class FilesDemo(private val context: Context) {
 
-    private val defaultFilesDirectory: File = createFilesDirIfAbsent(context)
-
     private val filesDirectory = "//"
+    private val map = mutableMapOf<Int, Boolean>()
+    private val defaultFilesDirectory: File = createFilesDirIfAbsent(context)
 
     /**
      * Method that runs all the files ops demonstration.
@@ -31,9 +31,9 @@ class FilesDemo(private val context: Context) {
         println("\n\n>>>>>>>>> Files and folders creation has begun >>>>>>>>>")
         createDirsAndFiles(
             folderToCreateAndEnterInitial = "",
-            filesPerFolderMax = 2,
+            filesPerFolderMax = 3,
             foldersInOneLevelMax = 2,
-            folderLevelsMax = 4
+            folderLevelsMax = 5
         )
         println("<<<<<<<<< Files and folders creation has finished <<<<<<<<<")
     }
@@ -115,24 +115,44 @@ class FilesDemo(private val context: Context) {
 
     private fun getFolderContents(fileOrFolder: File?, folderLevel: Int) {
         fileOrFolder?.listFiles()?.map {
-            for (i in 0..folderLevel) {
-                print("  ")
-            }
+            printTabs(folderLevel)
             if (Files.isRegularFile(it.toPath())) {
-                if (it.equals(fileOrFolder.listFiles()?.last())) {
-                    print('└')
-                } else {
-                    print('├')
-                }
-                println("File ${it.path.replace(context.filesDir.path, FILE_PATH_SUBSTITUTE)}")
+                printFileName(it, fileOrFolder)
             } else {
-                if (it.equals(fileOrFolder.listFiles()?.last())) {
-                    print('└')
-                } else {
-                    print('├')
-                }
-                println("Folder ${it.path.replace(context.filesDir.path, FILE_PATH_SUBSTITUTE)}")
+                printFolderName(it, fileOrFolder, folderLevel)
                 getFolderContents(it, folderLevel + 1)
+            }
+        }
+    }
+
+    private fun printFolderName(it: File, fileOrFolder: File, folderLevel: Int) {
+        if (it == fileOrFolder.listFiles()?.last()) {
+            print('└')
+            map[folderLevel + 1] = false
+        } else {
+            print('├')
+            map[folderLevel + 1] = true
+        }
+        println("Folder ${it.path.replace(context.filesDir.path, FILE_PATH_SUBSTITUTE)}")
+    }
+
+    private fun printFileName(it: File, fileOrFolder: File) {
+        if (it == fileOrFolder.listFiles()?.last()) {
+            print('└')
+        } else {
+            print('├')
+        }
+        println("File ${it.path.replace(context.filesDir.path, FILE_PATH_SUBSTITUTE)}")
+    }
+
+    private fun printTabs(folderLevel: Int) {
+        for (i in 0..folderLevel) {
+            if (map.containsKey(i)) {
+                if (map[i]!!) {
+                    print("│ ")
+                } else {
+                    print("  ")
+                }
             }
         }
     }
