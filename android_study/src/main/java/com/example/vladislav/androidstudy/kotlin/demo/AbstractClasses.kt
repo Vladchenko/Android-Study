@@ -1,4 +1,4 @@
-package com.example.kotlinstudy.demo
+package com.example.vladislav.androidstudy.kotlin.demo
 
 /**
  * https://kotlinlang.org/docs/reference/classes.html#abstract-classes
@@ -7,9 +7,7 @@ package com.example.kotlinstudy.demo
  */
 abstract class AbstractClasses {
 
-    /**
-     * "open" class means it can be inherited from, otherwise it is final.
-     */
+    // "open" class means it can be inherited from, otherwise it is final.
     open class Polygon {
         open fun draw() {}
     }

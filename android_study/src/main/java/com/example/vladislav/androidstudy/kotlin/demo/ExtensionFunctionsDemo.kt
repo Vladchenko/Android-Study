@@ -26,7 +26,7 @@ fun String.spaceToCamelCase() {
     this.length
 }
 
-fun String.lastChar(): Char = this.get(this.length - 1) //Take a look to a next row, something might be omitted.
+fun String.lastChar(): Char = this.get(this.length - 1) //Take a look to a next row, some code can be skipped.
 // fun String.lastChar() = get(length - 1)
 val String.lastChar: Char get() = get(length - 1)   // Replacing a fun with an extension property.
 // Taken from "Kotlin in action" 3.3.5 Extension properties
@@ -47,7 +47,8 @@ fun <T> Collection<T>.joinToString(
         result.append(separator)
         result.append(element) }
     result.append(postfix)
-    return result.toString() }
+    return result.toString()
+}
 
 /**
  * Note

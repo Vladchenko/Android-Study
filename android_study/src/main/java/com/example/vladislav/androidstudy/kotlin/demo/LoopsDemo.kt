@@ -18,40 +18,36 @@ fun loopsDemo() {
     val array = arrayOf(1, 2.3, "3.4", 567, 789.01)
     val array2 = Array(5, { x -> x * x })
 
-//        for ((index, value) in array.withIndex()) {
-//            println("the element at $index is $value")
-//        }
+    for ((index, value) in array.withIndex()) {
+        println("element at index[$index] has value=$value,  ")
+    }
     for (x in 1..10 step 2) {
-        print(x)
+        print("$x ")
     }
     println()
 
     for (x in 9 downTo 0 step 3) {  // This one doesn't work
-        print(x)
+        print("$x ")
     }
     // No iteration for float / double
     val fios = listOf<FIO>()
-    for (fio in fios) print(fio)
+    for (fio in fios) print("$fio ")
     println()
 
     print("forEach: ")
-    y.forEach { print(it) }
+    y.forEach { print("$it ") }
     println()
 
     print("forEach(Consumer: ")
-    y.forEach(Consumer { print(it) })
+    y.forEach(Consumer { print("$it ") })
     println()
 
     print("y.map: ")
-    y.map {
-        print(it)
-    }
+    y.map { print("$it ") }
     println()
 
     print("y.map 2: ")
-    print(y.map {
-        it
-    })
+    print(y.map { it })
     println()
 
     // for (item: Int in ints) {
@@ -59,8 +55,9 @@ fun loopsDemo() {
     // }
 
     for (c in 'A'..'F') {
-        println(Integer.toBinaryString(c.toInt()))
+        print(Integer.toBinaryString(c.code) + " ")
     }
+    println()
 
     for (с in "abc") {
         print(с + 1)
@@ -68,34 +65,37 @@ fun loopsDemo() {
     println()
 
     for (i in 0..array2.size - 1) {
-        println(array2[i])
+        print("$array2[i],  ")
     }
+    println()
     for (i in array2.indices) {
-        println("item at $i is ${array2[i]}")
+        print("item at $i is ${array2[i]},  ")
     }
+    println()
     for ((index, value) in array.withIndex()) {
-        println("the element at $index is $value")
+        print("element at $index is $value,  ")
     }
+    println()
     for (i in 0..array2.size - 1) {
-        println(array2[i])
+        print("$array2[i],  ")
     }
+    println()
     for (i in array2.indices) {
-        println("item at $i is ${array2[i]}")
+        print("item at $i is ${array2[i]}, ")
     }
+    println()
     for ((index, value) in array.withIndex()) {
-        println("the element at $index is $value")
+        print("element at $index is $value,  ")
     }
+    println()
     println(array2.joinToString(" "))   // Another way of printing array
-    array.forEach {                         // Another way of printing array
-            item ->
-        println(item)
-    }
-    array.forEachIndexed { i, item -> println("Item $item is at index $i") }  // Another way of printing array
-    array.forEach {
-        // Another way of printing array
-        println(it)
-    }
-    array.forEach(System.out::println)       // Another way of printing array. This is a function reference.
+    array.forEach { item -> print(item) }                         // Another way of printing array
+    println()
+    array.forEachIndexed { i, item -> print("Item $item is at index $i,  ") }  // Another way of printing array
+    array.forEach { print(it) }     // Another way of printing array
+    println()
+    array.forEach(System.out::print)       // Another way of printing array. This is a function reference.
+    println()
     println(array.map { it })
 
     while (x > 0) {

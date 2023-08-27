@@ -18,7 +18,9 @@ class ArraysListsDemo {
     private val intArray3 = IntArray(5) { 42 }  // Array of int of size 5 with values [42, 42, 42, 42, 42]
     private val array4 = IntArray(5) { it * 1 + 500 }  // Array of int of size 5 with values [500, 501, 502, 503, 504]
 
-    fun demo() {
+    private val list = listOf(array)    // List with an entries from array
+
+    fun arraysDemo() {
         println(array2.forEach { println(it) })
         println(intArray2.forEach { println(it) })
         println(intArray3.forEach { println(it) })

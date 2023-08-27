@@ -8,7 +8,7 @@ package com.example.vladislav.androidstudy.kotlin.demo
  */
 class CustomAccessor {
 
-    /**
+    /*
      * Suppose you declare a rectangle that can say whether it’s a square. You don’t need to store that information as
      * a separate field, because you can check whether the height is equal to the width on the go
      */

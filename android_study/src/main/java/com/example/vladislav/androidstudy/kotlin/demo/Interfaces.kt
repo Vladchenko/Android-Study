@@ -1,4 +1,4 @@
-package com.example.kotlinstudy.demo
+package com.example.vladislav.androidstudy.kotlin.demo
 
 /**
  * Interfaces demo
@@ -23,11 +23,9 @@ class Interfaces {
 
     class InterfacesDemo(override val name: String) :
         PersonNameProvider {
-        // Since interface doesn't allow a default value for a properties, then, when implementing
-        // such interface, one has to assign a value to "name"
-        // So, the overridden value has to be put into class :
-        // override val name: String = ""
-        // or to constructor, as shown in this example
+        // Since interface doesn't allow a default value for a properties, so when implementing such interface,
+        // one has to assign a value to "name". So, the overridden value has to be put into class :
+        // override val name: String = ""  , or to constructor, as shown in this example
     }
 
     class InterfacesDemo2(override val sessionId: String) : PersonNameProvider,

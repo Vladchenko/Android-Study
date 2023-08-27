@@ -1,7 +1,7 @@
 package com.example.vladislav.androidstudy.kotlin.demo
 
 /**
- *
+ * Strings ops demo
  *
  * @author Yanchenko Vladislav
  * @since 25.01.2021
@@ -16,10 +16,10 @@ class StringsDemo {
     private var longString = """This is a 
         long string that may contain several rows
     """
-    private val charNumber = "Васька".count { letter -> letter == 'а' } // Counts letters "a" in a
-    // string "Васька", using anonymous function
+    // Counts letters "a" in a string "Васька", using anonymous function
+    private val charNumber = "Васька".count { letter -> letter == 'а' }
 
-    private val borderColor: String get() = "black" // What's this get() ?
+    private val borderColor: String get() = "black" // Custom getter
     private var stringRepresentation: String
         get() = this.toString()
         set(value) {    // Custom setter. "value" can be named differently
@@ -35,7 +35,7 @@ class StringsDemo {
 
     fun stringsDemo() {
         stringRepresentation = "1234567"
-        println(stringRepresentation)   // What's this com.example.vladislav.androidstudy.kotlin.demo.StringsDemo@93ef7dd ?
+        println(stringRepresentation)   // Prints com.example.vladislav.androidstudy.kotlin.demo.StringsDemo@93ef7dd ?
         println("Hello world")
         println(string3)
         println(longString)

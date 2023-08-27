@@ -55,7 +55,7 @@ fun whenDemo3(color: String) = when (color) {
 
 fun whenDemo4(x: Int) =
     when (x) {
-        -1, 0 -> print("0 or 1")
+        -1, 0 -> print("-1 or 0")
         getInt(x) -> print("s encodes x")
         in 1..10 -> print("x is in the range")
         in validNumbers -> print("x is valid")

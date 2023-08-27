@@ -17,8 +17,8 @@ class NumbersDemo {
 
     fun numbersDemo() {
         println(bigInt)
-        println("int = " + int)
-        println("int.toString() = " + int.toString())
+        println("int = $int")
+        println("int.toString() = ${int.toString()}")
         println("bigInt = $bigInt")
         if (variable is Int) {
             println("variable is of Int type")
@@ -29,7 +29,7 @@ class NumbersDemo {
 //         println("bigInt is Char = ${bigInt is Char}")
         println("3.14 to Int = " + (3.14.toInt()))
         println("65 to Char = " + (65.toChar()))
-        println("char to Double = " + ('░'.toDouble()))
+        println("char to Double = " + ('░'.code.toDouble()))
 //        int = longValue   // Error - Type mismatch. Because Kotlin has no implicit conversion.
         int = longValue.toInt();  // This way will do
     }

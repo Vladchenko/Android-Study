@@ -3,6 +3,12 @@ package com.example.vladislav.androidstudy.kotlin
 import android.content.Context
 import com.example.vladislav.androidstudy.kotlin.demo.Basics
 import com.example.vladislav.androidstudy.kotlin.demo.CoroutinesBasics
+import com.example.vladislav.androidstudy.kotlin.demo.FilesDemo
+import com.example.vladislav.androidstudy.kotlin.demo.MapDemo
+import com.example.vladislav.androidstudy.kotlin.demo.example1
+import com.example.vladislav.androidstudy.kotlin.demo.extensionFunctionDemo
+import com.example.vladislav.androidstudy.kotlin.demo.loopsDemo
+import com.example.vladislav.androidstudy.kotlin.demo.mapVsFlatmap
 import com.example.vladislav.androidstudy.kotlin.sometasks.minefield.MineField
 import com.example.vladislav.androidstudy.kotlin.study.leetcode.Solution
 import indexOfLongestWord
@@ -24,10 +30,10 @@ class Main {
         // ArraysListsDemo().demo()
         // Basics().arraysDemo()
         // Basics().destructuringDeclaration()
-        // Basics().extensionFunctionDemo()
+        // extensionFunctionDemo()
         // Basics().idiomsDemo(context)
         // Basics().listDemo()
-        // Basics().loopsDemo()
+        // loopsDemo()
         // Basics().rangesDemo()
 //        Basics().otherDemo()
 //         Basics().setDemo()
@@ -41,7 +47,7 @@ class Main {
 //        Basics().sayHello(mapOf("Hi" to "Vlad", "Hello" to "Vladchenko", "Greetings" to "Vladon"))
 //        Basics().sayHello("Zdarova", listOf("Vlad", "Vladchenko", "Vladon"))
 //        Car(listOf(Car.Wheel())).demo()
-        CoroutinesBasics().twoNetworkCalls3()
+//         CoroutinesBasics().simpleCoroutineDemo9()
 //        CoroutinesBasics().simpleCoroutineDemo3()
 //        Coroutines().demoDispatchersAndThreads2()
 //         testIsEmptyOrNull()
@@ -51,6 +57,8 @@ class Main {
 //        Derived("Vlad", "Yan")
 //         ExceptionsDemo().demonstrateException()
 //        Interfaces().checkType(Interfaces.InterfacesDemo2(","));
+        MapDemo.mapDemo()
+        // MapDemo.peopleDemo()
 //        println(Stepik().toJSON(listOf(1, 2, 3, 42, 555)))
 //        println(Stepik().joinOptions(listOf("a","b","c")))
 //        println(Stepik().containsEven(listOf(1,2,3,4,5)))

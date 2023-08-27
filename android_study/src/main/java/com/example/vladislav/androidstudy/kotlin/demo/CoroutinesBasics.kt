@@ -2,6 +2,10 @@ package com.example.vladislav.androidstudy.kotlin.demo
 
 import android.util.Log
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flow
+import kotlin.random.Random
 import kotlin.system.measureTimeMillis
 
 /**
@@ -32,7 +36,8 @@ class CoroutinesBasics {
         }
         Log.d(TAG, "Current thread = ${Thread.currentThread().name}")
         Log.d(TAG, "Hello,") // main thread continues while coroutine is delayed
-        Thread.sleep(2000L) // block main thread for 2 seconds to keep JVM alive (for coroutine could complete)
+        // Thread.sleep(2000L) // block main thread for 2 seconds to keep JVM alive (for coroutine could complete)
+        // Previous row required only for non-android apps.
     }
 
     fun simpleCoroutineDemo2() = runBlocking<Unit> { // start main coroutine
@@ -41,7 +46,8 @@ class CoroutinesBasics {
             Log.d(TAG, "World!")
         }
         Log.d(TAG, "Hello,") // main coroutine continues here immediately
-        delay(2000L)      // delaying for 2 seconds to keep JVM alive
+        // delay(2000L)      // delaying for 2 seconds to keep JVM alive
+        // Previous row required only for non-android apps.
     }
 
     fun simpleCoroutineDemo3() = runBlocking { // <Unit> can be omitted
@@ -96,57 +102,85 @@ class CoroutinesBasics {
         }
     }
 
-    suspend fun simulateNetworkCall() {
+    fun simpleCoroutineDemo8() {
+        GlobalScope.launch(Dispatchers.IO) {
+            repeat(100) {
+                launch {
+                    delay(Random.nextLong(3000))
+                    Log.d(TAG, "Coroutines #$it done its job")
+                }
+            }
+            Log.d(TAG, "simpleCoroutineDemo8 finished its job")
+        }
+    }
+
+    fun simpleCoroutineDemo9() {
+        GlobalScope.launch(Dispatchers.IO) {
+            val coroutines: List<Deferred<String>> =  List(100) {
+                async {
+                    doWork(it)
+                }
+            }
+            coroutines.forEach { println(it.await()) }
+            Log.d(TAG, "simpleCoroutineDemo9 finished its job")
+        }
+    }
+
+    private suspend fun doWork(it: Int): String {
+        delay(Random.nextLong(3000))
+        return "Coroutines #$it done its job"
+    }
+
+    private suspend fun simulateNetworkCall() {
         delay(2000L)
         Log.d(TAG, "Data downloaded!")
     }
 
-    suspend fun secondDelay() {
-        delay(1000L)
-        Log.d(TAG, "Second delay!")
+    fun demoDispatchersAndThreads() {
+        CoroutineScope(Dispatchers.Main).apply {
+            launch {
+                // main runBlocking       : I'm working in a thread main
+                println("main runBlocking       : I'm working in a thread ${Thread.currentThread().name}")
+            }
+            launch(Dispatchers.Unconfined) {
+                // Unconfined             : I'm working in a thread main
+                println("Unconfined             : I'm working in a thread ${Thread.currentThread().name}")
+            }
+            launch(Dispatchers.Default) {
+                // Default                : I'm working in a thread DefaultDispatcher-worker-2
+                println("Default                : I'm working in a thread ${Thread.currentThread().name}")
+            }
+            launch(newSingleThreadContext("MyOwnThread")) {
+                // MyOwnThread            : I'm working in a thread MyOwnThread
+                println("MyOwnThread            : I'm working in a thread ${Thread.currentThread().name}")
+            }
+        }
     }
 
-   fun demoDispatchersAndThreads() {
-       CoroutineScope(Dispatchers.Main).apply {
-           launch {
-               // main runBlocking       : I'm working in a thread main
-               println("main runBlocking       : I'm working in a thread ${Thread.currentThread().name}")
-           }
-           launch(Dispatchers.Unconfined) {
-               // Unconfined             : I'm working in a thread main
-               println("Unconfined             : I'm working in a thread ${Thread.currentThread().name}")
-           }
-           launch(Dispatchers.Default) {
-               // Default                : I'm working in a thread DefaultDispatcher-worker-2
-               println("Default                : I'm working in a thread ${Thread.currentThread().name}")
-           }
-           launch(newSingleThreadContext("MyOwnThread")) {
-               // MyOwnThread            : I'm working in a thread MyOwnThread
-               println("MyOwnThread            : I'm working in a thread ${Thread.currentThread().name}")
-           }
-       }
-   }
-
     fun demoDispatchersAndThreads2() = runBlocking<Unit> {
-        launch { // context of the parent, main runBlocking coroutine
+        launch {
+            // main runBlocking      : I'm working in thread main
             Log.d(
                 TAG,
                 "main runBlocking      : I'm working in thread ${Thread.currentThread().name}"
             )
         }
-        launch(Dispatchers.Unconfined) { // not confined -- will work with main thread
+        launch(Dispatchers.Unconfined) {
+            // Unconfined            : I'm working in thread main
             Log.d(
                 TAG,
                 "Unconfined            : I'm working in thread ${Thread.currentThread().name}"
             )
         }
-        launch(Dispatchers.Default) { // will get dispatched to DefaultDispatcher
+        launch(Dispatchers.Default) {
+            // Default               : I'm working in thread DefaultDispatcher-worker-1
             Log.d(
                 TAG,
                 "Default               : I'm working in thread ${Thread.currentThread().name}"
             )
         }
-        launch(newSingleThreadContext("MyOwnThread")) { // will get its own new thread
+        launch(newSingleThreadContext("MyOwnThread")) {
+            // newSingleThreadContext: I'm working in thread MyOwnThread
             Log.d(
                 TAG,
                 "newSingleThreadContext: I'm working in thread ${Thread.currentThread().name}"
@@ -221,6 +255,29 @@ class CoroutinesBasics {
         }
     }
 
+    /** One could use yield() for a coroutine to be cancellable */
+    fun cancellableCoroutineDemo3() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val job = launch {
+                var time = System.currentTimeMillis()
+                var i = 0
+                while (i < 1000) {
+                    yield()
+                    if (System.currentTimeMillis() >= time) {
+                        println("Loop number ${++i}")
+                        time += 500
+                    }
+                }
+            }
+            // wait some time
+            delay(1300)
+            println("Stopping the coroutine....")
+            job.cancel()
+            job.join()
+            // or call job.cancelAndJoin()
+        }
+    }
+
     private fun fibbonacci(n: Int): Int {
         return when (n) {
             0 -> 0
@@ -234,6 +291,7 @@ class CoroutinesBasics {
         Log.d(TAG, "Data downloaded for simulateNetworkCall2")
     }
 
+    /** 2 network calls that run at the same time */
     fun twoNetworkCalls() {
         CoroutineScope(Dispatchers.IO).launch {
             simulateNetworkCall()
@@ -291,6 +349,34 @@ class CoroutinesBasics {
     private suspend fun networkCall2(): String {
         delay(2000L)
         return "networkCall2 response"
+    }
+
+    private fun flowDemo1(): Flow<Int> = flow {
+        for (i in 1..10) {
+            delay(100)
+            emit(i)
+        }
+    }
+
+    fun main() = runBlocking {
+        coroutineScope {
+            // Rows 1, 2 will be executed at once
+            launch { doWork() }     // 1
+            println("Hello Coroutines")     // 2
+        }
+    }
+
+    private suspend fun doWork() {
+        for (i in 0..5) {
+            println(i)
+            delay(400L)
+        }
+    }
+
+    fun flowDemo() {
+        GlobalScope.launch {
+            (1..3).asFlow().collect { value -> println(value) }
+        }
     }
 
     companion object {

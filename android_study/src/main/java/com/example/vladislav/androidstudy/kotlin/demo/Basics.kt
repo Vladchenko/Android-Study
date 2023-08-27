@@ -11,10 +11,9 @@ import java.nio.file.Files
 import javax.inject.Inject
 
 /**
+ * Kotlin study basics
  * Study Kotlin from https://kotlinlang.org/docs/reference/ & https://developer.android.com/kotlin/learn
  * Some Collections ops - http://developer.alexanderklimov.ru/android/kotlin/collection.php
- *
- * Basic class
  */
 class Basics {
 
@@ -30,23 +29,21 @@ class Basics {
 
     // !!! Kotlin is a statically-typed language. This means that the type is resolved at compile time and never changes.
 
-    internal val internalModifier = 0;  // Internal is a new modifier available in Kotlin that's not there in Java.
+    internal val internalModifier = 0  // Internal is a new modifier available in Kotlin that's not there in Java.
     // Setting a declaration as internal means that it'll be available in the same module only. By module in Kotlin,
     // we mean a group of files that are compiled together.
 
-    fun noReturnType() {    // This function has no return type
-    }
+    fun noReturnType() {}   // This function has no return type
 
-    fun noReturnTypeAlso(): Unit {  // Unit stands for no type, like void in Java. Could be and should be omitted.
-    }
+    fun noReturnTypeAlso(): Unit {}  // Unit stands for no type, like void in Java. Could be and should be omitted.
 
     fun theAnswer(): Int {
         return 42
     }
 
-    fun theAnswer2(): Int = 42      // That is equivalent to a previous fun
+    fun theAnswer2(): Int = 42      // That is equivalent to a previous fun, but shorter
 
-    fun theAnswer3() = 42       // That is equivalent to a previous fun
+    fun theAnswer3() = 42       // That is equivalent to a previous fun, but even shorter
 
     fun singleExpressionFunction(): String = "Hello world"    // Single expression function
 
@@ -92,7 +89,7 @@ class Basics {
         val array2 = arrayOf(1, 2.3, "3.4", 567, 789.01)
         val array3 = byteArrayOf(1, 2, 3, 4, 2, 3, 1, 2, 3, 4, 1).distinct()  // Only unique values - 1,2,3,4
 
-        println(array2)
+        println(array2)     // [Ljava.lang.Object;@7480ee6
         println(array2[0])   // 1st item of array, also can be printed by println(array.get(0))
         println("array.size = ${array2.size}")   // Printing a size of an array
         println("array contains 345 = ${array2.contains(345)}")

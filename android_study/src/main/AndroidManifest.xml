@@ -16,9 +16,9 @@
         <activity
             android:name=".separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity"
             android:exported="false" />
-        <activity android:name=".kotlin.demo.graphics.GraphicsDemoActivity"
-            android:exported="true">
-        </activity>
+        <activity
+            android:name=".kotlin.demo.graphics.GraphicsDemoActivity"
+            android:exported="true"></activity>
         <activity android:name=".activities.MainWeightActivity" />
         <activity
             android:name=".activities.InitialActivity"
@@ -183,6 +183,9 @@
         <activity android:name=".javarx2.example1.RxJava2Example1Activity" />
         <activity android:name=".javarx2.example3.RxJava2Example3Activity" />
         <activity android:name=".javarx2.example4.RxJava2Example4Activity" />
+        <activity android:name=".kotlin.filesdownloading.CoroutinesFilesDownloadingDemoActivity"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".javarx2.example5.RxJava2Example5Activity"
             android:exported="true"></activity>
@@ -191,8 +194,7 @@
             android:exported="true"></activity>
         <activity
             android:name=".javarx2.example7.JavaRxExample7Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
         <activity
             android:name=".jobs.background_jobs.handler.HandlerActivityKt"

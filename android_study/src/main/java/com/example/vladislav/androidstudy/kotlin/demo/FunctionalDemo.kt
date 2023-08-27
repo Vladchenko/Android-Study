@@ -18,44 +18,25 @@ fun mapVsFlatmap() {
         FIO("z6", "x7", "c8")
     )
     listFIOs.map { println(it) }
-    // listFIOs.flatMap { it:String -> println(it) } // e: Expected parameter of type String
+    // listFIOs.flatMap { println(it) } // e: Expected parameter of type String
 }
 
 fun example1() {
     val heroes = listOf(
-        Hero(
-            "The Captain",
-            60,
-            Gender.MALE
-        ),
-        Hero(
-            "Frenchy",
-            42,
-            Gender.MALE
-        ),
+        Hero("The Captain", 60, Gender.MALE),
+        Hero("Frenchy", 42, Gender.MALE),
         Hero("The Kid", 9, null),
-        Hero(
-            "Lady Lauren",
-            29,
-            Gender.FEMALE
-        ),
-        Hero(
-            "First Mate",
-            29,
-            Gender.MALE
-        ),
-        Hero(
-            "Sir Stephen",
-            37,
-            Gender.MALE
-        )
+        Hero("Lady Lauren", 29, Gender.FEMALE),
+        Hero("First Mate", 29, Gender.MALE),
+        Hero("Sir Stephen", 37, Gender.MALE)
     )
 
     println(heroes.firstOrNull { it.age == 30 }?.name)  //null
     println(heroes.map { it.age }.distinct().size)      //5
     println(heroes.filter { it.age < 30 }.size)         //3
     val (youngest, oldest) = heroes.partition { it.age < 30 }
-    println(oldest.size)                                //3
+    println("Oldest -> ${oldest.map { "${it.name} ${it.gender} ${it.age}" }}")
+    println("Youngest -> ${youngest.map { "${it.name} ${it.gender} ${it.age}" }}")
     println(heroes.maxByOrNull { it.age }?.name)        //The Captain
     println(heroes.all { it.age < 50 })                 //false
     println(heroes.any { item -> item.gender == Gender.FEMALE })    //true
@@ -67,8 +48,7 @@ fun example1() {
     val mapByName: Map<String, Hero> = heroes.associateBy { it.name }   // maps(name->Hero)
     println(mapByName["Frenchy"]?.age)                  //42
 
-    val unknownHero =
-        Hero("Unknown", 0, null)
+    val unknownHero = Hero("Unknown", 0, null)
     mapByName.getOrElse("unknown") { unknownHero }.age  //0
 
     // val (first, second) = heroes
@@ -83,6 +63,7 @@ fun example1() {
         }
         .maxByOrNull { it.first.age - it.second.age }!!
     println(first.name)                                 //The Captain
+    println(second.name)                                 //The Kid
 
     // Another simple way to get the oldest
     println(heroes.maxByOrNull { it.age }?.name)              //The Captain
@@ -92,13 +73,13 @@ fun example1() {
 
 // Interchangeable predicates
 
-fun List<Int>.allNonZero() =  all { it != 0 }
-fun List<Int>.allNonZero1() =  none { it == 0 }
-fun List<Int>.allNonZero2() =  !any { it == 0 }
+fun List<Int>.allNonZero() = all { it != 0 }
+fun List<Int>.allNonZero1() = none { it == 0 }
+fun List<Int>.allNonZero2() = !any { it == 0 }
 
-fun List<Int>.containsZero() =  any { it == 0 }
-fun List<Int>.containsZero1() =  !all { it != 0 }
-fun List<Int>.containsZero2() =  !none { it == 0 }
+fun List<Int>.containsZero() = any { it == 0 }
+fun List<Int>.containsZero1() = !all { it != 0 }
+fun List<Int>.containsZero2() = !none { it == 0 }
 
 fun main(args: Array<String>) {
     val list1 = listOf(1, 2, 3)
