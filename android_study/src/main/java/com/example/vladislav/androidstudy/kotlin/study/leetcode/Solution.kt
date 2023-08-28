@@ -139,6 +139,7 @@ class Solution {
 //                        return false
 //                    }
                 }
+
                 ')' -> {
                     if ((bracketsMap[BRACES] ?: 0) > 0
                         || (bracketsMap[SQUARE_BRACKETS] ?: 0) > 0
@@ -147,6 +148,7 @@ class Solution {
                     }
                     bracketsMap[BRACKETS] = bracketsMap[BRACKETS]?.minus(1) ?: 0
                 }
+
                 '{' -> {
                     bracketsMap[BRACES] = bracketsMap[BRACES]?.plus(1) ?: 0
 //                    if ((bracketsMap[BRACKETS] ?: 0) > 0
@@ -154,6 +156,7 @@ class Solution {
 //                        return false
 //                    }
                 }
+
                 '}' -> {
                     if ((bracketsMap[BRACKETS] ?: 0) > 0
                         || (bracketsMap[SQUARE_BRACKETS] ?: 0) > 0
@@ -162,6 +165,7 @@ class Solution {
                     }
                     bracketsMap[BRACES] = bracketsMap[BRACES]?.minus(1) ?: 0
                 }
+
                 '[' -> {
                     bracketsMap[SQUARE_BRACKETS] = bracketsMap[SQUARE_BRACKETS]?.plus(1) ?: 0
 //                    if ((bracketsMap[BRACES] ?: 0) > 0
@@ -169,6 +173,7 @@ class Solution {
 //                        return false
 //                    }
                 }
+
                 ']' -> {
                     if ((bracketsMap[BRACES] ?: 0) > 0
                         || (bracketsMap[BRACKETS] ?: 0) > 0
@@ -423,12 +428,15 @@ class Solution {
             0 -> {
                 mutableListOf(1)
             }
+
             1 -> {
                 mutableListOf(1, 1)
             }
+
             in 2..Int.MAX_VALUE -> {
                 return getRowBiggerThan2(rowIndex)
             }
+
             else -> {
                 mutableListOf()
             }
@@ -638,9 +646,51 @@ class Solution {
         }.sum()
             .toInt()
 
+    /**
+     * https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+     */
+    fun deleteDuplicates(head: ListNode?): ListNode? {
+        if (head == null) {
+            return null
+        }
+        if (head.next == null) {
+            return head
+        } else {
+            if (head.`val` == head.next?.`val`
+                && head.next?.next == null
+            ) {
+                head.next = null
+                return head
+            }
+            if (head.`val` == head.next?.`val`) {
+                if (head.next?.next != null) {
+                    head.next = head.next?.next
+                    deleteDuplicates(head)
+                } else {
+                    head.next = null
+                    return head
+                }
+            } else {
+                if (head.next != null) {
+                    deleteDuplicates(head.next)
+                }
+            }
+        }
+        return head
+    }
+
     companion object {
         private const val BRACES = "braces"
         private const val BRACKETS = "brackets"
         private const val SQUARE_BRACKETS = "squareBrackets"
+
+        fun traverseListNode(_head: ListNode?) {
+            var head = _head
+            while (head != null) {
+                print("${head.`val`} ")
+                head = head.next
+            }
+            println()
+        }
     }
 }
