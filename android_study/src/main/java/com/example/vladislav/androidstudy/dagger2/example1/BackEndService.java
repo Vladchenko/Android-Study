@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.dagger2;
+package com.example.vladislav.androidstudy.dagger2.example1;
 
 import javax.inject.Inject;
 import javax.inject.Named;

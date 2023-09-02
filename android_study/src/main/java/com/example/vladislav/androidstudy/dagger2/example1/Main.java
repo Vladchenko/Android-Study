@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.dagger2;
+package com.example.vladislav.androidstudy.dagger2.example1;
 
 import javax.inject.Inject;
 
@@ -11,7 +11,7 @@ public class Main {
     @Inject
     BackEndService backendService; //
 
-    private MyComponent component;
+    private final MyComponent component;
 
     private Main() {
         component = DaggerMyComponent.builder().build();
