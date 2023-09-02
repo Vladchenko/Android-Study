@@ -38,6 +38,7 @@
     <string name="title_activity_add_buttons">AddButtonsActivity</string>
     <string name="title_activity_one_fragment">OneFragmentActivity</string>
     <string name="title_activity_fragments">FragmentsActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="background_task">"Some background task is underway ..."</string>
     <string name="handler_tasks_click_to_run_text">"Run background task"</string>
