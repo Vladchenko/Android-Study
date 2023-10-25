@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:versionName="1.0">
+    android:versionName="1.0"
+    package="com.vladislav.yanchenko.androidstudy">
 
     <application
         android:allowBackup="true"
@@ -11,32 +12,40 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.example.vladislav.androidstudy.dagger2.example2.presentation.LoginActivity"
+            android:name="com.example.vladislav.androidstudy.dagger2.example6.presentation.LoginActivity"
             android:exported="true"
-            android:label="@string/title_activity_login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.example.vladislav.androidstudy.separatestudypackage.weatherforecast.WeatherForecastActivity"/>
+            android:label="@string/title_activity_login"/>
+        <activity android:name="com.example.vladislav.androidstudy.separatestudypackage.weatherforecast.WeatherForecastActivity" />
         <activity
             android:name="com.example.vladislav.androidstudy.separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity"
             android:exported="false" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.kotlin.demo.graphics.GraphicsDemoActivity"
-            android:exported="true" />
         <activity android:name="com.example.vladislav.androidstudy.activities.MainWeightActivity" />
         <activity
             android:name="com.example.vladislav.androidstudy.activities.InitialActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
-            android:launchMode="singleInstance">
-
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity="com.example.vladislav.androidstudy.activities.InitialActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <!-- android:screenOrientation="landscape" makes orientation to be only landscape -->
             <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
-
+        </activity>
+        <activity
+            android:name="com.example.vladislav.androidstudy.kotlin.demo.graphics.GraphicsDemoActivity"
+            android:exported="true"
+            android:taskAffinity="com.example.vladislav.androidstudy.kotlin.demo.graphics.GraphicsDemoActivity">
+            <intent-filter>
+                <!-- Following 2 lines create extra icon to launch this app. App can have several
+                launcher activities, but only first one in a androidmanifest.xml will start.-->
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.example.vladislav.androidstudy.separatestudypackage.TestStandActivity"
@@ -135,7 +144,6 @@
             android:exported="false">
             <intent-filter>
                 <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity> <!-- // Intent-filter collision -->
@@ -155,10 +163,13 @@
         <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.ContextActivity" />
         <activity
             android:name="com.example.vladislav.androidstudy.activities.orientation_change.OneOrTwoFragments.SomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" /> <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+
+        <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
         <!-- // This receiver should not accept any broadcasts, but in fact it is overridden in code and -->
         <!-- // has some intent-filter provided. -->
-        <activity android:name="com.example.vladislav.androidstudy.activities.dynamic_layout.DynamicButtonsSizeActivity" /> <!-- // Presence of an intent-filter in a broadcast receiver's declaration in this file, makes -->
+        <activity android:name="com.example.vladislav.androidstudy.activities.dynamic_layout.DynamicButtonsSizeActivity" />
+        <!-- // Presence of an intent-filter in a broadcast receiver's declaration in this file, makes -->
         <!-- // it exported tag to be automatically true: -->
         <!-- // android:exported = true -->
         <activity android:name="com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity.ButtonsActivity" />

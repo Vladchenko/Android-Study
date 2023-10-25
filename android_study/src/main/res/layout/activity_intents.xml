@@ -1,90 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout android:id="@+id/activity_intents"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_intents"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.vladislav.androidstudy.intents.IntentsActivity">
 
     <Button
-        android:text="Intent"
+        android:id="@+id/not_registered_activity_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/intent_button"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp" />
+        android:layout_marginTop="18dp"
+        android:text="Not registered" />
 
     <Button
-        android:text="Intent collision"
+        android:id="@+id/intent_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/intent_with_collision_button"
+        android:layout_below="@+id/not_registered_activity_button"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/intent_button" />
+        android:text="Intent" />
 
     <Button
-        android:text="Intent collision 2"
+        android:id="@+id/intent_with_collision_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/intent_button"
+        android:layout_centerHorizontal="true"
+        android:text="Intent collision" />
+
+    <Button
         android:id="@+id/intent_with_data_same_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/intent_with_collision_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Intent collision 2" />
 
     <Button
-        android:text="Intent with action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/intent_with_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/intent_with_data_same_action_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Intent with action" />
 
     <Button
-        android:text="Intent with data passed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/intent_with_data_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/intent_with_action_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Intent with data passed" />
 
     <Button
-        android:text="Google maps intent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/intent_google_maps_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/intent_with_data_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Google maps intent" />
 
     <Button
-        android:text="Web link intent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/intent_web_link_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/intent_google_maps_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Web link intent" />
 
     <Button
-        android:text="Dial number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/intent_dial_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/intent_web_link_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Dial number" />
 
     <Button
-        android:text="Map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/intent_map_button"
-        android:layout_below="@+id/intent_dial_button"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Send broadcast intent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/intent_dial_button"
+        android:layout_centerHorizontal="true"
+        android:text="Map" />
+
+    <Button
         android:id="@+id/intent_send_broadcast_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/intent_map_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Send broadcast intent" />
 
 </RelativeLayout>

@@ -47,7 +47,7 @@
         "Computing on a UI thread and updating it"</string>
     <string name="same_intents_button_text">"Run intent"</string>
     <string name="same_intents_button_text_2">"Run intent with chooser"</string>
-    <string name="same_intents_text_view_text">"Click button that runs an intent that matches the intent-filters in 2 activities"</string>
+    <string name="same_intents_text_view_text">"Click button that runs an intent matching an intent-filters in 2 activities"</string>
     <string name="web_browser_run_request_button">"Go"</string>
     <string name="canvasContentDescription">Mini Paint is a simple line drawing app.
    Drag your fingers to draw. Rotate the phone to clear.</string>
@@ -157,7 +157,7 @@
         "This activity has been launched using a next intent:\n\n"
         "Intent intent = new Intent ("com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION");
                 startActivity(intent);\n\n"
-        "Keep in mind that manifest has to have a following text in it:\n\n"
+        "Keep in mind that manifest has to have a following declaration in it:\n\n"
         "&lt;activity android:name=''.intentstudy.IntentWithActionActivity&gt;
         &lt;intent-filter&gt;
         &lt;action android:name=''com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION''/&gt;

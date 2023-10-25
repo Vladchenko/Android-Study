@@ -27,7 +27,9 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intents);
-        Button button = (Button) findViewById(R.id.intent_button);
+        Button button = (Button) findViewById(R.id.not_registered_activity_button);
+        button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.intent_button);
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.intent_with_collision_button);
         button.setOnClickListener(this);
@@ -54,8 +56,8 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
         super.onResume();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(".receivers.BroadcastReceiverSimple");
-        // Although this receiver is registered in an androidmanifest.xml, this program registration
-        // overrides the manifest.
+        // Although this receiver is registered in an androidmanifest.xml, following registration
+        // overrides the manifest's one.
         registerReceiver(mBroadcastReceiver, intentFilter);
 
         // Following broadcast receiver is registered only programmatically.
@@ -74,14 +76,16 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.intent_button: {
-
+            case R.id.not_registered_activity_button: {
                 // This method won't do, since doesn't resolve into any activity
                 // One gets following error
                 // RuntimeException: Unable to start activity ComponentInfo {....}:
                 // ...ActivityNotFoundException: No Activity found to handle Intent {  }
-                // startActivity(new Intent());
-
+                Intent intent = new Intent(this, NotRegisteredActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.intent_button: {
                 Intent intent = new Intent(this, SimpleIntentActivity.class);
                 startActivity(intent);
                 break;
@@ -101,7 +105,7 @@ public class IntentsActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.intent_with_action_button: {
                 // This intent will make android to look for an activity with action
                 // "com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION"
-                // and once it finds it, runs a component which intent-filter matches it.
+                // and once it finds it, starts it.
                 Intent intent = new Intent("com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION");
                 startActivity(intent);
                 break;
