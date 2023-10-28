@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.activities;
 
+import static com.example.vladislav.androidstudy.Utils.showToast;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.multidex.MultiDex;
 
@@ -31,7 +34,6 @@ public class InitialActivity extends AppCompatActivity {
     public static final String ACTIVITY_RESULT_ID = "result";
     private final String mLogTag = getClass().getCanonicalName();
     private final String mYouTubeVideoID = "Fee5vbFLYM4";
-    private Button mButton;
     private ButtonsHandlers mButtonsHandlers;
 
     // This method required to run this app in a cellphone
@@ -122,7 +124,7 @@ public class InitialActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // Checks the orientation of the screen
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -137,7 +139,7 @@ public class InitialActivity extends AppCompatActivity {
     }
 
     private void setButtonsClicks() {
-        mButton = findViewById(R.id.layouting_button);
+        Button mButton = findViewById(R.id.layouting_button);
         // Making a mButton to be clickable and click to perform a transfer to a layouting mActivity.
         // Another way of doing this - make a separate method in this class that invokes another
         // mActivity and assign it to a onClick() method in a respectful mLayout's mButton
@@ -227,6 +229,11 @@ public class InitialActivity extends AppCompatActivity {
 //    }
 
     private void runYoutubeVideo(String videoLink) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(videoLink)));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoLink));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            showToast(this, "Cannot run Youtube app. Probably it is not installed on a device.");
+        }
     }
 }
