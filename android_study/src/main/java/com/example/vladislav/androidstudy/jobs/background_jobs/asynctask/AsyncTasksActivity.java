@@ -1,62 +1,34 @@
 package com.example.vladislav.androidstudy.jobs.background_jobs.asynctask;
 
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
 
-public class AsyncTasksActivity extends AppCompatActivity implements View.OnClickListener {
+public class AsyncTasksActivity extends AppCompatActivity {
 
-    private Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Button button;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_tasks);
 
-        mButton = (Button) findViewById(R.id.asynctask1_button);
-        mButton.setOnClickListener(this);
+        button = findViewById(R.id.asynctask1_button);
+        button.setOnClickListener(v -> startActivity(AsyncTask1Activity.newIntent(this)));
 
-        mButton = (Button) findViewById(R.id.asynctask2_button);
-        mButton.setOnClickListener(this);
+        button = findViewById(R.id.asynctask2_button);
+        button.setOnClickListener(v -> startActivity(new Intent(this, AsyncTask2Activity.class)));
 
-        mButton = (Button) findViewById(R.id.asynctask3_button);
-        mButton.setOnClickListener(this);
+        button = findViewById(R.id.asynctask3_button);
+        button.setOnClickListener(v -> startActivity(new Intent(this, AsyncTask3Activity.class)));
 
-        mButton = (Button) findViewById(R.id.asynctask4_button);
-        mButton.setOnClickListener(this);
+        button = findViewById(R.id.asynctask4_button);
+        button.setOnClickListener(v -> startActivity(new Intent(this, AsyncTask4Activity.class)));
 
     }
-
-    @Override
-    public void onClick(View v) {
-        Intent intent;
-        switch (v.getId()) {
-            case R.id.asynctask1_button: {
-                intent = AsyncTask1Activity.newIntent(this);
-                startActivity(intent);
-                break;
-            }
-            case R.id.asynctask2_button: {
-                intent = new Intent(this, AsyncTask2Activity.class);
-                startActivity(intent);
-                break;
-            }
-            case R.id.asynctask3_button: {
-                intent = new Intent(this, AsyncTask3Activity.class);
-                startActivity(intent);
-                break;
-            }
-            case R.id.asynctask4_button: {
-                intent = new Intent(this, AsyncTask4Activity.class);
-                startActivity(intent);
-                break;
-            }
-        }
-    }
-
 }
