@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:versionName="1.0"
-    package="com.vladislav.yanchenko.androidstudy">
+    android:versionName="1.0">
 
     <application
         android:allowBackup="true"
@@ -11,10 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name="com.example.vladislav.androidstudy.dagger2.example6.presentation.LoginActivity"
-            android:exported="true"
-            android:label="@string/title_activity_login"/>
         <activity android:name="com.example.vladislav.androidstudy.separatestudypackage.weatherforecast.WeatherForecastActivity" />
         <activity
             android:name="com.example.vladislav.androidstudy.separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity"
@@ -203,9 +198,6 @@
         <activity android:name="com.example.vladislav.androidstudy.javarx2.example3.RxJava2Example3Activity" />
         <activity android:name="com.example.vladislav.androidstudy.javarx2.example4.RxJava2Example4Activity" />
         <activity
-            android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.CoroutinesFilesDownloadingDemoActivity"
-            android:exported="true"></activity>
-        <activity
             android:name="com.example.vladislav.androidstudy.javarx2.example5.RxJava2Example5Activity"
             android:exported="true" />
         <activity
@@ -307,6 +299,9 @@
 
     <uses-feature
         android:name="android.hardware.camera2"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
         android:required="false" /> <!-- INFO ABOUT MANIFEST.XML -->
     <!-- http://developer.alexanderklimov.ru/android/theory/AndroidManifestXML.php -->
     <!-- https://developer.android.com/guide/topics/manifest/manifest-intro.html -->
