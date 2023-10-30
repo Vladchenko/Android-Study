@@ -2,10 +2,13 @@ package com.example.vladislav.androidstudy.services;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.Context;
 import android.os.IBinder;
+
 import androidx.annotation.Nullable;
 
+/**
+ * IntentService is not recommended to use since Android 8.0 (API level 26)
+ */
 public class IntentServiceDemo1 extends IntentService {
 
     /**

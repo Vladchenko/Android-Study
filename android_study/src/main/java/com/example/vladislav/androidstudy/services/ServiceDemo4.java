@@ -1,79 +1,70 @@
 package com.example.vladislav.androidstudy.services;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import androidx.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Implementing a bound service.
- * FIXME - This service doesn't operate properly. The example code is taken from -
- * http://startandroid.ru/ru/uroki/vse-uroki-spiskom/163-urok-98-service-lokalnyj-binding.html
+ * Once it starts, it generates a new int value. Clients can request it on demand.
  */
-
 public class ServiceDemo4 extends Service {
 
+    private static final String LOG_TAG = "ServiceDemo4";
+
+    int mValue = 0;
+    boolean mIsBound = false;
     // Binder given to clients
     private final IBinder mBinder = new LocalBinder();
-    // Random number generator
-    private final Random mGenerator = new Random();
-    final String LOG_TAG = "ServiceDemo4";
-    private Context context;
-    boolean mBound = false;
-    int value = 0;
-    /**
-     * Class used for the client Binder. Because we know this service always
-     * runs in the same process as its clients, we don't need to deal with IPC.
-     */
-    public class LocalBinder extends Binder {
-        public ServiceDemo4 getService() {
-            // Return this instance of ServiceDemo4 so clients can call public methods
-            return ServiceDemo4.this;
-        }
-    }
 
+    @Override
     public void onCreate() {
         super.onCreate();
         Log.i(LOG_TAG, "onCreate");
-        context = getApplicationContext();
-        Toast.makeText(this, "Service demo4 started", Toast.LENGTH_SHORT).show();
-    }
-
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i(LOG_TAG, "onStartCommand");
-        someTask();
-        return super.onStartCommand(intent, flags, startId);
-    }
-
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i(LOG_TAG, "onDestroy");
-        Toast.makeText(this, "Service demo4 stopped", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, LOG_TAG + " started", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     @Nullable
     public IBinder onBind(Intent intent) {
         Log.i(LOG_TAG, "onBind");
+        mIsBound = true;
+        someTask();
         return mBinder;
     }
 
-    void someTask() {
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i(LOG_TAG, "onStartCommand");
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mIsBound = false;
+        Log.i(LOG_TAG, "onDestroy");
+        Toast.makeText(this, LOG_TAG + " stopped", Toast.LENGTH_SHORT).show();
+    }
+
+    private void someTask() {
         // Service is to produce a new integer value at random and activity will require this value
         // on a user's demand.
+        final Random random = new Random();
         new Thread(new Runnable() {
             public void run() {
-                while (true) {
+                while (mIsBound) {
                     try {
-                        TimeUnit.SECONDS.sleep(10);
-                        value = mGenerator.nextInt();
+                        TimeUnit.SECONDS.sleep(1);
+                        mValue = random.nextInt();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -82,9 +73,21 @@ public class ServiceDemo4 extends Service {
         }).start();
     }
 
-    /** method for clients */
+    /**
+     * Provide value for clients
+     */
     public int getServiceData() {
-        return value;
+        return mValue;
     }
 
+    /**
+     * Class used for the client Binder. Since we know this service always
+     * runs in the same process as its clients, we don't need to deal with IPC.
+     */
+    public class LocalBinder extends Binder {
+        public ServiceDemo4 getService() {
+            // Return this instance of ServiceDemo4 so clients can call public methods
+            return ServiceDemo4.this;
+        }
+    }
 }

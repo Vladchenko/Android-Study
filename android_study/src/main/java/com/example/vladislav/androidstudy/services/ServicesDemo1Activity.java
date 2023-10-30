@@ -6,16 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.os.IBinder;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.os.Bundle;
+import android.os.IBinder;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.services.demo1.BindIntentedService;
@@ -28,13 +28,11 @@ import com.example.vladislav.androidstudy.services.demo1.StartedSimpleService;
 import static android.content.IntentFilter.SYSTEM_HIGH_PRIORITY;
 import static android.content.IntentFilter.SYSTEM_LOW_PRIORITY;
 
+/**
+ * TODO Add javadoc and refine a code
+ */
 public class ServicesDemo1Activity extends AppCompatActivity {
 
-    private TextView textView;
-    private Button mStartButton;
-    private Button mStopButton;
-    private Button mBindButton;
-    private Button mUnbindButton;
     private Boolean mServiceType;
     private Class mServiceTypeClass;
     private ServiceConnection mServiceConnection;
@@ -65,9 +63,8 @@ public class ServicesDemo1Activity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
                 String string = intent.getExtras().getString(ServicesDemo1Activity.BROADCAST_ID);
                 if (null != string) {
-                    TextView textView = (TextView) findViewById(R.id.service_log_contents_text_view);
+                    TextView textView = findViewById(R.id.service_log_contents_text_view);
                     textView.append(string);
-//                    myscroll.FullScroll(FocusSearchDirection.Down);
                 }
             }
         };
@@ -92,7 +89,7 @@ public class ServicesDemo1Activity extends AppCompatActivity {
                     public void onReceive(Context context, Intent intent) {
                         String string = intent.getExtras().getString(ServicesDemo1Activity.BROADCAST_ID);
                         if (null != string) {
-                            TextView textView = (TextView) findViewById(R.id.service_log_contents_text_view);
+                            TextView textView = findViewById(R.id.service_log_contents_text_view);
                             textView.append("BR2:" + string);
                         }
                     }
@@ -106,10 +103,10 @@ public class ServicesDemo1Activity extends AppCompatActivity {
             }
         }
 
-        // Setting a mButtons' click listeners.
+        // Setting a buttons' click listeners.
         setListeners();
 
-        textView = (TextView) findViewById(R.id.service_log_contents_text_view);
+        TextView textView = findViewById(R.id.service_log_contents_text_view);
         // Making a text view for a log scrollable.
         textView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -187,6 +184,9 @@ public class ServicesDemo1Activity extends AppCompatActivity {
     }
 
     private void setListeners() {
+        Button mBindButton;
+        Button mStopButton;
+        Button mStartButton;
 
         mServiceType = (Boolean) getIntent().getExtras().get("isIntendedService");
 
@@ -283,8 +283,8 @@ public class ServicesDemo1Activity extends AppCompatActivity {
             }
         });
 
-        mUnbindButton = (Button) findViewById(R.id.service_column2_unbind_button);
-        mUnbindButton.setOnClickListener(new View.OnClickListener() {
+        Button unbindButton = (Button) findViewById(R.id.service_column2_unbind_button);
+        unbindButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent mIntent;
@@ -298,8 +298,8 @@ public class ServicesDemo1Activity extends AppCompatActivity {
                 }
             }
         });
-        mUnbindButton = (Button) findViewById(R.id.service_column3_unbind_button);
-        mUnbindButton.setOnClickListener(new View.OnClickListener() {
+        unbindButton = (Button) findViewById(R.id.service_column3_unbind_button);
+        unbindButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent mIntent;

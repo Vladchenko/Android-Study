@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name="com.example.vladislav.androidstudy.services.playaudio.PlayAudioActivity"
+            android:exported="true"
+            android:label="@string/title_activity_play_audio"
+            android:theme="@style/AppTheme"/>
         <activity android:name="com.example.vladislav.androidstudy.separatestudypackage.weatherforecast.WeatherForecastActivity" />
         <activity
             android:name="com.example.vladislav.androidstudy.separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity"
@@ -22,13 +27,13 @@
             android:exported="true"
             android:launchMode="singleInstance"
             android:taskAffinity="com.example.vladislav.androidstudy.activities.InitialActivity">
+            <!-- android:screenOrientation="landscape" makes orientation to be only landscape -->
+            <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- android:screenOrientation="landscape" makes orientation to be only landscape -->
-            <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
         </activity>
         <activity
             android:name="com.example.vladislav.androidstudy.kotlin.demo.graphics.GraphicsDemoActivity"
@@ -46,8 +51,7 @@
             android:name="com.example.vladislav.androidstudy.separatestudypackage.TestStandActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!--
-        android:launchMode=""
+        <!-- android:launchMode=""
 
         An activity with the "standard" or "singleTop" launch mode can be instantiated multiple
         times. The instances can belong to any task and can be located anywhere in the activity
@@ -153,14 +157,12 @@
         </activity>
         <activity
             android:name="com.example.vladislav.androidstudy.kotlin.KotlinStudyActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity android:name="com.example.vladislav.androidstudy.jobs.listviewing.recyclerview.RecyclerViewActivity" />
         <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.ContextActivity" />
         <activity
             android:name="com.example.vladislav.androidstudy.activities.orientation_change.OneOrTwoFragments.SomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-
-        <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
+            android:configChanges="orientation|keyboardHidden|screenSize" /> <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
         <!-- // This receiver should not accept any broadcasts, but in fact it is overridden in code and -->
         <!-- // has some intent-filter provided. -->
         <activity android:name="com.example.vladislav.androidstudy.activities.dynamic_layout.DynamicButtonsSizeActivity" />
@@ -215,7 +217,7 @@
             android:exported="true" />
         <activity
             android:name="com.example.vladislav.androidstudy.jobs.background_jobs.handlerthread.HandlerThreadActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <provider
             android:name="com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesContentProvider"
@@ -238,6 +240,10 @@
             </intent-filter>
         </receiver>
 
+        <service
+            android:name="com.example.vladislav.androidstudy.services.playaudio.PlayAudioServiceDemo"
+            android:description="@string/play_audio_service_description"
+            android:label="@string/play_audio_service_description" />
         <service
             android:name="com.example.vladislav.androidstudy.services.demo1.StartedSimpleService"
             android:description="@string/service_description"

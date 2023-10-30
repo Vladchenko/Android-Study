@@ -17,6 +17,7 @@
     <string name="hello_blank_fragment1">Fragment1</string>
     <string name="hello_blank_fragment2">Fragment2</string>
     <string name="hello_blank_support_fragment">Hello blank support fragment</string>
+    <string name="play_audio_service_description">This is a service to demonstrate an audio playing.</string>
     <string name="service_description">This is a demo service.</string>
     <string name="intent_service_description">This is a demo intent service.</string>
     <string name="mAddress">Вавилова, 23</string>
@@ -191,5 +192,6 @@
     <string name="degrees_values">Value of degrees for an air in Celsius of Fahrenheit</string>
     <string name="default_degrees_values">25</string>
     <string name="default_degrees_type">C</string>
+    <string name="title_activity_play_audio">PlayAudioActivity</string>
 
 </resources>

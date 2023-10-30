@@ -1,17 +1,16 @@
 package com.example.vladislav.androidstudy.services;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import androidx.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -22,25 +21,24 @@ import java.util.concurrent.TimeUnit;
 
 public class ServiceDemo5 extends Service {
 
+    private static final String LOG_TAG = "ServiceDemo5";
+
     // Random number generator
-    private final Random mGenerator = new Random();
-    private final String LOG_TAG = "ServiceDemo5";
+    private final Random mRandom = new Random();
     private Messenger messageHandler;
-    private boolean mBound = false;
-    private Context context;
     private int value = 0;
     private Thread thread;
 
+    @Override
     public void onCreate() {
         super.onCreate();
         Log.i(LOG_TAG, "onCreate");
-        context = getApplicationContext();
         Toast.makeText(this, LOG_TAG + " created", Toast.LENGTH_SHORT).show();
         thread = new Thread(new Runnable() {
             public void run() {
                 while (true) {
                     try {
-                        value = mGenerator.nextInt(1000);
+                        value = mRandom.nextInt(1000);
                         sendMessage(value);
                         TimeUnit.SECONDS.sleep(5);
                         Log.i(LOG_TAG, Integer.toString(value));
@@ -52,6 +50,7 @@ public class ServiceDemo5 extends Service {
         });
     }
 
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(LOG_TAG, "onStartCommand");
 
@@ -62,6 +61,7 @@ public class ServiceDemo5 extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    @Override
     public void onDestroy() {
         Log.i(LOG_TAG, "onDestroy");
         Toast.makeText(this, LOG_TAG + " stopped", Toast.LENGTH_SHORT).show();

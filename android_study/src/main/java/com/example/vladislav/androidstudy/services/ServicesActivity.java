@@ -13,15 +13,16 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
 
-import static com.example.vladislav.androidstudy.Utils.showToast;
+import static com.example.vladislav.androidstudy.services.ServiceUtils.isMyServiceRunning;
 
 /**
- * TODO
+ * Activity that show demos for services implemented in the app.
  */
 public class ServicesActivity extends AppCompatActivity {
 
@@ -33,7 +34,7 @@ public class ServicesActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "ServicesActivity";
 
-    private boolean mBound;
+    private ServiceDemo4 mServiceDemo4;
     private ServiceConnection mServiceConnection;
     private final Handler messageHandler = new MessageHandler();
     private TextView mTextView;
@@ -53,72 +54,83 @@ public class ServicesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Button mButton;
+        Button button;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services);
         mTextView = findViewById(R.id.service_data_received_text_view);
-        mButton = findViewById(R.id.demo1_button);
-        mButton.setOnClickListener(v -> {
+        button = findViewById(R.id.demo1_button);
+        button.setOnClickListener(v -> {
             Intent intent = new Intent(this, ServicesDemo1Activity.class);
             intent.putExtra("isIntendedService", ((CheckBox) findViewById(R.id.intent_service_checkbox)).isChecked());
             startActivity(intent);
         });
-        mButton = findViewById(R.id.demo2_button);
-        mButton.setOnClickListener(v -> {
-            showToast(this, "Service2 is launched.");
-            startService(new Intent(this, ServiceDemo2.class));
-        });
-        mButton = findViewById(R.id.demo3_button);
-        mButton.setOnClickListener(v -> startService(new Intent(this, ServiceDemo3.class)));
-        mButton = findViewById(R.id.start_demo4_service_button);
-        mButton.setOnClickListener(v -> bindService(new Intent(this, ServiceDemo4.class),
-                mServiceConnection, BIND_AUTO_CREATE));
-        mButton = findViewById(R.id.stop_demo4_service_button);
-        mButton.setOnClickListener(v -> {
+        button = findViewById(R.id.demo2_button);
+        button.setOnClickListener(v -> startService(new Intent(this, ServiceDemo2.class)));
+        button = findViewById(R.id.demo3_button);
+        button.setOnClickListener(v -> startService(new Intent(this, ServiceDemo3.class)));
+        prepareDemoService4();
+        prepareDemoService5();
+    }
+
+    private void prepareDemoService4() {
+        Button button = findViewById(R.id.start_demo4_service_button);
+        button.setOnClickListener(v ->
+                bindService(new Intent(this, ServiceDemo4.class),
+                        mServiceConnection, BIND_AUTO_CREATE));
+        button = findViewById(R.id.stop_demo4_service_button);
+        button.setOnClickListener(v -> {
             // Get service instance and stop it.
-            if (!mBound) return;
+            if (mServiceDemo4 == null) return;
             unbindService(mServiceConnection);
-            mBound = false;
         });
-        mButton = findViewById(R.id.request_data_demo4_service_button);
-        mButton.setOnClickListener(v -> {
-            // Get service instance, request data with it and show it in a, say toast.
-            // FIXME - Why is here no getServiceData method visible ?
-//                mService.getServiceData
-        });
-        mButton = findViewById(R.id.start_demo5_service_button);
-        mButton.setOnClickListener(v -> {
+        button = findViewById(R.id.request_data_demo4_service_button);
+        button.setOnClickListener(v ->
+            // Get request service data and show it in a toast.
+            Toast.makeText(this, Integer.toString(mServiceDemo4.getServiceData()), Toast.LENGTH_SHORT).show()
+        );
+        mServiceConnection = new ServiceConnection() {
+            public void onServiceConnected(ComponentName name, IBinder binder) {
+                Log.d(LOG_TAG, "ServicesActivity onServiceConnected");
+                mServiceDemo4 = ((ServiceDemo4.LocalBinder) binder).getService();
+            }
+
+            public void onServiceDisconnected(ComponentName name) {
+                Log.d(LOG_TAG, "ServicesActivity onServiceDisconnected");
+                mServiceDemo4 = null;
+            }
+        };
+    }
+
+    private void prepareDemoService5() {
+        Button button;
+        button = findViewById(R.id.start_demo5_service_button);
+        button.setOnClickListener(v -> {
             Intent intent2 = new Intent(this, ServiceDemo5.class);
             intent2.putExtra("MESSENGER", new Messenger(messageHandler));
             startService(intent2);
             Log.d(LOG_TAG, "Demo5 start button clicked");
         });
-        mButton = findViewById(R.id.stop_demo5_service_button);
-        mButton.setOnClickListener(v -> {
+        button = findViewById(R.id.stop_demo5_service_button);
+        button.setOnClickListener(v -> {
             stopService(new Intent(this, ServiceDemo5.class));
             Log.d(LOG_TAG, "Demo5 stop button clicked");
         });
-        // For ServiceDemo4
-        mServiceConnection = new ServiceConnection() {
-            public void onServiceConnected(ComponentName name, IBinder binder) {
-                Log.d(LOG_TAG, "ServicesActivity onServiceConnected");
-                mBound = true;
-                ((ServiceDemo4.LocalBinder) binder).getService();
-            }
-
-            public void onServiceDisconnected(ComponentName name) {
-                Log.d(LOG_TAG, "ServicesActivity onServiceDisconnected");
-                mBound = false;
-            }
-        };
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopService(new Intent(this, ServiceDemo2.class));
-        stopService(new Intent(this, ServiceDemo3.class));
-        unbindService(mServiceConnection);
-        stopService(new Intent(this, ServiceDemo5.class));
+        if (isMyServiceRunning(this, ServiceDemo2.class)) {
+            stopService(new Intent(this, ServiceDemo2.class));
+        }
+        if (isMyServiceRunning(this, ServiceDemo3.class)) {
+            stopService(new Intent(this, ServiceDemo3.class));
+        }
+        if (isMyServiceRunning(this, ServiceDemo4.class)) {
+            unbindService(mServiceConnection);
+        }
+        if (isMyServiceRunning(this, ServiceDemo5.class)) {
+            stopService(new Intent(this, ServiceDemo5.class));
+        }
     }
 }
