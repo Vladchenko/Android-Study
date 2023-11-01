@@ -11,5 +11,6 @@ Implement following tasks in this app:
     - Make a look of a date button's text to be more black
     - Make a ViewPager for a crimes
 
+    ? Put all features to SOLID and DI, where possible
     ? CriminalRecordListFragment is passed to CrimesAsyncTask and once asynctask done its job, is
     it destroyed right away and fragment is not leaked
