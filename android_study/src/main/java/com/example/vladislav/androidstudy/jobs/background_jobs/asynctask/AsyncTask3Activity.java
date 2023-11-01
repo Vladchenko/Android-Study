@@ -25,7 +25,7 @@ public class AsyncTask3Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_task3);
-        textView = (TextView) findViewById(R.id.asynctask3_progress_text_view);
+        textView =  findViewById(R.id.asynctask3_progress_text_view);
         asyncTask = (DemoAsyncTask) getLastNonConfigurationInstance();
         if (asyncTask == null) {
             asyncTask = new DemoAsyncTask(this);
@@ -74,7 +74,7 @@ public class AsyncTask3Activity extends AppCompatActivity {
         protected void onPostExecute(Bitmap result) {
             textView.setText("Download complete");
             ((ImageView) activity.findViewById(R.id.asynctask3_image_view)).setImageBitmap(result);
-            ((ProgressBar) activity.findViewById(R.id.asynctask3_progress_bar)).setVisibility(TextView.GONE);
+            ( activity.findViewById(R.id.asynctask3_progress_bar)).setVisibility(TextView.GONE);
         }
 
         // Downloading an image right away.

@@ -69,11 +69,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public ViewHolder2(View itemView) {
             super(itemView);
-            addressTextView = (TextView) itemView.findViewById(R.id.address_text_view);
-            extraOfficeTextView = (TextView) itemView.findViewById(R.id.extra_office_text_view);
-            distanceTextView = (TextView) itemView.findViewById(R.id.distance_text_view);
-            estimationTextView = (TextView) itemView.findViewById(R.id.estimation_mark_text_view);
-//            telephoneNTextView = (TextView)itemView.findViewById(R.id.telephoneN_text_view);
+            addressTextView =  itemView.findViewById(R.id.address_text_view);
+            extraOfficeTextView =  itemView.findViewById(R.id.extra_office_text_view);
+            distanceTextView =  itemView.findViewById(R.id.distance_text_view);
+            estimationTextView =  itemView.findViewById(R.id.estimation_mark_text_view);
+//            telephoneNTextView = itemView.findViewById(R.id.telephoneN_text_view);
             // No need to pass an image, it's already present in an activity.
         }
 

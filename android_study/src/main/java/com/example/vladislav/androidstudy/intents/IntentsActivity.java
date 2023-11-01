@@ -1,6 +1,7 @@
 package com.example.vladislav.androidstudy.intents;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -8,10 +9,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.intents.intentfiltercollision.IntentFilterCollisionInitialActivity;
+import com.example.vladislav.androidstudy.jobs.simple_jobs.LayoutingActivity;
 import com.example.vladislav.androidstudy.receivers.BroadcastReceiverExample2;
 import com.example.vladislav.androidstudy.receivers.BroadcastReceiverSimple;
 
@@ -21,6 +24,15 @@ public class IntentsActivity extends AppCompatActivity {
 
     BroadcastReceiver mBroadcastReceiver = new BroadcastReceiverSimple();
     BroadcastReceiver mBroadcastReceiver2 = new BroadcastReceiverExample2();
+
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
+        return new Intent(context, IntentsActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

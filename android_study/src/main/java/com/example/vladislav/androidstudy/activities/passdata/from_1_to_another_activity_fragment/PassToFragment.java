@@ -35,7 +35,7 @@ public class PassToFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pass_to, container, false);
-        mTextView = (TextView)view.findViewById(R.id.get_data_text_view);
+        mTextView = view.findViewById(R.id.get_data_text_view);
         return view;
     }
 

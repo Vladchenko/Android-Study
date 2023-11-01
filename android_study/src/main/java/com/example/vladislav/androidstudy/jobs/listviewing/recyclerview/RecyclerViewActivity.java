@@ -25,7 +25,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_sample);
+        mRecyclerView =  findViewById(R.id.recycler_view_sample);
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);

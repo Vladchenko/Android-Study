@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -31,7 +32,12 @@ public class TestStandActivity extends AppCompatActivity {
     private static final String LOG_TAG = TestStandActivity.class.getSimpleName();
     private Handler handler;
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, TimeDateActivity.class);
     }
 
@@ -39,10 +45,10 @@ public class TestStandActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

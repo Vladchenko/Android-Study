@@ -23,7 +23,7 @@ public class ExpandableListViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expandable_list_view);
 
-        mExpandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
+        mExpandableListView = findViewById(R.id.expandable_list_view);
 
         String[] strings = new String[]{"1", "2", "3", "4", "5", "6", "1", "2", "3", "4", "5", "6",
                 "1", "2", "3", "4", "5", "6", "1", "2", "3", "4", "5", "6", "1", "2", "3", "4", "5",

@@ -3,6 +3,8 @@ package com.example.vladislav.androidstudy.javarx2.example1;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -35,12 +37,17 @@ import static java.lang.Thread.sleep;
 
 public class RxJava2Example1Activity extends AppCompatActivity {
 
-    private static final String TAG = RxJava2Example1Activity.class.toString();
+    private static final String TAG = "RxJava2Example1Activity";
     private Observable<String> mObservable;
     private Observer mObserver;
     private TextView mTextView;
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, RxJava2Example1Activity.class);
     }
 

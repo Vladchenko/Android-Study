@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
@@ -33,7 +34,12 @@ public class SchedulerActivity extends AppCompatActivity {
     private TextView messagearea;
     private View button;
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, SchedulerActivity.class);
     }
 
@@ -57,8 +63,8 @@ public class SchedulerActivity extends AppCompatActivity {
 
     private void configureLayout() {
         setContentView(R.layout.activity_scheduler);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        messagearea = (TextView) findViewById(R.id.messagearea);
+        progressBar =  findViewById(R.id.progressBar);
+        messagearea =  findViewById(R.id.messagearea);
         button  = findViewById(R.id.scheduleLongRunningOperation);
         button.setOnClickListener(new View.OnClickListener(){
             @Override

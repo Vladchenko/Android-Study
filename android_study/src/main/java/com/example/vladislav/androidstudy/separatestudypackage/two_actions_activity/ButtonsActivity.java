@@ -2,6 +2,8 @@ package com.example.vladislav.androidstudy.separatestudypackage.two_actions_acti
 
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +18,12 @@ public class ButtonsActivity extends AppCompatActivity {
     private Button mTimeButton;
     private Button mDateButton;
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, ButtonsActivity.class);
     }
 
@@ -24,8 +31,8 @@ public class ButtonsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buttons);
-        mTimeButton = (Button)findViewById(R.id.time_button);
-        mDateButton = (Button)findViewById(R.id.date_button);
+        mTimeButton = findViewById(R.id.time_button);
+        mDateButton = findViewById(R.id.date_button);
         setButtonsClickListeners();
     }
 

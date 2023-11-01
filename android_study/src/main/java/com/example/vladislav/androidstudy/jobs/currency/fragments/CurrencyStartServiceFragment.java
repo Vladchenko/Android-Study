@@ -57,10 +57,10 @@ public class CurrencyStartServiceFragment extends Fragment implements ICallback 
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_currency, container, false);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.currency_recycler_view);
+        mRecyclerView =  view.findViewById(R.id.currency_recycler_view);
         mRecyclerView.addItemDecoration(new RectangularItemDecoration(getActivity()));
-        mProgressBar = (ProgressBar) view.findViewById(R.id.currency_progress_bar);
-        mCenterMessageTextView = (TextView) view.findViewById(R.id.center_message_text_view);
+        mProgressBar =  view.findViewById(R.id.currency_progress_bar);
+        mCenterMessageTextView =  view.findViewById(R.id.center_message_text_view);
         return view;
     }
 

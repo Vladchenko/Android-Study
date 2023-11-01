@@ -5,12 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.activities.ParcelableActivity;
 
 public class TwoFragmentsActivity extends Activity {
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, TwoFragmentsActivity.class);
     }
 

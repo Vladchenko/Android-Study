@@ -24,9 +24,9 @@ public class CriminalRecordsViewHolder extends RecyclerView.ViewHolder {
 
     public CriminalRecordsViewHolder(View itemView, ICrimeItemClickListener fragment) {
         super(itemView);
-        mCrimeTitleTextView = (TextView) itemView.findViewById(R.id.crime_title_text_view);
-        mCrimeDescriptionTextView = (TextView) itemView.findViewById(R.id.crime_description_text_view);
-        mCrimeCreationDateTextView = (TextView) itemView.findViewById(R.id.crime_date_text_view);
+        mCrimeTitleTextView =  itemView.findViewById(R.id.crime_title_text_view);
+        mCrimeDescriptionTextView =  itemView.findViewById(R.id.crime_description_text_view);
+        mCrimeCreationDateTextView =  itemView.findViewById(R.id.crime_date_text_view);
         itemView.setOnClickListener(addItemClickListener());
         mCrimeClickListener = fragment;
     }

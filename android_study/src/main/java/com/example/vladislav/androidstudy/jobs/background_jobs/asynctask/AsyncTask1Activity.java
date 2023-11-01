@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.example.vladislav.androidstudy.R;
 
 import java.lang.ref.WeakReference;
@@ -32,7 +34,12 @@ public class AsyncTask1Activity extends Activity {
         asyncTask.link(this);
     }
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, AsyncTask1Activity.class);
     }
 

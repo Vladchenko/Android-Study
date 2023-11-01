@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +35,12 @@ public class RxJavaSimpleActivity extends AppCompatActivity {
         emitter.onComplete();
     });
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, RxJavaSimpleActivity.class);
     }
 
@@ -57,7 +63,7 @@ public class RxJavaSimpleActivity extends AppCompatActivity {
     }
 
     private void updateTheUserInterface(int integer) {
-        TextView view = (TextView) findViewById(R.id.resultView);
+        TextView view =  findViewById(R.id.resultView);
         view.setText(String.valueOf(integer));
     }
 

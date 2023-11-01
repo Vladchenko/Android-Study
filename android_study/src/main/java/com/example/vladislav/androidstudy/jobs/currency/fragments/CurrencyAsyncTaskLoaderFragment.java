@@ -48,9 +48,9 @@ public class CurrencyAsyncTaskLoaderFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_currency, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.currency_recycler_view);
-        mProgressBar = (ProgressBar) view.findViewById(R.id.currency_progress_bar);
-        mCenterMessageTextView = (TextView) view.findViewById(R.id.center_message_text_view);
+        mRecyclerView =  view.findViewById(R.id.currency_recycler_view);
+        mProgressBar =  view.findViewById(R.id.currency_progress_bar);
+        mCenterMessageTextView =  view.findViewById(R.id.center_message_text_view);
         return view;
     }
 

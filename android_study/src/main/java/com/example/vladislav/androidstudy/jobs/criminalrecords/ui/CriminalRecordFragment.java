@@ -55,11 +55,11 @@ public class CriminalRecordFragment extends Fragment {
         Bundle args = getArguments();
         View view = inflater.inflate(R.layout.criminal_record_fragment, container, false);
         mSolvedCheckBox = (CheckBox)view.findViewById(R.id.solved_checkbox);
-        mCancelButton = (Button)view.findViewById(R.id.cancel_button);
-        mSaveButton = (Button)view.findViewById(R.id.save_button);
-        mDescriptionEditText = (EditText)view.findViewById(R.id.crime_description_edit_text);
-        mTitleEditText = (EditText)view.findViewById(R.id.crime_title_edit_text);
-        mDateButton = (Button)view.findViewById(R.id.date_button);
+        mCancelButton = view.findViewById(R.id.cancel_button);
+        mSaveButton = view.findViewById(R.id.save_button);
+        mDescriptionEditText = view.findViewById(R.id.crime_description_edit_text);
+        mTitleEditText = view.findViewById(R.id.crime_title_edit_text);
+        mDateButton = view.findViewById(R.id.date_button);
         if (args != null) {
             mId = args.getString(CRIME_ID);
             mTitleEditText.setText(args.getString(CRIME_TITLE_KEY));

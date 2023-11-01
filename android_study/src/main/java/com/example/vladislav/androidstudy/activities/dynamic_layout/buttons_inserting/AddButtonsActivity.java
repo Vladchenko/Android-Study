@@ -44,7 +44,12 @@ public class AddButtonsActivity extends AppCompatActivity {
      * @param context {@link android.content.Context}
      * @return инстанс Intent для запуска AddButtonsActivity
      */
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, AddButtonsActivity.class);
     }
 
@@ -54,13 +59,13 @@ public class AddButtonsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_buttons);
 
-        mLayout = (GridLayout) findViewById(R.id.dynamic_components_layout);
-        mButtonName = (EditText) findViewById(R.id.button_name_edit_text);
+        mLayout = findViewById(R.id.dynamic_components_layout);
+        mButtonName =  findViewById(R.id.button_name_edit_text);
         mActivity = this;
 
-        final Button addButton = (Button) findViewById(R.id.add_button);
+        final Button addButton =  findViewById(R.id.add_button);
         addButton.setOnClickListener(getAddButtonListener());
-        final Button removeButton = (Button) findViewById(R.id.remove_button);
+        final Button removeButton =  findViewById(R.id.remove_button);
         removeButton.setOnClickListener(getRemoveButtonListener());
 
         // Implementing a back button

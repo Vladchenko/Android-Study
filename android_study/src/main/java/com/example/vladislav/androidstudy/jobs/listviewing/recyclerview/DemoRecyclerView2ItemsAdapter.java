@@ -25,7 +25,7 @@ public class DemoRecyclerView2ItemsAdapter extends RecyclerView.Adapter<Recycler
         private TextView mTextView;
         TextViewHolder(View v) {
             super(v);
-            mTextView = (TextView)v.findViewById(R.id.recycler_item_text_view);
+            mTextView = v.findViewById(R.id.recycler_item_text_view);
         }
     }
 
@@ -34,7 +34,7 @@ public class DemoRecyclerView2ItemsAdapter extends RecyclerView.Adapter<Recycler
         private TextView mTextView;
         TextImageViewHolder(View v) {
             super(v);
-            mTextView = (TextView)v.findViewById(R.id.recycler_item_text_view);
+            mTextView = v.findViewById(R.id.recycler_item_text_view);
         }
     }
 

@@ -71,7 +71,7 @@ public class DemoExpandableList2ViewsAdapter extends BaseExpandableListAdapter {
                     .from(mContext).inflate(R.layout.expandable_list_group_view, null);
         }
 //        view.setBackground(mContext.getResources().getDrawable(R.drawable.customborder));
-        TextView groupTextView = (TextView)view.findViewById(R.id.group_text_view);
+        TextView groupTextView = view.findViewById(R.id.group_text_view);
         groupTextView.setText(mGroupDataset.get(i));
         return view;
     }
@@ -90,7 +90,7 @@ public class DemoExpandableList2ViewsAdapter extends BaseExpandableListAdapter {
         }
         // Setting a custom border
 //        view.setBackground(mContext.getResources().getDrawable(R.drawable.customborder));
-        TextView childTextView = (TextView)view.findViewById(R.id.group_text_view);
+        TextView childTextView = view.findViewById(R.id.group_text_view);
         childTextView.setText(mChildrenDataset.get(mGroupDataset.get(i)).get(i1));
         return view;
     }

@@ -1,6 +1,10 @@
 package com.example.vladislav.androidstudy.jobs.listviewing;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -8,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.vladislav.androidstudy.R;
 import com.example.vladislav.androidstudy.jobs.listviewing.spacestars.ListViewStarsFragment;
+import com.example.vladislav.androidstudy.jobs.simple_jobs.LayoutingActivity;
 
 /**
  * This activity demonstrates operating an ArrayAdapter.
@@ -16,8 +21,16 @@ import com.example.vladislav.androidstudy.jobs.listviewing.spacestars.ListViewSt
  */
 public class ListsViewActivity extends AppCompatActivity {
 
-    private Fragment mFragment;
-    private String mFragmentTag = ListViewPeopleFragment.class.toString();
+    private final String mFragmentTag = ListViewPeopleFragment.class.toString();
+
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
+        return new Intent(context, ListsViewActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +42,12 @@ public class ListsViewActivity extends AppCompatActivity {
     // Putting fragment to activity's layout
     private void addFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        mFragment = fragmentManager.findFragmentByTag(mFragmentTag);
-        if (mFragment == null) {
-            mFragment = new ListViewStarsFragment();
+        Fragment fragment = fragmentManager.findFragmentByTag(mFragmentTag);
+        if (fragment == null) {
+            fragment = new ListViewStarsFragment();
         }
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.list_view_fragment_container, mFragment, mFragmentTag);
+        fragmentTransaction.add(R.id.list_view_fragment_container, fragment, mFragmentTag);
         fragmentTransaction.commit();
     }
 }

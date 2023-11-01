@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
@@ -21,10 +22,6 @@ import com.example.vladislav.androidstudy.beans.Planet;
  *      planet = getIntent().getParcelableExtra("Planet");
  */
 public class ParcelableActivity extends AppCompatActivity {
-
-    public static Intent newIntent(Context context) {
-        return new Intent(context, ParcelableActivity.class);
-    }
 
     private static final String PARCELABLE_PLANET =
             "com.example.vladislav.androidstudy.activities.ParcelableActivity.PARCELABLE_PLANET";
@@ -42,9 +39,9 @@ public class ParcelableActivity extends AppCompatActivity {
         // Reading parcelable from an intent.
         planet = getIntent().getParcelableExtra(PARCELABLE_PLANET);
 
-        planetSizeTextView = (TextView) findViewById(R.id.planet_size_text_view);
-        planetWeightTextView = (TextView) findViewById(R.id.planet_weight_text_view);
-        planetDistanceTextView = (TextView) findViewById(R.id.planet_distance_text_view);
+        planetSizeTextView =  findViewById(R.id.planet_size_text_view);
+        planetWeightTextView =  findViewById(R.id.planet_weight_text_view);
+        planetDistanceTextView =  findViewById(R.id.planet_distance_text_view);
 
         planetSizeTextView.setText(Double.toString(planet.getSize()));
         planetWeightTextView.setText(Double.toString(planet.getWeight()));
@@ -52,7 +49,12 @@ public class ParcelableActivity extends AppCompatActivity {
 
     }
 
-    public static Intent newIntent(Context context, Parcelable planet) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context, Parcelable planet) {
         Intent intent = new Intent(context, ParcelableActivity.class);
         intent.putExtra(PARCELABLE_PLANET, planet);
         return intent;

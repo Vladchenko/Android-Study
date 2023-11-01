@@ -28,11 +28,11 @@ public class BanksDetailsActivity extends AppCompatActivity implements LoaderMan
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bank_details);
         mRootView = findViewById(R.id.activity_bank_details);
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler);
+        mRecyclerView =  mRootView.findViewById(R.id.recycler);
         getLoaderManager().initLoader(0, null, this);
         mAdapter = new RecyclerViewAdapter();
 //        LinearLayout mRootView = (LinearLayout)findViewById(R.layout.activity_bank_details);
-        mRecyclerView = (RecyclerView) this.findViewById(R.id.recycler);
+        mRecyclerView =  this.findViewById(R.id.recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
     }

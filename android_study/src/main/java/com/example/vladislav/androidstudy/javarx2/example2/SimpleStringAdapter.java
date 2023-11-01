@@ -61,7 +61,7 @@ public class SimpleStringAdapter extends RecyclerView.Adapter<SimpleStringAdapte
 
         public ViewHolder(View view) {
             super(view);
-            colorTextView = (TextView) view.findViewById(R.id.color_display);
+            colorTextView =  view.findViewById(R.id.color_display);
         }
     }
 }

@@ -61,7 +61,12 @@ public class InitialActivity extends AppCompatActivity {
 //        utils.showToast(this, "onCreate");
     }
 
-    public static Intent newIntent(Context context, String id, String value) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context, String id, String value) {
         Intent intent = new Intent(context, InitialActivity.class);
         intent.putExtra(id, value);
         return intent;
@@ -139,15 +144,15 @@ public class InitialActivity extends AppCompatActivity {
     }
 
     private void setButtonsClicks() {
-        Button mButton = findViewById(R.id.layouting_button);
-        // Making a mButton to be clickable and click to perform a transfer to a layouting mActivity.
+        Button button = findViewById(R.id.layouting_button);
+        // Making a button to be clickable and click to perform a transfer to a layouting mActivity.
         // Another way of doing this - make a separate method in this class that invokes another
-        // mActivity and assign it to a onClick() method in a respectful mLayout's mButton
-        // (say - mButton is - android:id="@+id/widgets_button",
+        // mActivity and assign it to a onClick() method in a respectful mLayout's button
+        // (say - button is - android:id="@+id/widgets_button",
         // attribute is - android:onClick="gotoWidgetsActivity")
         // gotoWidgetsActivity - the very method invoked.
-        mButton.setOnClickListener(v -> startActivity(new Intent(InitialActivity.this, LayoutingActivity.class)));
-//        mButton.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(v -> startActivity(LayoutingActivity.newIntent(this)));
+//        button.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -155,12 +160,12 @@ public class InitialActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
-        mButton = findViewById(R.id.return_result_button);
-        mButton.setOnClickListener(v -> startActivityForResult(ResultActivity.newIntent(InitialActivity.this), 1));
-        mButton = findViewById(R.id.list_button);
-        mButton.setOnClickListener(v -> startActivity(new Intent(InitialActivity.this, ListsViewActivity.class)));
-        mButton = findViewById(R.id.youtube_runner_button);
-        mButton.setOnClickListener(v -> {
+        button = findViewById(R.id.return_result_button);
+        button.setOnClickListener(v -> startActivityForResult(ResultActivity.newIntent(InitialActivity.this), 1));
+        button = findViewById(R.id.list_button);
+        button.setOnClickListener(v -> startActivity(ListsViewActivity.newIntent(this)));
+        button = findViewById(R.id.youtube_runner_button);
+        button.setOnClickListener(v -> {
                 // It seems that emulator won't run video, one has to use a mobile device for it.
                 runYoutubeVideo(mYouTubeVideoID);
         });
@@ -173,52 +178,52 @@ public class InitialActivity extends AppCompatActivity {
 //                    }
 //                }
 //        );
-        mButton = findViewById(R.id.rotation_button);
-        // Making a mButton to be clickable and click to perform a transfer to a layouting mActivity.
+        button = findViewById(R.id.rotation_button);
+        // Making a button to be clickable and click to perform a transfer to a layouting mActivity.
         // Another way of doing this - make a separate method in this class that invokes another
-        // mActivity and assign it to a onClick() method in a respectful mLayout's mButton
-        // (say - mButton is - android:id="@+id/widgets_button",
+        // mActivity and assign it to a onClick() method in a respectful mLayout's button
+        // (say - button is - android:id="@+id/widgets_button",
         // attribute is - android:onClick="gotoWidgetsActivity")
         // gotoWidgetsActivity - the very method invoked.
-        mButton.setOnClickListener(v ->
+        button.setOnClickListener(v ->
                 startActivity(RotationActivity.newIntent(InitialActivity.this,
                 new Planet(10, 15, 20))));
         // One might also use android:onClick="gotoWidgetsActivity" in activity_initial.xml
         // to attach a handler, but v ->  is not a good approach.
-        mButton = findViewById(R.id.alert_dialogue_button);
-        mButton.setOnClickListener(v -> mButtonsHandlers.showAlertDialog());
-        mButton = findViewById(R.id.intent_button);
-        mButton.setOnClickListener(v -> startActivity(new Intent(this, IntentsActivity.class)));
-        mButton = findViewById(R.id.call_button);
-        mButton.setOnClickListener(v ->  mButtonsHandlers.makePhoneCall());
-        mButton = findViewById(R.id.context_menu_button);
-        mButton.setOnClickListener(v -> startActivity(ContextMenuActivity.newIntent(this)));
-        mButton = findViewById(R.id.programmatic_layout_button);
-        mButton.setOnClickListener(v -> startActivity(new Intent(this, ProgrammaticLayoutActivity.class)));
-        mButton = findViewById(R.id.asynctask_button);
-        mButton.setOnClickListener(v -> startActivity(new Intent(this, AsyncTasksActivity.class)));
-        mButton = findViewById(R.id.services_button);
-        mButton.setOnClickListener(v -> startActivity(new Intent(this, ServicesActivity.class)));
-        mButton = findViewById(R.id.parcelable_button);
-        mButton.setOnClickListener(v -> mButtonsHandlers.gotoParcelable());
-        mButton = findViewById(R.id.send_email_button);
-        mButton.setOnClickListener(v -> mButtonsHandlers.sendEmail());
-        mButton = findViewById(R.id.image_button);
-        mButton.setOnClickListener(v -> mButtonsHandlers.gotoImageActivity());
-        mButton = findViewById(R.id.fragments_button);
-        mButton.setOnClickListener(v -> mButtonsHandlers.gotoFragmentsActivity());
-        mButton = findViewById(R.id.menu_button);
-        mButton.setOnClickListener(v -> mButtonsHandlers.gotoMenuActivity());
-        mButton = findViewById(R.id.widgets_button);
-        mButton.setOnClickListener(v -> mButtonsHandlers.gotoWidgetsActivity());
-        mButton = findViewById(R.id.widgets2_button);
-        mButton.setOnClickListener(v -> mButtonsHandlers.gotoWidgets2Activity());
-        mButton = findViewById(R.id.aligning_button);
-        mButton.setOnClickListener(v -> mButtonsHandlers.gotoAligningActivity());
-        mButton = findViewById(R.id.add_buttons_button);
-        mButton.setOnClickListener(v -> mButtonsHandlers.gotoAddButtons());
-        mButton = findViewById(R.id.one_fragment_button);
-        mButton.setOnClickListener(v -> mButtonsHandlers.gotoOneFragment());
+        button = findViewById(R.id.alert_dialogue_button);
+        button.setOnClickListener(v -> mButtonsHandlers.showAlertDialog());
+        button = findViewById(R.id.intent_button);
+        button.setOnClickListener(v -> startActivity(IntentsActivity.newIntent(this)));
+        button = findViewById(R.id.call_button);
+        button.setOnClickListener(v ->  mButtonsHandlers.makePhoneCall());
+        button = findViewById(R.id.context_menu_button);
+        button.setOnClickListener(v -> startActivity(ContextMenuActivity.newIntent(this)));
+        button = findViewById(R.id.programmatic_layout_button);
+        button.setOnClickListener(v -> startActivity(new Intent(this, ProgrammaticLayoutActivity.class)));
+        button = findViewById(R.id.asynctask_button);
+        button.setOnClickListener(v -> startActivity(new Intent(this, AsyncTasksActivity.class)));
+        button = findViewById(R.id.services_button);
+        button.setOnClickListener(v -> startActivity(new Intent(this, ServicesActivity.class)));
+        button = findViewById(R.id.parcelable_button);
+        button.setOnClickListener(v -> mButtonsHandlers.gotoParcelable());
+        button = findViewById(R.id.send_email_button);
+        button.setOnClickListener(v -> mButtonsHandlers.sendEmail());
+        button = findViewById(R.id.image_button);
+        button.setOnClickListener(v -> mButtonsHandlers.gotoImageActivity());
+        button = findViewById(R.id.fragments_button);
+        button.setOnClickListener(v -> mButtonsHandlers.gotoFragmentsActivity());
+        button = findViewById(R.id.menu_button);
+        button.setOnClickListener(v -> mButtonsHandlers.gotoMenuActivity());
+        button = findViewById(R.id.widgets_button);
+        button.setOnClickListener(v -> mButtonsHandlers.gotoWidgetsActivity());
+        button = findViewById(R.id.widgets2_button);
+        button.setOnClickListener(v -> mButtonsHandlers.gotoWidgets2Activity());
+        button = findViewById(R.id.aligning_button);
+        button.setOnClickListener(v -> mButtonsHandlers.gotoAligningActivity());
+        button = findViewById(R.id.add_buttons_button);
+        button.setOnClickListener(v -> mButtonsHandlers.gotoAddButtons());
+        button = findViewById(R.id.one_fragment_button);
+        button.setOnClickListener(v -> mButtonsHandlers.gotoOneFragment());
 
     }
 

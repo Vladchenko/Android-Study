@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +24,12 @@ public class ColorsActivity extends AppCompatActivity {
     SimpleStringAdapter simpleStringAdapter;
     private Disposable disposable;
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, ColorsActivity.class);
     }
 
@@ -42,7 +48,7 @@ public class ColorsActivity extends AppCompatActivity {
 
     private void configureLayout() {
         setContentView(R.layout.activity_colors);
-        colorListView = (RecyclerView) findViewById(R.id.color_list);
+        colorListView =  findViewById(R.id.color_list);
         colorListView.setLayoutManager(new LinearLayoutManager(this));
         simpleStringAdapter = new SimpleStringAdapter(this);
         colorListView.setAdapter(simpleStringAdapter);

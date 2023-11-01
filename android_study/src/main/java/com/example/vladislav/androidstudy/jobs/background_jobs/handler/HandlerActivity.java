@@ -30,13 +30,13 @@ public class HandlerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handler);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.background_task_progressbar);
-        mTextView = (TextView) findViewById(R.id.background_task_text_view);
-        mUITaskButton = (Button) findViewById(R.id.handler_tasks_run_on_UI_button);
-        mUITaskSeparateThreadButton = (Button) findViewById(R.id.handler_tasks_run_on_UI_and_update_button);
-        mUseHandlerButton = (Button) findViewById(R.id.handler_tasks_run_on_UI_and_update_button2);
-        mUseHandler2Button = (Button) findViewById(R.id.handler_tasks_run_in_background_button);
-        mUseHandler3Button = (Button) findViewById(R.id.handler_tasks_run_in_background_button2);
+        mProgressBar =  findViewById(R.id.background_task_progressbar);
+        mTextView =  findViewById(R.id.background_task_text_view);
+        mUITaskButton =  findViewById(R.id.handler_tasks_run_on_UI_button);
+        mUITaskSeparateThreadButton =  findViewById(R.id.handler_tasks_run_on_UI_and_update_button);
+        mUseHandlerButton =  findViewById(R.id.handler_tasks_run_on_UI_and_update_button2);
+        mUseHandler2Button =  findViewById(R.id.handler_tasks_run_in_background_button);
+        mUseHandler3Button =  findViewById(R.id.handler_tasks_run_in_background_button2);
 
         assignListenersToButtons();
     }

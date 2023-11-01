@@ -27,7 +27,7 @@ public class ContextActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_context);
 
-        mTextView = (TextView) findViewById(R.id.textView22);
+        mTextView =  findViewById(R.id.textView22);
         demoContextMethods();
     }
 
@@ -36,7 +36,7 @@ public class ContextActivity extends AppCompatActivity {
         // Following methods are present in class android.content.Context;
 
         // findViewById() finds and retrieves a view that is located on a current layout
-        mTextView = (TextView) findViewById(R.id.textView22);
+        mTextView =  findViewById(R.id.textView22);
 
         // Here we dynamicly create a TextView. It needs a Context to be passed into, since it has
         // to know the environment it is added into (location, size)

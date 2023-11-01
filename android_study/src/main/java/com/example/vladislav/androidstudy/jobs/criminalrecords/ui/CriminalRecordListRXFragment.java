@@ -89,9 +89,9 @@ public class CriminalRecordListRXFragment extends Fragment implements ICrimeItem
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mActionButton = (FloatingActionButton) view.findViewById(R.id.add_crime_button);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.crime_records_recycler_view);
-        mEmptyListTextView = (TextView) view.findViewById(R.id.empty_crime_list_text_view);
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        mRecyclerView =  view.findViewById(R.id.crime_records_recycler_view);
+        mEmptyListTextView =  view.findViewById(R.id.empty_crime_list_text_view);
+        mProgressBar =  view.findViewById(R.id.progressBar);
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +28,12 @@ public class BooksActivity extends AppCompatActivity {
     private SimpleStringAdapter stringAdapter;
     private RestClient restClient;
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, BooksActivity.class);
     }
 
@@ -64,8 +70,8 @@ public class BooksActivity extends AppCompatActivity {
 
     private void configureLayout() {
         setContentView(R.layout.activity_books);
-        progressBar = (ProgressBar) findViewById(R.id.loader);
-        booksRecyclerView = (RecyclerView) findViewById(R.id.books_list);
+        progressBar =  findViewById(R.id.loader);
+        booksRecyclerView =  findViewById(R.id.books_list);
         booksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         stringAdapter = new SimpleStringAdapter(this);
         booksRecyclerView.setAdapter(stringAdapter);

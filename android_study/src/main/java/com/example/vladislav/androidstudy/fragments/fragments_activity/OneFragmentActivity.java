@@ -9,6 +9,7 @@ import android.app.FragmentTransaction;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
@@ -16,10 +17,15 @@ import com.example.vladislav.androidstudy.R;
 public class OneFragmentActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FragmentManager mFragmentManager;
-    private Fragment fragment1 = new Fragment1();
-    private Fragment fragment2 = new Fragment2();
+    private final Fragment mFragment1 = new Fragment1();
+    private final Fragment mFragment2 = new Fragment2();
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, OneFragmentActivity.class);
     }
 
@@ -29,7 +35,7 @@ public class OneFragmentActivity extends AppCompatActivity implements View.OnCli
         mFragmentManager = getFragmentManager();
         setContentView(R.layout.activity_one_fragment);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.one_fragment_container, fragment1);
+        fragmentTransaction.add(R.id.one_fragment_container, mFragment1);
         fragmentTransaction.commit();
     }
 
@@ -44,10 +50,10 @@ public class OneFragmentActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        if (mFragmentManager.findFragmentById(R.id.one_fragment_container) == fragment1) {
-            fragmentTransaction.replace(R.id.one_fragment_container, fragment2);
+        if (mFragmentManager.findFragmentById(R.id.one_fragment_container) == mFragment1) {
+            fragmentTransaction.replace(R.id.one_fragment_container, mFragment2);
         } else {
-            fragmentTransaction.replace(R.id.one_fragment_container, fragment1);
+            fragmentTransaction.replace(R.id.one_fragment_container, mFragment1);
         }
         fragmentTransaction.commit();
     }

@@ -21,10 +21,10 @@ public class CurrencyViewHolder extends RecyclerView.ViewHolder {
 
     public CurrencyViewHolder(View itemView) {
         super(itemView);
-        mCurrencyStringCodeTextView = (TextView) itemView.findViewById(R.id.currency_string_code_text_view);
-        mCurrencyNumericCodeTextView = (TextView) itemView.findViewById(R.id.currency_numeric_code_text_view);
-        mCurrencyNameTextView = (TextView) itemView.findViewById(R.id.currency_name_text_view);
-        mCurrencyValueTextView = (TextView) itemView.findViewById(R.id.currency_value_text_view);
+        mCurrencyStringCodeTextView =  itemView.findViewById(R.id.currency_string_code_text_view);
+        mCurrencyNumericCodeTextView =  itemView.findViewById(R.id.currency_numeric_code_text_view);
+        mCurrencyNameTextView =  itemView.findViewById(R.id.currency_name_text_view);
+        mCurrencyValueTextView =  itemView.findViewById(R.id.currency_value_text_view);
     }
 
     public TextView getCurrencyStringCodeTextView() {

@@ -56,10 +56,10 @@ public class CustomPeopleArrayAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.person_list_view_item, null);
             personViewHolder = new PersonViewHolder();
-            personViewHolder.name_text_view = (TextView) convertView.findViewById(R.id.name_text_view);
-            personViewHolder.lastname_text_view = (TextView) convertView.findViewById(R.id.lastname_text_view);
-            personViewHolder.number_text_view = (TextView) convertView.findViewById(R.id.person_number_text_view);
-            personViewHolder.email_text_view = (TextView) convertView.findViewById(R.id.person_email_text_view);
+            personViewHolder.name_text_view =  convertView.findViewById(R.id.name_text_view);
+            personViewHolder.lastname_text_view =  convertView.findViewById(R.id.lastname_text_view);
+            personViewHolder.number_text_view =  convertView.findViewById(R.id.person_number_text_view);
+            personViewHolder.email_text_view =  convertView.findViewById(R.id.person_email_text_view);
             convertView.setTag(personViewHolder);
         } else {
             personViewHolder = (PersonViewHolder) convertView.getTag();

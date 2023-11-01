@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.beans.Planet;
@@ -29,7 +30,12 @@ public class RotationActivity extends AppCompatActivity {
     private String mGeneratedValue;
     private Planet mPlanet;
 
-    public static Intent newIntent(Context context, Parcelable planet) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context, Parcelable planet) {
         Intent intent = new Intent(context, RotationActivity.class);
         intent.putExtra(PARCELABLE_ID, planet);
         return intent;
@@ -46,15 +52,15 @@ public class RotationActivity extends AppCompatActivity {
         // start up, (say, when it was recreated because of a rotation), these values will not be changed
         // in any activity callback, except in a onRestoreInstanceState()
         if (mPlanet != null) {
-            EditText editText = (EditText) findViewById(id.generated_value_edit_text);
+            EditText editText =  findViewById(id.generated_value_edit_text);
             editText.setText(Double.toString(mPlanet.getDistance()));
         }
 
-        TextView textView = (TextView) findViewById(id.textView17);
+        TextView textView =  findViewById(id.textView17);
         textView.setText("Vlad");
-        EditText editText = (EditText) findViewById(id.editText4);
+        EditText editText =  findViewById(id.editText4);
         editText.setText("Vlad");
-        textView = (TextView) findViewById(id.web_link_text_view);
+        textView =  findViewById(id.web_link_text_view);
 
         // Making a string text to look like a web-link.
         final CharSequence text = textView.getText();
@@ -81,7 +87,7 @@ public class RotationActivity extends AppCompatActivity {
         mPlanet = getIntent().getParcelableExtra(PARCELABLE_ID);
 
         if (mPlanet != null) {
-            EditText editText = (EditText) findViewById(id.generated_value_edit_text);
+            EditText editText =  findViewById(id.generated_value_edit_text);
             // Setting text in onCreate(), when activity is recreated won't have an effect
             editText.setText(Double.toString(mPlanet.getDistance()));
         }

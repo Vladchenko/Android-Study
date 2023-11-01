@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +20,12 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class ProgrammaticLayoutActivity extends AppCompatActivity {
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, ProgrammaticLayoutActivity.class);
     }
 

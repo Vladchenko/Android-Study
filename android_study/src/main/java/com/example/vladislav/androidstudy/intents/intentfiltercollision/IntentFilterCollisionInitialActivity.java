@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
@@ -34,7 +35,12 @@ public class IntentFilterCollisionInitialActivity extends AppCompatActivity {
 //     When collision occurs, bottomsheet is to popup
     static final String ACTION = ".intentfiltercollision.IntentFilterCollisionActivity";
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, IntentFilterCollisionInitialActivity.class);
     }
 
@@ -48,7 +54,7 @@ public class IntentFilterCollisionInitialActivity extends AppCompatActivity {
     }
 
     private Button getButton(int buttonId) {
-        return (Button) findViewById(buttonId);
+        return  findViewById(buttonId);
     }
 
     private View.OnClickListener setOnClickListener() {

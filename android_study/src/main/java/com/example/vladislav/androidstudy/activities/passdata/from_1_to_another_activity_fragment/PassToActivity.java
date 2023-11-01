@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
@@ -18,7 +19,12 @@ public class PassToActivity extends AppCompatActivity {
 
     MyParcelable2 mMyParcelable2;
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, PassToActivity.class);
     }
 
@@ -31,7 +37,7 @@ public class PassToActivity extends AppCompatActivity {
 
     private void getData() {
         Intent intent = getIntent();
-        TextView textView = (TextView)findViewById(R.id.text_from_another_activity_text_view);
+        TextView textView = findViewById(R.id.text_from_another_activity_text_view);
         String string = intent.getExtras().getString(mKey);
         mMyParcelable2 = intent.getParcelableExtra(mKey);
         if (string != null) {

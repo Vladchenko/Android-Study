@@ -2,6 +2,8 @@ package com.example.vladislav.androidstudy.separatestudypackage.two_actions_acti
 
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +26,12 @@ public class TimeDateActivity extends AppCompatActivity {
     private TextView mInscriptionTextView;
     private TextView mValueTextView;
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, TimeDateActivity.class);
     }
 
@@ -32,8 +39,8 @@ public class TimeDateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_date);
-        mInscriptionTextView = (TextView) findViewById(R.id.inscription_text_view);
-        mValueTextView = (TextView) findViewById(R.id.value_text_view);
+        mInscriptionTextView =  findViewById(R.id.inscription_text_view);
+        mValueTextView =  findViewById(R.id.value_text_view);
         displayRespectiveData(getIntent());
     }
 

@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
+import androidx.annotation.NonNull;
+
 import com.example.vladislav.androidstudy.R;
 
 /**
@@ -19,7 +21,12 @@ public class DynamicButtonsSizeActivity extends Activity {
     private LinearLayout.LayoutParams lParams1;
     private LinearLayout.LayoutParams lParams2;
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, DynamicButtonsSizeActivity.class);
     }
 
@@ -30,8 +37,8 @@ public class DynamicButtonsSizeActivity extends Activity {
 
         SeekBar seekBar = (SeekBar)findViewById(R.id.buttons_size_seekbar);
         seekBar.setMax(100);
-        final Button leftButton = (Button)findViewById(R.id.left_button);
-        final Button rightButton = (Button)findViewById(R.id.right_button);
+        final Button leftButton = findViewById(R.id.left_button);
+        final Button rightButton = findViewById(R.id.right_button);
         lParams1 = (LinearLayout.LayoutParams) leftButton.getLayoutParams();
         lParams2 = (LinearLayout.LayoutParams) rightButton.getLayoutParams();
 

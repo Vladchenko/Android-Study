@@ -1,7 +1,11 @@
 package com.example.vladislav.androidstudy.jobs.simple_jobs;
 
 import android.content.Context;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
@@ -9,15 +13,23 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.vladislav.androidstudy.R;
+import com.example.vladislav.androidstudy.ScrollingActivity;
 
 /**
  * Activity demonstrating a way views are put in activity
  */
 public class LayoutingActivity extends AppCompatActivity {
 
-    private Button mButton;
     private LinearLayout mLinearLayout;
-    private View mLayout;
+
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
+        return new Intent(context, LayoutingActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +39,11 @@ public class LayoutingActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_layouting);
-        mButton = (Button) findViewById(R.id.button);
-        mLinearLayout = (LinearLayout) findViewById(R.id.layouting_activity);
-        // Referring to an activity's layout
-        mLayout = findViewById(R.id.layouting_activity);
+        Button button = findViewById(R.id.button);
+        mLinearLayout = findViewById(R.id.layouting_activity);
         // Showing that we can do something with this view.
-        mLayout.setBackground(getDrawable(R.drawable.customborder));
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mLinearLayout.setBackground(getDrawable(R.drawable.customborder));
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -51,7 +61,7 @@ public class LayoutingActivity extends AppCompatActivity {
     }
 
     @Override
-    public View onCreateView(String name, Context context, AttributeSet attrs) {
+    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
 
         return super.onCreateView(name, context, attrs);
     }

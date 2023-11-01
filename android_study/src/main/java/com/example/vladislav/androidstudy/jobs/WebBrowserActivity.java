@@ -31,9 +31,9 @@ public class WebBrowserActivity extends AppCompatActivity {
     }
 
     void defineViews() {
-        mWebSiteEditText = (EditText) findViewById(R.id.web_site_edit_text);
-        mGoButton = (Button) findViewById(R.id.open_web_site_button);
-        mWebView = (WebView) findViewById(R.id.web_container);
+        mWebSiteEditText =  findViewById(R.id.web_site_edit_text);
+        mGoButton =  findViewById(R.id.open_web_site_button);
+        mWebView = findViewById(R.id.web_container);
     }
 
     void setWebView() {

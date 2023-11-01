@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -48,7 +49,12 @@ public class ServicesDemo1Activity extends AppCompatActivity {
     public static final String BROADCAST_ID = "AndroidStudyBroadcast";
 //    public static String BROADCAST_ID2 = "AndroidStudyBroadcast2";
 
-    public static Intent newIntent(Context context) {
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, ServicesDemo1Activity.class);
     }
 
@@ -190,7 +196,7 @@ public class ServicesDemo1Activity extends AppCompatActivity {
 
         mServiceType = (Boolean) getIntent().getExtras().get("isIntendedService");
 
-        mStartButton = (Button) findViewById(R.id.service_column1_start_button);
+        mStartButton =  findViewById(R.id.service_column1_start_button);
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,7 +209,7 @@ public class ServicesDemo1Activity extends AppCompatActivity {
                 ServicesDemo1Activity.this.startService(mIntent);
             }
         });
-        mStartButton = (Button) findViewById(R.id.service_column3_start_button);
+        mStartButton =  findViewById(R.id.service_column3_start_button);
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -216,7 +222,7 @@ public class ServicesDemo1Activity extends AppCompatActivity {
                 ServicesDemo1Activity.this.startService(mIntent);
             }
         });
-        mStopButton = (Button) findViewById(R.id.service_column1_stop_button);
+        mStopButton =  findViewById(R.id.service_column1_stop_button);
         mStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,7 +235,7 @@ public class ServicesDemo1Activity extends AppCompatActivity {
                 ServicesDemo1Activity.this.stopService(mIntent);
             }
         });
-        mStopButton = (Button) findViewById(R.id.service_column3_stop_button);
+        mStopButton =  findViewById(R.id.service_column3_stop_button);
         mStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,7 +262,7 @@ public class ServicesDemo1Activity extends AppCompatActivity {
             }
         };
 
-        mBindButton = (Button) findViewById(R.id.service_column2_bind_button);
+        mBindButton =  findViewById(R.id.service_column2_bind_button);
         mBindButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,7 +275,7 @@ public class ServicesDemo1Activity extends AppCompatActivity {
                 ServicesDemo1Activity.this.bindService(mIntent, mServiceConnection, BIND_AUTO_CREATE);
             }
         });
-        mBindButton = (Button) findViewById(R.id.service_column3_bind_button);
+        mBindButton =  findViewById(R.id.service_column3_bind_button);
         mBindButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -283,7 +289,7 @@ public class ServicesDemo1Activity extends AppCompatActivity {
             }
         });
 
-        Button unbindButton = (Button) findViewById(R.id.service_column2_unbind_button);
+        Button unbindButton =  findViewById(R.id.service_column2_unbind_button);
         unbindButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -298,7 +304,7 @@ public class ServicesDemo1Activity extends AppCompatActivity {
                 }
             }
         });
-        unbindButton = (Button) findViewById(R.id.service_column3_unbind_button);
+        unbindButton =  findViewById(R.id.service_column3_unbind_button);
         unbindButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

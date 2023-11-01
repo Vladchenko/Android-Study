@@ -59,7 +59,7 @@ public class CustomArrayAdapter extends BaseAdapter {
                     convertView = mInflater.inflate(R.layout.my_list_item2, null);
                 }
                 holder = new ViewHolder();
-                holder.textView = (TextView)convertView.findViewById(R.id.textView1);
+                holder.textView = convertView.findViewById(R.id.textView1);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder)convertView.getTag();

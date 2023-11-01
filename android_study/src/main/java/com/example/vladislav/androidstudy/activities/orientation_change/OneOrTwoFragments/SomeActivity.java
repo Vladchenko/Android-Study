@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,8 +20,13 @@ import com.example.vladislav.androidstudy.separatestudypackage.two_actions_activ
  */
 public class SomeActivity extends AppCompatActivity {
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, TimeDateActivity.class);
+    /**
+     * Start this activity
+     * @param context to start activity
+     * @return  intent that starts this activity
+     */
+    public static Intent newIntent(@NonNull Context context) {
+        return new Intent(context, SomeActivity.class);
     }
 
     @Override
