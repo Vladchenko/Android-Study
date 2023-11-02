@@ -17,7 +17,6 @@ import com.example.vladislav.androidstudy.kotlin.filesdownloading.network.FileDo
 import com.example.vladislav.androidstudy.kotlin.filesdownloading.utils.FileDownloadUtils.updateListOnlyWithNewItems
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -56,26 +55,23 @@ class CoroutinesFilesDownloadingDemoActivity : AppCompatActivity() {
 
     private val clickListener = View.OnClickListener {
         if (!isDownloading) {
-            // This coroutine will be destroyed when this activity destroyed
+            // This coroutine will be destroyed when this activity destroyed,
+            // since it is attached to lifecycle of this activity
             lifecycleScope.launch {
-                runDownloading(URL_LIST)
+                downloadFiles(URL_LIST)
             }
         }
         isDownloading = true
     }
 
-    private suspend fun runDownloading(urls: List<String>) {
-        val flowsList = mutableListOf<Flow<DownloadState>>()
-        val filePaths = urls.map { createFilePath(it, this) }
-        for (i in urls.indices) {
-            flowsList.add(FileDownloadApiMapper().saveFile(urls[i], filePaths[i]))
-        }
-        flowsList.forEach {
+    private suspend fun downloadFiles(urls: List<String>) {
+        val urlToFilePathMap = urls.associateWith { createFilePath(it, this) }
+        urlToFilePathMap.entries.forEach { urlToFilePathEntry ->
             CoroutineScope(Dispatchers.IO).launch {
-                it.collect { downloadState ->
+                FileDownloadApiMapper().saveFile(urlToFilePathEntry).collect { downloadState ->
                     processState(downloadState)
-                    // Dispatchers should be provided using dependency injection
-                    withContext(Dispatchers.Main) {
+                    // Updating UI on a main thread
+                    withContext(Dispatchers.Main) {// Dispatchers should be provided using dependency injection
                         recyclerViewAdapter.setFileProgressModels(filesList)
                         recyclerViewAdapter.notifyDataSetChanged()
                     }

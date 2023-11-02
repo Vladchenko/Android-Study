@@ -42,21 +42,21 @@ class FileDownloadApiMapper {
     /**
      * Download and save file
      *
-     * @param fileUrl to locate a source of a file to download from
-     * @param filePath to save file to
+     * @param urlToFilePathEntry keeps key -> value entry, which is a file location to download from -> file path to save
      */
     suspend fun saveFile(
-        fileUrl: String,
-        filePath: String
+        urlToFilePathEntry: Map.Entry<String, String>
     ): Flow<DownloadState> {
-        return downloadService?.downloadLargeFile(fileUrl)?.saveFile(filePath)!!
+        return downloadService
+            ?.downloadLargeFile(urlToFilePathEntry.key)
+            ?.saveFile(urlToFilePathEntry.value)!!
     }
 
     private fun ResponseBody.saveFile(filePath: String): Flow<DownloadState> {
         return flow {
             emit(DownloadState.Downloading(filePath, 0))
             val destinationFile = File(filePath)
-            var progress = 0
+            var progress: Int
             var progressToEmit = 0
             try {
                 byteStream().use { inputStream ->
