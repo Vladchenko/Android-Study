@@ -1,3 +1,7 @@
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.Locale
+import com.example.vladislav.androidstudy.kotlin.demo.joinToString
+
 /**
  * Some utils class.
  *
@@ -168,6 +172,9 @@ fun String.capitalCharsCount() = this.count { it.isUpperCase() }
 
 /** Counts a number of a lowercase chars in a string */
 fun String.lowercaseCharsCount() = this.count { it.isLowerCase() }
+
+/** Make every word to begin with capital letter */
+fun String.capitalizeFirstLetters() = this.split(Regex("\\s+")).map { it.capitalize(Locale.current) }.joinToString(" ")
 
 /** Returns true, if symbols (, {, [ have respective pairs and false otherwise. */
 fun String.checkIfBracesPaired(): Boolean {

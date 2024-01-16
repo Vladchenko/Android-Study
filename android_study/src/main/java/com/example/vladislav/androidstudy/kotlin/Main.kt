@@ -1,22 +1,7 @@
 package com.example.vladislav.androidstudy.kotlin
 
 import android.content.Context
-import com.example.vladislav.androidstudy.kotlin.demo.Basics
-import com.example.vladislav.androidstudy.kotlin.demo.CoroutinesBasics
-import com.example.vladislav.androidstudy.kotlin.demo.FilesDemo
-import com.example.vladislav.androidstudy.kotlin.demo.MapDemo
-import com.example.vladislav.androidstudy.kotlin.demo.example1
-import com.example.vladislav.androidstudy.kotlin.demo.extensionFunctionDemo
-import com.example.vladislav.androidstudy.kotlin.demo.loopsDemo
-import com.example.vladislav.androidstudy.kotlin.demo.mapVsFlatmap
-import com.example.vladislav.androidstudy.kotlin.sometasks.minefield.MineField
-import com.example.vladislav.androidstudy.kotlin.study.leetcode.Solution
-import indexOfLongestWord
-import org.w3c.dom.NodeList
-import removeExcessiveSpaces2
-import retrieveNumbers
-import toAlphabetSortedStrings
-import toAlphabetSortedStrings2
+import capitalizeFirstLetters
 
 /**
  * Main class
@@ -35,6 +20,7 @@ class Main {
         // Basics().listDemo()
         // loopsDemo()
         // Basics().rangesDemo()
+        // Basics().javaRelatedDemo()
 //        Basics().otherDemo()
 //         Basics().setDemo()
 //        Basics().whenDemo()
@@ -42,14 +28,32 @@ class Main {
 //        Basics().testIsPalindromeMethod()
 //         Basics().someExample()
 //        Basics().lambdaDemo()
-//        Basics().varArgsDemo2(1, 2.0, 'c', "arg1")
+//        Basics().varArgsDemo(1, 2.0, 'c', "arg1")
+//         Basics().varArgsDemo2()
+//         Basics().answerUsageExample()
 //        Basics().instantiationDemo()
 //        Basics().sayHello(mapOf("Hi" to "Vlad", "Hello" to "Vladchenko", "Greetings" to "Vladon"))
 //        Basics().sayHello("Zdarova", listOf("Vlad", "Vladchenko", "Vladon"))
 //        Car(listOf(Car.Wheel())).demo()
-//         CoroutinesBasics().simpleCoroutineDemo9()
-//        CoroutinesBasics().simpleCoroutineDemo3()
-//        Coroutines().demoDispatchersAndThreads2()
+//         println(whenDemo4(5))   // x is in the range
+//         CoroutinesBasics().coroutineDemo()
+//         CoroutinesBasics().coroutineDemo1()
+//         CoroutinesBasics().coroutineDemo1_1()
+//         CoroutinesBasics().coroutineDemo1_2()
+//         CoroutinesBasics().coroutineDemo1_3()
+//         CoroutinesBasics().temp()
+//         CoroutinesBasics().coroutineDemo2()
+//         CoroutinesBasics().deferredDemo()
+        // CoroutinesBasics().coroutineDemoUnconfined2()
+        // CoroutinesBasics().coroutineDemo3()
+        // CoroutinesBasics().simpleCoroutineDemo()
+//        CoroutinesBasics().simpleCoroutineDemo9()
+//         CoroutinesBasics().cancelDemo()
+//         CoroutinesBasics().cancelNotWorkingDemo()
+//         CoroutinesBasics().cancelWorkingDemo()
+//         CoroutinesBasics().twoNetworkCallsSequentially()
+       // CoroutinesBasics().demoDispatchersAndThreads2()
+       //  CoroutinesBasics().simpleCoroutineDemo11()
 //         testIsEmptyOrNull()
 //         MapDemo.mapDemo()
 //        println(CompanionObject.NAME)
@@ -57,7 +61,7 @@ class Main {
 //        Derived("Vlad", "Yan")
 //         ExceptionsDemo().demonstrateException()
 //        Interfaces().checkType(Interfaces.InterfacesDemo2(","));
-        MapDemo.mapDemo()
+//         MapDemo.mapDemo()
         // MapDemo.peopleDemo()
 //        println(Stepik().toJSON(listOf(1, 2, 3, 42, 555)))
 //        println(Stepik().joinOptions(listOf("a","b","c")))
@@ -90,6 +94,7 @@ class Main {
 //         println("Java java 4 Java X Java0 Java 0 Java 0.1 Java 1 Java 1.0 Java 1.1 Java   5 Java 1.8 Java 10 Java 11".getAllJavaVersions())
 //         println(retrieveNumberOfLuckyTickets())
 //        println("      4    5 3   6664   783      ".toAlphabetSortedStrings())
+        println("make this words begin with capital letters".capitalizeFirstLetters())
 
         // val mineField = MineField()
         // mineField.initializeMineField()
@@ -218,6 +223,145 @@ class Main {
 //        solution.plusOne(intArrayOf(1, 9, 9)).forEach { print(it) }
 //        println()
 //        solution.plusOne(intArrayOf(9, 9, 9)).forEach { print(it) }
+
+//         val node0 = null
+//         traverseListNode(
+//             Solution().deleteDuplicates(node0)  // null
+//         )   // null
+//
+//         val node1 = Solution.ListNode(1)
+//         traverseListNode(
+//             Solution().deleteDuplicates(node1)  // 1
+//         )   // 1
+//
+//         val node2 = Solution.ListNode(1)
+//         node2.next = Solution.ListNode(2)
+//         traverseListNode(
+//             Solution().deleteDuplicates(node2)  // 1 2
+//         )   // 1 2
+//
+//         val node2_1 = Solution.ListNode(1)
+//         node2_1.next = Solution.ListNode(1)
+//         traverseListNode(
+//             Solution().deleteDuplicates(node2_1)    // 1 1
+//         )   // 1
+//
+//         val node3 = Solution.ListNode(1)
+//         node3.next = Solution.ListNode(2)
+//         node3.next?.next = Solution.ListNode(3)
+//         traverseListNode(
+//             Solution().deleteDuplicates(node3)      // 1 2 3
+//         )   // 1 2 3
+//
+//         val node4 = Solution.ListNode(1)
+//         node4.next = Solution.ListNode(1)
+//         node4.next?.next = Solution.ListNode(2)
+//         node4.next?.next?.next = Solution.ListNode(3)
+//         traverseListNode(
+//             Solution().deleteDuplicates(node4)      // 1 1 2 3
+//         )   // 1 2 3
+//
+//         val node4_1 = Solution.ListNode(1)
+//         node4_1.next = Solution.ListNode(1)
+//         node4_1.next?.next = Solution.ListNode(2)
+//         traverseListNode(
+//             Solution().deleteDuplicates(node4_1)// 1 1 2
+//         ) // 1 2
+//
+//         val node5 = Solution.ListNode(1)
+//         node5.next = Solution.ListNode(1)
+//         node5.next?.next = Solution.ListNode(1)
+//         node5.next?.next?.next = Solution.ListNode(1)
+//         traverseListNode(
+//             Solution().deleteDuplicates(node5)      // 1 1 1 1
+//         ) // 1
+//
+//         val node6 = Solution.ListNode(1)
+//         node6.next = Solution.ListNode(1)
+//         node6.next?.next = Solution.ListNode(2)
+//         node6.next?.next?.next = Solution.ListNode(2)
+//         traverseListNode(
+//             Solution().deleteDuplicates(node6)      // 1 1 2 2
+//         )   // 1 2
+//
+//         val node7 = Solution.ListNode(2)
+//         node7.next = Solution.ListNode(2)
+//         node7.next?.next = Solution.ListNode(2)
+//         node7.next?.next?.next = Solution.ListNode(3)
+//         traverseListNode(
+//             Solution().deleteDuplicates(node7)      // 2 2 2 3
+//         )   // 2 3
+//
+//         val node8 = Solution.ListNode(2)
+//         node8.next = Solution.ListNode(2)
+//         node8.next?.next = Solution.ListNode(2)
+//         node8.next?.next?.next = Solution.ListNode(3)
+//         node8.next?.next?.next?.next = Solution.ListNode(3)
+//         node8.next?.next?.next?.next?.next = Solution.ListNode(4)
+//         node8.next?.next?.next?.next?.next = Solution.ListNode(4)
+//         traverseListNode(
+//             Solution().deleteDuplicates(node8)      // 2 2 2 3 3 4 4
+//         )   // 2 3 4
+
+        // var array = intArrayOf(-1, 0, 0, 3, 3, 3, 0, 0, 0)
+        // Solution().merge(array, 3, intArrayOf(1, 2, 2), 3)
+        // printArray(array)
+        //
+        // array = intArrayOf(0, 0, 0, 0, 0, 0)
+        // Solution().merge(array, 3, intArrayOf(1, 2, 3, 4, 5, 6), 3)
+        // printArray(array)
+        //
+        // array = intArrayOf(1, 2, 3, 4, 5, 6)
+        // Solution().merge(array, 3, intArrayOf(0, 0, 0, 0, 0, 0), 3)
+        // printArray(array)
+        //
+        // array = intArrayOf(1, 2, 0, 0, 0, 0)
+        // Solution().merge(array, 3, intArrayOf(4, 5, 6), 3)
+        // printArray(array)
+        //
+        // array = intArrayOf(1, 2, 3, 0, 0, 0)
+        // Solution().merge(array, 3, intArrayOf(4, 5, 6), 3)
+        // printArray(array)
+        //
+        // array = intArrayOf(1, 2, 4, 0, 0, 0)
+        // Solution().merge(array, 3, intArrayOf(4, 5, 6), 3)
+        // printArray(array)
+        //
+        // array = intArrayOf(1, 2, 5, 0, 0, 0)
+        // Solution().merge(array, 3, intArrayOf(4, 5, 6), 3)
+        // printArray(array)
+        //
+        // array = intArrayOf(1, 2, 7, 0, 0, 0)
+        // Solution().merge(array, 3, intArrayOf(4, 5, 6), 3)
+        // printArray(array)
+        //
+        // array = intArrayOf(1, 2, 5, 10, 0, 0, 0, 0)
+        // Solution().merge(array, 8, intArrayOf(4, 5, 6), 3)
+        // printArray(array)
+        //
+        // array = intArrayOf(1, 4, 4, 5, 5, 10, 0, 0, 0, 0, 0, 0)
+        // Solution().merge(array, 8, intArrayOf(4, 5, 6), 3)
+        // printArray(array)
+        //
+        // array = intArrayOf(1, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        // Solution().merge(array, 8, intArrayOf(4, 5, 6), 3)
+        // printArray(array)
+        //
+        // array = intArrayOf(1, 5, 8, 12, 0, 0, 0, 0, 0, 0, 0, 0)
+        // Solution().merge(array, 8, intArrayOf(4, 8, 16, 21), 4)
+        // printArray(array)
+        //
+        // array = intArrayOf(1, 5, 8, 12, 0, 0, 0, 0, 0, 0, 0, 0)
+        // Solution().merge(array, 8, intArrayOf(4, 8, 16, 21, 25, 32), 6)
+        // printArray(array)
+        //
+        // array = intArrayOf(1, 5, 8, 12, 0, 0, 0, 0, 0, 0, 0, 0)
+        // Solution().merge(array, 8, intArrayOf(3, 5, 5, 8, 9, 12, 15, 21), 8)
+        // printArray(array)
+
+        // val array = intArrayOf(1,2,3,0,0,0)
+        // Solution().merge(array,3,intArrayOf(4,5,6), 3)
+        // println(array)
 
 //        println(solution.addBinary("1010","10101"))
 //        println(solution.addBinary("0","1"))

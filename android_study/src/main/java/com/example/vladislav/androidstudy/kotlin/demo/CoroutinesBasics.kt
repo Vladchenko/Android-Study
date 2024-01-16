@@ -9,7 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -35,9 +37,39 @@ import kotlin.system.measureTimeMillis
  */
 class CoroutinesBasics {
 
+    // invokeOnCompletion {}
+
+    // Do not commit this one
+    fun temp() {
+        GlobalScope.launch {
+            val job1: Job
+            val job2: Job
+            val timeTaken2 = measureTimeMillis {
+                val timeTaken = measureTimeMillis {
+                    Log.d(TAG, currentCoroutineContext().toString())
+                    job1 = launch {
+                        delay(1000L)
+                        Log.d(TAG, currentCoroutineContext().toString())
+                    }
+                    job2 = launch {
+                        delay(1000L)
+                        Log.d(TAG, currentCoroutineContext().toString())
+                    }
+                }
+                job1.join()
+                job2.join()
+                Log.d(TAG, timeTaken.toString())
+            }
+            Log.d(TAG, timeTaken2.toString())
+        }
+    }
+
     fun coroutineDemo() {
-        // runBlocking blocks a thread it runs on. It is an entry point from non suspend functions.
+        // runBlocking blocks a thread it runs on. It is an entry point from ordinary to suspend functions. Should only
+        // be used in main function and tests and not be used in any coroutine.
         runBlocking {
+            // [BlockingCoroutine{Active}@b846792, BlockingEventLoop@bdac563]
+            Log.d(TAG, this.coroutineContext.toString())
             // Since we run on main thread, next code will freeze UI.
             while (true) {
                 delay(1000L)
@@ -48,44 +80,81 @@ class CoroutinesBasics {
     fun coroutineDemo1() {
         // UI thread will freeze until this block of code is to finish
         runBlocking {
-            Log.d(TAG,"Hello from ${Thread.currentThread().name}")
+            Log.d(TAG, "Thread is ${Thread.currentThread().name}")
+            Log.d(TAG, "Context is ${this.coroutineContext}")
             withContext(Dispatchers.Default) {
-                delay(10000L)
-                Log.d(TAG,"Hello from ${Thread.currentThread().name}")
+                delay(3000L)
+                Log.d(TAG, "Thread is ${Thread.currentThread().name}")
+                Log.d(TAG, "Context is ${this.coroutineContext}")
             }
             // This line won't execute until withContext(Dispatchers.Default) is to finish
-            Log.d(TAG,"Welcome back to ${Thread.currentThread().name}")
+            Log.d(TAG, "Thread is ${Thread.currentThread().name}")
+        }
+    }
+
+    fun coroutineDemo1_1() = runBlocking {
+        coroutineScope {
+            // Rows 1, 2 will be executed at once
+            launch { doWork() }     // 1
+            Log.d(TAG, "Hello Coroutines")     // 2
+        }
+    }
+
+    private suspend fun doWork() {
+        for (i in 0..5) {
+            Log.d(TAG, i.toString())
+            delay(400L)
+        }
+    }
+
+    fun coroutineDemo1_2() = runBlocking {
+        coroutineScope {
+            // Both coroutines will be launched at once
+            launch { doWork() }
+            launch { doWork() }
+        }
+    }
+
+    fun coroutineDemo1_3() {
+        repeat(1_000_000)
+        {
+            GlobalScope.launch {// Operates on a worker thread
+                Log.d(TAG, "Thread is ${Thread.currentThread().name}")
+                delay(Random.nextLong(5000))
+                Log.d(TAG, "Coroutine #$it finished its work")
+            }
         }
     }
 
     fun coroutineDemoUnconfined() {
         runBlocking(Dispatchers.Unconfined) {
-            Log.d(TAG,"Hello from ${Thread.currentThread().name}")
+            Log.d(TAG, "Hello from ${Thread.currentThread().name}")
             withContext(Dispatchers.Default) {
-                Log.d(TAG,"Hello from ${Thread.currentThread().name}")
+                Log.d(TAG, "Hello from ${Thread.currentThread().name}")
             }
             // Unconfined doesn't return back to main thread here
-            Log.d(TAG,"Welcome back to ${Thread.currentThread().name}")
+            Log.d(TAG, "Welcome back to ${Thread.currentThread().name}")
         }
     }
 
     fun coroutineDemoUnconfined2() {
         runBlocking<Unit> {
             launch(Dispatchers.Unconfined) { // не ограничено -- будет работать с основным потоком
-                Log.d(TAG,"Unconfined      : I'm working in thread ${Thread.currentThread().name}")
+                Log.d(TAG, "Unconfined      : I'm working in thread ${Thread.currentThread().name}")
                 delay(500)
-                Log.d(TAG,"Unconfined      : After delay in thread ${Thread.currentThread().name}")
+                Log.d(TAG, "Unconfined      : After delay in thread ${Thread.currentThread().name}")
             }
             launch { // контекст родителя, основная корутина runBlocking
-                Log.d(TAG,"main runBlocking: I'm working in thread ${Thread.currentThread().name}")
+                Log.d(TAG, "main runBlocking: I'm working in thread ${Thread.currentThread().name}")
                 delay(1000)
-                Log.d(TAG,"main runBlocking: After delay in thread ${Thread.currentThread().name}")
+                Log.d(TAG, "main runBlocking: After delay in thread ${Thread.currentThread().name}")
             }
         }
     }
 
     fun coroutineDemo2() {
         CoroutineScope(Dispatchers.Main).launch {
+            Log.d(TAG, "CoroutineScope(Dispatchers.Main) runs on ${Thread.currentThread().name}")
             // This coroutine runs on a main thread, but doesn't block it
             while (true) {
                 delay(1000L)
@@ -512,21 +581,6 @@ class CoroutinesBasics {
         }
     }
 
-    fun main() = runBlocking {
-        coroutineScope {
-            // Rows 1, 2 will be executed at once
-            launch { doWork() }     // 1
-            println("Hello Coroutines")     // 2
-        }
-    }
-
-    private suspend fun doWork() {
-        for (i in 0..5) {
-            println(i)
-            delay(400L)
-        }
-    }
-
     /**
      * Prints from 1 to 3 with a delay of 1sec between each.
      */
@@ -534,6 +588,21 @@ class CoroutinesBasics {
         GlobalScope.launch {
             (1..3).asFlow().onEach { delay(1000) }.collect { value -> println(value) }
         }
+    }
+
+    /**
+     * This way we wait for all the deferreds to finish
+     */
+    fun deferredDemo() = runBlocking {
+        val deferreds: List<Deferred<Int>> = (1..3).map {
+            async {
+                delay(1000L * it)
+                Log.d(TAG, "Loading $it")
+                it
+            }
+        }
+        val sum = deferreds.awaitAll().sum()
+        println("$sum")
     }
 
     companion object {

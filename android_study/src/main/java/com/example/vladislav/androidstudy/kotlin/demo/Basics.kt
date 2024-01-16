@@ -75,6 +75,7 @@ class Basics {
     private fun isEven(i: Int): Boolean = i % 2 == 0    // Almost same as - fun Int.isEven(): Boolean = this % 2 == 0
 
     private fun isEven2(i: Int) = i % 2 == 0     // Type can be omitted
+    // private fun Int.isEven() = this % 2 == 0     // Type can be omitted (Extension function)
 
     private var setterWithAnnotation: Any? = null
         @Inject set // Annotate the setter with Inject (also with a default implementation)
@@ -85,8 +86,8 @@ class Basics {
         }
 
     fun arraysDemo() {
-        val array: Array<Int> = arrayOf(1, 2, 3)   // Type maybe omitted
-        val array2 = arrayOf(1, 2.3, "3.4", 567, 789.01)
+        val array: Array<Int> = arrayOf(1, 2, 3)
+        val array2 = arrayOf(1, 2.3, "3.4", 567, 789.01)    // Type maybe omitted
         val array3 = byteArrayOf(1, 2, 3, 4, 2, 3, 1, 2, 3, 4, 1).distinct()  // Only unique values - 1,2,3,4
 
         println(array2)     // [Ljava.lang.Object;@7480ee6
@@ -212,7 +213,7 @@ class Basics {
         println(someList.reversed())    // Prints items in backwards order [4,3,2,1]
 
         val list4 = mutableListOf(1,20,3,40,5)
-        list4.sort() // Sorts a mutable list itself (no need to write list4 = list4.reverse())
+        list4.sort() // Sorts a mutable list itself (no need to write list4 = list4.sort())
         println("list3.sort() = $list4")  // [1,3,5,20,40]
         println(someList.sorted())    // Sorts items [1,2,3,4]
         println(listOf(4,8,2,4,9).sortedDescending())    // Sorts items [9,8,4,4,2]
@@ -233,7 +234,7 @@ class Basics {
             compareBy(
                 {it.name}, {it.age}
             )
-        ))
+        ))  // [Cat(name=Василий, age=4, weight=5100), Cat(name=Мурзик, age=4, weight=5400), Cat(name=Мурзик, age=6, weight=5400), Cat(name=Рыжик, age=5, weight=6500)]
 
         //TODO Stopped @ Сортируем по длине имён в порядке возрастания, используя Comparator.
         // http://developer.alexanderklimov.ru/android/kotlin/collection.php
@@ -242,23 +243,24 @@ class Basics {
     fun setDemo() {
         println("Kotlin" in setOf("Java", "Scala")) //false
         println(setOf(4, 7, 2, 9, 12, 10, 11).maxOrNull()) //12
-        println(mapOf(setOf(4, 7, 2, 9, 12, 10, 11) to setOf(4, 7, 2, 9, 12, 10, 11)))
         // {[4, 7, 2, 9, 12, 10, 11]=[4, 7, 2, 9, 12, 10, 11]}
+        println(mapOf(setOf(4, 7, 2, 9, 12, 10, 11) to setOf(4, 7, 2, 9, 12, 10, 11)))
+        // [(4, 40), (7, 70), (2, 20), (9, 90), (12, 120), (10, 100), (11, 110)]
+        println(setOf(4, 7, 2, 9, 12, 10, 11).zip(setOf(40, 70, 20, 90, 120, 100, 110)))
+        // {4=40, 7=70, 2=20, 9=90, 12=120, 10=100, 11=110}
+        println(setOf(4, 7, 2, 9, 12, 10, 11).zip(setOf(40, 70, 20, 90, 120, 100, 110)).toMap())
         val set: Set<Int> = emptySet()    // Empty integer set
-        val set2: Set<Int> = setOf(1, 2, 3, 4, 5, 6)    // Empty integer set
+        val set2: Set<Int> = setOf(1, 2, 3, 4, 5, 6)    // Integer set
         val map = set2.partition { it % 2 == 0 }    // Splitting lists which conclude pair
-        println(map)
-        val mutableSet: MutableSet<Int> = mutableSetOf()          // Empty integer mutable set
-        val mutableSet2: MutableSet<Int> = mutableSetOf(1, 2, 3, 4)   // Integer mutable set with default values
-        mutableSet2.add(5)
+        println(map)    // ([2, 4, 6], [1, 3, 5])
+        println(setOfNotNull(null, 5, "s", null, "fgh"))    // [5, s, fgh]
         val hashSet = hashSetOf(1, 2, 3)
         hashSet.add(4)
         val sortedSet = sortedSetOf(5, 20, 3, 1, 9) // Creates treeSet that has sorted set in it
         sortedSet.add(0)
-        println(sortedSet)  // 1,3,5,9,20
+        println(sortedSet)  // [0, 1, 3, 5, 9, 20]
         hashSet.addAll(sortedSet)   // Merging two sets, same as hashSet.union(sortedSet)
-
-        println(setOfNotNull(null, 5, "s", null, "fgh"))    // [5, s, fgh]
+        println(hashSet)  //[0, 1, 2, 3, 4, 20, 5, 9]
     }
 
     fun rangesDemo() {
@@ -270,8 +272,8 @@ class Basics {
         println(range1.joinToString("/"))
         println(range1.joinToString(";"))
         println(range2.joinToString(" "))
-        println("range2::class = " + range2::class)
-        println("D in range2 = ${'D' in range2}")   // class kotlin.ranges.CharRange (Kotlin reflection is not available)
+        println("range2::class = " + range2::class) // class kotlin.ranges.CharRange (Kotlin reflection is not available)
+        println("D in range2 = ${'D' in range2}")   // true
         println("range3.contains(7.1) = " + range3.contains(7.1))   // true
         println("range3 = " + range3.toRange()) // [1.1, 10.1]
         println("Kotlin" in range4) // true
@@ -279,8 +281,8 @@ class Basics {
     }
 
     fun javaRelatedDemo() {
-        println("variable::class = " + knownType::class)
-        println("variable::class.java = " + knownType::class.java)
+        println("variable::class = " + knownType::class)    // float (Kotlin reflection is not available)
+        println("variable::class.java = " + knownType::class.java)  // float
 //        println("variable::javaClass = " + mVariable::javaClass)  // CompilationException: Back-end (JVM) Internal error: wrong bytecode generated
     }
 
@@ -292,7 +294,7 @@ class Basics {
 
     fun updateWeather2(degrees: Int) = when {
         degrees < 10 -> Pair("cold", Color.BLUE)
-        degrees < 25 -> "mild" to Color.YELLOW  // another way of making Pair
+        degrees < 25 -> "mild" to Color.YELLOW  // Kotlin way of making Pair
         else -> Pair("hot", Color.RED)
     }
 
@@ -330,10 +332,8 @@ class Basics {
 
     fun lambdaDemo() {
         val predicate = ::elvisOperatorDemo
-        println(predicate)  // "function elvisOperatorDemo"
-        // println(::predicate)  // "Error - References to a variables are not supported yet"
-        val array2 = Array(5, { x -> x * x })
-        val array3 = Array(5) { x -> x * x }
+        println(predicate)  // function elvisOperatorDemo (Kotlin reflection is not available)
+        // println(::predicate)  // Unsupported - References to a variables are not supported yet
         val fruits = listOf("banana", "avocado", "apple", "kiwifruit")
         val ordinalsList = listOf(1, 2, 3, 4)
         fruits
@@ -341,8 +341,8 @@ class Basics {
             .sortedBy { it }
             .map { it.uppercase() }
             .forEach { println(it) }    // APPLE    AVOCADO
-        ordinalsList.any(::isEven)  // Passes through each items in ordinalsList and runs isEven on them.
-        // Prints true
+        // Passes through each items in ordinalsList and runs isEven on them.
+        ordinalsList.any(::isEven) // true
         ordinalsList.filter { isEven(it) }  // [2, 4]
         // same as
         ordinalsList.filter(::isEven)  // [2, 4]
@@ -357,7 +357,7 @@ class Basics {
         val files = File("Test").listFiles()
         println(files?.size ?: "empty") // If not null and else shorthand
 
-        var value: String? = null
+        val value: String? = null
 
         value?.let {
             // execute this block if not null
@@ -370,8 +370,8 @@ class Basics {
             // execute this block if null
         }
 
-        val mapped = value?.let { transformValue(it) } ?: list      // defaultValue is returned
-        // if the value or the transform result is null.
+        // defaultValue is returned, if the value or the transform result is null.
+        val mapped = value?.let { transformValue(it) } ?: list
 
         // This is useful for configuring properties that aren't present in the object constructor.
         val myRectangle = Rectangle().apply {
@@ -383,12 +383,18 @@ class Basics {
 
         // Java 7's try with resources analog
         createFilesDirIfAbsent(context) //Creating files dir first, else any file won't be created in android.
-        val file = File(context.filesDir.path + "/some/file.txt")
-        file.createNewFile()    // Creating file now
-        val stream =
-            Files.newInputStream(file.toPath())    // FIXME - IOException: No such file or directory
+        val file = File(context.filesDir.path + "/file.txt")
+        if (file.createNewFile()) {    // Creating file now
+            println("File ${context.filesDir.path}/file.txt created")
+        } else {
+            println("File ${context.filesDir.path}/file.txt already exists")
+        }
+        val stream = Files.newInputStream(file.toPath())
         stream.buffered().reader().use { reader ->
             println(reader.readText())
+        }
+        if (file.delete()) {    // Creating file now
+            println("File ${context.filesDir.path}/file.txt has been deleted")
         }
 
         // Consuming a nullable Boolean
@@ -403,6 +409,7 @@ class Basics {
         var a = 1
         var b2 = 2
         a = b2.also { b2 = a }
+        println("a = $a, b2 = $b2")     // a = 2, b2 = 1
 
         fun calcTaxes(): BigDecimal = TODO("Waiting for feedback from accounting")
 
@@ -423,21 +430,17 @@ class Basics {
         }  // good
     }
 
-    fun varArgsDemo(vararg args: String) {
-        args.forEach { item -> println(item) }  // Strangely, print method doesn't work here
+    fun varArgsDemo(vararg args: Any) {
+        args.forEach { item -> println(item) }  // Strangely, print doesn't work here, only println
     }
 
-    fun varArgsDemo2(vararg args: Any) {
-        args.forEach { item -> println(item) }  // Strangely, print method doesn't work here
-    }
-
-    fun varArgsDemo3() {
+    fun varArgsDemo2() {
         val list = listOf("1", "2", "3")
-//        varArgsDemo(list)   // Required String, found List<String>
-        varArgsDemo2(list)
+        varArgsDemo(list)   // [1, 2, 3]
         val array = arrayOf("1", "2", "3")
-        varArgsDemo(*array)     // That's how array is transformed to varargs. That is a spread operator.
-        varArgsDemo2(array)
+        // That's how array is transformed to varargs. That is a spread operator.
+        varArgsDemo(*array)     // 1 2 3    each on a separate row
+        varArgsDemo(array)      // [Ljava.lang.String;@36effb6
     }
 
     private fun transformValue(it: Any) {}
@@ -483,6 +486,12 @@ class Basics {
 
     fun generateAnswerString4(count: Int) = if (count == 42) "yes" else "no"
 
+    private fun Int.answer() = if (this == 42) "yes" else "no"
+    fun answerUsageExample() {
+        println(5.answer())     // no
+        println(42.answer())    // yes
+    }
+
     fun instantiationDemo() {
 //        val abstractModel: Any = AbstractModel()  // Error - Cannot create an instance of an abstract class
         var model: Any = SomeModel()                // Creating an instance of some class
@@ -492,11 +501,12 @@ class Basics {
     }
 
     fun temp() {
-//         isNotDigit('3')
-//         println(Utils.charToInt('4'))
-//         println(Utils.charToInt('0'))
-// //        println(Utils.charToInt('b'))   // IllegalArgumentException
-//         println("os.name = " + System.getProperty("os.name"))
+        // isNotDigit('3')
+        // println(Utils.charToInt('4'))
+        // println(Utils.charToInt('0'))
+        // println(Utils.charToInt('b'))   // IllegalArgumentException
+        println("os.name = " + System.getProperty("os.name"))
+        // Full list of properties - https://docs.oracle.com/javase/8/docs/api/java/lang/System.html
     }
 
     // Higher-order functions
@@ -545,13 +555,13 @@ class Basics {
     }
 
     fun testIsPalindromeMethod() {
-        println("Result is = " + "10 +- 2".solveExpression())    //6.5
-        println("Result is = " + "10 + 2 / 4 - 3 * 6 + 1".solveExpression())    //6.5
-        println("Result is = " + "10 + 2".solveExpression())
-        println("Result is = " + "10 / 2".solveExpression())
-        println("Result is = " + "10 / 2 * 3".solveExpression())
-        println("Result is = " + "10 / 2 * 3.55678965 + 2".solveExpression())
-        println("Result is = " + "10 / 2 * 3 + 2 / 6".solveExpression())
+        println("Result is = " + "10 +- 2".solveExpression())    // Wrong operation
+        println("Result is = " + "10 + 2 / 4 - 3 * 6 + 1".solveExpression())    // -6.5
+        println("Result is = " + "10 + 2".solveExpression())    // 12.0
+        println("Result is = " + "10 / 2".solveExpression())    // 5.0
+        println("Result is = " + "10 / 2 * 3".solveExpression())    // 15.0
+        println("Result is = " + "10 / 2 * 3.55678965 + 2".solveExpression())   // 19.783948249999998
+        println("Result is = " + "10 / 2 * 3 + 2 / 6".solveExpression())    // 15.333333333333334
 //        println("}sdv(c)wefef[c]s".checkIfBracesPaired())
 //        println(")wefv[ccsd]dv".checkIfBracesPaired())
 //        println("]dcerg[".checkIfBracesPaired())
@@ -572,11 +582,9 @@ class Basics {
         // But the main difference between the const and val is that the val properties
         // can be initialised at the runtime also.
         // IMHO - Not sure if this is true !
-        internal const val CONST2 =
-            "internal"       // internal - visibility modifier saying that this property
+        internal const val CONST2 = "internal"    // internal - visibility modifier saying that this property
         // is visible only in its module
 
-        private const val COUNT =
-            42       // This is a constant, type is automatically inferred as int
+        private const val COUNT = 42       // This is a constant, type is automatically inferred as int
     }
 }

@@ -1,7 +1,7 @@
 package com.example.vladislav.androidstudy.kotlin.study.leetcode
 
 import java.lang.System.arraycopy
-import java.util.*
+import java.util.Locale
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -677,6 +677,63 @@ class Solution {
             }
         }
         return head
+    }
+
+    /**
+     * https://leetcode.com/problems/merge-sorted-array/
+     */
+    fun merge(nums1: IntArray, m: Int, nums2: IntArray, n: Int): Unit {
+        var index1 = 0
+        var index2 = 0
+        var zeros = 0
+        zeros = nums1.count { it == 0 }
+        if (zeros == nums1.size) {
+            java.lang.System.arraycopy(nums2, 0,nums1, 0, nums2.size)
+            return
+        }
+        zeros = nums2.count { it == 0 }
+        if (zeros == nums2.size) {
+            return
+        }
+        run over@{
+            while (index1 != nums1.size - 1
+                && index2 < n
+            ) {
+                if (nums1[index1] < nums2[index2]) {
+                    if (index1 != 0
+                        && nums1[index1] < nums1[index1 - 1]
+                    ) {
+                        return@over
+                    }
+                    index1++
+                } else {
+                    if (nums1[index1] > nums2[index2]) {
+                        shiftToRight(nums1, index1)
+                        nums1[index1] = nums2[index2]
+                        index1++
+                        index2++
+                    } else {
+                        shiftToRight(nums1, index1)
+                        index1 += 2
+                        index2++
+                    }
+                }
+            }
+        }
+        while (index2 < n) {
+            nums1[index1] = nums2[index2]
+            index1++
+            index2++
+        }
+    }
+
+    private fun shiftToRight(nums1: IntArray, index: Int) {
+        var inc = 0
+        val size = nums1.size - 1
+        while (size - inc > index) {
+            nums1[size - inc] = nums1[size - inc - 1]
+            inc++
+        }
     }
 
     companion object {

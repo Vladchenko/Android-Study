@@ -17,12 +17,11 @@ fun extensionPropertyDemo() {
 fun extensionFunctionDemo() {
     println("Convert this to camelcase".spaceToCamelCase())
     println("Last char here".last())
-    setOf(1, 2, 3, 4).joinToString()
-    val sum = listOf(1)
-    sum.sum()   // Strangely, not calling sum from ExtensionFunctionsDemo
+    val sum = listOf(1, 5, 8)
+    println(sum.sum())
 }
 
-fun String.spaceToCamelCase() {
+fun String.spaceToCamelCase() {     // What was the point here ?
     this.length
 }
 

@@ -1,7 +1,5 @@
 package com.example.vladislav.androidstudy.kotlin.demo
 
-import java.lang.reflect.Array.getInt
-
 /**
  * Conditions demonstration.
  *
@@ -54,7 +52,7 @@ fun whenDemo3(color: String) = when (color) {
 }
 
 fun whenDemo4(x: Int) =
-    when (x) {
+    when (x) {                  // When uses a first matching case
         -1, 0 -> print("-1 or 0")
         getInt(x) -> print("s encodes x")
         in 1..10 -> print("x is in the range")

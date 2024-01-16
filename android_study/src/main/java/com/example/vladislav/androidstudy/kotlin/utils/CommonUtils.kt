@@ -12,3 +12,8 @@ fun <T> printArray(array: Array<T>) {
 //            println(array.joinToString(" "))
     array.map { println(it) }
 }
+
+fun printArray(array: IntArray) {
+    array.map { print("$it ") }
+    println()
+}
