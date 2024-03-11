@@ -688,7 +688,7 @@ class Solution {
         var zeros = 0
         zeros = nums1.count { it == 0 }
         if (zeros == nums1.size) {
-            java.lang.System.arraycopy(nums2, 0,nums1, 0, nums2.size)
+            arraycopy(nums2, 0, nums1, 0, nums2.size)
             return
         }
         zeros = nums2.count { it == 0 }
@@ -734,6 +734,212 @@ class Solution {
             nums1[size - inc] = nums1[size - inc - 1]
             inc++
         }
+    }
+
+    /** https://leetcode.com/problems/sort-characters-by-frequency/ */
+    fun frequencySort(s: String): String {
+        val charFrequencyMap = mutableMapOf<Char, Int>()
+        s.forEach {
+            if (charFrequencyMap[it] != null) {
+                charFrequencyMap[it] = charFrequencyMap[it]?.plus(1) as Int
+            } else {
+                charFrequencyMap[it] = 1
+            }
+        }
+        return charFrequencyMap.toList()
+            .sortedByDescending { it.second }
+            .toMap()
+            .map {
+                var string = ""
+                for (i in 1..it.value) {
+                    string += it.key
+                }
+                string
+            }.joinToString("")
+    }
+
+    /** https://leetcode.com/problems/first-unique-character-in-a-string */
+    fun firstUniqChar(s: String): Int {
+        val charFrequencyMap = mutableMapOf<Char, Int>()
+        s.forEach {
+            if (charFrequencyMap[it] != null) {
+                charFrequencyMap[it] = charFrequencyMap[it]?.plus(1) as Int
+            } else {
+                charFrequencyMap[it] = 1
+            }
+        }
+        val sortedMap = charFrequencyMap.toList()
+            .sortedBy { it.second }
+            .toMap()
+        if ((sortedMap[sortedMap.keys.first()] ?: -1) > 1) {
+            return -1
+        }
+        return s.indexOf(sortedMap.keys.first())
+    }
+
+    fun isIsomorphic(s: String, t: String): Boolean {
+        if (s.isEmpty() && t.isEmpty()) {
+            return true
+        }
+        val sCharsList = getIsomorphList(s) as ArrayList<Int>
+        val tCharsList = getIsomorphList(t) as ArrayList<Int>
+        return tCharsList == sCharsList
+    }
+
+    private fun getIsomorphList(s: String): List<Int> {
+        var charKey = 0
+        val sCharsList = arrayListOf<Int>()
+        val sCharsMap = linkedMapOf<Char, Int>()
+        s.forEach {
+            if ((sCharsMap[it]) == null) {
+                charKey++
+                sCharsMap[it] = charKey
+                sCharsList.add(charKey)
+            } else {
+                sCharsMap[it]?.let {
+                    sCharsList.add(it)
+                }
+            }
+        }
+        return sCharsList
+    }
+
+    /** https://leetcode.com/problems/contains-duplicate/ */
+    fun containsDuplicate(nums: IntArray): Boolean {
+        val numsNumberMap = mutableMapOf<Int, Int>()
+        nums.forEach {
+            if (numsNumberMap[it] == null) {
+                numsNumberMap[it] = 1
+            } else {
+                return true
+            }
+        }
+        return false
+    }
+
+    /** Alternative to containsDuplicate */
+    fun containsDuplicate2(nums: IntArray): Boolean {
+        return nums.distinct() != nums.toList()
+    }
+
+    /** https://leetcode.com/problems/palindrome-linked-list/description/ */
+    fun isPalindrome(head: ListNode?): Boolean {
+        var node: ListNode? = head
+        val intsList = mutableListOf<Int>()
+        if (head == null) {
+            return false
+        }
+        if (head.next == null) {
+            return true
+        }
+        while (node?.next != null) {
+            intsList.add(node.`val`)
+            node = node.next
+        }
+        node?.let {
+            intsList.add(node.`val`)
+        }
+        for (i in 0..intsList.size / 2) {
+            if (intsList[i] != intsList[intsList.size - 1 - i]) {
+                return false
+            }
+        }
+        return true
+    }
+
+    /** https://leetcode.com/problems/majority-element/ */
+    fun majorityElement(nums: IntArray): Int {
+        val numsQuantityMap = mutableMapOf<Int, Int>()
+        nums.forEach {
+            if (numsQuantityMap[it] == null) {
+                numsQuantityMap[it] = 1
+            } else {
+                numsQuantityMap[it] = numsQuantityMap[it]?.plus(1) ?: 1
+            }
+        }
+        var maxValue = Integer.MIN_VALUE
+        var maxKey = -1
+        numsQuantityMap.entries.forEach {
+            if (maxValue < it.value) {
+                maxValue = it.value
+                maxKey = it.key
+            }
+        }
+        return maxKey
+    }
+
+    /** https://leetcode.com/problems/add-digits/ */
+    fun addDigits(num: Int): Int {
+        var sum: Int
+        var number = num
+        while (number > 9) {
+            sum = 0
+            val string = number.toString()
+            for (element in string) {
+                sum += element.code - 48
+            }
+            number = sum
+        }
+        return number
+    }
+
+    /** https://leetcode.com/problems/move-zeroes/ */
+    fun moveZeroes(nums: IntArray): Unit {
+        var farthestZeroIndex = -1
+        for (i in nums.size - 1 downTo 0) {
+            if (nums[i] == 0) {
+                farthestZeroIndex = i
+                break
+            }
+        }
+        if (farthestZeroIndex == -1) {
+            return
+        }
+        for (i in farthestZeroIndex downTo 0) {
+            if (nums[i] != 0) {
+                continue
+            }
+            for (j in i until nums.size - 1) {
+                if (nums[j] != 0
+                    || nums[j + 1] == 0
+                ) {
+                    break
+                }
+                val temp = nums[j + 1]
+                nums[j + 1] = nums[j]
+                nums[j] = temp
+            }
+        }
+    }
+
+    /** https://leetcode.com/problems/reverse-string/ */
+    fun reverseString(s: CharArray): Unit {
+        s.reverse()
+    }
+
+    /** https://leetcode.com/problems/word-pattern/ */
+    fun wordPattern(pattern: String, s: String): Boolean {
+        val strings = s.trim().split(Regex("\\s+"), 0)
+        if (pattern.length != strings.size) {
+            return false
+        }
+        var index = 0
+        val map = mutableMapOf<String, Char>()
+        for (char in pattern) {
+            if (map[strings[index]] == null) {
+                if (char in map.values) {
+                    return false
+                }
+                map[strings[index]] = char
+                index++
+            } else {
+                if (map[strings[index]] != char) {
+                    return false
+                }
+                index++
+            }
+        }
+        return true
     }
 
     companion object {
