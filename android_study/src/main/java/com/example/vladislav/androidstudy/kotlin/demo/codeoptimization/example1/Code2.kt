@@ -14,13 +14,10 @@ class Code2 {
     fun saveUser(user: User) {
     }
 
-    fun validate(
-        user: User, value: String,
-        fieldName: String
-    ) {
+    fun validate(user: User, value: String, fieldName: String) {
         if (value.isEmpty()) {
             throw IllegalArgumentException(
-                "Cannot save user ${user.id}: $fieldName is empty"
+                    "Cannot save user ${user.id}: $fieldName is empty"
             )
         }
     }

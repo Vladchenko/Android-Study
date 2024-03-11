@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.kotlin.demo
+package com.example.vladislav.androidstudy.kotlin.demo.functional
 
 import com.example.vladislav.androidstudy.kotlin.models.FIO
 import com.example.vladislav.androidstudy.kotlin.study.coursera.Gender
@@ -13,9 +13,9 @@ import com.example.vladislav.androidstudy.kotlin.study.coursera.Hero
 
 fun mapVsFlatmap() {
     val listFIOs: List<FIO> = listOf(
-        FIO("1", "2", "3"),
-        FIO("q", "w", "e"),
-        FIO("z6", "x7", "c8")
+            FIO("1", "2", "3"),
+            FIO("q", "w", "e"),
+            FIO("z6", "x7", "c8")
     )
     listFIOs.map { println(it) }
     // listFIOs.flatMap { println(it) } // e: Expected parameter of type String
@@ -23,12 +23,12 @@ fun mapVsFlatmap() {
 
 fun example1() {
     val heroes = listOf(
-        Hero("The Captain", 60, Gender.MALE),
-        Hero("Frenchy", 42, Gender.MALE),
-        Hero("The Kid", 9, null),
-        Hero("Lady Lauren", 29, Gender.FEMALE),
-        Hero("First Mate", 29, Gender.MALE),
-        Hero("Sir Stephen", 37, Gender.MALE)
+            Hero("The Captain", 60, Gender.MALE),
+            Hero("Frenchy", 42, Gender.MALE),
+            Hero("The Kid", 9, null),
+            Hero("Lady Lauren", 29, Gender.FEMALE),
+            Hero("First Mate", 29, Gender.MALE),
+            Hero("Sir Stephen", 37, Gender.MALE)
     )
 
     println(heroes.firstOrNull { it.age == 30 }?.name)  //null
@@ -51,17 +51,17 @@ fun example1() {
     val unknownHero = Hero("Unknown", 0, null)
     mapByName.getOrElse("unknown") { unknownHero }.age  //0
 
-    // val (first, second) = heroes
-    //     .flatMap { heroes.map { hero -> it to hero } }
-    //     .maxBy { it.first.age - it.second.age }!!
-    // println(first.name)                                 //The Captain
+    // Get 2 heroes, with a maximum difference between their ages or get the youngest and the oldest
+    val (first, second) = heroes
+            .flatMap { heroes.map { hero -> it to hero } }
+            .maxBy { it.first.age - it.second.age }
 
     // Slightly different
-    val (first, second) = heroes
-        .flatMap { first: Hero ->
-            heroes.map { second -> first to second }
-        }
-        .maxByOrNull { it.first.age - it.second.age }!!
+//    val (first, second) = heroes
+//        .flatMap { first: Hero ->
+//            heroes.map { second -> first to second }
+//        }
+//        .maxByOrNull { it.first.age - it.second.age }!!
     println(first.name)                                 //The Captain
     println(second.name)                                 //The Kid
 

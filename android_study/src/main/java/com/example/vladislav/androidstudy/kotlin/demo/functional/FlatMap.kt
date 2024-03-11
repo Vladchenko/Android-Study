@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.kotlin.demo
+package com.example.vladislav.androidstudy.kotlin.demo.functional
 
 /**
  * https://play.kotlinlang.org/byExample/05_Collections/12_flatMap

@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.kotlin
+package com.example.vladislav.androidstudy.kotlin.demo
 
 /**
  * Up to write some stuff

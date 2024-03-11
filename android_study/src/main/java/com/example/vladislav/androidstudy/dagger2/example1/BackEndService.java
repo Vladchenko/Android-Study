@@ -2,6 +2,7 @@ package com.example.vladislav.androidstudy.dagger2.example1;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 /**
  * Created by Влад on 11.07.2018.

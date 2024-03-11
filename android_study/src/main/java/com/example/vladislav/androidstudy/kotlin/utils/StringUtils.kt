@@ -42,11 +42,11 @@ fun String.isPalindrome(): Boolean {
 
 fun String.isPalindrome2(): Boolean {
     val stringHalf =
-        if (this.length % 2 == 0) {
-            this.drop(this.length / 2)
-        } else {
-            this.drop(this.length / 2 + 1)
-        }
+            if (this.length % 2 == 0) {
+                this.drop(this.length / 2)
+            } else {
+                this.drop(this.length / 2 + 1)
+            }
     stringHalf.forEachIndexed { index, c ->
         if (c != this[this.length / 2 - index - 1]) return false
         if (this.length / 2 == index) return true
@@ -132,7 +132,7 @@ fun String.removeRepetitiveChars(): String {
     var string = ""
     this.mapIndexed { index, char ->
         if (this.length > index + 1
-            && char != this[index + 1]
+                && char != this[index + 1]
         ) {
             string += char
         }
@@ -191,15 +191,15 @@ fun String.checkIfBracesPaired(): Boolean {
             ']' -> squareBrackets--
         }
         if (brackets == -1
-            || braces == -1
-            || squareBrackets == -1
+                || braces == -1
+                || squareBrackets == -1
         ) {
             return false
         }
     }
     if (squareBrackets == 0
-        || braces == 0
-        || squareBrackets == 0
+            || braces == 0
+            || squareBrackets == 0
     ) {
         return true
     }
@@ -213,8 +213,8 @@ fun String.solveExpression(): String {
         return "NAN"
     } else {
         var operations = this.trim().split(Regex("[0-9.]+")) // 0-9 same as /d
-            .map { it.trim() }
-            .filter { it.isNotBlank() }
+                .map { it.trim() }
+                .filter { it.isNotBlank() }
         if (operations.any { it.length > 1 }) {
             return "Wrong operation"
         }
@@ -241,12 +241,12 @@ fun String.solveExpression(): String {
 
 /** Replace a [replaceableString] with a [replacingString]. */
 fun String.replaceString(replaceableString: String, replacingString: String) =
-    // No need to make this function, since there is replace(...) fun for String
-    this.trim().split(Regex("\\s+")).joinToString {
-        if (it == replaceableString) {
-            replacingString
-        } else it
-    }
+        // No need to make this function, since there is replace(...) fun for String
+        this.trim().split(Regex("\\s+")).joinToString {
+            if (it == replaceableString) {
+                replacingString
+            } else it
+        }
 
 /** Replaces digits with its symbolic representation, say "462 3" -> "four six two three" */
 fun String.replaceDigitsWithSymbolicRepresentation(): String {
@@ -254,7 +254,7 @@ fun String.replaceDigitsWithSymbolicRepresentation(): String {
     this.trim().map {
         if (it.isDigit()) {
             resultString = resultString.plus(
-                it.getDigitSymbolicRepresentation()
+                    it.getDigitSymbolicRepresentation()
             )
         }
     }
@@ -291,7 +291,7 @@ fun String.replaceNumbersWithSymbolicRepresentation(): String {
             if (reversedNumber.length > 1) {
                 if (reversedNumber[1] == '1') {
                     resultNumberString =
-                        reversedNumber[0].getTenToTwentySymbolicRepresentation() + resultNumberString
+                            reversedNumber[0].getTenToTwentySymbolicRepresentation() + resultNumberString
                 } else {
                     resultNumberString = reversedNumber[0].getDigitSymbolicRepresentation() + resultNumberString
                     resultNumberString = reversedNumber[1].getTensSymbolicRepresentation() + resultNumberString
@@ -302,7 +302,7 @@ fun String.replaceNumbersWithSymbolicRepresentation(): String {
         }
         if (reversedNumber.length > 2 && reversedNumber[2] != '0') {
             resultNumberString =
-                reversedNumber[2].getDigitSymbolicRepresentation() + "hundred " + resultNumberString
+                    reversedNumber[2].getDigitSymbolicRepresentation() + "hundred " + resultNumberString
         }
         resultString = "${resultString.trim()}, ${resultNumberString.trim()}"
     }
@@ -310,70 +310,70 @@ fun String.replaceNumbersWithSymbolicRepresentation(): String {
 }
 
 fun Char.getTenToTwentySymbolicRepresentation() =
-    when (this) {
-        '0' -> ""
-        '1' -> "eleven "
-        '2' -> "twelve "
-        '3' -> "thirteen "
-        '4' -> "fourteen "
-        '5' -> "fifteen "
-        '6' -> "sixteen "
-        '7' -> "seventeen "
-        '8' -> "eighteen "
-        '9' -> "nineteen "
-        else -> ""
-    }
+        when (this) {
+            '0' -> ""
+            '1' -> "eleven "
+            '2' -> "twelve "
+            '3' -> "thirteen "
+            '4' -> "fourteen "
+            '5' -> "fifteen "
+            '6' -> "sixteen "
+            '7' -> "seventeen "
+            '8' -> "eighteen "
+            '9' -> "nineteen "
+            else -> ""
+        }
 
 private fun Char.getDigitSymbolicRepresentation() =
-    when (this) {
-        '0' -> "zero "
-        '1' -> "one "
-        '2' -> "two "
-        '3' -> "three "
-        '4' -> "four "
-        '5' -> "five "
-        '6' -> "six "
-        '7' -> "seven "
-        '8' -> "eight "
-        '9' -> "nine "
-        else -> ""
-    }
+        when (this) {
+            '0' -> "zero "
+            '1' -> "one "
+            '2' -> "two "
+            '3' -> "three "
+            '4' -> "four "
+            '5' -> "five "
+            '6' -> "six "
+            '7' -> "seven "
+            '8' -> "eight "
+            '9' -> "nine "
+            else -> ""
+        }
 
 private fun Char.getTensSymbolicRepresentation() =
-    when (this) {
-        '0' -> ""
-        '1' -> ""
-        '2' -> "twenty "
-        '3' -> "thirty "
-        '4' -> "forty "
-        '5' -> "fifty "
-        '6' -> "sixty "
-        '7' -> "seventy "
-        '8' -> "eighty "
-        '9' -> "ninety "
-        else -> ""
-    }
+        when (this) {
+            '0' -> ""
+            '1' -> ""
+            '2' -> "twenty "
+            '3' -> "thirty "
+            '4' -> "forty "
+            '5' -> "fifty "
+            '6' -> "sixty "
+            '7' -> "seventy "
+            '8' -> "eighty "
+            '9' -> "ninety "
+            else -> ""
+        }
 
 // Not useful as of now
 private fun Char.getHundredsSymbolicRepresentation() =
-    when (this) {
-        '0' -> ""
-        '1' -> "one hundred"
-        '2' -> "two hundred"
-        '3' -> "three hundred"
-        '4' -> "four hundred"
-        '5' -> "five hundred"
-        '6' -> "six hundred"
-        '7' -> "seven hundred"
-        '8' -> "eight hundred"
-        '9' -> "nine hundred"
-        else -> ""
-    }
+        when (this) {
+            '0' -> ""
+            '1' -> "one hundred"
+            '2' -> "two hundred"
+            '3' -> "three hundred"
+            '4' -> "four hundred"
+            '5' -> "five hundred"
+            '6' -> "six hundred"
+            '7' -> "seven hundred"
+            '8' -> "eight hundred"
+            '9' -> "nine hundred"
+            else -> ""
+        }
 
 /**
  * Checks if every char is unique in given string.
  * "qwerty" - returns true
- * "asdfa" - return false.
+ * "asdfa" - returns false.
  */
 fun String.isEveryCharUnique(): Boolean {
     val map: MutableMap<Char, Int> = mutableMapOf()
@@ -382,6 +382,25 @@ fun String.isEveryCharUnique(): Boolean {
         map[it] = 1
     }
     return true
+}
+
+
+/**
+ * Checks if every char's frequency is unique in given string.
+ * "qw" - returns false
+ * "qww" - returns true.
+ */
+fun String.isEveryCharFrequencyUnique(): Boolean {
+    val map: MutableMap<Char, Int> = mutableMapOf()
+    this.map {
+        if (it in map) {
+            map[it] = map[it]?.plus(1) ?: 1
+        } else {
+            map[it] = 1
+        }
+    }
+    return map.values.distinct().size == map.values.size
+    // map.values.distinct().size   can also be replaced with map.values.toSet().size
 }
 
 fun String.getUniqueChars(): Set<Char> {
@@ -398,9 +417,9 @@ fun String.getUniqueChars2() = this.toList().groupingBy { it }.eachCount().filte
 
 /** Taken from https://stackoverflow.com/questions/62232908/kotlin-unique-characters-in-string */
 fun uniqueCharacters(s: String): Boolean = s.groupBy { it }
-    .values
-    .stream()
-    .allMatch { it.size == 1 }
+        .values
+        .stream()
+        .allMatch { it.size == 1 }
 
 /** Taken from https://stackoverflow.com/questions/62232908/kotlin-unique-characters-in-string */
 fun String.allUnique(): Boolean = all(hashSetOf<Char>()::add)
@@ -457,27 +476,27 @@ fun String.toBackwardsOrderStrings() = this.split(Regex("\\s+")).reversed()
  * Retrieve string in sorted order of its incorporating strings.
  */
 fun String.toAlphabetSortedStrings() = this.trim().split(Regex("\\s+"))
-    .sorted()      // trim() is needed here, else it provides empty item in 1st and 2nd positions
+        .sorted()      // trim() is needed here, else it provides empty item in 1st and 2nd positions
 
 /**
  * Retrieve string in sorted order of its incorporating strings.
  */
 fun String.toAlphabetSortedStrings2() = this.trim().split(Regex("\\s+"))
-    .toSortedSet()      // trim() is needed here, else it provides empty item in 1st position
+        .toSortedSet()      // trim() is needed here, else it provides empty item in 1st position
 
 /**
  * Get all Java versions, say "java Java 5, Java  6, Java 1.6" should yield [Java 5, Java  6, Java 1.6]
  */
 fun String.getAllJavaVersions(): List<String> {
     val numberPattern =
-        "([0-9]+[.])?[0-9]+".toRegex()  // TODO How to fix leading zero, when it is only one present - Java 0 ?
+            "([0-9]+[.])?[0-9]+".toRegex()  // TODO How to fix leading zero, when it is only one present - Java 0 ?
     val stringsList = this.split(Regex("[\\s]+"))
     val stringsListFinal: MutableList<String> = mutableListOf()
     stringsList.forEachIndexed { index, currentString ->
         if (currentString == "Java"
-            && index != stringsList.size - 1
-            && numberPattern.matches(stringsList[index + 1])
-            && stringsList[index + 1] != "0"    // TODO Remove this condition when a regex is to exclude 0.
+                && index != stringsList.size - 1
+                && numberPattern.matches(stringsList[index + 1])
+                && stringsList[index + 1] != "0"    // TODO Remove this condition when a regex is to exclude 0.
         ) {
             stringsListFinal.add(currentString + " " + stringsList[index + 1])
         }
@@ -551,9 +570,9 @@ fun retrieveNumberOfLuckyTickets(): Int {
 }
 
 private fun performArithmeticOperation(
-    operand1: String,
-    operand2: String,
-    operation: String
+        operand1: String,
+        operand2: String,
+        operation: String
 ): String {
     when (operation) {
         "-" -> return (operand1.toDouble() - operand2.toDouble()).toString()

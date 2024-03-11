@@ -13,9 +13,9 @@ class ResponseSaver {
     /**
      * Method saves a [response] to a file by its [filePath].
      */
-    fun saveDataToFile(filePath: String, response: Response): File {
+    fun saveResponseToFile(filePath: String, response: Response): File {
         val file = File(filePath)
-        file.writeBytes(response.body?.bytes()!!)
+        file.writeBytes(response.body.bytes())
         return file
     }
 }

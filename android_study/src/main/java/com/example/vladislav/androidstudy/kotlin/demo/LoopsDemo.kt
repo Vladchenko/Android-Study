@@ -1,5 +1,6 @@
 package com.example.vladislav.androidstudy.kotlin.demo
 
+import android.util.Range
 import com.example.vladislav.androidstudy.kotlin.models.FIO
 import java.util.function.Consumer
 
@@ -16,20 +17,28 @@ fun loopsDemo() {
     var x = 10
     val y = 10..20
     val array = arrayOf(1, 2.3, "3.4", 567, 789.01)
-    val array2 = Array(5, { x -> x * x })
+    val array2 = Array(5, { x * x })    // All elements are 100
+
+    println(array2)             // [Ljava.lang.Integer;@f9a32f6
+    println(array2.toList())    // [100, 100, 100, 100, 100]
 
     for ((index, value) in array.withIndex()) {
         println("element at index[$index] has value=$value,  ")
     }
     for (x in 1..10 step 2) {
-        print("$x ")
+        print("$x ")        // 1 3 5 7 9
     }
     println()
 
-    for (x in 9 downTo 0 step 3) {  // This one doesn't work
-        print("$x ")
+    for (x in 9 downTo 0 step 3) {
+        print("$x ")        // 9 6 3 0
     }
+
     // No iteration for float / double
+    for (x in arrayOf((1.1 .. 10.1)).iterator()) {
+        print("$x ")        // 1.1..10.1    I thought it's gonna have 1.1 1.2 1.3 ...
+    }
+
     val fios = listOf<FIO>()
     for (fio in fios) print("$fio ")
     println()

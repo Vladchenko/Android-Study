@@ -1,7 +1,8 @@
-package com.example.vladislav.androidstudy.kotlin.demo
+package com.example.vladislav.androidstudy.kotlin.demo.collections
 
 /**
- * Демо работы с Map
+ * Map<K, V> demonstration.
+ * Although it does not implement Collections, it is placed to a collections package for convenience.
  *
  * @author Yanchenko Vladislav
  * @since 25.01.2021

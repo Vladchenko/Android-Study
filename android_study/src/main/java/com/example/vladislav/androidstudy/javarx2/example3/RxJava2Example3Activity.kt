@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.ERROR
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -58,7 +57,7 @@ class RxJava2Example3Activity : AppCompatActivity() {
             NetworkApiMapper().downloadData(url)
         }
             .map { response ->
-                ResponseSaver().saveDataToFile(
+                ResponseSaver().saveResponseToFile(
                     filePath,
                     response
                 )

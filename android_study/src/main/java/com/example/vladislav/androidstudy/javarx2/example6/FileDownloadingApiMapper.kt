@@ -24,7 +24,7 @@ class FileDownloadingApiMapper {
                 val originalResponse = chain.proceed(chain.request())
                 originalResponse
                     .newBuilder()
-                    .body(ProgressResponseBody(originalResponse.body!!, progressListener))
+                    .body(ProgressResponseBody(originalResponse.body, progressListener))
                     .build()
             }
             .build()

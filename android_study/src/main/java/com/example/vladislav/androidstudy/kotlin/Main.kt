@@ -1,7 +1,8 @@
 package com.example.vladislav.androidstudy.kotlin
 
 import android.content.Context
-import capitalizeFirstLetters
+import com.example.vladislav.androidstudy.kotlin.demo.CoroutinesBasics
+import com.example.vladislav.androidstudy.kotlin.study.leetcode.Solution
 
 /**
  * Main class
@@ -11,15 +12,21 @@ import capitalizeFirstLetters
  */
 class Main {
 
-    fun main(context: Context) {    // An entry point of a Kotlin application is the main function
-        // ArraysListsDemo().demo()
-        // Basics().arraysDemo()
+    fun main(
+        context: Context,
+        callback: (String) -> Unit
+    ) {    // An entry point of a Kotlin application is the main function
+//        InitOrderDemo("Vlad")
+//         ArraysListsDemo().arraysDemo()
+//        Basics().equalityDemo()
+//        Basics().dataClassCopyDemo()
+//        Basics().typesDemo()
         // Basics().destructuringDeclaration()
         // extensionFunctionDemo()
         // Basics().idiomsDemo(context)
-        // Basics().listDemo()
-        // loopsDemo()
-        // Basics().rangesDemo()
+//         Basics().listDemo()
+//         loopsDemo()
+//         Basics().rangesDemo()
         // Basics().javaRelatedDemo()
 //        Basics().otherDemo()
 //         Basics().setDemo()
@@ -27,7 +34,8 @@ class Main {
 //       Basics().temp()
 //        Basics().testIsPalindromeMethod()
 //         Basics().someExample()
-//        Basics().lambdaDemo()
+//        LambdaDemo().lambdaDemo()
+//        Basics().repeatNInvocation()
 //        Basics().varArgsDemo(1, 2.0, 'c', "arg1")
 //         Basics().varArgsDemo2()
 //         Basics().answerUsageExample()
@@ -36,24 +44,30 @@ class Main {
 //        Basics().sayHello("Zdarova", listOf("Vlad", "Vladchenko", "Vladon"))
 //        Car(listOf(Car.Wheel())).demo()
 //         println(whenDemo4(5))   // x is in the range
-//         CoroutinesBasics().coroutineDemo()
-//         CoroutinesBasics().coroutineDemo1()
+//         CoroutinesBasics(callback).coroutineDemo()
+//        CoroutinesBasics(callback).coroutineDemoScope()
+//         CoroutinesBasics(callback).coroutineDemo1()
 //         CoroutinesBasics().coroutineDemo1_1()
 //         CoroutinesBasics().coroutineDemo1_2()
 //         CoroutinesBasics().coroutineDemo1_3()
-//         CoroutinesBasics().temp()
+//         CoroutinesBasics(callback).temp()
 //         CoroutinesBasics().coroutineDemo2()
-//         CoroutinesBasics().deferredDemo()
-        // CoroutinesBasics().coroutineDemoUnconfined2()
-        // CoroutinesBasics().coroutineDemo3()
+//        CoroutinesBasics(callback).simpleCoroutineDemo11()
+//         CoroutinesBasics(callback).deferredDemo()
+//        CoroutinesBasics().coroutineDemoUnconfined()
+//         CoroutinesBasics().coroutineDemoUnconfined2()
+//         CoroutinesBasics(callback).coroutineDemo3()
         // CoroutinesBasics().simpleCoroutineDemo()
+//        CoroutinesBasics(callback).simpleCoroutineDemo2()
+//        CoroutinesBasics(callback).simpleCoroutineDemo10()
 //        CoroutinesBasics().simpleCoroutineDemo9()
 //         CoroutinesBasics().cancelDemo()
-//         CoroutinesBasics().cancelNotWorkingDemo()
-//         CoroutinesBasics().cancelWorkingDemo()
+//         CoroutinesBasics(callback).cancelNotWorkingDemo()
+//         CoroutinesBasics(callback).cancelWorkingDemo2()
 //         CoroutinesBasics().twoNetworkCallsSequentially()
-       // CoroutinesBasics().demoDispatchersAndThreads2()
-       //  CoroutinesBasics().simpleCoroutineDemo11()
+        // CoroutinesBasics().demoDispatchersAndThreads2()
+        //  CoroutinesBasics().simpleCoroutineDemo11()
+//        CoroutinesBasics(callback).flowDemo1Print()
 //         testIsEmptyOrNull()
 //         MapDemo.mapDemo()
 //        println(CompanionObject.NAME)
@@ -63,6 +77,7 @@ class Main {
 //        Interfaces().checkType(Interfaces.InterfacesDemo2(","));
 //         MapDemo.mapDemo()
         // MapDemo.peopleDemo()
+//        NumbersDemo().numbersDemo()
 //        println(Stepik().toJSON(listOf(1, 2, 3, 42, 555)))
 //        println(Stepik().joinOptions(listOf("a","b","c")))
 //        println(Stepik().containsEven(listOf(1,2,3,4,5)))
@@ -94,7 +109,13 @@ class Main {
 //         println("Java java 4 Java X Java0 Java 0 Java 0.1 Java 1 Java 1.0 Java 1.1 Java   5 Java 1.8 Java 10 Java 11".getAllJavaVersions())
 //         println(retrieveNumberOfLuckyTickets())
 //        println("      4    5 3   6664   783      ".toAlphabetSortedStrings())
-        println("make this words begin with capital letters".capitalizeFirstLetters())
+//        println("make this words begin with capital letters".capitalizeFirstLetters())
+//        StringsDemo().stringsDemo()
+//        println("q".isEveryCharFrequencyUnique())
+//        println("qq".isEveryCharFrequencyUnique())
+//        println("qqwwe".isEveryCharFrequencyUnique())
+//        println("qqqwwe".isEveryCharFrequencyUnique())
+//        println("  zzzzsssee".isEveryCharFrequencyUnique())
 
         // val mineField = MineField()
         // mineField.initializeMineField()
@@ -113,7 +134,7 @@ class Main {
 //        println(Solution().isPalindrome2(1221))
 //        println(Solution().isPalindrome2(12121))
 
-//        val solution = Solution()
+        val solution = Solution()
 //        println(solution.romanToInt("I"))
 //        println(solution.romanToInt("II"))
 //        println(solution.romanToInt("III"))
@@ -439,5 +460,92 @@ class Main {
 //        solution.hammingWeight(1)
 //        solution.hammingWeight(1000)
 //        solution.hammingWeight(Int.MAX_VALUE)
+
+//        println(solution.frequencySort("dddGhhhhMMMMMxxSSSzz"))
+//        println(solution.firstUniqueChar("i"))  // 0
+//        println(solution.firstUniqueChar("ii"))  // -1
+//        println(solution.firstUniqueChar("iis"))  // 2
+//        println(solution.firstUniqueChar("iiss"))  // -1
+//        println(solution.firstUniqueChar(" iiss"))  // 0
+//        println(solution.firstUniqueChar("iiss "))  // 4
+//        println(solution.firstUniqueChar("qcqwwwerttyuii")) // 1
+//        println(solution.firstUniqueChar("qqwwwerttyuii"))  // 5
+//        println(solution.firstUniqueChar("qqewwwerttyuii"))  // 7
+//        println(solution.firstUniqueChar("ewwwrttyuii"))  // 0
+//        println(solution.firstUniqueChar("eewrttyuii"))  // 2
+
+//        println(solution.isIsomorphic("egg", "add"))    // true
+//        println(solution.isIsomorphic("", ""))    // true
+//        println(solution.isIsomorphic("1", "1"))    // true
+//        println(solution.isIsomorphic("1", "2"))    // true
+//        println(solution.isIsomorphic("13", "24"))    // true
+//        println(solution.isIsomorphic("131", "242"))    // true
+//        println(solution.isIsomorphic("111", "222"))    // true
+//        println(solution.isIsomorphic("111", "2222"))    // false
+
+//        println(solution.containsDuplicate2(intArrayOf(1)))    // false
+//        println(solution.containsDuplicate2(intArrayOf(1,2,3,4)))    // false
+//        println(solution.containsDuplicate2(intArrayOf(1,1,3,4)))    // true
+//        println(solution.containsDuplicate2(intArrayOf(1,2,2,4)))    // true
+//        println(solution.containsDuplicate2(intArrayOf(1,2,3,3)))    // true
+//        println(solution.containsDuplicate2(intArrayOf(1,2,3,1)))    // true
+//        println(solution.containsDuplicate2(intArrayOf(1,2,3,4)))    // false
+//        println(solution.containsDuplicate2(intArrayOf(4,2,2,4)))    // true
+//        println(solution.containsDuplicate2(intArrayOf(1,2,3,4,1)))    // true
+
+//        println(solution.majorityElement(intArrayOf(1)))
+//        println(solution.majorityElement(intArrayOf(1, 1, 2)))
+//        println(solution.majorityElement(intArrayOf(1, 2, 2)))
+//        println(solution.majorityElement(intArrayOf(2, 2, 2)))
+//        println(solution.majorityElement(intArrayOf(2, 2, 2, 3)))
+//        println(solution.majorityElement(intArrayOf(2, 2, 2, 3, 4)))
+//        println(solution.majorityElement(intArrayOf(4, 4, 2, 3, 4)))
+
+//        println(solution.addDigits(1))
+//        println(solution.addDigits(11))
+//        println(solution.addDigits(111))
+//        println(solution.addDigits(12))
+//        println(solution.addDigits(123))    // 6
+//        println(solution.addDigits(1234))   // 1
+//        println(solution.addDigits(12345))  // 6
+
+//        var array = intArrayOf(0, 1, 0, 1)
+//        solution.moveZeroes(array)
+//        println(array.joinToString())
+//
+//        array = intArrayOf(0, 1, 0, 1, 0)
+//        solution.moveZeroes(array)
+//        println(array.joinToString())
+//
+//        array = intArrayOf(0, 0, 1, 0, 1)
+//        solution.moveZeroes(array)
+//        println(array.joinToString())
+//
+//        array = intArrayOf(0,0,1,0,0,1,0)
+//        solution.moveZeroes(array)
+//        println(array.joinToString())
+//
+//        array = intArrayOf(0,0,0,0,0,1,1)
+//        solution.moveZeroes(array)
+//        println(array.joinToString())
+//
+//        array = intArrayOf(1,0,0,0,0,0,0)
+//        solution.moveZeroes(array)
+//        println(array.joinToString())
+//
+//        array = intArrayOf(0,0,0,0,0,0,1)
+//        solution.moveZeroes(array)
+//        println(array.joinToString())
+
+//        CharRange('1','9').forEach(System.out::println)
+
+        println(Solution().wordPattern("abba", "dog cat cat dog"))   // true
+        println(Solution().wordPattern("abba", "dog dog dog dog"))   // false
+        println(Solution().wordPattern("abba", "dog cat cat fish"))   // false
+        println(Solution().wordPattern("aaaa", "dog cat cat fish"))   // false
+        println(Solution().wordPattern("aaaa", "dog dog dog dog"))   // true
+        println(Solution().wordPattern("aaaa", "cat dog dog dog"))   // false
+        println(Solution().wordPattern("abba", "cat dog dog dog"))   // false
+        println(Solution().wordPattern("abbb", "cat dog dog dog"))   // true
     }
 }

@@ -8,6 +8,7 @@ package com.example.vladislav.androidstudy.kotlin.demo
  */
 class NumbersDemo {
 
+    private var binary = 0b010101   // This is a binary variable, type is automatically inferred as int
     private var variable = 255      // This is a variable, type is automatically inferred as int
     private var int: Int = 0xFF     // Explicit type denotation
     private var bigInt: Int = Int.MAX_VALUE     // Integer variable with max value
@@ -16,10 +17,10 @@ class NumbersDemo {
     private var longValue2 = 3000000000    // Long value
 
     fun numbersDemo() {
-        println(bigInt)
-        println("int = $int")
+        println(binary)     // 21
+        println("int = $int")   // 255
         println("int.toString() = ${int.toString()}")
-        println("bigInt = $bigInt")
+        println("bigInt = $bigInt")     // 2147483647
         if (variable is Int) {
             println("variable is of Int type")
         } else {

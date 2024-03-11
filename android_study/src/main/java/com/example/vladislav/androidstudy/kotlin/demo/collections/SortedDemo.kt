@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.kotlin.demo
+package com.example.vladislav.androidstudy.kotlin.demo.collections
 
 import java.lang.Math.abs
 

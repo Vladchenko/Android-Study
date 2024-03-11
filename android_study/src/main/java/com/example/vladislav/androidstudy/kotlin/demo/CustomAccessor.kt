@@ -2,6 +2,7 @@ package com.example.vladislav.androidstudy.kotlin.demo
 
 /**
  * Demonstration of a custom getter.
+ * https://kotlinlang.org/docs/properties.html#getters-and-setters
  *
  * @author Yanchenko Vladislav
  * @since 07.02.2021

@@ -11,6 +11,7 @@ import com.example.vladislav.androidstudy.dagger2.example3.repository.LoginRepos
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.migration.DisableInstallInCheck
+import javax.inject.Singleton
 
 /**
  * Dagger user login module
@@ -20,13 +21,17 @@ import dagger.hilt.migration.DisableInstallInCheck
 abstract class LoginModule {
 
     @Binds
+    @Singleton
     abstract fun bindLoginLocalDataSource(loginLocalDataSourceImpl: LoginLocalDataSourceImpl): LoginLocalDataSource
 
     @Binds
+    @Singleton
     abstract fun bindLoginRemoteDataSource(loginRemoteDataSourceImpl: LoginRemoteDataSourceImpl): LoginRemoteDataSource
     @Binds
+    @Singleton
     abstract fun bindLoginRepository(loginRepositoryImpl: LoginRepositoryImpl): LoginRepository
 
     @Binds
+    @Singleton
     abstract fun bindLoginInteractor(loginInteractorImpl: LoginInteractorImpl): LoginInteractor
 }

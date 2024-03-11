@@ -80,20 +80,14 @@ class Square() : Rectangle(),
     }
 }
 
-
-
 open class Base(val name: String) {     // "open" means one can inherit from such a class
 
     init { println("Initializing Base") }
 
-    open val size: Int =
-        name.length.also { println("Initializing size in Base: $it") }
+    open val size: Int = name.length.also { println("Initializing size in Base: $it") }
 }
 
-class Derived(
-    name: String,
-    val lastName: String
-) : Base(name) {    // Calling a parent constructor with its parameter
+class Derived(name: String, val lastName: String) : Base(name) {    // Calling a parent constructor with its parameter
     //Some code
 }
 
@@ -107,4 +101,6 @@ class Derived2(
     override val size: Int =
         (super.size + lastName.length).also { println("Initializing size in Derived: $it") }
 }
+
+data class SomeDataClass(val name: String = "Ivan", val lastname: String = "Ivanov", val age: Int = 25)
 

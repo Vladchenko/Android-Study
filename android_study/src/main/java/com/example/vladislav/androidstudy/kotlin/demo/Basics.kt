@@ -1,6 +1,8 @@
 package com.example.vladislav.androidstudy.kotlin.demo
 
 import android.content.Context
+import android.util.Range
+import androidx.core.util.toClosedRange
 import androidx.core.util.toRange
 import com.example.vladislav.androidstudy.kotlin.models.SomeModel
 import com.example.vladislav.androidstudy.kotlin.utils.createFilesDirIfAbsent
@@ -63,16 +65,18 @@ class Basics {
 
     fun stringLength(row: String) = row.length  // Same to String.stringLength() = this.length
 
-    private fun elvisOperatorDemo(name: String?) = name ?: "no name" // Return "name", if it is not null,
-    // else return "no name"
+    /** https://habr.com/ru/articles/721084/ - find "Какой тип находится на вершине иерархии типов в Kotlin?" */
+    private fun anyDemo() {
+        var anyValue: Any? = null
+        val list: List<Int?> = listOf()
+        anyValue = listOf(5, null)
+    }
 
-    private val isEmpty: Boolean get() = "Some string".isEmpty()  // Extension property
+    private val isEmpty: Boolean get() = "Some string".isEmpty()  // Extension property with custom getter
 
     private fun isEmpty2(string: String) = string.isEmpty()     // Alternative to isEmpty()
 
     private fun String.isEmpty3() = this.isEmpty()      // One more alternative to isEmpty()
-
-    private fun isEven(i: Int): Boolean = i % 2 == 0    // Almost same as - fun Int.isEven(): Boolean = this % 2 == 0
 
     private fun isEven2(i: Int) = i % 2 == 0     // Type can be omitted
     // private fun Int.isEven() = this % 2 == 0     // Type can be omitted (Extension function)
@@ -85,43 +89,85 @@ class Basics {
             if (value >= 0) field = value   // Is this "field" is kind of container for counter's value ?
         }
 
-    fun arraysDemo() {
-        val array: Array<Int> = arrayOf(1, 2, 3)
-        val array2 = arrayOf(1, 2.3, "3.4", 567, 789.01)    // Type maybe omitted
-        val array3 = byteArrayOf(1, 2, 3, 4, 2, 3, 1, 2, 3, 4, 1).distinct()  // Only unique values - 1,2,3,4
+    fun equalityDemo() {
+        // https://play.kotlinlang.org/byExample/02_control_flow/04_Equality%20Checks
+        val authors = setOf("Shakespeare", "Hemingway", "Twain")
+        val writers = setOf("Twain", "Shakespeare", "Hemingway")
+        println(authors == writers)   // true
+        println(authors === writers)  // false
+    }
 
-        println(array2)     // [Ljava.lang.Object;@7480ee6
-        println(array2[0])   // 1st item of array, also can be printed by println(array.get(0))
-        println("array.size = ${array2.size}")   // Printing a size of an array
-        println("array contains 345 = ${array2.contains(345)}")
-        println("index of 567 = ${array2.indexOf(567)}")
-        array3.forEach { // Check a LoopsDemo.kt to see a several ways to traverse through collections
-            println(it)     // Printing an array
+    fun dataClassCopyDemo() {
+        data class Test(val value1: Int, val value2: String)
+
+        val instance1 = Test(1, "1")
+        val instance2 = instance1.copy()
+        println(instance1 == instance2)     // true
+        println(instance1 === instance2)    // false
+    }
+
+    fun typesDemo() {
+        val valueByte: Byte = 10
+        println(valueByte.javaClass)    // byte (notice, a primitive)
+
+        val valueLong = 10L
+        println(valueLong.javaClass)    // long (notice, a primitive)
+
+        val pi = 3.14 // Double
+        // val one: Double = 1  // Error: type mismatch
+        val oneFloat = 1.0f     // float    1.0F or 1e10
+        println(oneFloat.javaClass)     // float (notice, a primitive)
+
+        val valueSmallerInt = 1
+        println(valueSmallerInt.javaClass)    // int (notice, a primitive)
+        println(valueSmallerInt)    // 1
+
+        val valueBiggerInt = 1000000000000000
+        println(valueBiggerInt.javaClass)    // long (notice, a primitive)
+        println(valueBiggerInt)    // 1000000000000000
+
+//        val valueBiggerInt2 = 10000000000000000000000000000       // The value is out of range
+
+        val value1: Short = 10
+        val value2: Short = 20
+        println((value1 + value2).javaClass)    // int (notice, a primitive)
+        val value3 = value1 + value2
+        println(value3.javaClass)    // int (notice, a primitive)
+
+        val value4: UByte = 10u
+        val value5: UByte = 20u
+        println((value4 + value5).javaClass)    // class kotlin.UInt
+        val value6 = value4 + value5
+        println(value6.javaClass)    // class kotlin.UInt
+
+        val value7: Int = Integer.MAX_VALUE
+        val value8: Int = Integer.MAX_VALUE
+        println((value7 + value8).javaClass)    // int (notice, a primitive)
+        val value9 = value7 + value8
+        println(value9.javaClass)    // int (notice, a primitive)
+        println(value9)     // -2   Doesn't raise type to Long
+
+        val value10: Int = Integer.MAX_VALUE
+        val value11: Int = Integer.MAX_VALUE
+        println((value10 + value11.toLong()).javaClass)    // long (notice, a primitive)
+        val value12 = value10 + value11.toLong()
+        println(value12.javaClass)    // long (notice, a primitive)
+        println(value12)     // 4294967294
+
+        val i = 1
+        val d = 1.0
+        val f = 1.0f
+        fun printDouble(d: Double) {
+            print(d)
         }
-        for (item in array3) print(item)
-        println()
-        println("distinctBy: " + array2.distinctBy {
-            it.toString().toIntOrNull()    // Prints [1, 2.3, 567], 2.3 is present because it yields null and null is unique value among others
-        })   // TODO Understand distinctBy and implement other methods
-        println(array2.getOrNull(40) ?: "Неизвестный индекс")
-        println(
-            array3.toList() // Turns array into list
-                .distinct() // Takes only unique items
-                .map { it * it }    // Multiplies item onto itself
-                .filter { it > 3 }  // Takes items greater than 3
-        )   // [4, 9, 16]
-        array3.toByteArray()
-        array3.toHashSet()
-        array3.toMutableList()
-        array3.toMutableSet()
-        array3.toSet()
-        array3.toSortedSet()
+        printDouble(d)
+//    printDouble(i) // Error: Type mismatch
+//    printDouble(f) // Error: Type mismatch
     }
 
     fun listDemo() {
         val someList = arrayOf(1, 2, 3, 4).asList()
         val list = listOf("q", "a", "z", "zz")    // Immutable list (one cannot add items to it or remove from)
-        val mutableList = mutableListOf("w", "s", "x")    // Mutable list (one can add items to it)
         println(list[0])    // Same to println(list.get(0))
         list.getOrElse(5) { list[0] }   // Answer: q    // Retrieves first element instead of 5th, which is absent.
         list.getOrNull(5)   // Retrieves null, instead of IOOB exception
@@ -207,37 +253,44 @@ class Basics {
         // несколько, то вернёт null.
         println(listOf(1, 6, 3, 4, 5).singleOrNull { it % 3 == 0 }) // null
 
-        val list3 = mutableListOf(1,2,3,4,5)
+        val list3 = mutableListOf(1, 2, 3, 4, 5)
         list3.reverse() // Reverses a mutable list itself (no need to write list3 = list3.reverse())
         println("list3.reverse() = $list3")  // [5,4,3,2,1]
         println(someList.reversed())    // Prints items in backwards order [4,3,2,1]
 
-        val list4 = mutableListOf(1,20,3,40,5)
+        val list4 = mutableListOf(1, 20, 3, 40, 5)
         list4.sort() // Sorts a mutable list itself (no need to write list4 = list4.sort())
         println("list3.sort() = $list4")  // [1,3,5,20,40]
         println(someList.sorted())    // Sorts items [1,2,3,4]
-        println(listOf(4,8,2,4,9).sortedDescending())    // Sorts items [9,8,4,4,2]
-        println("listOf(4,8,2,4,9).sortedBy { it > 4 } = ${listOf(4,8,2,4,9).sortedBy { it > 4 }}") // [4, 2, 4, 8, 9]
-        println("listOf(4,8,2,4,9).sortedByDescending { it < 9 } = ${listOf(4,8,2,4,9).sortedByDescending { it < 9 }}") // [4, 8, 2, 4, 9]
-        println(listOf(2,9,5,null,1,5,0,3,null).sortedWith(
-            // nullsLast(compareBy { it })  // Will have nulls coming last in a list
-            nullsFirst(compareBy { it })
+        println(listOf(4, 8, 2, 4, 9).sortedDescending())    // Sorts items [9,8,4,4,2]
+        println("listOf(4,8,2,4,9).sortedBy { it > 4 } = ${listOf(4, 8, 2, 4, 9).sortedBy { it > 4 }}") // [4, 2, 4, 8, 9]
+        println("listOf(4,8,2,4,9).sortedByDescending { it < 9 } = ${listOf(4, 8, 2, 4, 9).sortedByDescending { it < 9 }}") // [4, 8, 2, 4, 9]
+        println(listOf(2, 9, 5, null, 1, 5, 0, 3, null).sortedWith(
+                // nullsLast(compareBy { it })  // Will have nulls coming last in a list
+                nullsFirst(compareBy { it })
         ))  // [null, null, 0, 1, 2, 3, 5, 5, 9]
 
         data class Cat(val name: String, val age: Int, val weight: Int)
+
         val cats7 = mutableListOf<Cat>()
         cats7.add(Cat("Мурзик", 4, 5400))
         cats7.add(Cat("Рыжик", 5, 6500))
         cats7.add(Cat("Василий", 4, 5100))
         cats7.add(Cat("Мурзик", 6, 5400))
         println(cats7.sortedWith(
-            compareBy(
-                {it.name}, {it.age}
-            )
+                compareBy(
+                        { it.name }, { it.age }
+                )
         ))  // [Cat(name=Василий, age=4, weight=5100), Cat(name=Мурзик, age=4, weight=5400), Cat(name=Мурзик, age=6, weight=5400), Cat(name=Рыжик, age=5, weight=6500)]
 
         //TODO Stopped @ Сортируем по длине имён в порядке возрастания, используя Comparator.
         // http://developer.alexanderklimov.ru/android/kotlin/collection.php
+
+        val mutableList = mutableListOf("1", "2", "3", "1", "2", "3", "1", "2", "3")    // Mutable list (one can add items to it)
+        mutableList.removeAll { it == "1" }
+        println(mutableList)    // [2, 3, 2, 3, 2, 3]
+        mutableList.remove("2")     // Removes 1st matching element
+        println(mutableList)    // [3, 2, 3, 2, 3]
     }
 
     fun setDemo() {
@@ -254,6 +307,7 @@ class Basics {
         val map = set2.partition { it % 2 == 0 }    // Splitting lists which conclude pair
         println(map)    // ([2, 4, 6], [1, 3, 5])
         println(setOfNotNull(null, 5, "s", null, "fgh"))    // [5, s, fgh]
+        println(3 in set2)  // true     // Tells if 3 present in set2
         val hashSet = hashSetOf(1, 2, 3)
         hashSet.add(4)
         val sortedSet = sortedSetOf(5, 20, 3, 1, 9) // Creates treeSet that has sorted set in it
@@ -265,6 +319,7 @@ class Basics {
 
     fun rangesDemo() {
         val range1 = 1..10
+//        val range11 = 10..<20     // Present in Kotlin beginning with version 1.9
         val range2 = 'A'..'Z'
         val range3 = 1.1..10.1
         val range4 = listOf("Scala", "Java", "Kotlin", "Python", "Ruby")
@@ -278,6 +333,9 @@ class Basics {
         println("range3 = " + range3.toRange()) // [1.1, 10.1]
         println("Kotlin" in range4) // true
         arrayOf(range3.toRange()).iterator().forEach { println(it) }    // [1.1, 10.1]
+        CharRange('1', '9').toList().forEach(System.out::println)    // Prints 1 to 9 each with new row
+        println(CharRange('1', '9').toList())    // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        println(('z' downTo 's' step 2).toList())   // [z, x, v, t]
     }
 
     fun javaRelatedDemo() {
@@ -312,10 +370,21 @@ class Basics {
 
     fun withDemo() {    // Calling multiple methods on an object instance (with)
         class Turtle {
-            fun penDown() { /** Empty for demo */ }
-            fun penUp() { /** Empty for demo */ }
-            fun turn(degrees: Double) { /** Empty for demo */ }
-            fun forward(pixels: Double) { /** Empty for demo */ }
+            fun penDown() {
+                /** Empty for demo */
+            }
+
+            fun penUp() {
+                /** Empty for demo */
+            }
+
+            fun turn(degrees: Double) {
+                /** Empty for demo */
+            }
+
+            fun forward(pixels: Double) {
+                /** Empty for demo */
+            }
         }
 
         val myTurtle = Turtle()
@@ -330,22 +399,18 @@ class Basics {
         }
     }
 
-    fun lambdaDemo() {
-        val predicate = ::elvisOperatorDemo
-        println(predicate)  // function elvisOperatorDemo (Kotlin reflection is not available)
-        // println(::predicate)  // Unsupported - References to a variables are not supported yet
-        val fruits = listOf("banana", "avocado", "apple", "kiwifruit")
-        val ordinalsList = listOf(1, 2, 3, 4)
-        fruits
-            .filter { it.startsWith("a") }
-            .sortedBy { it }
-            .map { it.uppercase() }
-            .forEach { println(it) }    // APPLE    AVOCADO
-        // Passes through each items in ordinalsList and runs isEven on them.
-        ordinalsList.any(::isEven) // true
-        ordinalsList.filter { isEven(it) }  // [2, 4]
-        // same as
-        ordinalsList.filter(::isEven)  // [2, 4]
+    /**
+     * https://kotlinlang.org/docs/kotlin-tour-functions.html#lambdas-exercise-2
+     * This seems to be a higher order function
+     */
+    private fun repeatN(n: Int, action: () -> Unit) {
+        repeat(n) {
+            action.invoke()
+        }
+    }
+
+    fun repeatNInvocation() {
+        repeatN(5, { println("Hello") })
     }
 
     fun idiomsDemo(context: Context) {
@@ -571,6 +636,16 @@ class Basics {
 //        println("aba is a palindrome - " + "aba".isPalindrome())
 //        println("abba is a palindrome - " + "abba".isPalindrome())
 //        println("abbc is a palindrome - " + "abbc".isPalindrome())
+    }
+
+    /**
+     * https://developer.alexanderklimov.ru/android/kotlin/jvmoverloads.php
+     * @JvmOverloads    Tells compiler to create several implementations of this fun. They will be
+     *                  needed in java code.
+     */
+    @JvmOverloads
+    fun setPersonInfo(name: String = "Ivan", lastname: String = "Ivanov", age: Int = 25) {
+        // Some ops
     }
 
     // 'operator' modifier is inapplicable on this function: receiver must be a supertype of the return type
