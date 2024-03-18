@@ -193,5 +193,8 @@
     <string name="default_degrees_values">25</string>
     <string name="default_degrees_type">C</string>
     <string name="title_activity_play_audio">PlayAudioActivity</string>
+    <string name="task2_description">DownloadManager Demo.\nCheck notification bar for downloaded files.</string>
+    <string name="run_files_downloading">Run files downloading</string>
+    <string name="open_downloads_screen">Open downloads screen</string>
 
 </resources>

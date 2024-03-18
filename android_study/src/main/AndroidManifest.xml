@@ -151,11 +151,6 @@
         <activity
             android:name="com.example.vladislav.androidstudy.kotlin.KotlinStudyActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.example.vladislav.androidstudy.jobs.listviewing.recyclerview.RecyclerViewActivity" />
         <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.ContextActivity" />
@@ -199,8 +194,17 @@
         <activity android:name="com.example.vladislav.androidstudy.javarx2.example3.RxJava2Example3Activity" />
         <activity android:name="com.example.vladislav.androidstudy.javarx2.example4.RxJava2Example4Activity" />
         <activity
-            android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.presentation.CoroutinesFilesDownloadingDemoActivity"
+            android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.presentation.CoroutinesFilesDownloadingDemoActivity"
             android:exported="true">
+        </activity>
+        <activity
+            android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.task2.presentation.DownloadManagerDemoActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.example.vladislav.androidstudy.javarx2.example5.RxJava2Example5Activity"
@@ -242,6 +246,12 @@
                 <action android:name=".receivers.BroadcastReceiverExample" />
             </intent-filter>
         </receiver>
+        <receiver android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.task2.data.FileDownloadingCompleteReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>>
 
         <service
             android:name="com.example.vladislav.androidstudy.services.playaudio.PlayAudioServiceDemo"

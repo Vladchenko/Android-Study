@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.kotlin.filesdownloading.presentation
+package com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.presentation
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vladislav.androidstudy.R
-import com.example.vladislav.androidstudy.kotlin.filesdownloading.network.DownloadState
+import com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.data.network.DownloadState
 
 /**
  * Adapter for a recyclerview of List<FileModel>

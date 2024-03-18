@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.kotlin.filesdownloading.calladapter
+package com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.data.calladapter
 
 import kotlinx.coroutines.CancellableContinuation
 import retrofit2.Call

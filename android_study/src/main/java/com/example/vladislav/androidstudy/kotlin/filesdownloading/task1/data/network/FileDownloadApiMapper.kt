@@ -1,6 +1,6 @@
-package com.example.vladislav.androidstudy.kotlin.filesdownloading.network
+package com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.data.network
 
-import com.example.vladislav.androidstudy.kotlin.filesdownloading.calladapter.FlowCallAdapterFactory
+import com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.data.calladapter.FlowCallAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged

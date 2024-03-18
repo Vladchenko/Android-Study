@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.kotlin.filesdownloading.calladapter
+package com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.data.calladapter
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

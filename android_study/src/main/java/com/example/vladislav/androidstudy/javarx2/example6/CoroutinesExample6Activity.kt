@@ -15,10 +15,12 @@ import com.example.vladislav.androidstudy.javarx2.example5.FileModelsRecyclerVie
 import com.example.vladislav.androidstudy.javarx2.example5.FileProgressModel
 import com.example.vladislav.androidstudy.javarx2.example5.createFilePath
 import com.example.vladislav.androidstudy.javarx2.example5.extractFileNameFromPath
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
- * This example performs a files downloading, with a progress, using JavaRx.
+ * This example performs a files downloading, with a progress, using Coroutines.
  * Once downloading complete, textview informs about it.
  */
 class CoroutinesExample6Activity : AppCompatActivity() {
@@ -60,25 +62,25 @@ class CoroutinesExample6Activity : AppCompatActivity() {
         // Running code on UI thread
         lifecycleScope.launch {
             // Running code on worker thread
-        withContext(Dispatchers.IO) {
-            FileDownloadingApiMapper().downloadFileWithProgress(
-                url,
-                filePath,
-                DownloadProgressListener({
-                    updateListOnlyWithNewItems(
-                        FileProgressModel(
-                            extractFileNameFromPath(filePath),
-                            it
+            withContext(Dispatchers.IO) {
+                FileDownloadingApiMapper().downloadFileWithProgress(
+                    url,
+                    filePath,
+                    DownloadProgressListener({
+                        updateListOnlyWithNewItems(
+                            FileProgressModel(
+                                extractFileNameFromPath(filePath),
+                                it
+                            )
                         )
-                    )
-                    // Switching back to UI thread, to fetch data
-                    lifecycleScope.launch {
-                        recyclerViewAdapter.setFileProgressModels(filesList)
-                        recyclerViewAdapter.notifyDataSetChanged()
-                    }
-                })
-            )
-        }
+                        // Switching back to UI thread, to fetch data
+                        lifecycleScope.launch {
+                            recyclerViewAdapter.setFileProgressModels(filesList)
+                            recyclerViewAdapter.notifyDataSetChanged()
+                        }
+                    })
+                )
+            }
         }
     }
 
@@ -97,17 +99,7 @@ class CoroutinesExample6Activity : AppCompatActivity() {
         }
     }
 
-    private fun showError(message: String) {
-        resultTextView.setTextColor(getColor(R.color.colorAccent))
-        resultTextView.text = message
-    }
-
-    private fun showResult(message: String) {
-        resultTextView.setTextColor(getColor(R.color.color_green))
-        resultTextView.text = message
-    }
-
-    /** @return [Intent] for RxJava2Example5Activity, using [context] */
+    /** @return [Intent] for CoroutinesExample6Activity, using [context] */
     fun newIntent(context: Context): Intent {
         return Intent(context, CoroutinesExample6Activity::class.java)
     }

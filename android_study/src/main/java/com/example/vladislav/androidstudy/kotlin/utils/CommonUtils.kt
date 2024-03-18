@@ -17,3 +17,8 @@ fun printArray(array: IntArray) {
     array.map { print("$it ") }
     println()
 }
+
+/** Extract name of file from url */
+fun String.getNameFromUrl():String {
+    return this.substring(this.lastIndexOf('/') + 1, this.length)
+}

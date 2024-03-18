@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.kotlin.filesdownloading.presentation
+package com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.presentation
 
 import android.content.Context
 import android.content.Intent
@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vladislav.androidstudy.R
 import com.example.vladislav.androidstudy.javarx2.example5.createFilePath
-import com.example.vladislav.androidstudy.kotlin.filesdownloading.network.DownloadState
-import com.example.vladislav.androidstudy.kotlin.filesdownloading.network.FileDownloadApiMapper
-import com.example.vladislav.androidstudy.kotlin.filesdownloading.utils.FileDownloadUtils.updateListOnlyWithNewItems
+import com.example.vladislav.androidstudy.kotlin.filesdownloading.FilesUrls.Companion.URL_LIST
+import com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.data.network.DownloadState
+import com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.data.network.FileDownloadApiMapper
+import com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.utils.FileDownloadUtils.updateListOnlyWithNewItems
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,7 +43,7 @@ class CoroutinesFilesDownloadingDemoActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        resultTextView = findViewById(R.id.resultTextView)
+        resultTextView = findViewById(R.id.description_text_view)
         button = findViewById(R.id.run_downloading_button)
     }
 
@@ -55,8 +56,8 @@ class CoroutinesFilesDownloadingDemoActivity : AppCompatActivity() {
 
     private val clickListener = View.OnClickListener {
         if (!isDownloading) {
-            // This coroutine will be destroyed when this activity destroyed,
-            // since it is attached to lifecycle of this activity
+//         This coroutine will be destroyed when this activity destroyed,
+//         since it is attached to lifecycle of this activity
             lifecycleScope.launch {
                 downloadFiles(URL_LIST)
             }
@@ -116,13 +117,5 @@ class CoroutinesFilesDownloadingDemoActivity : AppCompatActivity() {
     /** @return [Intent] for CoroutinesFilesDownloadingDemoActivity, using [context] */
     fun newIntent(context: Context): Intent {
         return Intent(context, CoroutinesFilesDownloadingDemoActivity::class.java)
-    }
-
-    companion object {
-        private val URL_LIST = listOf(
-            "https://mp3bob.ru/download/muz/Numb_[mp3pulse.ru].mp3",
-            "https://mp3bob.ru/download/muz02/Ruki_Vverkh_-_Ottepel_sample.mp3",
-            "https://mp3bob.ru/download/muz/Ruki_Vverkh_-_Rasskazhi_Mne_[].mp3"
-        )
     }
 }

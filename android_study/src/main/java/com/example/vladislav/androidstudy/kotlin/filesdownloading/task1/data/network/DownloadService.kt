@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.kotlin.filesdownloading.network
+package com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.data.network
 
 import okhttp3.ResponseBody
 import retrofit2.http.GET
