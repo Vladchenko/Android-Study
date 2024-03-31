@@ -3,8 +3,12 @@ package com.example.vladislav.androidstudy
 import android.app.Application
 import android.content.res.Configuration
 import android.widget.Toast
+import com.example.vladislav.androidstudy.kotlin.demo.android.contentprovider.phonecontacts.di.ContactsComponent
+import com.example.vladislav.androidstudy.kotlin.demo.android.contentprovider.phonecontacts.di.DaggerContactsComponent
 
 class MyApplication: Application() {
+
+    lateinit var contactsComponent: ContactsComponent
 
     // // Reference to the application graph that is used across the whole app
     // val loginComponent: LoginComponent by lazy {
@@ -17,6 +21,8 @@ class MyApplication: Application() {
     // Overriding this method is totally optional!
     override fun onCreate() {
         super.onCreate()
+        // This way one passes an application context to dagger graph
+        contactsComponent = DaggerContactsComponent.factory().create(applicationContext)
         // appComponent = DaggerApplicationComponent.create();
         Toast.makeText(
             this, resources.getText(R.string.application_created_text),

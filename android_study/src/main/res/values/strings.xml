@@ -197,4 +197,6 @@
     <string name="run_files_downloading">Run files downloading</string>
     <string name="open_downloads_screen">Open downloads screen</string>
 
+    <string name="contacts_permission_was_not_granted">Contacts permission was not granted !!!</string>
+    <string name="contacts_permission_already_granted">Contacts permission already granted</string>
 </resources>
