@@ -1,7 +1,6 @@
 package com.example.vladislav.androidstudy.kotlin.demo
 
 import android.util.Log
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -10,7 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.NonCancellable.invokeOnCompletion
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -21,16 +19,16 @@ import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.isActive
-import kotlinx.coroutines.job
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.yield
-import kotlin.coroutines.coroutineContext
 import kotlin.random.Random
 import kotlin.system.measureTimeMillis
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * https://kotlinlang.ru/docs/coroutines-basics.html
@@ -194,7 +192,8 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         CoroutineScope(Dispatchers.Main).launch {
             // CoroutineScope(Dispatchers.Main) runs on main
             Log.d(TAG, "CoroutineScope(Dispatchers.Main) runs on ${Thread.currentThread().name}")
-            // This coroutine runs on a main thread, but doesn't block it
+            // This coroutine runs on a main thread, but doesn't block it, because it frees a thread
+            // (suspends), while performing a delay().
             while (true) {
                 delay(1000L)
             }
@@ -212,7 +211,10 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         }
         CoroutineScope(CoroutineName("MyCoroutine")).launch {
             // Thread is DefaultDispatcher-worker-1
-            Log.d(TAG, "CoroutineScope(oroutineName(\"MyCoroutine\")).launch runs on ${Thread.currentThread().name}")
+            Log.d(
+                TAG,
+                "CoroutineScope(CoroutineName(\"MyCoroutine\")).launch runs on ${Thread.currentThread().name}"
+            )
             // [CoroutineName(MyCoroutine), StandaloneCoroutine{Active}@53aea84, Dispatchers.Default]
             Log.d(TAG, this.coroutineContext.toString())
             // CoroutineName(MyCoroutine)
@@ -222,19 +224,31 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         }
         CoroutineScope(Dispatchers.Main).launch {
             // CoroutineScope(Dispatchers.Main).launch runs on main
-            Log.d(TAG, "CoroutineScope(Dispatchers.Main).launch runs on ${Thread.currentThread().name}")
+            Log.d(
+                TAG,
+                "CoroutineScope(Dispatchers.Main).launch runs on ${Thread.currentThread().name}"
+            )
         }
         CoroutineScope(Dispatchers.Default).launch {
             // CoroutineScope(Dispatchers.Default).launch runs on DefaultDispatcher-worker-2
-            Log.d(TAG, "CoroutineScope(Dispatchers.Default).launch runs on ${Thread.currentThread().name}")
+            Log.d(
+                TAG,
+                "CoroutineScope(Dispatchers.Default).launch runs on ${Thread.currentThread().name}"
+            )
         }
         CoroutineScope(Dispatchers.Unconfined).launch {
             // CoroutineScope(Dispatchers.Unconfined).launch runs on main
-            Log.d(TAG, "CoroutineScope(Dispatchers.Unconfined).launch runs on ${Thread.currentThread().name}")
+            Log.d(
+                TAG,
+                "CoroutineScope(Dispatchers.Unconfined).launch runs on ${Thread.currentThread().name}"
+            )
         }
         CoroutineScope(Dispatchers.IO).launch {
             // CoroutineScope(Dispatchers.IO).launch runs on DefaultDispatcher-worker-1
-            Log.d(TAG, "CoroutineScope(Dispatchers.IO).launch runs on ${Thread.currentThread().name}")
+            Log.d(
+                TAG,
+                "CoroutineScope(Dispatchers.IO).launch runs on ${Thread.currentThread().name}"
+            )
         }
         // There are also viewModelScope in ViewModel and lifeCycleScope in activity and fragments
     }
@@ -251,7 +265,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         // Thread.sleep(2000L) // block main thread for 2 seconds to keep JVM alive (for coroutine could complete)
     }
 
-    fun simpleCoroutineDemo2() = runBlocking<Unit> { // start main coroutine
+    fun simpleCoroutineDemo2() = runBlocking<Unit> { // start coroutine on a main thread
         GlobalScope.launch { // launch a new coroutine in background and continue
             delay(1000L)
             Log.d(TAG, "World!")
@@ -274,13 +288,12 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
     }
 
     fun simpleCoroutineDemo4() = runBlocking { // <Unit> can be omitted
-        // Launch coroutine on main thread
-        // Main thread gets blocked
+        // Launch coroutine on main thread. Coroutine will suspend for 10 seconds
         GlobalScope.launch(Dispatchers.Main) {
             delay(10000L)
             Log.d(TAG, "First delay!")
         }
-        // While this code runs, main thread is blocked
+        // This coroutine is also executed on the Main thread
         repeat(10) {
             delay(200)
             Log.d(TAG, "$it")
@@ -329,14 +342,19 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
     /** Running each coroutine right when it is created */
     fun simpleCoroutineDemo8() {
         GlobalScope.launch(Dispatchers.IO) {
+            val jobs = mutableListOf<Job>()
             repeat(100) {
-                launch {
-                    delay(Random.nextLong(3000))
-                    Log.d(TAG, "Coroutines #$it done its job")
-                }
+                jobs.add(
+                    launch {// Adding (start = CoroutineStart.LAZY) doesn't run
+                        // coroutines in parallel. Why?
+                        delay(Random.nextLong(3000))
+                        Log.d(TAG, "Coroutines #$it done its job")
+                    })
             }
+            jobs.joinAll()
             Log.d(TAG, "simpleCoroutineDemo8 finished its job")
         }
+        // Also watch https://stackoverflow.com/questions/63812589/coroutines-not-running-in-parallel
     }
 
     /** Create all the coroutines before running them and later run them. */
@@ -374,24 +392,6 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         }
     }
 
-    /** Just like simpleCoroutineDemo9, but using launch and list of jobs instead of async. */
-    fun simpleCoroutineDemo11() {
-        GlobalScope.launch(Dispatchers.IO) {
-            val coroutines: List<Job> = List(100) {
-                launch(start = CoroutineStart.LAZY) {
-                    doWork(it)
-                }
-            }
-            // But comparing to simpleCoroutineDemo10, these will execute in parallel, as I expect.
-            // Why ?
-            coroutines.forEach {
-                it.start()
-                Log.d(TAG, it.toString())
-            }
-            Log.d(TAG, "simpleCoroutineDemo11 finished its job")
-        }
-    }
-
     private suspend fun doWork(it: Int): String {
         delay(Random.nextLong(3000))
         return "Coroutines #$it done its job"
@@ -410,19 +410,31 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
             }
             launch(Dispatchers.IO) {
                 // Unconfined             : I'm working in a thread DefaultDispatcher-worker-1
-                Log.d(TAG, "IO                     : I'm working in a thread ${Thread.currentThread().name}")
+                Log.d(
+                    TAG,
+                    "IO                     : I'm working in a thread ${Thread.currentThread().name}"
+                )
             }
             launch(Dispatchers.Unconfined) {
                 // Unconfined             : I'm working in a thread main
-                Log.d(TAG, "Unconfined             : I'm working in a thread ${Thread.currentThread().name}")
+                Log.d(
+                    TAG,
+                    "Unconfined             : I'm working in a thread ${Thread.currentThread().name}"
+                )
             }
             launch(Dispatchers.Default) {
                 // Default                : I'm working in a thread DefaultDispatcher-worker-2
-                Log.d(TAG, "Default                : I'm working in a thread ${Thread.currentThread().name}")
+                Log.d(
+                    TAG,
+                    "Default                : I'm working in a thread ${Thread.currentThread().name}"
+                )
             }
             launch(newSingleThreadContext("MyOwnThread")) {
                 // MyOwnThread            : I'm working in a thread MyOwnThread
-                Log.d(TAG, "MyOwnThread            : I'm working in a thread ${Thread.currentThread().name}")
+                Log.d(
+                    TAG,
+                    "MyOwnThread            : I'm working in a thread ${Thread.currentThread().name}"
+                )
             }
         }
     }
@@ -430,19 +442,31 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
     fun demoDispatchersAndThreads2() = runBlocking<Unit> {
         launch {
             // main runBlocking      : I'm working in thread main
-            Log.d(TAG, "main runBlocking      : I'm working in thread ${Thread.currentThread().name}")
+            Log.d(
+                TAG,
+                "main runBlocking      : I'm working in thread ${Thread.currentThread().name}"
+            )
         }
         launch(Dispatchers.Unconfined) {
             // Unconfined            : I'm working in thread main
-            Log.d(TAG, "Unconfined            : I'm working in thread ${Thread.currentThread().name}")
+            Log.d(
+                TAG,
+                "Unconfined            : I'm working in thread ${Thread.currentThread().name}"
+            )
         }
         launch(Dispatchers.Default) {
             // Default               : I'm working in thread DefaultDispatcher-worker-1
-            Log.d(TAG, "Default               : I'm working in thread ${Thread.currentThread().name}")
+            Log.d(
+                TAG,
+                "Default               : I'm working in thread ${Thread.currentThread().name}"
+            )
         }
         launch(newSingleThreadContext("MyOwnThread")) {
             // newSingleThreadContext: I'm working in thread MyOwnThread
-            Log.d(TAG, "newSingleThreadContext: I'm working in thread ${Thread.currentThread().name}")
+            Log.d(
+                TAG,
+                "newSingleThreadContext: I'm working in thread ${Thread.currentThread().name}"
+            )
         }
     }
 
@@ -476,18 +500,22 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         }
     }
 
-    /** One can monitor if a coroutines was cancelled using isActive flag */
+    /**
+     * One can monitor if a coroutine was cancelled using isActive flag
+     * or use ensureActive() or yield()
+     */
     fun cancelWorkingDemo() {
         val job = CoroutineScope(Dispatchers.Default).launch {
             for (i in 30..40) {
                 if (isActive) {     // This flag checks if coroutine was cancelled
                     Log.d(TAG, "Result for i=$i = ${fibonacci(i)}")
                 }
+                // One can also use ensureActive() or yield()
             }
             Log.d(TAG, "cancelNotWorkingDemo finished its work")
         }
         runBlocking {
-            delay(100L)
+            delay(1000L)
             job.cancel()
             Log.d(TAG, "cancelDemo cancelled")
         }
@@ -574,8 +602,9 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             val time = measureTimeMillis {
                 var response1 = ""
-                /* Calling launch for asynchronous operation is a bad practice. Instead one should call async.
-                 * This is a deferred in time job. Check twoNetworkCalls3 function for it. */
+                // Calling launch for asynchronous operation is a bad practice.
+                // Instead one should call async. This is a deferred in time job.
+                // Check twoNetworkCalls3 function for it.
                 val job = launch {
                     response1 = networkCall1()
                 }
@@ -598,7 +627,10 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
             val time = measureTimeMillis {
                 val response1 = async { networkCall1() }
                 val response2 = async { networkCall2() }
-                Log.d(TAG, response1.await())   // await blocks current coroutines until answer is available
+                Log.d(
+                    TAG,
+                    response1.await()
+                )   // await blocks current coroutines until answer is available
                 Log.d(TAG, response2.await())
             }
             Log.d(TAG, "time spent = $time")
@@ -613,6 +645,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         delay(2000L)
         return "networkCall1 response"
     }
+
 
     private suspend fun networkCall2(): String {
         delay(2000L)
@@ -657,6 +690,21 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         CoroutineScope(Dispatchers.Default).launch(NonCancellable) {
             // Some code
         }
+    }
+
+    suspend fun executeManyCoroutinesInParallelUsingAsync(): List<Int> {
+        val result = coroutineScope {
+            (1..5).map { n ->
+                async {
+                    val delay = Random.nextInt(100, 1000)
+                    delay(delay.milliseconds)
+                    println("- processing $n")
+                    n * n
+                }
+            }.awaitAll()
+        }
+        println("Result: $result")
+        return result
     }
 
     companion object {

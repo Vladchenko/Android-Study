@@ -5,26 +5,15 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:debuggable="true"
         android:icon="@mipmap/space_marine"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.example.vladislav.androidstudy.services.playaudio.PlayAudioActivity"
-            android:exported="true"
-            android:label="@string/title_activity_play_audio"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name="com.example.vladislav.androidstudy.dagger2.example6.presentation.LoginActivity"
             android:exported="true"
-            android:label="@string/title_activity_login">
-        </activity>
-        <activity android:name="com.example.vladislav.androidstudy.separatestudypackage.weatherforecast.WeatherForecastActivity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity"
-            android:exported="false" />
+            android:label="@string/title_activity_login"></activity>
         <activity android:name="com.example.vladislav.androidstudy.activities.MainWeightActivity" />
         <activity
             android:name="com.example.vladislav.androidstudy.activities.InitialActivity"
@@ -36,15 +25,6 @@
             <!-- android:screenOrientation="landscape" makes orientation to be only landscape -->
             <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
         </activity>
-        <activity
-            android:name="com.example.vladislav.androidstudy.kotlin.demo.graphics.GraphicsDemoActivity"
-            android:exported="true"
-            android:taskAffinity="com.example.vladislav.androidstudy.kotlin.demo.graphics.GraphicsDemoActivity">
-        </activity>
-        <activity
-            android:name="com.example.vladislav.androidstudy.separatestudypackage.TestStandActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
         <!-- android:launchMode=""
 
         An activity with the "standard" or "singleTop" launch mode can be instantiated multiple
@@ -66,35 +46,32 @@
 
         https://developer.android.com/guide/topics/manifest/activity-element.html#lmode
         -->
-        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.handler.HandlerActivity" />
         <activity android:name="com.example.vladislav.androidstudy.activities.ResultActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.LayoutingActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.AligningActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.listviewing.ListsViewActivity" />
         <activity android:name="com.example.vladislav.androidstudy.activities.MenuActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.fragments.fragments_activity.TwoFragmentsActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.fragments.fragments_activity.DynamicFragmentsActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.services.ServicesDemo1Activity" />
+        <activity android:name="com.example.vladislav.androidstudy.activities.ParcelableActivity" />
         <activity android:name="com.example.vladislav.androidstudy.activities.dynamic_layout.ProgrammaticLayoutActivity" />
         <activity android:name="com.example.vladislav.androidstudy.activities.orientation_change.RotationActivity" />
         <activity android:name="com.example.vladislav.androidstudy.activities.ContextMenuActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTasksActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTask1Activity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTask2Activity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTask3Activity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTask4Activity" />
-        <activity android:name="com.example.vladislav.androidstudy.services.ServicesActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.activities.ParcelableActivity" />
         <activity android:name="com.example.vladislav.androidstudy.activities.dynamic_layout.buttons_inserting.AddButtonsActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.activities.dynamic_layout.DynamicButtonsSizeActivity" />
         <activity android:name="com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment.PassFromActivity" />
         <activity android:name="com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment.PassToActivity" />
+        <activity
+            android:name="com.example.vladislav.androidstudy.activities.orientation_change.OneOrTwoFragments.SomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+
+        <activity android:name="com.example.vladislav.androidstudy.fragments.FragmentsActivity" />
         <activity
             android:name="com.example.vladislav.androidstudy.fragments.fragments_activity.OneFragmentActivity"
             android:label="@string/title_activity_one_fragment"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.example.vladislav.androidstudy.fragments.FragmentsActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.fragments.fragments_activity.DynamicFragmentsActivity" />
         <activity android:name="com.example.vladislav.androidstudy.fragments.fragments_activity.FragmentsActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.banksdetails.BanksDetailsActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.fragments.fragments_activity.TwoFragmentsActivity" />
+        <activity
+            android:name="com.example.vladislav.androidstudy.fragments.start_fragment.TwoFragmentDisplayActivity"
+            android:label="@string/title_activity_simple_fragment"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.example.vladislav.androidstudy.intents.IntentsActivity" />
         <activity android:name="com.example.vladislav.androidstudy.intents.SimpleIntentActivity" />
         <activity
@@ -102,7 +79,6 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -112,7 +88,6 @@
             android:label="activity 2">
             <intent-filter>
                 <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -148,12 +123,55 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.MainRXActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.RxJavaSimpleActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.BooksActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.ColorsActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.SchedulerActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.javarx2.example1.RxJava2Example1Activity" />
+        <activity android:name="com.example.vladislav.androidstudy.javarx2.example3.RxJava2Example3Activity" />
+        <activity android:name="com.example.vladislav.androidstudy.javarx2.example4.RxJava2Example4Activity" />
+        <activity
+            android:name="com.example.vladislav.androidstudy.javarx2.example5.RxJava2Example5Activity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.vladislav.androidstudy.javarx2.example6.CoroutinesExample6Activity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.vladislav.androidstudy.javarx2.example7.JavaRxExample7Activity"
+            android:exported="true" />
+
+        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.handler.HandlerActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.LayoutingActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.AligningActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.listviewing.ListsViewActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTasksActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTask1Activity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTask2Activity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTask3Activity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTask4Activity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.banksdetails.BanksDetailsActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.listviewing.recyclerview.RecyclerViewActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.ContextActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.WebBrowserActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.sqlite.DBActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.CommonActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.criminalrecords.ui.CriminalRecordsActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.jobs.currency.CurrencyActivity" />
+        <activity
+            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.handler.HandlerActivityKt"
+            android:exported="true" />
+        <activity
+            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.looperthread.LooperThreadActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.handlerthread.HandlerThreadActivity"
+            android:exported="true" />
+
         <activity
             android:name="com.example.vladislav.androidstudy.kotlin.KotlinStudyActivity"
-            android:exported="true">
-        </activity>
-        <activity
-            android:name=".kotlin.demo.android.contentprovider.phonecontacts.presentation.view.ContactsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -161,17 +179,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.vladislav.androidstudy.jobs.listviewing.recyclerview.RecyclerViewActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.ContextActivity" />
         <activity
-            android:name="com.example.vladislav.androidstudy.activities.orientation_change.OneOrTwoFragments.SomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" /> <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
+            android:name=".kotlin.demo.android.contentprovider.phonecontacts.presentation.view.ContactsActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name="com.example.vladislav.androidstudy.kotlin.demo.graphics.GraphicsDemoActivity"
+            android:exported="true"
+            android:taskAffinity="com.example.vladislav.androidstudy.kotlin.demo.graphics.GraphicsDemoActivity"></activity>
+        <activity
+            android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.presentation.CoroutinesFilesDownloadingDemoActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.task2.presentation.DownloadManagerDemoActivity"
+            android:exported="true"></activity>
+        <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
         <!-- // This receiver should not accept any broadcasts, but in fact it is overridden in code and -->
         <!-- // has some intent-filter provided. -->
-        <activity android:name="com.example.vladislav.androidstudy.activities.dynamic_layout.DynamicButtonsSizeActivity" />
+
         <!-- // Presence of an intent-filter in a broadcast receiver's declaration in this file, makes -->
         <!-- // it exported tag to be automatically true: -->
         <!-- // android:exported = true -->
+
         <activity android:name="com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity.ButtonsActivity" />
         <activity
             android:name="com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity.TimeDateActivity"
@@ -183,57 +211,29 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.vladislav.androidstudy.jobs.WebBrowserActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.sqlite.DBActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.separatestudypackage.weatherforecast.WeatherForecastActivity" />
+        <activity android:name="com.example.vladislav.androidstudy.separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity" />
         <activity
-            android:name="com.example.vladislav.androidstudy.fragments.start_fragment.TwoFragmentDisplayActivity"
-            android:label="@string/title_activity_simple_fragment"
+            android:name="com.example.vladislav.androidstudy.separatestudypackage.TestStandActivity"
+            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.CommonActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.criminalrecords.ui.CriminalRecordsActivity" />
         <activity
-            android:name="com.example.vladislav.androidstudy.jobs.currency.CurrencyActivity"
-            android:exported="false" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.MainRXActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.RxJavaSimpleActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.BooksActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.ColorsActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.SchedulerActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example1.RxJava2Example1Activity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example3.RxJava2Example3Activity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example4.RxJava2Example4Activity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.presentation.CoroutinesFilesDownloadingDemoActivity"
+            android:name="com.example.vladislav.androidstudy.services.ServicesActivity"
             android:exported="true">
         </activity>
+        <activity android:name="com.example.vladislav.androidstudy.services.ServicesDemo1Activity" />
         <activity
-            android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.task2.presentation.DownloadManagerDemoActivity"
-            android:exported="true">
-        </activity>
-        <activity
-            android:name="com.example.vladislav.androidstudy.javarx2.example5.RxJava2Example5Activity"
-            android:exported="true" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.javarx2.example6.CoroutinesExample6Activity"
-            android:exported="true" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.javarx2.example7.JavaRxExample7Activity"
-            android:exported="true" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.handler.HandlerActivityKt"
-            android:exported="true" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.looperthread.LooperThreadActivity"
-            android:exported="true" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.handlerthread.HandlerThreadActivity"
-            android:exported="true" />
+            android:name="com.example.vladislav.androidstudy.services.playaudio.PlayAudioActivity"
+            android:exported="true"
+            android:label="@string/title_activity_play_audio"
+            android:theme="@style/AppTheme"></activity>
+
 
         <provider
             android:name="com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesContentProvider"
             android:authorities="com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesContentProvider"
             android:exported="false" />
+
 
         <receiver android:name="com.example.vladislav.androidstudy.receivers.BroadcastReceiverSimple" />
         <receiver
@@ -250,12 +250,14 @@
                 <action android:name=".receivers.BroadcastReceiverExample" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.task2.data.FileDownloadingCompleteReceiver"
+        <receiver
+            android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.task2.data.FileDownloadingCompleteReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
-        </receiver>>
+        </receiver>
+
 
         <service
             android:name="com.example.vladislav.androidstudy.services.playaudio.PlayAudioService"

@@ -11,7 +11,7 @@ import java.io.FileOutputStream
 /**
  * File downloading using Retrofit and Kotlin Coroutines
  */
-class FileDownloadingApiMapper {
+class FileDownloadingDataSource {
 
     /** Download file on [fileUrl], [filePath], having a progress fetch using [progressListener] */
     suspend fun downloadFileWithProgress(

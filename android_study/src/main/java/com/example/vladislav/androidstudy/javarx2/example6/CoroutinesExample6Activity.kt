@@ -63,7 +63,7 @@ class CoroutinesExample6Activity : AppCompatActivity() {
         lifecycleScope.launch {
             // Running code on worker thread
             withContext(Dispatchers.IO) {
-                FileDownloadingApiMapper().downloadFileWithProgress(
+                FileDownloadingDataSource().downloadFileWithProgress(
                     url,
                     filePath,
                     DownloadProgressListener({

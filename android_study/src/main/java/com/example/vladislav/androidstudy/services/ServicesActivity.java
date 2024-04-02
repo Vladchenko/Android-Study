@@ -1,5 +1,7 @@
 package com.example.vladislav.androidstudy.services;
 
+import static com.example.vladislav.androidstudy.services.ServiceUtils.isMyServiceRunning;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -20,15 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vladislav.androidstudy.R;
 
-import static com.example.vladislav.androidstudy.services.ServiceUtils.isMyServiceRunning;
-
 /**
  * Activity that show demos for services implemented in the app.
  */
 public class ServicesActivity extends AppCompatActivity {
 
     /**
-     * On notifying an mActivity about a service's some work is done, see
+     * On notifying an activity about a service's some work is done, see
      * <a href="https://stackoverflow.com/questions/4111398/notify-activity-from-service">...</a>
      * <a href="http://www.vogella.com/tutorials/AndroidServices/article.html">...</a>
      */
