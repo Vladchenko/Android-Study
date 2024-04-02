@@ -258,7 +258,7 @@
         </receiver>>
 
         <service
-            android:name="com.example.vladislav.androidstudy.services.playaudio.PlayAudioServiceDemo"
+            android:name="com.example.vladislav.androidstudy.services.playaudio.PlayAudioService"
             android:description="@string/play_audio_service_description"
             android:label="@string/play_audio_service_description" />
         <service

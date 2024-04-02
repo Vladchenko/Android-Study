@@ -5,10 +5,13 @@ import android.content.res.Configuration
 import android.widget.Toast
 import com.example.vladislav.androidstudy.kotlin.demo.android.contentprovider.phonecontacts.di.ContactsComponent
 import com.example.vladislav.androidstudy.kotlin.demo.android.contentprovider.phonecontacts.di.DaggerContactsComponent
+import com.example.vladislav.androidstudy.services.playaudio.di.DaggerPlayAudioComponent
+import com.example.vladislav.androidstudy.services.playaudio.di.PlayAudioComponent
 
 class MyApplication: Application() {
 
     lateinit var contactsComponent: ContactsComponent
+    lateinit var playAudioComponent: PlayAudioComponent
 
     // // Reference to the application graph that is used across the whole app
     // val loginComponent: LoginComponent by lazy {
@@ -23,6 +26,7 @@ class MyApplication: Application() {
         super.onCreate()
         // This way one passes an application context to dagger graph
         contactsComponent = DaggerContactsComponent.factory().create(applicationContext)
+        playAudioComponent = DaggerPlayAudioComponent.factory().create(applicationContext)
         // appComponent = DaggerApplicationComponent.create();
         Toast.makeText(
             this, resources.getText(R.string.application_created_text),

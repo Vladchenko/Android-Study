@@ -199,4 +199,7 @@
 
     <string name="contacts_permission_was_not_granted">Contacts permission was not granted !!!</string>
     <string name="contacts_permission_already_granted">Contacts permission already granted</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
 </resources>

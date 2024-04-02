@@ -52,7 +52,7 @@ class Main {
 //         CoroutinesBasics().coroutineDemo1_3()
 //         CoroutinesBasics(callback).temp()
 //         CoroutinesBasics().coroutineDemo2()
-//        CoroutinesBasics(callback).simpleCoroutineDemo11()
+//        CoroutinesBasics(callback).simpleCoroutineDemo8()
 //         CoroutinesBasics(callback).deferredDemo()
 //        CoroutinesBasics().coroutineDemoUnconfined()
 //         CoroutinesBasics().coroutineDemoUnconfined2()
@@ -63,7 +63,7 @@ class Main {
 //        CoroutinesBasics().simpleCoroutineDemo9()
 //         CoroutinesBasics().cancelDemo()
 //         CoroutinesBasics(callback).cancelNotWorkingDemo()
-//         CoroutinesBasics(callback).cancelWorkingDemo2()
+         CoroutinesBasics(callback).cancelWorkingDemo()
 //         CoroutinesBasics().twoNetworkCallsSequentially()
         // CoroutinesBasics().demoDispatchersAndThreads2()
         //  CoroutinesBasics().simpleCoroutineDemo11()
@@ -539,13 +539,13 @@ class Main {
 
 //        CharRange('1','9').forEach(System.out::println)
 
-        println(Solution().wordPattern("abba", "dog cat cat dog"))   // true
-        println(Solution().wordPattern("abba", "dog dog dog dog"))   // false
-        println(Solution().wordPattern("abba", "dog cat cat fish"))   // false
-        println(Solution().wordPattern("aaaa", "dog cat cat fish"))   // false
-        println(Solution().wordPattern("aaaa", "dog dog dog dog"))   // true
-        println(Solution().wordPattern("aaaa", "cat dog dog dog"))   // false
-        println(Solution().wordPattern("abba", "cat dog dog dog"))   // false
-        println(Solution().wordPattern("abbb", "cat dog dog dog"))   // true
+//        println(Solution().wordPattern("abba", "dog cat cat dog"))   // true
+//        println(Solution().wordPattern("abba", "dog dog dog dog"))   // false
+//        println(Solution().wordPattern("abba", "dog cat cat fish"))   // false
+//        println(Solution().wordPattern("aaaa", "dog cat cat fish"))   // false
+//        println(Solution().wordPattern("aaaa", "dog dog dog dog"))   // true
+//        println(Solution().wordPattern("aaaa", "cat dog dog dog"))   // false
+//        println(Solution().wordPattern("abba", "cat dog dog dog"))   // false
+//        println(Solution().wordPattern("abbb", "cat dog dog dog"))   // true
     }
 }
