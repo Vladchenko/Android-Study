@@ -2,6 +2,7 @@
     <string name="app_name">AndroidStudy</string>
     <string name="low_memory_text">Device is low on memory</string>
     <string name="application_created_text">Application has been created</string>
+    <string name="activity_demo_custom_view">Custom view demo activity</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_main3">Main3Activity</string>
     <string name="hello_world">Hello World!</string>

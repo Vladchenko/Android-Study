@@ -48,6 +48,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".kotlin.demo.customview.DemoCustomViewActivity"
+            android:label="@string/activity_demo_custom_view"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".dagger2.example6.presentation.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login" />
