@@ -2,321 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionName="1.0">
 
-    <application
-        android:name=".MyApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/space_marine"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity
-            android:name="com.example.vladislav.androidstudy.dagger2.example6.presentation.LoginActivity"
-            android:exported="true"
-            android:label="@string/title_activity_login"></activity>
-        <activity android:name="com.example.vladislav.androidstudy.activities.MainWeightActivity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.activities.InitialActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:excludeFromRecents="true"
-            android:exported="true"
-            android:launchMode="singleInstance"
-            android:taskAffinity="com.example.vladislav.androidstudy.activities.InitialActivity">
-            <!-- android:screenOrientation="landscape" makes orientation to be only landscape -->
-            <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
-        </activity>
-        <!-- android:launchMode=""
-
-        An activity with the "standard" or "singleTop" launch mode can be instantiated multiple
-        times. The instances can belong to any task and can be located anywhere in the activity
-        stack. The "standard" and "singleTop" modes differ from each other in just one respect:
-        Every time there's a new intent for a "standard" activity, a new instance of the class is
-        created to respond to that intent. Each instance handles a single intent. Similarly, a new
-        instance of a "singleTop" activity may also be created to handle a new intent. However,
-        if the target task already has an existing instance of the activity at the top of its
-        stack, that instance will receive the new intent (in an onNewIntent() call); a new instance
-        is not created. In other circumstances — for example, if an existing instance of the
-        "singleTop" activity is in the target task, but not at the top of the stack, or if it's
-        at the top of a stack, but not in the target task — a new instance would be created and
-        pushed on the stack.
-
-        In contrast, "singleTask" and "singleInstance" activities can only begin a task. They are
-        always at the root of the activity stack. Moreover, the device can hold only one instance
-        of the activity at a time — only one such task. ...
-
-        https://developer.android.com/guide/topics/manifest/activity-element.html#lmode
-        -->
-        <activity android:name="com.example.vladislav.androidstudy.activities.ResultActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.activities.MenuActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.activities.ParcelableActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.activities.dynamic_layout.ProgrammaticLayoutActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.activities.orientation_change.RotationActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.activities.ContextMenuActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.activities.dynamic_layout.buttons_inserting.AddButtonsActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.activities.dynamic_layout.DynamicButtonsSizeActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment.PassFromActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.activities.passdata.from_1_to_another_activity_fragment.PassToActivity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.activities.orientation_change.OneOrTwoFragments.SomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-
-        <activity android:name="com.example.vladislav.androidstudy.fragments.FragmentsActivity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.fragments.fragments_activity.OneFragmentActivity"
-            android:label="@string/title_activity_one_fragment"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.example.vladislav.androidstudy.fragments.fragments_activity.DynamicFragmentsActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.fragments.fragments_activity.FragmentsActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.fragments.fragments_activity.TwoFragmentsActivity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.fragments.start_fragment.TwoFragmentDisplayActivity"
-            android:label="@string/title_activity_simple_fragment"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.example.vladislav.androidstudy.intents.IntentsActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.intents.SimpleIntentActivity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.intents.IntentWithActionActivity"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.example.vladislav.androidstudy.intents.IntentWithActionActivity2"
-            android:exported="false"
-            android:label="activity 2">
-            <intent-filter>
-                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.example.vladislav.androidstudy.intents.IntentWithActionActivity3"
-            android:exported="false"
-            android:label="activity 3">
-            <intent-filter>
-                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON2" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.example.vladislav.androidstudy.intents.intentfiltercollision.IntentFilterCollisionInitialActivity" /> <!-- Activity may have more than 1 intent filters -->
-        <activity
-            android:name="com.example.vladislav.androidstudy.intents.intentfiltercollision.IntentFilterCollisionActivity"
-            android:exported="false">
-            <intent-filter>
-                <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity> <!-- // Intent-filter collision -->
-        <activity
-            android:name="com.example.vladislav.androidstudy.intents.intentfiltercollision.IntentFilterCollisionActivity2"
-            android:exported="false">
-            <intent-filter>
-                <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.MainRXActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.RxJavaSimpleActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.BooksActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.ColorsActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example2.SchedulerActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example1.RxJava2Example1Activity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example3.RxJava2Example3Activity" />
-        <activity android:name="com.example.vladislav.androidstudy.javarx2.example4.RxJava2Example4Activity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.javarx2.example5.RxJava2Example5Activity"
-            android:exported="true" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.javarx2.example6.CoroutinesExample6Activity"
-            android:exported="true" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.javarx2.example7.JavaRxExample7Activity"
-            android:exported="true" />
-
-        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.handler.HandlerActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.LayoutingActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.AligningActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.listviewing.ListsViewActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTasksActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTask1Activity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTask2Activity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTask3Activity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.background_jobs.asynctask.AsyncTask4Activity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.banksdetails.BanksDetailsActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.listviewing.recyclerview.RecyclerViewActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.ContextActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.WebBrowserActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.sqlite.DBActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.simple_jobs.CommonActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.criminalrecords.ui.CriminalRecordsActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.jobs.currency.CurrencyActivity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.handler.HandlerActivityKt"
-            android:exported="true" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.looperthread.LooperThreadActivity"
-            android:exported="true" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.jobs.background_jobs.handlerthread.HandlerThreadActivity"
-            android:exported="true" />
-
-        <activity
-            android:name="com.example.vladislav.androidstudy.kotlin.KotlinStudyActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".kotlin.demo.android.contentprovider.phonecontacts.presentation.view.ContactsActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name="com.example.vladislav.androidstudy.kotlin.demo.graphics.GraphicsDemoActivity"
-            android:exported="true"
-            android:taskAffinity="com.example.vladislav.androidstudy.kotlin.demo.graphics.GraphicsDemoActivity"></activity>
-        <activity
-            android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.task1.presentation.CoroutinesFilesDownloadingDemoActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.task2.presentation.DownloadManagerDemoActivity"
-            android:exported="true"></activity>
-        <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
-        <!-- // This receiver should not accept any broadcasts, but in fact it is overridden in code and -->
-        <!-- // has some intent-filter provided. -->
-
-        <!-- // Presence of an intent-filter in a broadcast receiver's declaration in this file, makes -->
-        <!-- // it exported tag to be automatically true: -->
-        <!-- // android:exported = true -->
-
-        <activity android:name="com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity.ButtonsActivity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.separatestudypackage.two_actions_activity.TimeDateActivity"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.example.vladislav.androidstudy.separatestudypackage.time" />
-                <action android:name="com.example.vladislav.androidstudy.separatestudypackage.date" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.example.vladislav.androidstudy.separatestudypackage.weatherforecast.WeatherForecastActivity" />
-        <activity android:name="com.example.vladislav.androidstudy.separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.separatestudypackage.TestStandActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.services.ServicesActivity"
-            android:exported="true">
-        </activity>
-        <activity android:name="com.example.vladislav.androidstudy.services.ServicesDemo1Activity" />
-        <activity
-            android:name="com.example.vladislav.androidstudy.services.playaudio.PlayAudioActivity"
-            android:exported="true"
-            android:label="@string/title_activity_play_audio"
-            android:theme="@style/AppTheme"></activity>
-
-
-        <provider
-            android:name="com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesContentProvider"
-            android:authorities="com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesContentProvider"
-            android:exported="false" />
-
-
-        <receiver android:name="com.example.vladislav.androidstudy.receivers.BroadcastReceiverSimple" />
-        <receiver
-            android:name="com.example.vladislav.androidstudy.receivers.AirPlaneStateReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.AIRPLANE_MODE" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.example.vladislav.androidstudy.receivers.BroadcastReceiverExample"
-            android:exported="false">
-            <intent-filter>
-                <action android:name=".receivers.BroadcastReceiverExample" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.example.vladislav.androidstudy.kotlin.filesdownloading.task2.data.FileDownloadingCompleteReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-            </intent-filter>
-        </receiver>
-
-
-        <service
-            android:name="com.example.vladislav.androidstudy.services.playaudio.PlayAudioService"
-            android:description="@string/play_audio_service_description"
-            android:label="@string/play_audio_service_description" />
-        <service
-            android:name="com.example.vladislav.androidstudy.services.demo1.StartedSimpleService"
-            android:description="@string/service_description"
-            android:label="@string/service_description" />
-        <service
-            android:name="com.example.vladislav.androidstudy.services.demo1.StartedIntentService"
-            android:description="@string/intent_service_description" />
-        <service
-            android:name="com.example.vladislav.androidstudy.services.demo1.BindSimpleService"
-            android:description="@string/service_description"
-            android:label="@string/service_description" />
-        <service
-            android:name="com.example.vladislav.androidstudy.services.demo1.BindIntentedService"
-            android:description="@string/intent_service_description" />
-        <service
-            android:name="com.example.vladislav.androidstudy.services.demo1.BothSimpleService"
-            android:description="@string/service_description"
-            android:label="@string/service_description" />
-        <service
-            android:name="com.example.vladislav.androidstudy.services.demo1.BothIntentedService"
-            android:description="@string/intent_service_description" />
-        <service android:name="com.example.vladislav.androidstudy.services.ServiceDemo2" />
-        <service
-            android:name="com.example.vladislav.androidstudy.services.ServiceDemo3"
-            android:enabled="true"
-            android:exported="false" />
-        <service
-            android:name="com.example.vladislav.androidstudy.services.IntentServiceDemo1"
-            android:exported="false" />
-        <service
-            android:name="com.example.vladislav.androidstudy.services.ServiceDemo4"
-            android:enabled="true"
-            android:exported="false" />
-        <service
-            android:name="com.example.vladislav.androidstudy.services.ServiceDemo5"
-            android:enabled="true"
-            android:exported="false" />
-        <service
-            android:name="com.example.vladislav.androidstudy.jobs.currency.loaders.CurrencyDownloadingStartService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.example.vladislav.androidstudy.jobs.currency.loaders.CurrencyDownloadingService" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="com.example.vladislav.androidstudy.jobs.currency.loaders.CurrencyDownloadingBindService"
-            android:enabled="true"
-            android:exported="false" />
-
-        <uses-library
-            android:name="com.google.android.wearable"
-            android:required="false" />
-    </application>
+    <uses-sdk
+        android:maxSdkVersion="26"
+        android:targetSdkVersion="33" />
     <!-- Which screens app supports -->
     <compatible-screens />
 
@@ -351,8 +39,310 @@
     <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
-    <uses-sdk
-        android:maxSdkVersion="26"
-        android:targetSdkVersion="33" />
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/space_marine"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".dagger2.example6.presentation.LoginActivity"
+            android:exported="true"
+            android:label="@string/title_activity_login" />
+        <activity android:name=".activities.MainWeightActivity" />
+        <activity
+            android:name=".activities.InitialActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity="com.example.vladislav.androidstudy.activities.InitialActivity">
+
+            <!-- android:screenOrientation="landscape" makes orientation to be only landscape -->
+            <!-- android:label - This label is shown in a toolbar of an activity, if toolbar exists -->
+        </activity>
+        <!--
+ android:launchMode=""
+
+        An activity with the "standard" or "singleTop" launch mode can be instantiated multiple
+        times. The instances can belong to any task and can be located anywhere in the activity
+        stack. The "standard" and "singleTop" modes differ from each other in just one respect:
+        Every time there's a new intent for a "standard" activity, a new instance of the class is
+        created to respond to that intent. Each instance handles a single intent. Similarly, a new
+        instance of a "singleTop" activity may also be created to handle a new intent. However,
+        if the target task already has an existing instance of the activity at the top of its
+        stack, that instance will receive the new intent (in an onNewIntent() call); a new instance
+        is not created. In other circumstances — for example, if an existing instance of the
+        "singleTop" activity is in the target task, but not at the top of the stack, or if it's
+        at the top of a stack, but not in the target task — a new instance would be created and
+        pushed on the stack.
+
+        In contrast, "singleTask" and "singleInstance" activities can only begin a task. They are
+        always at the root of the activity stack. Moreover, the device can hold only one instance
+        of the activity at a time — only one such task. ...
+
+        https://developer.android.com/guide/topics/manifest/activity-element.html#lmode
+        -->
+        <activity android:name=".activities.ResultActivity" />
+        <activity android:name=".activities.MenuActivity" />
+        <activity android:name=".activities.ParcelableActivity" />
+        <activity android:name=".activities.dynamic_layout.ProgrammaticLayoutActivity" />
+        <activity android:name=".activities.orientation_change.RotationActivity" />
+        <activity android:name=".activities.ContextMenuActivity" />
+        <activity android:name=".activities.dynamic_layout.buttons_inserting.AddButtonsActivity" />
+        <activity android:name=".activities.dynamic_layout.DynamicButtonsSizeActivity" />
+        <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassFromActivity" />
+        <activity android:name=".activities.passdata.from_1_to_another_activity_fragment.PassToActivity" />
+        <activity
+            android:name=".activities.orientation_change.OneOrTwoFragments.SomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity android:name=".fragments.FragmentsActivity" />
+        <activity
+            android:name=".fragments.fragments_activity.OneFragmentActivity"
+            android:label="@string/title_activity_one_fragment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".fragments.fragments_activity.DynamicFragmentsActivity" />
+        <activity android:name=".fragments.fragments_activity.FragmentsActivity" />
+        <activity android:name=".fragments.fragments_activity.TwoFragmentsActivity" />
+        <activity
+            android:name=".fragments.start_fragment.TwoFragmentDisplayActivity"
+            android:label="@string/title_activity_simple_fragment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".intents.IntentsActivity" />
+        <activity android:name=".intents.SimpleIntentActivity" />
+        <activity
+            android:name=".intents.IntentWithActionActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".intents.IntentWithActionActivity2"
+            android:exported="false"
+            android:label="activity 2">
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".intents.IntentWithActionActivity3"
+            android:exported="false"
+            android:label="activity 3">
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.intent.action.INTENT_WITH_ACTION_COMMON2" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".intents.intentfiltercollision.IntentFilterCollisionInitialActivity" /> <!-- Activity may have more than 1 intent filters -->
+        <activity
+            android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> <!-- // Intent-filter collision -->
+        <activity
+            android:name=".intents.intentfiltercollision.IntentFilterCollisionActivity2"
+            android:exported="false">
+            <intent-filter>
+                <action android:name=".intentfiltercollision.IntentFilterCollisionActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".javarx2.example2.MainRXActivity" />
+        <activity android:name=".javarx2.example2.RxJavaSimpleActivity" />
+        <activity android:name=".javarx2.example2.BooksActivity" />
+        <activity android:name=".javarx2.example2.ColorsActivity" />
+        <activity android:name=".javarx2.example2.SchedulerActivity" />
+        <activity android:name=".javarx2.example1.RxJava2Example1Activity" />
+        <activity android:name=".javarx2.example3.RxJava2Example3Activity" />
+        <activity android:name=".javarx2.example4.RxJava2Example4Activity" />
+        <activity
+            android:name=".javarx2.example5.RxJava2Example5Activity"
+            android:exported="true" />
+        <activity
+            android:name=".javarx2.example6.CoroutinesExample6Activity"
+            android:exported="true" />
+        <activity
+            android:name=".javarx2.example7.JavaRxExample7Activity"
+            android:exported="true" />
+        <activity android:name=".jobs.background_jobs.handler.HandlerActivity" />
+        <activity android:name=".jobs.simple_jobs.LayoutingActivity" />
+        <activity android:name=".jobs.simple_jobs.AligningActivity" />
+        <activity android:name=".jobs.listviewing.ListsViewActivity" />
+        <activity android:name=".jobs.background_jobs.asynctask.AsyncTasksActivity" />
+        <activity android:name=".jobs.background_jobs.asynctask.AsyncTask1Activity" />
+        <activity android:name=".jobs.background_jobs.asynctask.AsyncTask2Activity" />
+        <activity android:name=".jobs.background_jobs.asynctask.AsyncTask3Activity" />
+        <activity android:name=".jobs.background_jobs.asynctask.AsyncTask4Activity" />
+        <activity android:name=".jobs.banksdetails.BanksDetailsActivity" />
+        <activity android:name=".jobs.listviewing.recyclerview.RecyclerViewActivity" />
+        <activity android:name=".jobs.simple_jobs.ContextActivity" />
+        <activity android:name=".jobs.WebBrowserActivity" />
+        <activity android:name=".jobs.sqlite.DBActivity" />
+        <activity android:name=".jobs.simple_jobs.CommonActivity" />
+        <activity android:name=".jobs.criminalrecords.ui.CriminalRecordsActivity" />
+        <activity android:name=".jobs.listviewing.expandablelistview.ExpandableListViewActivity" />
+        <activity android:name=".jobs.currency.CurrencyActivity" />
+        <activity
+            android:name=".jobs.background_jobs.handler.HandlerActivityKt"
+            android:exported="true" />
+        <activity
+            android:name=".jobs.background_jobs.looperthread.LooperThreadActivity"
+            android:exported="true" />
+        <activity
+            android:name=".jobs.background_jobs.handlerthread.HandlerThreadActivity"
+            android:exported="true" />
+        <activity
+            android:name=".kotlin.KotlinStudyActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".kotlin.demo.android.contentprovider.phonecontacts.presentation.view.ContactsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".kotlin.demo.graphics.GraphicsDemoActivity"
+            android:exported="true"
+            android:taskAffinity="com.example.vladislav.androidstudy.kotlin.demo.graphics.GraphicsDemoActivity" />
+        <activity
+            android:name=".kotlin.filesdownloading.task1.presentation.CoroutinesFilesDownloadingDemoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".kotlin.filesdownloading.task2.presentation.DownloadManagerDemoActivity"
+            android:exported="true" /> <!-- // -&#45;&#45; Broadcast receivers -&#45;&#45; -->
+        <!-- // This receiver should not accept any broadcasts, but in fact it is overridden in code and -->
+        <!-- // has some intent-filter provided. -->
+        <!-- // Presence of an intent-filter in a broadcast receiver's declaration in this file, makes -->
+        <!-- // it exported tag to be automatically true: -->
+        <!-- // android:exported = true -->
+        <activity android:name=".separatestudypackage.two_actions_activity.ButtonsActivity" />
+        <activity
+            android:name=".separatestudypackage.two_actions_activity.TimeDateActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.separatestudypackage.time" />
+                <action android:name="com.example.vladislav.androidstudy.separatestudypackage.date" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".separatestudypackage.weatherforecast.WeatherForecastActivity" />
+        <activity android:name=".separatestudypackage.gridlayoutdemo.GridLayoutDemoActivity" />
+        <activity
+            android:name=".separatestudypackage.TestStandActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".services.ServicesActivity"
+            android:exported="true"></activity>
+        <activity android:name=".services.ServicesDemo1Activity" />
+        <activity
+            android:name=".services.playaudio.PlayAudioActivity"
+            android:exported="true"
+            android:label="@string/title_activity_play_audio"
+            android:theme="@style/AppTheme"></activity>
+
+        <provider
+            android:name=".jobs.criminalrecords.data_providing.CrimesContentProvider"
+            android:authorities="com.example.vladislav.androidstudy.jobs.criminalrecords.data_providing.CrimesContentProvider"
+            android:exported="false" />
+
+        <receiver android:name=".receivers.BroadcastReceiverSimple" />
+        <receiver
+            android:name=".receivers.AirPlaneStateReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".receivers.BroadcastReceiverExample"
+            android:exported="false">
+            <intent-filter>
+                <action android:name=".receivers.BroadcastReceiverExample" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".kotlin.filesdownloading.task2.data.FileDownloadingCompleteReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".services.playaudio.PlayAudioService"
+            android:description="@string/play_audio_service_description"
+            android:label="@string/play_audio_service_description" />
+        <service
+            android:name=".services.demo1.StartedSimpleService"
+            android:description="@string/service_description"
+            android:label="@string/service_description" />
+        <service
+            android:name=".services.demo1.StartedIntentService"
+            android:description="@string/intent_service_description" />
+        <service
+            android:name=".services.demo1.BindSimpleService"
+            android:description="@string/service_description"
+            android:label="@string/service_description" />
+        <service
+            android:name=".services.demo1.BindIntentedService"
+            android:description="@string/intent_service_description" />
+        <service
+            android:name=".services.demo1.BothSimpleService"
+            android:description="@string/service_description"
+            android:label="@string/service_description" />
+        <service
+            android:name=".services.demo1.BothIntentedService"
+            android:description="@string/intent_service_description" />
+        <service android:name=".services.ServiceDemo2" />
+        <service
+            android:name=".services.ServiceDemo3"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".services.IntentServiceDemo1"
+            android:exported="false" />
+        <service
+            android:name=".services.ServiceDemo4"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".services.ServiceDemo5"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".jobs.currency.loaders.CurrencyDownloadingStartService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.vladislav.androidstudy.jobs.currency.loaders.CurrencyDownloadingService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".jobs.currency.loaders.CurrencyDownloadingBindService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <uses-library
+            android:name="com.google.android.wearable"
+            android:required="false" />
+    </application>
 
 </manifest>
