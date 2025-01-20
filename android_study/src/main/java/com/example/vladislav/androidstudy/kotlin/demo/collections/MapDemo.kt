@@ -21,13 +21,15 @@ class MapDemo {
             map[key] = value
         }
 
-        private fun printEntries(map: MutableMap<String, Int>) {
+        private fun printEntries(map: Map<String, Int>) {
             map.entries.forEach { print("$it ") }
         }
 
         fun mapDemo() {
             println(map1["key"])
-            map1.forEach { key, value -> print("$key -> $value, ") }
+            map1.entries.forEach(::println)
+            map1.forEach(::println)
+            map1.forEach { (key, value) -> print("$key -> $value, ") }
             println()
             for ((key, value) in map1) {
                 print("$key -> $value,  ")
@@ -40,33 +42,29 @@ class MapDemo {
             addItem(map2, "4", 4)
             printEntries(map2)
             println()
-            for ((key, value) in map1) {
-                print("$key = $value, ")
-            }
-            println()
             // Making a map from 2 lists
             println("list.zip(lettersList).toMap() = ${list.zip(lettersList).toMap() }")
         }
 
         fun flatMapDemo() {
-            val result = listOf(listOf(1, 2, 3), listOf(4, 5, 6)).flatMap { it }    // flatten() could be used
-            // instead of flatMap()
+            // flatten() could be used instead of flatMap()
+            val result = listOf(listOf(1, 2, 3), listOf(4, 5, 6)).flatMap { it }
             println(result) // [1, 2, 3, 4, 5, 6]
         }
 
-        data class Person(val name: String, val city: String, val phone: String) // 1
+        data class Person(val name: String, val city: String, val phone: String)
 
-        private val people = listOf(                                                     // 2
+        private val people = listOf(
             Person("John", "Boston", "+1-888-123456"),
             Person("Sarah", "Munich", "+49-777-789123"),
             Person("Svyatoslav", "Saint-Petersburg", "+7-999-456789"),
             Person("Vasilisa", "Saint-Petersburg", "+7-999-123456")
         )
 
-        private val phoneBook = people.associateBy { it.phone }                          // 3
-        private val cityBook = people.associateBy(Person::phone, Person::city)           // 4
-        private val peopleCities = people.groupBy(Person::city, Person::name)            // 5
-        private val lastPersonCity = people.associateBy(Person::city, Person::name)
+        private val phoneBook = people.associateBy { it.phone } // {+1-888-123456=Person(name=John, city=Boston, phone=+1-888-123456), ...                          // 3
+        private val cityBook = people.associateBy(Person::phone, Person::city) // {+1-888-123456=Boston, ...
+        private val peopleCities = people.groupBy(Person::city, Person::name) // {Boston=[John], ...
+        private val lastPersonCity = people.associateBy(Person::city, Person::name) // {Boston=John, ...
 
         fun peopleDemo() {
             println(phoneBook)

@@ -30,6 +30,7 @@ class ArraysListsDemo {
     // Array of strings, having each item initialized to null
     private val array3 = arrayOfNulls<String>(3)
     private val arrayList = arrayListOf(1, 2, 3)
+    // https://discuss.kotlinlang.org/t/why-kotlin-does-not-provide-linkedlist-implementation/15991
 
     private val intArray: IntArray = intArrayOf(1, 2, 3)
 
@@ -55,6 +56,8 @@ class ArraysListsDemo {
         println()
         // The .sum() function can only be used with arrays of numeric data types, such as Int.
         println(intArray.sum())             // 6
+        println(intArray.average())         // 2
+        println(intArray.binarySearch(1))         // 0
 
         val simpleArray = arrayOf(1, 2, 3)
         // Shuffles elements
@@ -87,7 +90,9 @@ class ArraysListsDemo {
         println()
         println("distinctBy: " + array2.distinctBy {
             it.toString().toIntOrNull()    // Prints [1, 2.3, 567], 2.3 is present because it yields null and null is unique value among others
-        })   // TODO Understand distinctBy and implement other methods
+        })
+        array2.fill(123, 3)
+        println("fill(123, 3): ${array2.toList()}") // [1, 2.3, 3.4, 123, 123]
         println(array2.getOrNull(40) ?: "Неизвестный индекс")
         println(
                 array3.toList() // Turns array into list

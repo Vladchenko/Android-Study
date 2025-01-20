@@ -101,7 +101,7 @@ fun String.numbersQuantity() = this.trim().split(Regex("\\s+"), 0).count {
     it.toDoubleOrNull() != null
 }
 
-/** Retrieve a number of a words in a string (numbers are not considered) */
+/** Retrieve a number of a words in a string (numbers excluded) */
 fun String.wordsQuantity() = this.trim().split(Regex("\\s+"), 0).count {
     it.toDoubleOrNull() == null
 }
@@ -158,7 +158,7 @@ fun String.removeExcessiveSpaces2() = this.filterIndexed { index, char ->
     index < this.length - 1 && !(char == this[index + 1] && char == ' ')
 }.trim()
 
-/** Removes digits, spaces and special characters from string, keeping only symbolic Chars. */
+/** Removes digits, spaces and special characters from string, keeping only symbolic chars. */
 fun String.removeAllExceptChars() = this.filter { it.isLetter() }
 
 /** Removes chars, spaces and special characters from string. */
@@ -197,13 +197,9 @@ fun String.checkIfBracesPaired(): Boolean {
             return false
         }
     }
-    if (squareBrackets == 0
+    return (squareBrackets == 0
             || braces == 0
-            || squareBrackets == 0
-    ) {
-        return true
-    }
-    return false
+            || squareBrackets == 0)
 }
 
 /** Solves arithmetic expression in a string. Do not put any symbols different to digits, dot and operations (*+-/). */
@@ -384,7 +380,6 @@ fun String.isEveryCharUnique(): Boolean {
     return true
 }
 
-
 /**
  * Checks if every char's frequency is unique in given string.
  * "qw" - returns false
@@ -416,7 +411,7 @@ fun String.getUniqueChars(): Set<Char> {
 fun String.getUniqueChars2() = this.toList().groupingBy { it }.eachCount().filter { it.value == 1 }
 
 /** Taken from https://stackoverflow.com/questions/62232908/kotlin-unique-characters-in-string */
-fun uniqueCharacters(s: String): Boolean = s.groupBy { it }
+fun isEveryCharacterUnique(s: String): Boolean = s.groupBy { it }
         .values
         .stream()
         .allMatch { it.size == 1 }
@@ -517,12 +512,12 @@ fun String.toLengthSortedStrings() = this.split(Regex("\\s+")).sortedBy {
 fun String.findShortestString() = this.split(Regex("\\s+")).minByOrNull { it.length }
 
 /**
- * Retrieve shortest string, like (string, string length), say (s, 1)
+ * Retrieve shortest string map, like (string, string length), say (s, 1)
  */
 fun String.findShortestStringMap() = this.split(Regex("\\s+")).map { it to it.length }.minByOrNull { it.second }
 
 /**
- * Retrieve distance between 2 string in chars number.
+ * Retrieve distance between 2 strings in string.
  */
 fun String.getDistanceBetween2Strings(string1: String, string2: String): Int {
     var index1 = this.indexOf(string1)
@@ -539,8 +534,8 @@ fun String.getDistanceBetween2Strings(string1: String, string2: String): Int {
  * String "as sd df fg as" returns "as=2".
  */
 fun String.mostOftenMetString(): String {
-    val map: MutableMap<String, Int> = mutableMapOf()
-    this.split(Regex("\\s+")).map {
+    val map = mutableMapOf<String, Int>()
+    this.split(Regex("\\s+")).forEach {
         if (map[it] != null) {
             map[it] = map[it]?.plus(1) as Int
         } else {
@@ -549,6 +544,9 @@ fun String.mostOftenMetString(): String {
     }
     return map.maxByOrNull { it.value }.toString()
 }
+
+/** Simplified version of mostOftenMetString(). */
+fun String.mostOftenMetString2() = this.split(Regex("\\s+")).groupingBy { it }.eachCount().maxByOrNull { it.value }.toString()
 
 /**
  * Retrieve a number of lucky tickets, whose sum of first 3 digits equal to sum of 3 last digits.

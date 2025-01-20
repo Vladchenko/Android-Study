@@ -1,8 +1,6 @@
 package com.example.vladislav.androidstudy.kotlin.demo
 
 import android.content.Context
-import android.util.Range
-import androidx.core.util.toClosedRange
 import androidx.core.util.toRange
 import com.example.vladislav.androidstudy.kotlin.models.SomeModel
 import com.example.vladislav.androidstudy.kotlin.utils.createFilesDirIfAbsent
@@ -173,6 +171,7 @@ class Basics {
         list.getOrNull(5)   // Retrieves null, instead of IOOB exception
         list.forEach { item -> println(item) }  // Printing list
         list.forEach(System.out::print)     // Printing list
+        list.forEach(::print)     // Printing list
         for (item in list) {    // Printing list
             print(item)
         }
@@ -321,7 +320,7 @@ class Basics {
         val range1 = 1..10
 //        val range11 = 10..<20     // Present in Kotlin beginning with version 1.9
         val range2 = 'A'..'Z'
-        val range3 = 1.1..10.1
+        val range3 = 1.1..10.1  // https://stackoverflow.com/questions/44315977/ranges-in-kotlin-using-data-type-double
         val range4 = listOf("Scala", "Java", "Kotlin", "Python", "Ruby")
         println(range1.joinToString(" "))   // Adds space after each item
         println(range1.joinToString("/"))
@@ -458,7 +457,7 @@ class Basics {
         stream.buffered().reader().use { reader ->
             println(reader.readText())
         }
-        if (file.delete()) {    // Creating file now
+        if (file.delete()) {    // Deleting file now
             println("File ${context.filesDir.path}/file.txt has been deleted")
         }
 

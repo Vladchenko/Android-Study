@@ -1,7 +1,7 @@
 package com.example.vladislav.androidstudy.kotlin.demo.collections
 
 /**
-     * https://play.kotlinlang.org/byExample/05_Collections/11_partition
+ * https://play.kotlinlang.org/byExample/05_Collections/11_partition
  */
 class PartitionDemo {
 
