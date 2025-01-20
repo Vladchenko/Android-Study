@@ -1,7 +1,7 @@
 package com.example.vladislav.androidstudy.kotlin.demo.codeoptimization.example1
 
 /**
- * Problem - boilerplate code (user name and address check should joined).
+ * Problem - boilerplate code (user name and address check should be joined).
  * Check Code2 sample for that.
  *
  * Code taken from a "Kotlin in action" book.
@@ -24,5 +24,5 @@ class Code1 {
             )
         }
     }
-// Save user to the database }
+    // Save user to the database
 }

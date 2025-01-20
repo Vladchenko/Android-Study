@@ -12,7 +12,7 @@ class Code3 {
     class User(val id: Int, val name: String, val address: String)
 
     fun saveUser(user: User) {
-        fun User.validateBeforeSaveUser() {
+        fun User.validateUserBeforeSave() {
             fun validate(
                 user: User, value: String,
                 fieldName: String
@@ -26,7 +26,8 @@ class Code3 {
             validate(user, user.name, "Name")
             validate(user, user.address, "Address")
         }
-        user.validateBeforeSaveUser()
+        user.validateUserBeforeSave()
+        // Save user to database
     }
 
 }
