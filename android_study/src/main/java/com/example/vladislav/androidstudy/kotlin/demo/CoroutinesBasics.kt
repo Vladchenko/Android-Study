@@ -1,5 +1,6 @@
 package com.example.vladislav.androidstudy.kotlin.demo
 
+import android.net.http.HttpException
 import android.util.Log
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
@@ -9,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -26,6 +28,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.yield
+import java.io.IOException
 import kotlin.random.Random
 import kotlin.system.measureTimeMillis
 import kotlin.time.Duration.Companion.milliseconds
@@ -67,7 +70,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         }
     }
 
-    fun coroutineDemo() {
+    fun coroutineDemo()  {
         // runBlocking blocks a thread it runs on. It is a bridge from ordinary function to suspend one.
         // Should only be used in main function and tests and not be used in any coroutine.
         // UI thread will freeze until this block of code is to finish
@@ -86,6 +89,10 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
 
     fun coroutineDemo1() {
         // runBlocking blocks a UI thread even when dispatcher is (Dispatchers.IO). Why so ?
+        // Gigacode chat response:
+        // В данном коде блокируется UI поток, потому что вы используете `runBlocking` в главном потоке. `runBlocking` блокирует текущий поток до тех пор, пока все корутины внутри него не завершат свою работу.
+        // Ваш `withContext(Dispatchers.Default)` действительно запускает корутину в фоновом потоке, но `runBlocking` все равно блокирует главный поток до тех пор, пока эта корутина не завершит свою работу.
+        // Если вы хотите, чтобы ваш код не блокировал главный поток, вы можете использовать `launch` вместо `runBlocking`. `launch` запускает корутину в фоновом потоке и не блокирует текущий поток.
         runBlocking {
             // Thread is main
             Log.d(TAG, "Thread is ${Thread.currentThread().name}")
@@ -134,7 +141,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
 
     fun coroutineDemo1_3() {
         // Creates 100000 coroutines and launches them at once.
-        repeat(100_000) {
+        repeat(1_000) {
             // Thread is DefaultDispatcher-worker-69, so Dispatchers.IO creates like 70 threads in this case.
 //            GlobalScope.launch(Dispatchers.IO) {
             // Dispatchers.Default create only 2 threads (but can up to 64)
@@ -705,6 +712,28 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         }
         println("Result: $result")
         return result
+    }
+
+    /** https://stackoverflow.com/questions/53577907/when-to-use-coroutinescope-vs-supervisorscope */
+    private suspend fun compute(): String = coroutineScope {
+        val job = SupervisorJob()
+        async(job) {
+            val color = async(job) { delay(6_000); "purple" }
+            val height = async(job) {
+                try {
+                    delay(100)
+                    throw HttpException("Connection lost", IOException())
+                } catch (e: HttpException) {
+                    Log.e(TAG, "")
+                    return@async 0.0
+                }
+            }
+            "The box is %.1f inches tall and it's %s".format(height.await(), color.await())
+        }.await()
+    }
+
+    fun computeDemo() = GlobalScope.launch {
+        Log.e(TAG, compute())
     }
 
     companion object {
