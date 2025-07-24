@@ -942,6 +942,34 @@ class Solution {
         return true
     }
 
+    /**
+     * // реализовать алгоритм сжатия строк который будет реализовывать подобную архивацию:
+     * // AAAAABBBCC -> 5A3B2C
+     * // ABCDDDDEEE -> 1A1B1C4D3E
+     *
+     * Task almost fits https://leetcode.com/problems/string-compression/
+     */
+    fun compress(s:String): String {
+        if (s.isEmpty() || s.isBlank()) {
+            return s
+        }
+        var count = 1
+        var compressedString = ""
+        s.forEachIndexed { index, char ->
+            if (index != s.length - 1) {
+                if (char == s[index + 1]) {
+                    count++
+                } else {
+                    compressedString += "$count$char"
+                    count = 1
+                }
+            } else {
+                compressedString += "$count$char"
+            }
+        }
+        return compressedString
+    }
+
     companion object {
         private const val BRACES = "braces"
         private const val BRACKETS = "brackets"
