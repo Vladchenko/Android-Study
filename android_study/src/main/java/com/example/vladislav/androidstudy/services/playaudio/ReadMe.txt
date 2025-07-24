@@ -13,3 +13,5 @@ Also check some guide - https://codersguidebook.com/how-to-create-an-android-app
 Check https://stackoverflow.com/questions/23771581/service-callback-to-activity-in-android, there
 are 3 ways to communicate between activity and service.
 
+TODO: User should by notified in notification bar that service is running.
+    Example - https://www.youtube.com/watch?v=YZL-_XJSClc&list=PLQkwcJG4YTCSVDhww92llY3CAnc_vUhsm&index=8
