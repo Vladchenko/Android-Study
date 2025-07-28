@@ -949,7 +949,7 @@ class Solution {
      *
      * Task almost fits https://leetcode.com/problems/string-compression/
      */
-    fun compress(s:String): String {
+    fun compress(s: String): String {
         if (s.isEmpty() || s.isBlank()) {
             return s
         }
@@ -968,6 +968,59 @@ class Solution {
             }
         }
         return compressedString
+    }
+
+    /** https://leetcode.com/problems/string-compression/ */
+    fun compress(chars: CharArray): Int {
+        if (chars.isEmpty()) return 0
+        if (chars.size == 1) return 1
+        var index = 0
+        var index2 = 1
+        var newStringIndex = 0
+        var digitsNumber: Int
+        var count = 1
+        while (index < chars.size - 1
+            && index2 < chars.size
+        ) {
+            if (chars[index] != chars[index2]) {
+                chars[newStringIndex] = chars[index]
+                newStringIndex++
+                index++
+                index2++
+            } else {
+                while (index2 < chars.size
+                    && chars[index] == chars[index2]
+                ) {
+                    count++
+                    index2++
+                }
+                chars[newStringIndex] = chars[index]
+                newStringIndex++
+                digitsNumber = addCountToCharsArray(newStringIndex, chars, count)
+                newStringIndex += digitsNumber
+                index = index2
+                index2++
+                count = 1
+            }
+        }
+        if (newStringIndex <= chars.size - 1
+            && index2 == chars.size
+        ) {
+            index2--
+            chars[newStringIndex] = chars[index2]
+            newStringIndex++
+        }
+        print(chars)
+        return newStringIndex
+    }
+
+    private fun addCountToCharsArray(startIndex: Int, chars: CharArray, value: Int): Int {
+        var digitsNumber = 0
+        value.toString().forEachIndexed { index, char ->
+            chars[startIndex + index] = char
+            digitsNumber++
+        }
+        return digitsNumber
     }
 
     companion object {
