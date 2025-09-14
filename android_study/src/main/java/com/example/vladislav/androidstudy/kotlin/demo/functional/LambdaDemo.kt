@@ -9,6 +9,9 @@ class LambdaDemo() {
     private fun isEven(i: Int): Boolean = i % 2 == 0
 
     fun lambdaDemo() {
+        println(listOf(1,3,5,7,9).any{ it < 7 })
+        val item = { value:Int -> value < 7 }
+        println(listOf(1,3,5,7,9).any(item)) // Lambda can be passed as a parameter
         val predicate = ::elvisOperatorDemo
         println(predicate)  // function elvisOperatorDemo (Kotlin reflection is not available)
         // println(::predicate)  // Unsupported - References to a variables are not supported yet

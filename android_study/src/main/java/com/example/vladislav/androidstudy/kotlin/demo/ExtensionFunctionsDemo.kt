@@ -1,5 +1,11 @@
 package com.example.vladislav.androidstudy.kotlin.demo
 
+private fun Int.answer() = if (this == 42) "yes" else "no"
+fun answerUsageExample() {
+    println(5.answer())     // no
+    println(42.answer())    // yes
+}
+
 class Temperature(var tempInCelsius: Float)
 
 var Temperature.tempInFahrenheit: Float     // This is an extension property

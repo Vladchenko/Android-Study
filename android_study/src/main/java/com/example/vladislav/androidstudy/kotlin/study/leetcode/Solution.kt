@@ -43,7 +43,7 @@ class Solution {
         return isPalindrome
     }
 
-    /** Extra solution for isPalindrome */
+    /** Extra solution for com.example.vladislav.androidstudy.kotlin.utils.isPalindrome */
     fun isPalindrome2(x: Int): Boolean {    // This one is faster and takes less memory
         val string = x.toString()
         for (i in 0..string.length / 2) {
@@ -54,7 +54,7 @@ class Solution {
         return true
     }
 
-    /** Extra solution for isPalindrome */
+    /** Extra solution for com.example.vladislav.androidstudy.kotlin.utils.isPalindrome */
     fun isPalindrome3(x: Int) = x.toString() == x.toString().reversed()
 
     /**
