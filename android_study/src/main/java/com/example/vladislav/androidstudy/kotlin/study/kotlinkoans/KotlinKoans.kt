@@ -1,6 +1,6 @@
-package com.example.kotlinstudy
+package com.example.vladislav.androidstudy.kotlin.study.kotlinkoans
 
-import java.util.*
+import java.util.Collections
 
 /**
  * Kotlin study from https://play.kotlinlang.org/koans/overview
@@ -114,28 +114,7 @@ class KotlinKoans {
     class Num(val value: Int) : Expr
     class Sum(val left: Expr, val right: Expr) : Expr
 
-    // Task 11 - Sealed classes
-//    fun eval(expr: Expr): Int =
-//        when (expr) {
-//            is Num -> expr.value
-//            is Sum -> eval(expr.left) + eval(expr.right)
-//        }
-//
-//    sealed interface Expr
-//    class Num(val value: Int) : Expr
-//    class Sum(val left: Expr, val right: Expr) : Expr
-
-    // Task 12 - Rename on import
-//    import kotlin.random.Random as KRandom
-//    import java.util.Random as JRandom
-//
-//    fun useDifferentRandomClasses(): String {
-//        return "Kotlin random: " +
-//                KRandom.nextInt(2) +
-//                " Java random:" +
-//                JRandom().nextInt(2) +
-//                "."
-//    }
+    // Tasks 11,12 are in separate files
 
     // Task 13 - Extension functions
     fun Int.r(): RationalNumber = RationalNumber(this, 1)
@@ -222,45 +201,9 @@ class KotlinKoans {
         }
     }
 
-    fun checkInRange2(date: MyDate, first: MyDate, last: KotlinKoans.MyDate): Boolean {
+    fun checkInRange2(date: MyDate, first: MyDate, last: MyDate): Boolean {
         return date in DateRange(first, last)
     }
-
-    //Task 16 - Conventions - For loop
-//    class DateRange3(val start: MyDate, val end: MyDate):Iterable<MyDate> {
-//        override fun iterator(): Iterator<MyDate> {
-//            return MyDateIterator(start, end)
-//        }
-//    }
-//
-//    class MyDateIterator(val start: MyDate, val end: MyDate):Iterator<MyDate> {
-//        var date: MyDate = start
-//        override fun hasNext(): Boolean {
-//            return date <= end
-//        }
-//        override fun next(): MyDate {
-//            val resultDate = date
-//            date = date.followingDate()     // code of this method is present in
-//            // https://play.kotlinlang.org/koans/Conventions/For%20loop/DateUtil.kt. Sadly, it cannot be copied.
-//            return resultDate
-//        }
-//    }
-//
-//    fun iterateOverDateRange(firstDate: MyDate, secondDate: MyDate, handler: (MyDate) -> Unit) {
-//        for (date in firstDate..secondDate) {
-//            handler(date)
-//        }
-//    }
-
-
-
-
-
-    // TODO Continue adding up a completed tasks
-
-
-
-
 
 
     // 10 task - Object expressions
@@ -289,13 +232,13 @@ class KotlinKoans {
 
 
     // 15 task - Range to
-    operator fun KotlinKoans.MyDate.rangeTo(other: KotlinKoans.MyDate) =
-        KotlinKoans.DateRange(this, other)
+    operator fun MyDate.rangeTo(other: MyDate) =
+        DateRange(this, other)
 
     class DateRange2(
-        override val start: KotlinKoans.MyDate,
-        override val endInclusive: KotlinKoans.MyDate
-    ) : ClosedRange<KotlinKoans.MyDate>
+        override val start: MyDate,
+        override val endInclusive: MyDate
+    ) : ClosedRange<MyDate>
 
 
     fun main() {

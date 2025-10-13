@@ -1,0 +1,16 @@
+package com.example.vladislav.androidstudy.kotlin.study.kotlinkoans
+
+/**
+ * Task 11 - Sealed classes
+ */
+class Task11 {
+    fun eval(expr: Expr): Int =
+        when (expr) {
+            is Num -> expr.value
+            is Sum -> eval(expr.left) + eval(expr.right)
+        }
+
+    sealed interface Expr
+    class Num(val value: Int) : Expr
+    class Sum(val left: Expr, val right: Expr) : Expr
+}
