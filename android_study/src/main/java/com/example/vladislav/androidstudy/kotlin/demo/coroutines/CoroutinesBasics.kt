@@ -1,4 +1,4 @@
-package com.example.vladislav.androidstudy.kotlin.demo
+package com.example.vladislav.androidstudy.kotlin.demo.coroutines
 
 import android.net.http.HttpException
 import android.util.Log
@@ -64,16 +64,16 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
                 }
                 job1.join()
                 job2.join()
-                Log.d(TAG, timeTaken.toString())
+                Log.d(TAG, timeTaken.toString())    // Somewhat more than 1000 and way less than 2000
             }
             Log.d(TAG, timeTaken2.toString())
         }
     }
 
-    fun coroutineDemo()  {
+    fun coroutineDemo() {
         // runBlocking blocks a thread it runs on. It is a bridge from ordinary function to suspend one.
         // Should only be used in main function and tests and not be used in any coroutine.
-        // UI thread will freeze until this block of code is to finish
+        // UI thread will freeze (when launched on UI thread) until this block of code is to finish
         runBlocking {   // Even stating Dispatchers(IO) here freezes UI thread.
             // BlockingCoroutine{Active}@3615897
             Log.d(TAG, this.toString()) // this - current scope
@@ -111,11 +111,9 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
     }
 
     fun coroutineDemo1_1() = runBlocking {
-        coroutineScope {
-            // Rows 1, 2 will be executed at once
-            launch { doWork() }     // 1
-            Log.d(TAG, "Hello Coroutines")     // 2
-        }
+        // Rows 1, 2 will be executed at once
+        launch { doWork() }     // 1
+        Log.d(TAG, "Hello Coroutines")     // 2
     }
 
     fun coroutineDemoScope() = runBlocking {
@@ -131,16 +129,27 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         }
     }
 
+    // These coroutines will be executed sequentially
     fun coroutineDemo1_2() = runBlocking {
-        coroutineScope {
-            // Both coroutines will be launched at once
-            launch { doWork() }
-            launch { doWork() }
+        val job1 = launch {
+            Log.d(TAG, "First coroutine")
+            delay(1000)
         }
+        job1.join()
+        val job2 = launch {
+            Log.d(TAG, "Second coroutine")
+            delay(1000)
+        }
+        job2.join()
+        val job3 = launch {
+            Log.d(TAG, "Third coroutine")
+            delay(1000)
+        }
+        job3.join()
     }
 
     fun coroutineDemo1_3() {
-        // Creates 100000 coroutines and launches them at once.
+        // Creates 1000 coroutines and launches them at once.
         repeat(1_000) {
             // Thread is DefaultDispatcher-worker-69, so Dispatchers.IO creates like 70 threads in this case.
 //            GlobalScope.launch(Dispatchers.IO) {
@@ -178,7 +187,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
 
     fun coroutineDemoUnconfined2() {
         runBlocking<Unit> {
-            launch(Dispatchers.Unconfined) { // не ограничено -- будет работать с основным потоком
+            launch(Dispatchers.Unconfined) { // не ограничено - будет работать с основным потоком
                 // Unconfined      : I'm working in thread main
                 Log.d(TAG, "Unconfined      : I'm working in thread ${Thread.currentThread().name}")
                 delay(500)
@@ -289,9 +298,9 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         }
         Log.d(TAG, "Hello,")
         // wait until child coroutine completes
+        job.join()
         // In fact, there is no really need to wait for following job to complete,
         // since runBlocking waits for all child coroutines to finish.
-        job.join()
     }
 
     fun simpleCoroutineDemo4() = runBlocking { // <Unit> can be omitted
@@ -488,6 +497,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         runBlocking {
             delay(2000L)    // Coroutine will be canceled in 2 secs
             job.cancel()
+            job.cancel()
             Log.d(TAG, "cancelDemo cancelled")
         }
     }
@@ -519,29 +529,29 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
                 }
                 // One can also use ensureActive() or yield()
             }
-            Log.d(TAG, "cancelNotWorkingDemo finished its work")
+            Log.d(TAG, "fibonacci computation coroutine finished its work")
         }
         runBlocking {
             delay(1000L)
             job.cancel()
-            Log.d(TAG, "cancelDemo cancelled")
+            Log.d(TAG, "fibonacci computation coroutine cancelled")
         }
     }
 
     /** One can set a timeout for a coroutine to run. */
     fun cancelWorkingDemo2() {
         val job = CoroutineScope(Dispatchers.Default).launch {
-            withTimeout(3000L) {
+            withTimeout(5000L) {
                 for (i in 30..40) {
                     Log.d(TAG, "Result for i=$i = ${fibonacci(i)}")
                 }
             }
-            Log.d(TAG, "cancelNotWorkingDemo finished its work")
+            Log.d(TAG, "fibonacci computation coroutine finished its work")
         }
         runBlocking {
-            delay(100L)
+            delay(1000L)
             job.cancel()    // Coroutine won't cancel here
-            Log.d(TAG, "cancelDemo cancelled")
+            Log.d(TAG, "fibonacci computation coroutine cancelled")
         }
     }
 
@@ -560,7 +570,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
                 }
             }
             // wait some time
-            delay(1300)
+            delay(3000)
             println("Stopping the coroutine....")
             job.cancel()
             job.join()

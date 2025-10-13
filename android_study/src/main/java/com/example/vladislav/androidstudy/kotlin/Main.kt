@@ -23,8 +23,9 @@ class Main {
 //        Basics().typesDemo()
         // Basics().destructuringDeclaration()
         // extensionFunctionDemo()
-        // Basics().idiomsDemo(context)
-//         Basics().listDemo()
+//         Basics().idiomsDemo(context)
+//        ListDemo().listDemo()
+//        CollectionsDemo().demo()
 //         loopsDemo()
 //         Basics().rangesDemo()
         // Basics().javaRelatedDemo()
@@ -44,30 +45,104 @@ class Main {
 //        Basics().sayHello("Zdarova", listOf("Vlad", "Vladchenko", "Vladon"))
 //        Car(listOf(Car.Wheel())).demo()
 //         println(whenDemo4(5))   // x is in the range
-//         CoroutinesBasics(callback).coroutineDemo()
+//         CoroutinesBasics(callback).computeDemo()
 //        CoroutinesBasics(callback).coroutineDemoScope()
 //         CoroutinesBasics(callback).coroutineDemo1()
-//         CoroutinesBasics().coroutineDemo1_1()
-//         CoroutinesBasics().coroutineDemo1_2()
-//         CoroutinesBasics().coroutineDemo1_3()
-//         CoroutinesBasics(callback).temp()
+//         CoroutinesBasics(callback).coroutineDemo1_1()
+//         CoroutinesBasics(callback).coroutineDemo1_2()
+//         CoroutinesBasics(callback).coroutineDemo1_3()
+         CoroutinesBasics(callback).temp()
 //         CoroutinesBasics().coroutineDemo2()
 //        CoroutinesBasics(callback).simpleCoroutineDemo8()
 //         CoroutinesBasics(callback).deferredDemo()
 //        CoroutinesBasics().coroutineDemoUnconfined()
 //         CoroutinesBasics().coroutineDemoUnconfined2()
 //         CoroutinesBasics(callback).coroutineDemo3()
-        // CoroutinesBasics().simpleCoroutineDemo()
-//        CoroutinesBasics(callback).simpleCoroutineDemo2()
+//         CoroutinesBasics(callback).simpleCoroutineDemo()
+//        CoroutinesBasics(callback).simpleCoroutineDemo6()
 //        CoroutinesBasics(callback).simpleCoroutineDemo10()
-//        CoroutinesBasics().simpleCoroutineDemo9()
+//        CoroutinesBasics(callback).simpleCoroutineDemo9()
 //         CoroutinesBasics().cancelDemo()
 //         CoroutinesBasics(callback).cancelNotWorkingDemo()
-         CoroutinesBasics(callback).cancelWorkingDemo()
+//         CoroutinesBasics(callback).cancelWorkingDemo()
 //         CoroutinesBasics().twoNetworkCallsSequentially()
         // CoroutinesBasics().demoDispatchersAndThreads2()
         //  CoroutinesBasics().simpleCoroutineDemo11()
+//            CoroutinesBasics(callback).computeDemo()
 //        CoroutinesBasics(callback).flowDemo1Print()
+//        runBlocking {
+//            CoroutinesTasks().task2()
+//        }
+
+//        val customDownloadManager = CustomDownloadManager(CoroutineScope(Dispatchers.IO + SupervisorJob()))
+//        customDownloadManager.addUrls(listOf("site1.txt", "site2.txt", "site3.txt"))
+//        runBlocking {   // По хорошему, надо использовать viewModel и viewModelScope
+//            println(customDownloadManager.runDownloads())
+//        }
+//        customDownloadManager.cleanup()
+
+        // task4 Channel
+//        val executorScope = CoroutineScope(Dispatchers.Default)
+//        val monitorScope = CoroutineScope(Dispatchers.IO)
+//        val channel = Channel<String>()
+//        Executor().executeTask(scope = executorScope, channel)
+//        ProgressChecker().checkProgress(scope = monitorScope, channel)
+
+        // task4 SharedFlow
+//        val executorScope = CoroutineScope(Dispatchers.Default)
+//        val monitorScope = CoroutineScope(Dispatchers.IO)
+//        val progressProvider = Executor()
+//        val progressChecker = ProgressChecker(progressProvider)
+//        progressChecker.checkProgress(scope = monitorScope)
+//        progressProvider.executeTask(scope = executorScope)
+
+        // task5
+//        CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
+//            val relativeFilePath = ""
+//            val results = ConcurrentHashMap<File, Result>()
+//            val fileManager = FileManager(context)
+//            fileManager.createStubFiles(relativeFilePath, 100)
+//            val copyFolder = "copyFolder"
+//            // Create directory to copy files to
+//            val copyFolderFullPath = fileManager.createDirectory(copyFolder)
+//            val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+//            val jobsList = mutableListOf<Job>()
+//            for (i in 1..100) {
+//                jobsList.add(
+//                    scope.launch {
+//                        fileManager.getFile(relativeFilePath, "$i.txt")?.let { fileToCopy ->
+//                            val result = fileManager.copyFile(
+//                                fileToCopy,
+//                                copyFolderFullPath?.path.orEmpty()
+//                            )
+////                            synchronized(results) {   // Этот блок нужен если использовать простой mutableHashMap
+//                                results[result.first] = result.second
+////                            }
+//                        }
+//                    }
+//                )
+//            }
+//            jobsList.joinAll()
+//            Log.i("", "")
+//            Log.i("", "")
+//            Log.i("FileManager", "REPORT...")
+//            Log.i("FileManager", "results.size = ${results.size}")
+//            for ((file, result) in results) {
+//                when (result) {
+//                    is Result.Success -> Log.i("FileManager", "Success: File ${file.name} was copied.")
+//                    is Result.Failure -> Log.w("FileManager", "Fail: File ${file.name} could not be copied.")
+//                }
+//            }
+//            joinAll()
+//            fileManager.deleteStubFiles(relativeFilePath)
+//        }
+
+        // task6
+        val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+        scope.launch {
+            Log.i("SequenceComputer", SequenceComputer().getSequence(2, 5).toString())
+        }
+
 //         testIsEmptyOrNull()
 //         MapDemo.mapDemo()
 //        println(CompanionObject.NAME)
@@ -76,7 +151,7 @@ class Main {
 //         ExceptionsDemo().demonstrateException()
 //        Interfaces().checkType(Interfaces.InterfacesDemo2(","));
 //         MapDemo.mapDemo()
-        // MapDemo.peopleDemo()
+//         MapDemo.peopleDemo()
 //        NumbersDemo().numbersDemo()
 //        println(Stepik().toJSON(listOf(1, 2, 3, 42, 555)))
 //        println(Stepik().joinOptions(listOf("a","b","c")))
