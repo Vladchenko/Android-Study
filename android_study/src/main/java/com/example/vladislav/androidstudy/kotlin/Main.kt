@@ -16,6 +16,53 @@ class Main {
         context: Context,
         callback: (String) -> Unit
     ) {    // An entry point of a Kotlin application is the main function
+//        println(DeepseekTasks().filterAndTransform(listOf("cat", "hello", "world", "a")))
+//        DeepseekTasks().checkString2(null)
+//        DeepseekTasks().checkString2("")
+//        DeepseekTasks().checkString2("123")
+//        val user = DeepseekTasks().getOldestUser(listOf(DeepseekTasks.User("Vlad", 120)))
+//        user?.let {
+//            (name, age) -> println("$name is $age years old")
+//        }
+//        println(DeepseekTasks().describeValue(null))
+//        println(DeepseekTasks().describeValue(""))
+//        println(DeepseekTasks().describeValue("Some value"))
+//        println(DeepseekTasks().describeValue(123))
+//        println(DeepseekTasks().describeValue(123f))
+//        println(DeepseekTasks().groupWordsByFirstLetter(listOf("apple", "Banana", "orange", "avocado", "Blueberry")))
+//        println(listOf(1,2,3,4).product())
+//        println(listOf<Int>().product())
+//        println(handleState(Loading))
+//        println(handleState(Success(" Это данные")))
+//        println(handleState(Error("Что-то произошло")))
+
+//        runBlocking {
+//            val result = DeepseekTasks().simulateNetworkRequest()
+//            Log.d("Coroutines", result)
+//        }   // В компонентах с ЖЦ, н-р активити, использовать - lifecycleScope.launch {...}
+
+//        runBlocking {
+//            DeepseekTasks().countdownFlow(5).collect {
+//                Log.d("Coroutines", it.toString())
+//            }
+//            Log.d("Coroutines", "Запуск")
+//        }
+
+//        runBlocking {
+//            DeepseekTasks().countdownFlow2(5)
+//                .onStart { Log.d("Coroutines", "Начало отсчёта") }
+//                .onCompletion { Log.d("Coroutines", "Конец отсчёта") }
+//                .filter { it % 2 == 0 }
+//                .map { "Осталось: $it" }
+//                .onEach { Log.d("Coroutines", it) }
+//                .collect {}
+//            Log.d("Coroutines", "Запуск")
+//        }
+
+//        println(DeepseekTasks().factorialFromList(listOf()))
+//        println(DeepseekTasks().multiplyEachAnd10FromList(listOf(1, 2, 3, 4, 5)))
+//        println(DeepseekTasks().someTasksWithList5())
+
 //        InitOrderDemo("Vlad")
 //         ArraysListsDemo().arraysDemo()
 //        Basics().equalityDemo()
