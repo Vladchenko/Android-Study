@@ -48,9 +48,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".kotlin.demo.customview.DemoCustomViewActivity"
-            android:label="@string/activity_demo_custom_view"
+            android:name=".kotlin.sometasks.stopwatch.StopwatchActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".kotlin.demo.customview.DemoCustomViewActivity"
+            android:exported="true"
+            android:label="@string/activity_demo_custom_view">
         </activity>
         <activity
             android:name=".dagger2.example6.presentation.LoginActivity"
@@ -91,14 +100,8 @@
         https://developer.android.com/guide/topics/manifest/activity-element.html#lmode
         -->
         <activity
-            android:name="com.example.vladislav.androidstudy.compose.ComposeDemoActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".compose.ComposeDemoActivity"
+            android:exported="true"></activity>
         <activity android:name=".activities.ResultActivity" />
         <activity android:name=".activities.MenuActivity" />
         <activity android:name=".activities.ParcelableActivity" />
