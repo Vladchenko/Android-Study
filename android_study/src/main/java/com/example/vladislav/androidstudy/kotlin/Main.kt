@@ -1,7 +1,6 @@
 package com.example.vladislav.androidstudy.kotlin
 
 import android.content.Context
-import com.example.vladislav.androidstudy.kotlin.demo.CoroutinesBasics
 import com.example.vladislav.androidstudy.kotlin.study.leetcode.Solution
 
 /**
@@ -64,7 +63,7 @@ class Main {
 //        println(DeepseekTasks().someTasksWithList5())
 
 //        InitOrderDemo("Vlad")
-//         ArraysListsDemo().arraysDemo()
+//         ArraysListsDemo().arraysDemo2()
 //        Basics().equalityDemo()
 //        Basics().dataClassCopyDemo()
 //        Basics().typesDemo()
@@ -80,6 +79,53 @@ class Main {
 //         Basics().setDemo()
 //        Basics().whenDemo()
 //       Basics().temp()
+
+//        println("".palindrome())
+//        println("1".palindrome())
+//        println("11".palindrome())
+//        println("12".palindrome())
+//        println("1212".palindrome())
+//        println("1221".palindrome())
+//        println("12321".palindrome())
+//        println("123421".palindrome())
+
+//        println("".removeRedundantSpaces2())
+//        println(" ".removeRedundantSpaces2())
+//        println(" 1".removeRedundantSpaces2())
+//        println(" 1 ".removeRedundantSpaces2())
+//        println(" 11 ".removeRedundantSpaces2())
+//        println(" 11 11 ".removeRedundantSpaces2())
+//        println(" 11  11 ".removeRedundantSpaces2())
+//        println(" 11       11  ".removeRedundantSpaces2())
+
+//        Log.i("StringUtils", "wrfocigwoifx".vowelsAndPositions().toString())
+//        Log.i("StringUtils", "asd 5 1s d4 df 12 3454567678g 34531".integers().toString())
+//        Log.i("StringUtils", "ssdefdddvbffgy2222hhhhfbe3333rrr1".removeConsecutiveDuplicates2())
+//        Log.i("StringUtils", numberOfLuckyTickets().size.toString())
+//        Log.i("StringUtils", numberOfLuckyTickets().toString())
+//        Log.i("StringUtils", "1".countDigits2().toString())
+//        Log.i("StringUtils", "as".countDigits2().toString())
+//        Log.i("StringUtils", "as 12".countDigits2().toString())
+//        Log.i("StringUtils", "dsv 14s 7".countDigits2().toString())
+//        Log.i("StringUtils", "vf3 ds 4 fv 65 ввс 4вам 56 1".countDigits2().toString())
+//        Log.i("StringUtils", "ewrugchwiurgcnweurygnfiwuercgfbywekgu".eachCharCount().toString())
+
+//        Log.i("StringUtils", "".countWords2().toString())
+//        Log.i("StringUtils", " ".countWords2().toString())
+//        Log.i("StringUtils", "    ".countWords2().toString())
+//        Log.i("StringUtils", "1    ".countWords2().toString())
+//        Log.i("StringUtils", "  1  ".countWords2().toString())
+//        Log.i("StringUtils", "    1".countWords2().toString())
+//        Log.i("StringUtils", "1   1".countWords2().toString())
+//        Log.i("StringUtils", "1 1 1".countWords2().toString())
+//        Log.i("StringUtils", " 1 1 1 ".countWords2().toString())
+//        Log.i("StringUtils", "   ыва  234у       фыв 567u 22ws 123w 6о76шленри    ".countWords2().toString())
+
+//        println(" ".uppercaseEveryWord2())
+//        println("q w".uppercaseEveryWord2())
+//        println("q wdxv".uppercaseEveryWord2())
+//        println("q wdxv xcv df asw".uppercaseEveryWord2())
+//        println("q wdxv с ва фыц".uppercaseEveryWord2())
 //        Basics().testIsPalindromeMethod()
 //         Basics().someExample()
 //        LambdaDemo().lambdaDemo()
@@ -98,18 +144,18 @@ class Main {
 //         CoroutinesBasics(callback).coroutineDemo1_1()
 //         CoroutinesBasics(callback).coroutineDemo1_2()
 //         CoroutinesBasics(callback).coroutineDemo1_3()
-         CoroutinesBasics(callback).temp()
+//         CoroutinesBasics(callback).temp2()
 //         CoroutinesBasics().coroutineDemo2()
-//        CoroutinesBasics(callback).simpleCoroutineDemo8()
+//        CoroutinesBasics(callback).simpleCoroutineDemo10()
 //         CoroutinesBasics(callback).deferredDemo()
 //        CoroutinesBasics().coroutineDemoUnconfined()
 //         CoroutinesBasics().coroutineDemoUnconfined2()
-//         CoroutinesBasics(callback).coroutineDemo3()
+//         CoroutinesBasics(callback).coroutineDemo()
 //         CoroutinesBasics(callback).simpleCoroutineDemo()
 //        CoroutinesBasics(callback).simpleCoroutineDemo6()
 //        CoroutinesBasics(callback).simpleCoroutineDemo10()
 //        CoroutinesBasics(callback).simpleCoroutineDemo9()
-//         CoroutinesBasics().cancelDemo()
+//         CoroutinesBasics(callback).cancelDemo()
 //         CoroutinesBasics(callback).cancelNotWorkingDemo()
 //         CoroutinesBasics(callback).cancelWorkingDemo()
 //         CoroutinesBasics().twoNetworkCallsSequentially()
@@ -132,8 +178,13 @@ class Main {
 //        val executorScope = CoroutineScope(Dispatchers.Default)
 //        val monitorScope = CoroutineScope(Dispatchers.IO)
 //        val channel = Channel<String>()
-//        Executor().executeTask(scope = executorScope, channel)
-//        ProgressChecker().checkProgress(scope = monitorScope, channel)
+//        monitorScope.launch {   // Скоуп как у мониторинга
+//            val jobsList = listOf(
+//                Executor().executeTask(scope = executorScope, channel),
+//                ProgressChecker().checkProgress(scope = monitorScope, channel)
+//            )
+//            jobsList.joinAll()
+//        }
 
         // task4 SharedFlow
 //        val executorScope = CoroutineScope(Dispatchers.Default)
@@ -185,10 +236,10 @@ class Main {
 //        }
 
         // task6
-        val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-        scope.launch {
-            Log.i("SequenceComputer", SequenceComputer().getSequence(2, 5).toString())
-        }
+//        val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+//        scope.launch {
+//            Log.i("SequenceComputer", SequenceComputer().getSequence(2, 5).toString())
+//        }
 
 //         testIsEmptyOrNull()
 //         MapDemo.mapDemo()
@@ -669,5 +720,33 @@ class Main {
 //        println(Solution().wordPattern("aaaa", "cat dog dog dog"))   // false
 //        println(Solution().wordPattern("abba", "cat dog dog dog"))   // false
 //        println(Solution().wordPattern("abbb", "cat dog dog dog"))   // true
+
+//        println(com.example.vladislav.androidstudy.kotlin.utils.isEveryCharacterUnique("ergvtedthg"))
+//        println("as sd df fg as".com.example.vladislav.androidstudy.kotlin.utils.mostOftenMetString2())
+//        println(solution.compress(""))
+//        println(solution.compress(" "))
+//        println(solution.compress("        "))
+//        println(solution.compress("a"))
+//        println(solution.compress("aa"))
+//        println(solution.compress("aa "))
+//        println(solution.compress("aab "))
+//        println(solution.compress("aabb "))
+//        println(solution.compress("aabbcdddaaaxxbbb"))
+
+//        println(solution.compress("".toCharArray()))
+//        println(solution.compress("a".toCharArray()))
+//        println(solution.compress("ab".toCharArray()))
+//        println(solution.compress("aab".toCharArray()))
+//        println(solution.compress("abb".toCharArray()))
+//        println(solution.compress("aabb".toCharArray()))
+//        println(solution.compress("aabbb".toCharArray()))
+//        println(solution.compress("aabbbd".toCharArray()))
+//        println(solution.compress("aadbb".toCharArray()))
+//        println(solution.compress("aadbbc".toCharArray()))
+//        println(solution.compress("addbbc".toCharArray()))
+//        println(solution.compress("abbcccdddde".toCharArray()))
+//        println(solution.compress("abbcccccdffffff".toCharArray()))
+//        println(solution.compress("abbbbbbbbbbbbbbbbbbbcddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddf".toCharArray()))
+//        println(solution.compress("12332".toCharArray()))
     }
 }

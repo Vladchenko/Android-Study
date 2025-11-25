@@ -89,7 +89,7 @@ fun main() = runBlocking {
     executor.executeTask(scope, channel)
     checker.checkProgress(scope, channel)
 
-    delay(10_000) // Время на завершение задач
+    delay(10_000) // Время на завершение задач. В Андроиде это ожидание не нужно.
 }
 
 

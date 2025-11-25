@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.vladislav.androidstudy.R
+import kotlinx.coroutines.launch
 
 class KotlinStudyActivity : AppCompatActivity() {
 
@@ -19,6 +21,9 @@ class KotlinStudyActivity : AppCompatActivity() {
 
         val mainClass = Main()   // Creates instance
         mainClass.main(this, { name -> textView.setText(name) })         // Invokes method main
+        lifecycleScope.launch {
+            // Entry point for coroutine in activity.
+        }
     }
 
     fun checkForPermissions() {

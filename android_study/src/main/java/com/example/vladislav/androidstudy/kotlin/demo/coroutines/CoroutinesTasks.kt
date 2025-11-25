@@ -5,7 +5,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 
 class CoroutinesTasks {
@@ -79,7 +78,8 @@ class CoroutinesTasks {
                 }
             }
 
-            joinAll(evenNumbersJob, oddNumbersJob) // Ожидаем завершение обеих корутин
+            // В Андроиде не обязательно дожидаться, даже желательно не дожидаться
+//            joinAll(evenNumbersJob, oddNumbersJob) // Ожидаем завершение обеих корутин
         }
 
     /**

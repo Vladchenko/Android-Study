@@ -2,6 +2,7 @@ package com.example.vladislav.androidstudy.kotlin.demo.coroutines.task4.channel
 
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -11,8 +12,8 @@ import kotlinx.coroutines.launch
  */
 class ProgressChecker {
 
-    fun checkProgress(scope: CoroutineScope, progressChannel: Channel<String>) {
-        scope.launch {
+    fun checkProgress(scope: CoroutineScope, progressChannel: Channel<String>): Job {
+        return scope.launch {
             // while(true) { - плохой вариант цикла приёма сообщений из канала
             for (progressValue in progressChannel) { // Безопасный прием сообщений из канала
                 // Использование стандартного цикла for (message in progress) автоматически прекращает приём сообщений, когда канал закрывается. Никаких специальных проверок или исключений ловить не нужно.

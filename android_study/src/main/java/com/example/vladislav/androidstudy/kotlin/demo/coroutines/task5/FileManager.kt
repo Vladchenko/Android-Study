@@ -14,7 +14,7 @@ import java.io.File
  */
 class FileManager(val context: Context) {
 
-    private val writeMutex = Mutex() // Глобальный замок для записи файлов
+    private val writeMutex = Mutex() // Глобальный замОк для записи файлов
     private val filesDirectory = createFilesDirIfAbsent(context)
 
     fun createDirectory(relativeFilePath: String): File? {
@@ -22,17 +22,17 @@ class FileManager(val context: Context) {
             Log.e(TAG, "createDirectory: relativeFilePath is empty")
             return null
         }
-        val fileToCreate = File(
+        val folderToCreate = File(
             filesDirectory.path + if (relativeFilePath.isNotBlank() && relativeFilePath.first() != File.separator[0]) {
                 File.separator + relativeFilePath
             } else {
                 relativeFilePath
             }
         )
-        fileToCreate.mkdirs()
+        folderToCreate.mkdirs()
         Log.i(TAG, "createDirectory: directory named \"$relativeFilePath\" created")
-        Log.i(TAG, "createDirectory: absolute path is ${fileToCreate.absolutePath}")
-        return fileToCreate
+        Log.i(TAG, "createDirectory: absolute path is ${folderToCreate.absolutePath}")
+        return folderToCreate
     }
 
     fun createStubFiles(relativeFilePath: String = "", number: Int) {

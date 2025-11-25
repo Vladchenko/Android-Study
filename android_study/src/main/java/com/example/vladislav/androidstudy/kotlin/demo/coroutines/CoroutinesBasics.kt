@@ -2,6 +2,7 @@ package com.example.vladislav.androidstudy.kotlin.demo.coroutines
 
 import android.net.http.HttpException
 import android.util.Log
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -9,6 +10,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
@@ -29,6 +31,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.yield
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 import kotlin.system.measureTimeMillis
 import kotlin.time.Duration.Companion.milliseconds
@@ -70,29 +73,48 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         }
     }
 
+    fun temp2() {
+        val handler = CoroutineExceptionHandler { context, exception ->
+            Log.i(TAG, "first coroutine exception $exception")
+        }
+
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default + handler)
+
+        scope.launch {
+            TimeUnit.MILLISECONDS.sleep(1000)
+            Integer.parseInt("a")
+        }
+
+        scope.launch {
+            repeat(5) {
+                TimeUnit.MILLISECONDS.sleep(300)
+                Log.i(TAG, "second coroutine isActive ${isActive}")
+            }
+        }
+    }
+
     fun coroutineDemo() {
         // runBlocking blocks a thread it runs on. It is a bridge from ordinary function to suspend one.
         // Should only be used in main function and tests and not be used in any coroutine.
-        // UI thread will freeze (when launched on UI thread) until this block of code is to finish
-        runBlocking {   // Even stating Dispatchers(IO) here freezes UI thread.
+        runBlocking(Dispatchers.IO) {   // Even stating Dispatchers(IO) here freezes UI thread.
             // BlockingCoroutine{Active}@3615897
             Log.d(TAG, this.toString()) // this - current scope
             // coroutineContext - current context of a coroutine
             // [BlockingCoroutine{Active}@b846792, BlockingEventLoop@bdac563]
             Log.d(TAG, this.coroutineContext.toString())
             // Since we run on main thread, next code will freeze UI.
-            while (true) {
-                delay(1000L)
+            launch {    // Even using separate thread, UI thread is locked
+                while (true) {
+                    delay(1000L)
+                }
             }
         }
+        // !!! The reason of this - runBlocking is always launched on main thread and blocks it
+        // until all inner coroutines are to complete. runBlocking(Dispatchers.IO) makes inner
+        // coroutine to run on worker thread.
     }
 
     fun coroutineDemo1() {
-        // runBlocking blocks a UI thread even when dispatcher is (Dispatchers.IO). Why so ?
-        // Gigacode chat response:
-        // В данном коде блокируется UI поток, потому что вы используете `runBlocking` в главном потоке. `runBlocking` блокирует текущий поток до тех пор, пока все корутины внутри него не завершат свою работу.
-        // Ваш `withContext(Dispatchers.Default)` действительно запускает корутину в фоновом потоке, но `runBlocking` все равно блокирует главный поток до тех пор, пока эта корутина не завершит свою работу.
-        // Если вы хотите, чтобы ваш код не блокировал главный поток, вы можете использовать `launch` вместо `runBlocking`. `launch` запускает корутину в фоновом потоке и не блокирует текущий поток.
         runBlocking {
             // Thread is main
             Log.d(TAG, "Thread is ${Thread.currentThread().name}")
@@ -161,13 +183,14 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
 //            GlobalScope.launch(Dispatchers.Main) {
             // Runs on a main thread
             // Unconfined means that this coroutine is not "attached" to one thread only - it can
-            // change a thread it runs on at some conditions.
+            // change a thread it runs on when returning to this coroutine.
 //            GlobalScope.launch(Dispatchers.Unconfined) {
             GlobalScope.launch {    // Seems to match Dispatchers.Default
                 Log.d(TAG, "Coroutine #$it started. Thread is ${Thread.currentThread().name}")
                 delay(Random.nextLong(500))
                 Log.d(TAG, "Coroutine #$it finished. ")
             }
+            // GlobalScope может исп-ся когда есть фоновая синхронизация данных, логгирование, аналитика, телеметрия.
         }
     }
 
@@ -367,7 +390,8 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
                         Log.d(TAG, "Coroutines #$it done its job")
                     })
             }
-            jobs.joinAll()
+//            jobs.forEach { it.start() } // To run in parallel
+            jobs.joinAll()  // With (start = CoroutineStart.LAZY) present, runs coroutines sequentially unless previous line is uncommented
             Log.d(TAG, "simpleCoroutineDemo8 finished its job")
         }
         // Also watch https://stackoverflow.com/questions/63812589/coroutines-not-running-in-parallel
@@ -378,11 +402,15 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
             // These coroutines will start right away
             val coroutines: List<Deferred<String>> = List(100) {
-                async {
-                    doWork(it)
+                async(start = CoroutineStart.LAZY) {
+                    Log.d(TAG, "Coroutine $it started")
+                    val value = doWork(it)
+                    Log.d(TAG, "Coroutine $it finished")
+                    value
                 }
             }
-            coroutines.forEach { Log.d(TAG, it.await()) }
+//            coroutines.forEach { Log.d(TAG, it.await()) }
+            coroutines.awaitAll()   // even with LAZY start coroutines are run in parallel
             Log.d(TAG, "simpleCoroutineDemo9 finished its job")
         }
     }
@@ -404,7 +432,9 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
             }
             // When using await(), coroutines execute sequentially
             coroutines.forEach { Log.d(TAG, it.await()) }
+//            coroutines.awaitAll()     // This one runs in them in parallel
             Log.d(TAG, "simpleCoroutineDemo10 finished its job")
+            // Checked online - start and await() launch coroutines in parallel and sequentially respectively.
         }
     }
 
@@ -488,15 +518,15 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
 
     fun cancelDemo() {
         val job = CoroutineScope(Dispatchers.Default).launch {
+            Log.d(TAG, "cancelDemo begun its work")
             repeat(5) {
-                Log.d(TAG, "cancelDemo begun its work")
+                Log.d(TAG, "cancelDemo is working...")
                 delay(1000L)
                 Log.d(TAG, "cancelDemo finished its work")
             }
         }
         runBlocking {
             delay(2000L)    // Coroutine will be canceled in 2 secs
-            job.cancel()
             job.cancel()
             Log.d(TAG, "cancelDemo cancelled")
         }
@@ -644,25 +674,23 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
             val time = measureTimeMillis {
                 val response1 = async { networkCall1() }
                 val response2 = async { networkCall2() }
-                Log.d(
-                    TAG,
-                    response1.await()
-                )   // await blocks current coroutines until answer is available
+                // await blocks current coroutines until answer is available
+                Log.d(TAG, response1.await())
                 Log.d(TAG, response2.await())
             }
             Log.d(TAG, "time spent = $time")
         }
     }
 
-//    fun lifeCycleDemo() {
-//        lifecycleScope.launch
-//    }
+    fun lifeCycleDemo() {
+//        lifecycleScope.launch     // Runs only in fragment or activity
+//        viewmodelScope.launch     // Runs only in view model
+    }
 
     private suspend fun networkCall1(): String {
         delay(2000L)
         return "networkCall1 response"
     }
-
 
     private suspend fun networkCall2(): String {
         delay(2000L)
@@ -678,7 +706,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
 
     fun flowDemo1Print() {
         GlobalScope.launch {
-            // print(" $it") strangely doesn't work here
+            // print(it) strangely doesn't work here, but println(it) does ))
             flowDemo1().collect { println(it) }
         }
     }
@@ -745,6 +773,11 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
     fun computeDemo() = GlobalScope.launch {
         Log.e(TAG, compute())
     }
+
+    val scope = MainScope()
+    val scope2 = CoroutineScope(Job() + Dispatchers.Main + CoroutineExceptionHandler({ _, e -> e.printStackTrace() }))
+    val scope3 = CoroutineScope(SupervisorJob() + Dispatchers.IO + CoroutineName("MyCoroutine"))
+    val scope4 = CoroutineScope(scope3.coroutineContext + CoroutineName("MyCoroutine2"))
 
     companion object {
         private const val TAG = "CoroutinesBasics"
