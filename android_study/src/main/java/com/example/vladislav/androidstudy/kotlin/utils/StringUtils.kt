@@ -29,7 +29,7 @@ fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'
  */
 fun String.isAllLetters() = this.all { it.isLetter() } // c.com.example.vladislav.androidstudy.kotlin.utils.isLetter(), method from CharJVM.kt
 
-fun String.isNumber() = this.toDoubleOrNull() != null
+fun String.isNumber() = this.toDoubleOrNull() != null // this.all { it.isDigit()||(it=='.') }
 
 fun String.isInteger() = this.toIntOrNull() != null
 
@@ -60,15 +60,45 @@ fun String.isPalindrome2(): Boolean {
 }
 
 /** Retrieve a list of words */
-fun String.splitIntoWords() = this.trim().split(Regex("\\s+"), 0)
+fun String.splitIntoWords() = split(Regex("\\s+"), 0)
 // For split(), one could use split(" "), even split("") for space delimiter
 // trim() is redundant, since split(" ") or split("") removes leading and subsequent spaces.
 
 /** Counts the number of words in the input string (numbers included) */
-fun String.countWords() = this.trim().split(Regex("\\s+"), 0).size // Or .count instead of .size
+fun String.countWords() = split(Regex("\\s+"), 0).size // Or .count instead of .size
 
 /** Finds palindromes in given string */
 fun String.findPalindromes() = this.splitIntoWords().filter { it.isPalindrome() }
+
+/** Provide indices to each palindrome */
+fun String.findPalindromesIndexes(): List<Int> {
+    val result = mutableListOf<Int>()
+    var currentPos = 0
+
+    split(Regex("\\s+")).forEach { word ->
+        if (word.isPalindrome()) {
+            result.add(currentPos)
+        }
+        currentPos += word.length + 1 // +1 для пробела
+    }
+
+    return result
+}
+
+/** Palindrome to its position map */
+fun String.getPalindromesMap(): Map<String, Int> {
+    val result = mutableMapOf<String, Int>()
+    var currentPos = 0
+
+    split(Regex("\\s+")).forEach { word ->
+        if (word.isPalindrome()) {
+            result[word] = currentPos
+        }
+        currentPos += word.length + 1
+    }
+
+    return result
+}
 
 /** Counts the number of palindromes in the input string */
 fun String.countPalindromes() = this.splitIntoWords().count { it.isPalindrome() }
@@ -82,9 +112,9 @@ fun String.findLongestPalindrome() = this.findPalindromes().maxByOrNull { it.len
  *
  * @return List of [Double] values parsed from the input.
  */
-fun String.findNumbers(): List<Double> = this.trim()
-    .split(Regex("\\s+"), 0)
-    .filter { it.toDoubleOrNull() != null }
+fun String.findNumbers(): List<Double> =
+    split(Regex("\\s+"), 0)
+    .filter { it.toDoubleOrNull() != null || it.toIntOrNull() != null }
     .map { it.toDouble() }
 
 /**
@@ -93,8 +123,8 @@ fun String.findNumbers(): List<Double> = this.trim()
  *
  * @return List of [Int] values parsed from the input.
  */
-fun String.findIntegers(): List<Int> = this.trim()
-    .split(Regex("\\s+"), 0)
+fun String.findIntegers(): List<Int> =
+    split(Regex("\\s+"), 0)
     .filter { it.toIntOrNull() != null }
     .map { it.toInt() }
 
@@ -103,24 +133,35 @@ fun String.findIntegers(): List<Int> = this.trim()
  *
  * @return true if all words in the string are numeric values, false otherwise.
  */
-fun String.isAllNumbers() = this.trim().split(Regex("\\s+"), 0).all {
+fun String.isAllNumbers() = split(Regex("\\s+"), 0).all {
     it.toDoubleOrNull() != null
 }
 
 /** Checks if all the words in the input string are integer numbers. */
-fun String.isAllIntegers() = this.trim().split(Regex("\\s+"), 0).all {
+fun String.isAllIntegers() = split(Regex("\\s+"), 0).all {
     it.toIntOrNull() != null
 }
 
 /** Checks if all the words in the input string are integer and floating-point numbers. */
-fun String.isAllRealNumbers() = this.trim().split(Regex("\\s+"), 0).all {
+fun String.isAllRealNumbers() = split(Regex("\\s+"), 0).all {
     it.toDoubleOrNull() != null && it.toIntOrNull() == null
 }
 
 /** Count numbers (integer or real) present in a string */
-fun String.countNumbers() = this.trim().split(Regex("\\s+"), 0).count {
+fun String.countNumbers() = split(Regex("\\s+"), 0).count {
     it.toDoubleOrNull() != null
 }
+
+/** Words that has no digits in them */
+fun String.noDigitsWords() = split(Regex("\\s+"))
+    .filter { word -> word.all { symbol -> symbol.isLetter() } }
+
+/** Words with one or several digits in them */
+fun String.someDigitsWords() = split(Regex("\\s+"))
+    .filter { word ->
+        word.any { symbol -> symbol in '0'..'9' }
+                && word.any { symbol -> symbol in 'a'..'z' || symbol in 'A'..'Z' }
+    }
 
 /**
  * Counts the number of non-numeric words in the input string.
@@ -128,7 +169,7 @@ fun String.countNumbers() = this.trim().split(Regex("\\s+"), 0).count {
  *
  * @return The count of non-numeric words.
  */
-fun String.countNonNumericWords() = this.trim().split(Regex("\\s+"), 0).count {
+fun String.countNonNumericWords() = split(Regex("\\s+"), 0).count {
     it.toDoubleOrNull() == null
 }
 
@@ -152,7 +193,7 @@ fun String.countNonDigits() = this.count { !it.isDigit() }
  *
  * @return The longest word, or null if the string is empty or contains no words.
  */
-fun String.longestWord() = this.trim().split(Regex("\\s+"), 0).maxByOrNull { it.length }
+fun String.longestWord() = split(Regex("\\s+"), 0).maxByOrNull { it.length }
 
 /**
  * Returns the index of the first occurrence of [subString] in this string.
@@ -199,7 +240,7 @@ fun String.removeConsecutiveDuplicates(): String {
  * @return Index of the longest word in the list, or -1 if no words are found.
  */
 fun String.indexOfLongestWordInList(): Int {
-    val words = this.trim().split(Regex("\\s+"), 0)
+    val words = split(Regex("\\s+"), 0)
     if (words.isEmpty()) return -1
 
     val longestWord = words.maxByOrNull { it.length }!!
@@ -223,6 +264,19 @@ fun String.removeAllExceptDigits() = this.filter { it.isDigit() }
 /** Removes all characters, except digits and chars from string */
 fun String.removeAllExceptDigitsAndChars() = this.filter { it.isLetterOrDigit() }
 
+/**
+ * Removes all substrings that are numbers
+ */
+fun String.removeDigitalStrings() =
+    split(Regex("\\s+")).filter { it.none { it in '0'..'9' }}
+//        split(Regex("\\s+")).filterNot { it.all { it in '0'..'9' }}
+
+/**
+ * Removes all substrings that are words
+ */
+fun String.removeSymbolicStrings() =
+    split(Regex("\\s+")).filter { it.all { it in '0'..'9' } }
+
 /** Counts a number of a capital chars in a string */
 fun String.capitalCharsCount() = this.count { it.isUpperCase() }
 
@@ -230,7 +284,7 @@ fun String.capitalCharsCount() = this.count { it.isUpperCase() }
 fun String.lowercaseCharsCount() = this.count { it.isLowerCase() }
 
 /** Make every word to begin with capital letter */
-fun String.capitalizeFirstLetters() = this.split(Regex("\\s+")).map { it.capitalize(Locale.getDefault()) }.joinToString(" ")
+fun String.capitalizeFirstLetters() = this.split(Regex("\\s+")).map { it.replaceFirstChar{ it.uppercase() } }.joinToString(" ")
 
 /** Returns true, if symbols (, {, [ have respective pairs and false otherwise. */
 fun String.checkIfBracesPaired(): Boolean {
@@ -256,6 +310,16 @@ fun String.checkIfBracesPaired(): Boolean {
     return (squareBrackets == 0
             || braces == 0
             || squareBrackets == 0)
+}
+
+fun String.checkIfBracesPaired2():Boolean {
+    var balance = 0
+    this.forEach {
+        if (it == ']') balance++
+        if (it == '[') balance--
+        if (balance < 0) return false
+    }
+    return balance == 0
 }
 
 /** Solves arithmetic expression in a string. Do not put any symbols different to digits, dot and operations (*+-/). */
@@ -294,7 +358,7 @@ fun String.solveExpression(): String {
 /** Replace a [replaceableString] with a [replacingString]. */
 fun String.replaceString(replaceableString: String, replacingString: String) =
         // No need to make this function, since there is replace(...) fun for String
-        this.trim().split(Regex("\\s+")).joinToString {
+        split(Regex("\\s+")).joinToString {
             if (it == replaceableString) {
                 replacingString
             } else it
@@ -322,7 +386,7 @@ fun String.replaceDigitsWithSymbolicRepresentation(): String {
 fun String.replaceNumbersWithSymbolicRepresentation(): String {
     var resultNumberString: String
     var resultString = ""
-    this.trim().split(Regex("\\s+")).map {
+    split(Regex("\\s+")).map {
         val reversedNumber = it.reversed()
         resultNumberString = ""
         if (reversedNumber[0] == '0') {
@@ -436,6 +500,8 @@ fun String.isEveryCharUnique(): Boolean {
     return true
 }
 
+fun String.isAllCharsUnique() = this.toList().distinct().count() == this.count()
+
 /**
  * Checks if every char's frequency is unique in given string.
  * "qw" - returns false
@@ -483,7 +549,7 @@ fun String.isEveryCharUnique3() = this.toSet().size == this.length
 fun String.isEveryCharUnique4() = this.chars().distinct().toString().length == this.length
 
 /** Retrieve distinct chars. */
-fun String.distinctChars() = this.toCharArray().distinct()
+fun String.distinctChars() = this.toCharArray().distinct() // this.toList().distinct()
 
 /** Retrieve distinct chars. */
 fun String.distinctChars2() = this.toCharArray().toSet()
@@ -567,6 +633,23 @@ fun String.toLengthSortedStrings() = this.split(Regex("\\s+")).sortedBy {
  */
 fun String.findShortestString() = this.split(Regex("\\s+")).minByOrNull { it.length }
 
+/** Find shortest string with its index */
+fun String.shortestStringWithIndex(): Pair<String, Int>? {
+    var minLength = Int.MAX_VALUE
+    var bestPair: Pair<String, Int>? = null
+    var currentIndex = 0
+
+    split(Regex("\\s+")).forEach { word ->
+        if (word.length < minLength) {
+            minLength = word.length
+            bestPair = word to currentIndex
+        }
+        currentIndex += word.length + 1
+    }
+
+    return bestPair
+}
+
 /**
  * Retrieve shortest string map, like (string, string length), say (s, 1)
  */
@@ -641,3 +724,43 @@ private fun performArithmeticOperation(
     }
     return "Unsupported operation"
 }
+
+fun String.allNumbers() = this.split(Regex("\\s+")).all { it.isNumber() }
+
+fun String.longestWord2() = this.split(Regex("\\s+")).maxBy { it.length }
+
+fun String.everyCharUnique2() = toSet().size == this.length
+
+fun String.mostOftenMetString3(): String {
+    val grouping = split(Regex("\\s+")).groupingBy { it }.eachCount().maxBy { it.value }
+    println(grouping)
+//    val stringsMap = mutableMapOf<String, Int>()
+//    this.split(Regex("\\s+")).map {
+//        if (stringsMap[it] == null) {
+//            stringsMap[it] = 1
+//        } else {
+//            stringsMap[it] = stringsMap[it]!!.plus(1)
+//        }
+//    }
+//    return stringsMap.maxBy { it.value }.key
+    return ""
+}
+
+fun String.vowelsAndPositions(): List<Pair<Char, Int>> =
+    this.mapIndexedNotNull { index, char ->
+        if (char in "aeiouy") {
+            char to index
+        } else { null }
+    }
+
+fun intersectedSymbols(string1: String, string2: String) = string1.filter { it in string2 }
+
+fun uniqueIntersected(string1: String, string2: String): Set<Char> {
+    val charCount = string1.groupingBy { it }.eachCount()
+    val list1 = string1.toList().filter { charCount[it] == 1 }
+    val charCount2 = string2.groupingBy { it }.eachCount()
+    val list2 = string2.toList().filter { charCount2[it] == 1 }
+    return list1.intersect(list2)
+}
+
+fun absentInSecond(string1: String, string2: String) = string1.toList().filter { it !in string2.toList() }
