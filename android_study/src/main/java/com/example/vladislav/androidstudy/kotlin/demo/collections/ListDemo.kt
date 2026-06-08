@@ -1,6 +1,7 @@
 package com.example.vladislav.androidstudy.kotlin.demo.collections
 
 import com.example.vladislav.androidstudy.kotlin.demo.joinToString
+import kotlin.random.Random
 
 /**
  * List operations demonstration.
@@ -12,12 +13,7 @@ class ListDemo {
      */
     fun listDemo() {
         val someList = arrayOf(1, 2, 3, 4).asList()
-        val list = listOf(
-            "q",
-            "a",
-            "z",
-            "zz"
-        )    // Immutable list (one cannot add items to it or remove from)
+        val list = listOf("q", "a", "z", "zz")    // Immutable list (one cannot add items to it or remove from)
         println(list[0])    // Same to println(list.get(0))
         list.getOrElse(5) { list[0] }   // Answer: q    // Retrieves first element instead of 5th, which is absent.
         list.getOrNull(5)   // Retrieves null, instead of IOOB exception
@@ -40,18 +36,13 @@ class ListDemo {
         println(list.last { it.contains("z") })   // Answer: zz
         println(listOf(1, 2, 3, 4, 5).fold(0) { total, next -> total + next })  // Answer: 15
         println(
-            listOf(
-                1,
-                2,
-                3
-            ).reduce { total, next -> total + next }) // Answer: 6. Same as .fold(), but without
+            listOf(1, 2, 3)
+                .reduce { total, next -> total + next }) // Answer: 6. Same as .fold(), but without
         // an initial state
         println(
-            listOf(
-                1,
-                2,
-                3
-            ).sumOf { it + 5 }) // Answer: 21. Increasing all the items in 5, then sum them up
+            listOf(1, 2, 3)
+                .sumOf { it + 5 }
+        ) // Answer: 21. Increasing all the items in 5, then sum them up
         val list2 = listOf(1, 2, 3, 4, 5)
         // Is there an even element ?
         println(list2.any { it % 2 == 0 }) // true
@@ -65,6 +56,16 @@ class ListDemo {
         //  from book - Kotlin. Паттерны проектирования и лучшие практики, 3-е изд.
         println("Are they the same? ${emptyList<String>() === listOf<String>()}") // Are they the same? true
         println("Are they the same? ${emptyList<String>() === listOf<Int>()}") // Are they the same? true
+
+        data class Employee(val name: String, val salary: Int)
+
+        val minSalary = 100000
+        val maxSalary = 500000
+        val names = listOf("John", "Mary", "Ann", "Paul", "Jack", "Elizabeth")
+        fun generateEmployee() = Employee(
+            names.random(),    // This is how random in list can work
+            Random.nextInt(from = minSalary, until = maxSalary)
+        )    // This is how ranged random can work
     }
 
     /**
@@ -98,10 +99,12 @@ class ListDemo {
         val cats13 = listOf(
             Cat("Murzik", age = 10, weight = 1.4),
             Cat("Barsik", age = 5, weight = 3.1),
-            Cat("Ryzik", age = 1, weight = 2.2))
+            Cat("Ryzik", age = 1, weight = 2.2)
+        )
 
         // суммируем разные типы
-        val total = cats13.sumOf { it.age * it.weight} // Перемножаем возраст на вес и суммируем эти значения для всех котов
+        val total =
+            cats13.sumOf { it.age * it.weight } // Перемножаем возраст на вес и суммируем эти значения для всех котов
         println(total)
         val count = cats13.sumOf { it.age } // Int
         println(count)
@@ -219,11 +222,12 @@ class ListDemo {
         cats7.add(Cat("Рыжик", 5, 6500.0))
         cats7.add(Cat("Василий", 4, 5100.0))
         cats7.add(Cat("Мурзик", 6, 5400.0))
-        println(cats7.sortedWith(
-            compareBy(
-                { it.name }, { it.age }
-            )
-        ))  // [Cat(name=Василий, age=4, weight=5100), Cat(name=Мурзик, age=4, weight=5400), Cat(name=Мурзик, age=6, weight=5400), Cat(name=Рыжик, age=5, weight=6500)]
+        println(
+            cats7.sortedWith(
+                compareBy(
+                    { it.name }, { it.age }
+                )
+            ))  // [Cat(name=Василий, age=4, weight=5100), Cat(name=Мурзик, age=4, weight=5400), Cat(name=Мурзик, age=6, weight=5400), Cat(name=Рыжик, age=5, weight=6500)]
 
         //TODO Stopped @ Сортируем по длине имён в порядке возрастания, используя Comparator.
         // http://developer.alexanderklimov.ru/android/kotlin/collection.php (Только по ВПН)
