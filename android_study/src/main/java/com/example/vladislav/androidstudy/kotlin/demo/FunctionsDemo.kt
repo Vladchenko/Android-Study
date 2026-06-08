@@ -38,6 +38,16 @@ class FunctionsDemo {
         print(" done with anonymous function")
     }
 
+    // Executes some code within println()
+    fun narrate(
+        message: String
+    ) {
+        println({
+            val numExclamationPoints = 3
+            message.uppercase() + "!".repeat(numExclamationPoints)
+        }())
+    }
+
     // Higher-order functions
     private fun stringMapper(str: String, mapper: (String) -> Int): Int {
         // Invoke function
