@@ -1073,7 +1073,6 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
             }
         }
 
-
     companion object {
         private const val TAG = "CoroutinesBasics"
     }
@@ -1256,7 +1255,7 @@ class CancellationDemo() {
             }
             // Although there is SupervisorJob() in declaration of this coroutine, it is not a SupervisorJob
             val job = CoroutineScope(handler + SupervisorJob()).launch {
-            // Even making launch() to have SupervisorJob doesn't make it so
+                // Even making launch() to have SupervisorJob doesn't make it so
 //          val job = CoroutineScope(handler + SupervisorJob()).launch(SupervisorJob()) {
                 launch {
                     try {
@@ -1340,6 +1339,46 @@ class CancellationDemo() {
                 childJobs.forEach { it.cancel() }
             }
             println("All child jobs completed!")
+        }
+    }
+
+    // async exception propagation
+    fun example5() {
+        CoroutineScope(Job()).launch {
+            launch {
+                delay(2000L)
+                Log.i(TAG, "coroutine is over")
+            }
+            // Although async throws an exception only in await(), it anyway propagates error
+            // from its coroutine to a parent. And to stop its propagation, one needs to use
+            // SupervisorJob in its builder.
+            val deferred = async(Job()) {   // Job is used to see that error is really propagated
+                delay(1000L)
+                "a".toInt()
+            }
+            try {
+                deferred.await()
+            } catch (ex: Exception) {
+                Log.i(TAG, ex.toString())
+            }
+        }
+    }
+
+    // Job in child coroutine breaks connection with parent
+    fun example6() {
+        CoroutineScope(
+            Dispatchers.IO
+                    + CoroutineExceptionHandler { _, ex -> Log.wtf(TAG, "$ex") }
+        ).launch {
+            // Putting Job() here breaks a connection with a parent (structured concurrency).
+            // I.e. having an error in this coroutine with this Job() provided, won't cause parent to fail
+            launch(Job()) {
+                delay(1000)
+                "q".toInt()
+                Log.i(TAG, "Child coroutine is over")
+            }
+            delay(2000)
+            Log.i(TAG, "Parent coroutine is over")
         }
     }
 
