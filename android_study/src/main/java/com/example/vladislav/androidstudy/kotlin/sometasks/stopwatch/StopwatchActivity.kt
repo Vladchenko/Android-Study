@@ -3,6 +3,7 @@ package com.example.vladislav.androidstudy.kotlin.sometasks.stopwatch
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 
@@ -11,7 +12,7 @@ import androidx.compose.runtime.getValue
  */
 class StopwatchActivity : ComponentActivity() {
 
-    private val viewmodel = StopwatchViewModel()
+    private val viewmodel by viewModels<StopwatchViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
