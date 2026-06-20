@@ -8,7 +8,20 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 
 /**
- * Активити секундомера
+ * Main Activity responsible for displaying and managing the Stopwatch feature.
+ *
+ * This Activity uses Jetpack Compose for UI and delegates all business logic and state management
+ * to [StopwatchViewModel]. It observes the ViewModel's [StopwatchState] and recomposes
+ * the [StopwatchComposable] whenever the state changes.
+ *
+ * Key responsibilities:
+ *   • Initializing the [StopwatchViewModel] via `viewModels()` delegate (scoped to Activity lifecycle).
+ *   • Setting the Compose content and collecting the state with `collectAsState()`.
+ *   • Wiring UI callbacks (`onSplitOrStopClick`, `onStopStartClick`, `onPauseOrContinueClick`)
+ *     to corresponding ViewModel functions.
+ *
+ * This Activity is **stateless** — it only passes state and handlers to the Composable.
+ * All time tracking, formatting, and business rules are handled in the ViewModel.
  */
 class StopwatchActivity : ComponentActivity() {
 
@@ -17,17 +30,9 @@ class StopwatchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val timerStateValues by viewmodel.timerState.collectAsState()
-            val splitsStateValues by viewmodel.splitsState.collectAsState()
-            val stopwatchStateValues by viewmodel.stopwatchState.collectAsState()
-            val splitStopButtonNameStateValues by viewmodel.splitStopButtonNameState.collectAsState()
-            val pauseContinuePauseButtonNameStateValues by viewmodel.pauseContinuePauseButtonNameState.collectAsState()
+            val stopwatchState by viewmodel.stopwatchState.collectAsState()
             StopwatchComposable(
-                splitsStateValues,
-                timerStateValues,
-                splitStopButtonNameStateValues,
-                pauseContinuePauseButtonNameStateValues,
-                stopwatchStateValues,
+                stopwatchState,
                 viewmodel::onSplitOrStopClick,
                 viewmodel::onStopStartClick,
                 viewmodel::onPauseOrContinueClick

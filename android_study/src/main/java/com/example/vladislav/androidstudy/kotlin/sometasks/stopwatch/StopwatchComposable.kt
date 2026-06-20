@@ -15,49 +15,54 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.vladislav.androidstudy.R
-import kotlinx.collections.immutable.ImmutableList
 
 /**
- * A Jetpack Compose composable that displays a lap/split stopwatch UI with list of splits
- * and control buttons (Start, Pause/Continue, Stop/Split).
+ * A Jetpack Compose composable that renders a lap/split stopwatch UI.
  *
- * @param splitsItems An immutable list of formatted split/lap time strings (e.g., `"00:12.345"`).
- *        Each item represents a recorded split at a given moment.
- * @param tellTimeItems The current internal timer state, expected to be a [StopwatchState.TellTime]
- *        to extract the current elapsed time. If not, the UI will crash at runtime.
- * @param stopSplitButtonName The label to display on the Stop/Split button (e.g., "Stop", "Split").
- * @param pauseContinueButtonName The label for the Pause/Continue button (e.g., "Pause", "Resume").
- * @param stopwatchState The current high-level state of the stopwatch (e.g., [StopwatchState.Stopped]).
- *        Controls which controls are visible: only Start, or both Pause/Continue + Stop/Split.
- * @param stopSplitClickListener A lambda invoked when the Stop/Split button is clicked.
- * @param startTimeClickListener A lambda invoked when the Start button is clicked.
- * @param pauseContinueClickListener A lambda invoked when the Pause/Continue button is clicked.
+ * This composable is **pure UI**: it displays formatted time and splits provided by the ViewModel,
+ * and forwards user actions to click handlers. No time formatting or business logic happens here.
  *
- * UI layout:
- *   - Top section: Scrollable `LazyColumn` of split/lap times (white surface, elevated).
- *   - Bottom section: Timer display + controls.
- *     - If [stopwatchState] is [TimerState.Stopped]: only "Start" button is shown.
- *     - Otherwise: row with two buttons — "Pause/Resume" and "Stop/Split".
+ * @param stopwatchState The current state of the stopwatch, containing all data needed for rendering:
+ *        - `timeText`: pre-formatted current time (e.g., `"00:12.345"`)
+ *        - `splits`: list of pre-formatted split/lap time strings
+ *        - `leftButtonName`: label for the Pause/Continue button
+ *        - `rightButtonName`: label for the Stop/Split button
+ *        - and the base state (e.g., [StopwatchState.Started], [Stopped], etc.).
+ * @param stopSplitClickListener A lambda invoked when the right (Stop/Split) button is clicked.
+ * @param startTimeClickListener A lambda invoked when the Start button is clicked (only visible in [Stopped] state).
+ * @param pauseContinueClickListener A lambda invoked when the left (Pause/Continue) button is clicked.
  *
- * ⚠️ **Assumptions**:
- *   - `tellTimeItems` is always a [StopwatchState.TellTime]; casting with `as` will crash otherwise.
- *   - [formatTime] extension is defined on the time value (typically [Long] or [Duration]).
+ * UI structure:
+ *   • Top (≈70% of height): A white, elevated `LazyColumn` showing all recorded splits as large text items.
+ *   • Bottom (≈30% of height):
+ *     - Current time (already formatted by the ViewModel).
+ *     - Controls:
+ *       - If `stopwatchState` is [StopwatchState.Stopped]: only a **Start** button is shown.
+ *       - Otherwise: two buttons — **Pause/Continue** (left) and **Stop/Split** (right).
+ *
+ * Button labels (`leftButtonName`, `rightButtonName`) are taken directly from `stopwatchState.data`.
+ *
+ * ⚠️ **Contract with ViewModel**:
+ *   - All `StopwatchState` variants must contain a `data: StopwatchData` property.
+ *   - `data.timeText` must be a non-null, pre-formatted string (e.g., `"00:12.345"`).
+ *   - `data.splits` must be a list of non-null, pre-formatted strings.
+ *   - Button names must be descriptive and context-aware (e.g., `"Pause"` vs `"Resume"`).
  */
 @Composable
 fun StopwatchComposable(
-    splitsItems: ImmutableList<String>,
-    tellTimeItems: StopwatchState,
-    stopSplitButtonName: String,
-    pauseContinueButtonName: String,
     stopwatchState: StopwatchState,
     stopSplitClickListener: () -> Unit,
     startTimeClickListener: () -> Unit,
     pauseContinueClickListener: () -> Unit,
 ) {
+    val stopwatchData = when (stopwatchState) {
+        is StopwatchState.Paused -> stopwatchState.data
+        is StopwatchState.Stopped -> stopwatchState.data
+        is StopwatchState.Running -> stopwatchState.data
+    }
+    
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -76,9 +81,9 @@ fun StopwatchComposable(
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                items(splitsItems.size) { index ->
+                items(stopwatchData.splits.size) { index ->
                     Text(
-                        text = splitsItems[index],
+                        text = stopwatchData.splits[index],
                         fontSize = 32.sp
                     )
                 }
@@ -94,13 +99,10 @@ fun StopwatchComposable(
         ) {
             Text(
                 modifier = Modifier.padding(bottom = 16.dp),
-                text = (tellTimeItems as? StopwatchState.TellTime)?.time?.formatTime()
-                    ?: LocalContext.current.getString(
-                        R.string.stopwatch_initial_time_format
-                    ),
+                text = stopwatchData.time,
                 fontSize = 48.sp
             )
-            if (stopwatchState == StopwatchState.Stopped) {
+            if (stopwatchState is StopwatchState.Stopped) {
                 Button(onClick = startTimeClickListener) {
                     Text(text = START_BUTTON_NAME)
                 }
@@ -111,10 +113,10 @@ fun StopwatchComposable(
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     Button(onClick = pauseContinueClickListener) {
-                        Text(pauseContinueButtonName)
+                        Text(stopwatchData.leftButtonName)
                     }
                     Button(onClick = stopSplitClickListener) {
-                        Text(stopSplitButtonName)
+                        Text(stopwatchData.rightButtonName)
                     }
                 }
             }
