@@ -1,2 +1,10 @@
+pluginManagement {
+    repositories {
+        maven {
+            allowInsecureProtocol = true
+            url 'http://localhost:8081/repository/maven-public/'
+        }
+    }
+}
 include ':AnalyticsLibApi', ':android_study'
 include ':AnalyticsLibImpl'
