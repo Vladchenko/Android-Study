@@ -30,13 +30,7 @@ class StopwatchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val stopwatchState by viewmodel.stopwatchState.collectAsState()
-            StopwatchComposable(
-                stopwatchState,
-                viewmodel::onSplitOrStopClick,
-                viewmodel::onStopStartClick,
-                viewmodel::onPauseOrContinueClick
-            )
+            StopwatchScreen(viewmodel)
         }
     }
 }

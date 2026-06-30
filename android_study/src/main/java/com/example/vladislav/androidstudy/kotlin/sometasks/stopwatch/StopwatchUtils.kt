@@ -1,35 +1,39 @@
 package com.example.vladislav.androidstudy.kotlin.sometasks.stopwatch
 
-const val STOP_BUTTON_NAME = "Stop"
-const val START_BUTTON_NAME = "Start"
-const val SPLIT_BUTTON_NAME = "Split"
-const val PAUSE_BUTTON_NAME = "Pause"
-const val CONTINUE_BUTTON_NAME = "Continue"
-
+private val timeBuilder = StringBuilder(12)
 /**
- * Форматирует заданное количество миллисекунд в строку формата "MM:SS.MM", где:
+ * Formats elapsed time (in milliseconds) to `"MM:SS.mmm"` (minutes:seconds:milliseconds).
  *
- * - MM — минуты (с ведущими нулями, 2 знака),
- * - SS — секунды (с ведущими нулями, 2 знака),
- * - MM — миллисекунды, округлённые до ближайших 10 (2 знака).
+ * Format:
+ *   • **MM**: minutes (2 digits, zero-padded)
+ *   • **SS**: seconds (2 digits, zero-padded)
+ *   • **mmm**: milliseconds (3 digits, zero-padded)
  *
- * Пример:
- * - `123456L` → `"02:03.40"`
- * - `987654L` → `"16:26.50"`
+ * Example:
+ *   • `123_456L` → `"02:03.456"` (2 min 3 sec 456 ms)
+ *   • `987_654L` → `"16:26.500"` (16 min 26 sec 500 ms)
  *
- * @param timeInMillis Длительность в миллисекундах, которую нужно отформатировать.
- * @return Отформатированная строка в виде "MM:SS.MM".
+ * ⚠️ **Implementation notes**:
+ *   • Uses a shared [StringBuilder] (`timeBuilder`) for performance (avoids allocations).
+ *   • **Not thread-safe** — intended for single-threaded use inside the timer coroutine.
+ *
+ * @param timeInMillis elapsed time in milliseconds (must be ≥ 0).
+ * @return formatted string in `"MM:SS.mmm"` format.
  */
 fun Long.formatTime(): String {
-    val totalMillis = this
-    val minutes = (totalMillis / 60000).toInt()
-    val seconds = ((totalMillis % 60000) / 1000).toInt()
-    val millis = (totalMillis % 1000).toInt()
+    val minutes = this / 60000
+    val seconds = (this % 60000) / 1000
+    val ms = this % 1000
 
-    // Округляем миллисекунды до ближайших 10
-    val roundedMillis = (millis / 10) * 10
-
-    return "${minutes.toString().padStart(2, '0')}:${
-        seconds.toString().padStart(2, '0')
-    }.${roundedMillis.toString().padStart(2, '0')}"
+    timeBuilder.clear()
+    timeBuilder.append(if (minutes < 10) "0$minutes" else minutes.toString())
+    timeBuilder.append(':')
+    timeBuilder.append(if (seconds < 10) "0$seconds" else seconds.toString())
+    timeBuilder.append('.')
+    when {
+        ms < 10 -> timeBuilder.append("00$ms")
+        ms < 100 -> timeBuilder.append("0$ms")
+        else -> timeBuilder.append(ms.toString())
+    }
+    return timeBuilder.toString()
 }

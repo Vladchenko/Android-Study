@@ -1,5 +1,6 @@
 package com.example.vladislav.androidstudy.kotlin.sometasks.stopwatch
 
+import androidx.compose.runtime.Stable
 import kotlinx.collections.immutable.ImmutableList
 
 /**
@@ -22,6 +23,7 @@ import kotlinx.collections.immutable.ImmutableList
  *   - [Stopped] always resets [splits] and sets [time] to `"00:00.000"`.
  *   - Button names must reflect current context (e.g., `"Pause"` in [Running] → `"Resume"` in [Paused]).
  */
+@Stable
 sealed class StopwatchState {
 
     /**
@@ -29,6 +31,7 @@ sealed class StopwatchState {
      *
      * Time display remains frozen; buttons allow resuming or stopping.
      */
+    @Stable
     data class Paused(val data: StopwatchData) : StopwatchState()
 
     /**
@@ -36,6 +39,7 @@ sealed class StopwatchState {
      *
      * Time is zero, splits are cleared, and only the "Start" button is valid.
      */
+    @Stable
     data class Stopped(val data: StopwatchData) : StopwatchState()
 
     /**
@@ -43,6 +47,7 @@ sealed class StopwatchState {
      *
      * Time updates continuously; buttons allow pausing or recording a split.
      */
+    @Stable
     data class Running(val data: StopwatchData) : StopwatchState()
 }
 
@@ -50,7 +55,6 @@ sealed class StopwatchState {
  * Immutable container for all data needed to render the stopwatch UI.
  *
  * This class is part of the [StopwatchState] hierarchy and holds:
- *   - `time`: current elapsed time, formatted as `"MM:SS.mmm"` (e.g., `"00:12.345"`)
  *   - `splits`: read-only list of recorded split times, each pre-formatted
  *   - `leftButtonName`: label for the primary control (Pause/Resume), e.g., `"Pause"`
  *   - `rightButtonName`: label for secondary control (Split/Stop), e.g., `"Split"`
@@ -60,8 +64,8 @@ sealed class StopwatchState {
  *   • type-safe (passed as part of [StopwatchState])
  *   • UI-ready (strings are already formatted, lists are pre-persisted).
  */
+@Stable
 data class StopwatchData(
-    val time: String,
     val splits: ImmutableList<String>,
     val leftButtonName: String,
     val rightButtonName: String
@@ -84,4 +88,5 @@ data class StopwatchData(
  *   • Each name corresponds to a specific action and UI context.
  *   • Enum values are stable and safe to store/transmit.
  */
+@Stable
 enum class ButtonName { Start, Pause, Continue, Split, Stop }

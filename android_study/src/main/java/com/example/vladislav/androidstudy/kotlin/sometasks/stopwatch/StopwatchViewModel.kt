@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlin.coroutines.cancellation.CancellationException
 
 /**
  * ViewModel managing the state and timing logic of a lap/split stopwatch.
@@ -43,13 +45,16 @@ class StopwatchViewModel : ViewModel() {
     private var initialTime: Long = 0
     private var pausedTime: Long = 0
     private var pauseStartTime: Long = 0L
+    private var lastEmittedMillis = -1L
     private var timerJob: Job? = null
+
+    private val _stopwatchTime = MutableStateFlow(DEFAULT_TIME_STRING)
+    val stopwatchTime: StateFlow<String> = _stopwatchTime.asStateFlow()
 
     private val _stopwatchState: MutableStateFlow<StopwatchState> =
         MutableStateFlow(
             StopwatchState.Stopped(
                 StopwatchData(
-                    time = currentTime.formatTime(),
                     leftButtonName = ButtonName.Start.name,
                     rightButtonName = ButtonName.Stop.name,
                     splits = persistentListOf()
@@ -76,26 +81,28 @@ class StopwatchViewModel : ViewModel() {
      *   - [Paused] is **not** handled — use [onPauseOrContinueClick] first.
      */
     fun onStopStartClick() {
-        if (_stopwatchState.value is StopwatchState.Running) {
-            // Stopping stopwatch
-            val state = (_stopwatchState.value as StopwatchState.Running)
-            _stopwatchState.value = StopwatchState.Stopped(state.data)
-            timerJob?.cancel()
-            timerJob = null
-            return
-        }
-        if (_stopwatchState.value is StopwatchState.Stopped) {
-            // Starting stopwatch
-            val state = (_stopwatchState.value as StopwatchState.Stopped)
-            _stopwatchState.value = StopwatchState.Running(
-                data = state.data.copy(
-                    leftButtonName = ButtonName.Pause.name,
-                    rightButtonName = ButtonName.Split.name,
+        when (val currentState = _stopwatchState.value) {
+            is StopwatchState.Running -> {
+                // Stopping stopwatch
+                _stopwatchState.value = StopwatchState.Stopped(currentState.data)
+                timerJob?.cancel()
+                timerJob = null
+            }
+            is StopwatchState.Stopped -> {
+                // Starting stopwatch
+                val state = (_stopwatchState.value as StopwatchState.Stopped)
+                _stopwatchState.value = StopwatchState.Running(
+                    data = state.data.copy(
+                        leftButtonName = ButtonName.Pause.name,
+                        rightButtonName = ButtonName.Split.name,
+                    )
                 )
-            )
-            initialTime = System.currentTimeMillis()
-            timerJob = tellTime()
-            return
+                initialTime = System.currentTimeMillis()
+                timerJob = tellTime()
+            }
+            is StopwatchState.Paused -> {
+                // Do nothing
+            }
         }
     }
 
@@ -107,34 +114,35 @@ class StopwatchViewModel : ViewModel() {
      *   - [Paused] → [Running]
      */
     fun onPauseOrContinueClick() {
-        if (_stopwatchState.value is StopwatchState.Paused) {
-            // Continue stopwatch
-            val state = (_stopwatchState.value as StopwatchState.Paused)
-            _stopwatchState.value = StopwatchState.Running(
-                data = state.data.copy(
-                    leftButtonName = ButtonName.Pause.name,
-                    rightButtonName = ButtonName.Split.name,
+        when (val currentState = _stopwatchState.value) {
+            is StopwatchState.Paused -> {
+                // Continue stopwatch
+                _stopwatchState.value = StopwatchState.Running(
+                    data = currentState.data.copy(
+                        leftButtonName = ButtonName.Pause.name,
+                        rightButtonName = ButtonName.Split.name,
+                    )
                 )
-            )
-            suspensionManager.resume()
+                suspensionManager.resume()
 
-            // Restores elapsed time by adding the duration between pause and resume
-            pausedTime += System.currentTimeMillis() - pauseStartTime
-            return
-        }
-        if (_stopwatchState.value is StopwatchState.Running) {
-            // Pause stopwatch
-            val state = (_stopwatchState.value as StopwatchState.Running)
-            _stopwatchState.value = StopwatchState.Paused(
-                data = state.data.copy(
-                    leftButtonName = ButtonName.Continue.name,
-                    rightButtonName = ButtonName.Stop.name,
+                // Restores elapsed time by adding the duration between pause and resume
+                pausedTime += System.currentTimeMillis() - pauseStartTime
+            }
+            is StopwatchState.Running-> {
+                // Pause stopwatch
+                _stopwatchState.value = StopwatchState.Paused(
+                    data = currentState.data.copy(
+                        leftButtonName = ButtonName.Continue.name,
+                        rightButtonName = ButtonName.Stop.name,
+                    )
                 )
-            )
 
-            // Memorize pause begin time
-            pauseStartTime = System.currentTimeMillis()
-            return
+                // Memorize pause begin time
+                pauseStartTime = System.currentTimeMillis()
+            }
+            is StopwatchState.Stopped -> {
+                // Do nothing
+            }
         }
     }
 
@@ -153,8 +161,7 @@ class StopwatchViewModel : ViewModel() {
                 data = state.data.copy(
                     splits = persistentListOf<String>()
                         .addAll(state.data.splits)
-                        .add(state.data.time),
-                    time = currentTime.formatTime()
+                        .add(currentTime.formatTime()),
                 )
             )
             return
@@ -163,7 +170,6 @@ class StopwatchViewModel : ViewModel() {
             val state = (_stopwatchState.value as StopwatchState.Paused)
             _stopwatchState.value = StopwatchState.Stopped(
                 data = state.data.copy(
-                    time = 0L.formatTime(),
                     splits = persistentListOf()
                 )
             )
@@ -171,23 +177,26 @@ class StopwatchViewModel : ViewModel() {
             initialTime = 0
             currentTime = 0
             pauseStartTime = 0
+            _stopwatchTime.value = "0:00:00"
             return
         }
     }
 
     private fun tellTime() =
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Main) {
             while (isActive) {
                 try {
+                    android.os.Trace.beginSection("UpdateTime")
                     // Computing time
                     currentTime = System.currentTimeMillis() - initialTime - pausedTime
 
-                    val state = (_stopwatchState.value as StopwatchState.Running)
-                    _stopwatchState.value = StopwatchState.Running(
-                        data = state.data.copy(
-                            time = currentTime.formatTime()
-                        )
-                    )
+                    // ✅ Обновляем только при реальном изменении
+                    if (currentTime != lastEmittedMillis) {
+                        android.os.Trace.beginSection("UpdateState")
+                        lastEmittedMillis = currentTime
+                        _stopwatchTime.value = currentTime.formatTime()
+                        android.os.Trace.endSection()
+                    }
 
                     // Wait for 16ms, that is about 60 times per second
                     delay(UPDATE_INTERVAL_MS)
@@ -196,7 +205,11 @@ class StopwatchViewModel : ViewModel() {
                     if (_stopwatchState.value is StopwatchState.Paused) {
                         suspensionManager.suspendIndefinitely()
                     }
-                } catch (e: Exception) {
+                    android.os.Trace.endSection()
+                } catch (e: CancellationException) {
+                    Log.i(TAG,"Timer was cancelled.")
+                    throw e
+                }  catch (e: Exception) {
                     // If any exception, then just leave the loop
                     Log.e(TAG, e.message.orEmpty())
                     break
@@ -207,5 +220,6 @@ class StopwatchViewModel : ViewModel() {
     companion object {
         private const val TAG = "StopwatchViewmodel"
         private const val UPDATE_INTERVAL_MS = 16L
+        private const val DEFAULT_TIME_STRING = "00:00:000"
     }
 }
