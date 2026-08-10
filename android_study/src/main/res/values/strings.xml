@@ -204,4 +204,10 @@
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
     <string name="stopwatch_initial_time_format">00:00:000</string>
+    <string name="no_splits_yet">No splits yet</string>
+
+    <string name="first_text">First text</string>
+    <string name="second_text">Second text</string>
+    <string name="third_text">Third text</string>
+    <string name="fourth_text">Fourth text</string>
 </resources>

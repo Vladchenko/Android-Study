@@ -1,10 +1,6 @@
 package com.example.vladislav.androidstudy.jobs.simple_jobs;
 
 import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -12,8 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+
 import com.example.vladislav.androidstudy.R;
-import com.example.vladislav.androidstudy.ScrollingActivity;
 
 /**
  * Activity demonstrating a way views are put in activity
@@ -24,8 +23,9 @@ public class LayoutingActivity extends AppCompatActivity {
 
     /**
      * Start this activity
+     *
      * @param context to start activity
-     * @return  intent that starts this activity
+     * @return intent that starts this activity
      */
     public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, LayoutingActivity.class);
@@ -42,22 +42,16 @@ public class LayoutingActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button);
         mLinearLayout = findViewById(R.id.layouting_activity);
         // Showing that we can do something with this view.
-        mLinearLayout.setBackground(getDrawable(R.drawable.customborder));
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Getting a layout attributes programmatically.
-                LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
-                System.out.println("Linear mLayout gravity is: " + mLayoutParams.gravity);
-                // This row does nothing.
-                setContentView(mLinearLayout, mLayoutParams);
-
-            }
+        mLinearLayout.setBackground(AppCompatResources.getDrawable(this, R.drawable.customborder));
+        button.setOnClickListener(v -> {
+            // Getting a layout attributes programmatically.
+            LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            System.out.println("Linear mLayout gravity is: " + mLayoutParams.gravity);
+            // This row does nothing.
+            setContentView(mLinearLayout, mLayoutParams);
         });
-
     }
 
     @Override

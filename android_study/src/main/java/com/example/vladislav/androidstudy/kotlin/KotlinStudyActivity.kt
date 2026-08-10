@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.vladislav.androidstudy.R
 import kotlinx.coroutines.launch
 
+@ExperimentalStdlibApi
 class KotlinStudyActivity : AppCompatActivity() {
 
     private lateinit var textView: TextView

@@ -48,13 +48,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".kotlin.study.mvp.presentation.CurrenciesRatesActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".kotlin.sometasks.stopwatch.StopwatchActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- Next row says this app is added to an apps list in android OS on a cell phone -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name=".kotlin.sometasks.timer.TimerActivity"
+            android:exported="true">
         </activity>
         <activity
             android:name=".kotlin.demo.customview.DemoCustomViewActivity"
@@ -101,7 +104,8 @@
         -->
         <activity
             android:name=".compose.ComposeDemoActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+        </activity>
         <activity android:name=".activities.ResultActivity" />
         <activity android:name=".activities.MenuActivity" />
         <activity android:name=".activities.ParcelableActivity" />
@@ -273,7 +277,8 @@
             android:name=".services.playaudio.PlayAudioActivity"
             android:exported="true"
             android:label="@string/title_activity_play_audio"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme">
+        </activity>
 
         <provider
             android:name=".jobs.criminalrecords.data_providing.CrimesContentProvider"
