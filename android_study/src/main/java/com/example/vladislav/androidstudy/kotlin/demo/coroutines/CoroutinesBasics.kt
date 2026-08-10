@@ -39,11 +39,11 @@ import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.yield
 import java.io.IOException
 import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.coroutines.cancellation.CancellationException
 import kotlin.random.Random
 import kotlin.system.measureTimeMillis
-import kotlin.time.Duration.Companion.milliseconds
-import kotlin.coroutines.cancellation.CancellationException
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * https://kotlinlang.ru/docs/coroutines-basics.html
@@ -55,7 +55,6 @@ import kotlin.time.Duration
  */
 class CoroutinesBasics(val callback: (String) -> Unit) {
 
-    // Do not commit this one
     fun temp() {
         GlobalScope.launch {    // Operates on a worker thread
             // Thread is DefaultDispatcher-worker-2
@@ -123,8 +122,9 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
             val job = launch {
                 val jobsList = List(1000) {
                     launch {
-                        delay(Random.nextLong(3000))
                         Log.i(TAG, "$it began working!")
+                        delay(Random.nextLong(3000))
+                        Log.i(TAG, "$it finished working!")
                     }
                 }
                 jobsList.joinAll()
@@ -233,7 +233,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
             // Unconfined means that this coroutine is not "attached" to one thread only - it can
             // change a thread it runs on when returning to this coroutine.
 //            GlobalScope.launch(Dispatchers.Unconfined) {
-            GlobalScope.launch {    // Seems to match Dispatchers.Default
+            GlobalScope.launch {    // Utilizes Dispatchers.Default
                 Log.d(TAG, "Coroutine #$it started. Thread is ${Thread.currentThread().name}")
                 delay(Random.nextLong(500))
                 Log.d(TAG, "Coroutine #$it finished. ")
@@ -254,7 +254,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
                     // App hangs up for about a half a minute, w/o printing
                     // Coroutine #$it started. Thread is ${Thread.currentThread().name
                     // and begins printing "Coroutine #xxxxx started. Thread is main"
-//            jobs.add(launch(Dispatchers.Main) { // On new laptop, waited for 2 minutes - no sprint
+//            jobs.add(launch(Dispatchers.Main) { // On new laptop, waited for 2 minutes - no print
                     // Runs on a main thread
                     // Unconfined means that this coroutine is not "attached" to one thread only - it can
                     // change a thread it runs on when returning to this coroutine.
@@ -422,7 +422,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
     fun simpleCoroutineDemo4() = runBlocking { // <Unit> can be omitted
         // Launch coroutine on main thread. Coroutine will suspend for 10 seconds
         // Throws kotlinx.coroutines.JobCancellationException: BlockingCoroutine was cancelled; job=BlockingCoroutine{Cancelled}@f3b2870
-//        this.cancel()   // and crashes the app
+        this.cancel()   // and crashes the app. Ask LLM on details.
         GlobalScope.launch(Dispatchers.Main) {
             Log.d(TAG, "First delay!")
             delay(10000L)
@@ -844,7 +844,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
 
     /** https://stackoverflow.com/questions/53577907/when-to-use-coroutinescope-vs-supervisorscope */
     private suspend fun compute(): String = coroutineScope {
-        val job = SupervisorJob()
+        val job = SupervisorJob() // Put to separate job for it could be cancelled later on if needed
         async(job) {
             val color = async(job) { delay(6_000); "purple" }
             val height = async(job) {
@@ -885,7 +885,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
             repeat(10_000) {
                 jobs.add(
                     launch(Dispatchers.IO) {
-                        mutex.withLock {
+                        mutex.withLock {    // One could use mutex.lock, mutex.unlock.
                             counter++
                         }
                     }
@@ -932,7 +932,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
             async {
                 Log.d(TAG, "Call 1 started")
                 delay(2000)
-                Log.d(TAG, "Call 1 fiished")
+                Log.d(TAG, "Call 1 finished")
             }
         }
 
@@ -964,7 +964,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         private suspend fun correctedCall1() {
             Log.d(TAG, "Call 1 started")
             delay(2000)
-            Log.d(TAG, "Call 1 fiished")
+            Log.d(TAG, "Call 1 finished")
         }
 
         private suspend fun correctedCall2() {
@@ -1080,15 +1080,15 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
 
 class CancellationDemo() {
     val handler = CoroutineExceptionHandler { context, handler ->
-        Log.e(TAG, "${context.job} ${handler.message.toString()}")
+        Log.e(TAG, "${context.job} message=${handler.message.toString()} cause=${handler.cause.toString()}")
     }
 
     fun example1() {
         //region scope
-        val scopeWithHandler = CoroutineScope(Dispatchers.Default + Job())
+        val scopeWithHandler = CoroutineScope(Dispatchers.Default + Job() + handler)
         // Exception is printed in CoroutineExceptionHandler
-        scopeWithHandler.launch(handler) { throw RuntimeException() }
-        scopeWithHandler.launch(handler) {
+        scopeWithHandler.launch { throw RuntimeException() }
+        scopeWithHandler.launch {
             delay(100)
             // This line is not printed, since this coroutine is cancelled
             Log.i(TAG, "CoroutineScope, RuntimeException, CoroutineExceptionHandler, child")
