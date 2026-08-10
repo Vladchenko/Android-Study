@@ -1,16 +1,13 @@
 package com.example.vladislav.androidstudy.compose
 
-import OutlinedTextFieldDemo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 /**
@@ -28,12 +25,17 @@ class ComposeDemoActivity : ComponentActivity() {
         }
     }
 
+    @OptIn(ExperimentalMaterialApi::class)
     @Preview
     @Composable
     fun PreviewComposable() {
-//        CardsSample()
-//        BoxSample()
 //        TextDemo()
+//        TextCenterAlignment()
+//        BoxSample()
+//        BoxCenteredSample()
+//        CardsPreview()
+//        CardWithExpandableSubtitleItem()
+        CardWithExpandableSubtitleItem2()
 //        CounterDemo1()
 //        CounterDemo2()
 //        CounterDemo3()
@@ -44,12 +46,13 @@ class ComposeDemoActivity : ComponentActivity() {
 //        val checked2 = remember { mutableStateOf(true) }
 //        CheckBoxDemo2("Some text", checked2, Modifier, { checked2.value = !checked2.value })
 
-        val text = remember { mutableStateOf("") }
-        OutlinedTextFieldDemo(
-            value = text.value,
-            modifier = Modifier,
-            onValueChange = { newValue -> text.value = newValue }
-        )
+//        val text = remember { mutableStateOf("") }
+//        OutlinedTextFieldDemo(
+//            value = text.value,
+//            modifier = Modifier,
+//            onValueChange = { newValue -> text.value = newValue }
+//        )
+
 //        TextCenterAlignment()
 //        Pager(modifier = Modifier)
 //        Row {

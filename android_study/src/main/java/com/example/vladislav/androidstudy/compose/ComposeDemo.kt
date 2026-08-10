@@ -1,6 +1,7 @@
 package com.example.vladislav.androidstudy.compose
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -40,6 +41,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -120,11 +122,12 @@ fun BoxSample() {
 fun BoxCenteredSample() {
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
+//        contentAlignment = Alignment.Center
     ) {
         Box(
             modifier = Modifier
-                .align(Alignment.Center)
+                .align(Alignment.Center)    // Or one could use - contentAlignment = Alignment.Center in outer Box
                 .background(Color.Red)
                 .size(200.dp)
                 .padding(32.dp)
@@ -217,7 +220,7 @@ fun StepperPreview() {
     Stepper(Modifier, itemsList)
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialApi
 @Composable
 fun CardItem() {
     Card(
@@ -284,7 +287,8 @@ fun RowScope.DropDownMenu() {   // One adds RowScope to be able to run it in a R
     }
 }
 
-@Preview()  // One can make several previews
+@ExperimentalMaterialApi
+@Preview  // One can make several previews
 @Composable
 fun CardsPreview() {
     Column(
@@ -299,7 +303,7 @@ fun CardsPreview() {
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialApi
 @Composable
 fun CardWithExpandableSubtitleItem() {
     //    var isExpanded = mutableStateOf(false)  // Cannot be done this way. Check the error explanation
@@ -371,6 +375,98 @@ fun CardWithExpandableSubtitleItem() {
     }
 }
 
+@ExperimentalMaterialApi
+@Composable
+fun CardWithExpandableSubtitleItem2() {
+    var isExpanded by remember { mutableStateOf(false) }
+
+    // Используем Animatable для плавного изменения maxLines
+    val maxLines = remember { Animatable(1f) }
+
+    // Анимируем maxLines
+    LaunchedEffect(isExpanded) {
+        maxLines.animateTo(
+            targetValue = if (isExpanded) 7f else 1f,
+            animationSpec = tween(
+                durationMillis = 300,
+                easing = LinearOutSlowInEasing
+            )
+        )
+    }
+
+    // Текст меняется в зависимости от анимированного значения
+    val currentText by remember {
+        derivedStateOf {
+            if (maxLines.value > 1) {
+                "Personal computer real time strategy game. Several races like Necrons, Chaos, Space Marines, Tau, Orks, Eldars fight each other on a \"space arena\"."
+            } else {
+                "PC Game"
+            }
+        }
+    }
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .animateContentSize(
+                animationSpec = tween(
+                    durationMillis = 300,
+                    easing = LinearOutSlowInEasing
+                )
+            ),
+        shape = RoundedCornerShape(12.dp),
+        onClick = {
+            isExpanded = !isExpanded
+        }
+    ) {
+        Row(
+            modifier = Modifier
+                .background(
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            Color(0.8f, 0.7f, 0.7f, 1f),
+                            Color(1f, 1f, 1f, 1f),
+                            Color(0.8f, 0.7f, 0.7f, 1f)
+                        ),
+                        start = Offset(0f, Float.POSITIVE_INFINITY),
+                        end = Offset(Float.POSITIVE_INFINITY, 0f)
+                    )
+                ),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                modifier = Modifier.size(100.dp),
+                painter = painterResource(id = R.drawable.space_marine),
+                contentDescription = "Space Marine"
+            )
+            Column(
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(top = 8.dp, bottom = 8.dp)
+                    .weight(1f),
+            ) {
+                Text(text = "Warhammer 40,000", fontSize = 20.sp)
+
+                // Текст с анимированным maxLines
+                Text(
+                    text = currentText,
+                    maxLines = maxLines.value.toInt(),
+                    fontSize = 16.sp,
+                    modifier = Modifier.animateContentSize(
+                        animationSpec = tween(
+                            durationMillis = 300,
+                            easing = LinearOutSlowInEasing
+                        )
+                    )
+                )
+            }
+            DropDownMenu()
+        }
+    }
+}
+
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun CardWithExpandableSubtitleItemListPreview() {
