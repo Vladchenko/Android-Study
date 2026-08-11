@@ -3,8 +3,7 @@
     android:versionName="1.0">
 
     <uses-sdk
-        android:maxSdkVersion="26"
-        android:targetSdkVersion="33" />
+        android:maxSdkVersion="26" />
     <!-- Which screens app supports -->
     <compatible-screens />
 
@@ -50,6 +49,18 @@
         <activity
             android:name=".kotlin.study.mvp.presentation.CurrenciesRatesActivity"
             android:exported="true">
+        </activity>
+        <activity
+            android:name=".compose.ComposeDemoActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".compose.ComposeTutorialActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".kotlin.sometasks.stopwatch.StopwatchActivity"
@@ -102,10 +113,6 @@
 
         https://developer.android.com/guide/topics/manifest/activity-element.html#lmode
         -->
-        <activity
-            android:name=".compose.ComposeDemoActivity"
-            android:exported="true">
-        </activity>
         <activity android:name=".activities.ResultActivity" />
         <activity android:name=".activities.MenuActivity" />
         <activity android:name=".activities.ParcelableActivity" />
@@ -271,7 +278,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".services.ServicesActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+        </activity>
         <activity android:name=".services.ServicesDemo1Activity" />
         <activity
             android:name=".services.playaudio.PlayAudioActivity"
