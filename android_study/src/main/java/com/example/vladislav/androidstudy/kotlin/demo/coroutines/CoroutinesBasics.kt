@@ -106,10 +106,10 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
     }
 
     fun manyCoroutinesDemo() {
-        repeat(1000) {
+        repeat(1000) { number ->
             CoroutineScope(Dispatchers.IO).launch {
                 delay(Random.nextLong(3000))
-                Log.i(TAG, "$it done!")
+                Log.i(TAG, "$number done!")
             }
         }
     }
@@ -139,7 +139,8 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
     fun coroutineDemo() {
         // runBlocking blocks a thread it runs on. It is a bridge from ordinary function to suspend one.
         // Should only be used in main function and tests and not be used in any coroutine.
-        runBlocking(Dispatchers.IO) {   // Even stating Dispatchers(IO) here freezes UI thread, since main thread is always blocked until runBlocking is to finish.
+        runBlocking(Dispatchers.IO) {   // Even stating Dispatchers(IO) here freezes UI thread,
+            // since main thread is always blocked until runBlocking is to finish.
             // BlockingCoroutine{Active}@3615897
             Log.d(TAG, this.toString()) // this - current scope
             // coroutineContext - current context of a coroutine
@@ -223,7 +224,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         repeat(1_000) {
             // Thread is DefaultDispatcher-worker-69, so Dispatchers.IO creates like 70 threads in this case.
 //            GlobalScope.launch(Dispatchers.IO) {
-            // Dispatchers.Default create only 2 threads (but can up to 64)
+            // Dispatchers.Default create threads = CPU cores and >= 2  (but can up to 64)
 //            GlobalScope.launch(Dispatchers.Default) {
             // App hangs up for about a half a minute, w/o printing
             // Coroutine #$it started. Thread is ${Thread.currentThread().name
@@ -399,12 +400,15 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
 
     fun simpleCoroutineDemo2() = runBlocking<Unit> { // start coroutine on a main thread
         GlobalScope.launch { // launch a new coroutine in background and continue
-            delay(1000L)
+            delay(3000L)
             Log.d(TAG, "World!")
         }
         Log.d(TAG, "Hello,") // main coroutine continues here immediately
         // Following row is required only for non-android apps.
-        // delay(2000L)      // delaying for 2 seconds to keep JVM alive
+        // delay(4000L)      // delaying for 2 seconds to keep JVM alive
+        // Although runBlocking awaits for all child coroutines to finish, GlobalScope.launch
+        // is not treated as child, since creates coroutine in separate global scope and thus,
+        // doesn't maintain structured concurrency.
     }
 
     fun simpleCoroutineDemo3() = runBlocking { // <Unit> can be omitted
@@ -415,8 +419,8 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         Log.d(TAG, "Hello,")
         // wait until child coroutine completes
         job.join()
-        // In fact, there is no really need to wait for following job to complete,
-        // since runBlocking waits for all child coroutines to finish.
+        // job.join() here is like a manual emulation os structured concurrency, it forces
+        // runBlocking to wait for it to finish
     }
 
     fun simpleCoroutineDemo4() = runBlocking { // <Unit> can be omitted
@@ -447,7 +451,7 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
     }
 
     fun simpleCoroutineDemo6() = runBlocking { // <Unit> can be omitted
-        GlobalScope.launch(Dispatchers.IO) {// Launch coroutine on newly created thread
+        GlobalScope.launch(Dispatchers.IO) { // Launch coroutine on newly created thread
             simulateNetworkCall()
             withContext(Dispatchers.Main) {
                 // One may update some UI views here, if there is an access to UI.
@@ -497,7 +501,8 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         //Когда вы вызываете joinAll() на коллекции ленивых корутин, происходит следующее:
         //join() — это приостанавливающая функция, которая ждет завершения корутины
         //Для ленивой корутины, если она еще не запущена, join() автоматически запускает ее
-        //Но так как joinAll() запускается в цикле последовательно, каждая корутина запускается и полностью завершается перед тем, как будет запущена следующая
+        //Но так как joinAll() запускается в цикле последовательно, каждая корутина запускается и
+        // полностью завершается перед тем, как будет запущена следующая
 
         // Почему последовательно:
         //Фактически, ваш код ведет себя так:
@@ -687,12 +692,13 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
                     Log.d(TAG, "Result for i=$i = ${fibonacci(i)}")
                 }
             }
+            // This one won't print because of CancellationException
             Log.d(TAG, "fibonacci computation coroutine finished its work")
         }
         runBlocking {
             delay(1000L)
-            job.cancel()    // Coroutine won't cancel here
-            Log.d(TAG, "fibonacci computation coroutine cancelled")
+            job.cancel()    // Coroutine won't cancel here and runBlocking will continue to run.
+            Log.d(TAG, "runBlocking finished its work")
         }
     }
 
@@ -1338,7 +1344,7 @@ class CancellationDemo() {
                 // Cancels all child coroutines
                 childJobs.forEach { it.cancel() }
             }
-            println("All child jobs completed!")
+            Log.i(TAG, "All child jobs completed!")
         }
     }
 
@@ -1352,7 +1358,7 @@ class CancellationDemo() {
             // Although async throws an exception only in await(), it anyway propagates error
             // from its coroutine to a parent. And to stop its propagation, one needs to use
             // SupervisorJob in its builder.
-            val deferred = async(Job()) {   // Job is used to see that error is really propagated
+            val deferred = async(Job()) {   // Remove Job() to see that error is really propagated
                 delay(1000L)
                 "a".toInt()
             }

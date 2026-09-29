@@ -1,6 +1,8 @@
 package com.example.vladislav.androidstudy.kotlin.demo.coroutines
 
 import android.util.Log
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
@@ -22,6 +24,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -33,6 +37,8 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.coroutines.cancellation.CancellationException
 
 /**
  * ============================================================
@@ -141,7 +147,7 @@ class CoroutinesTutorial {
             Log.i(TAG, "🔵 launch выполнен")
         }
 
-        // Можно отменить
+        // Не забываем отменить
         job.cancel()
     }
 
@@ -237,7 +243,7 @@ class CoroutinesTutorial {
         }
 
         // Не забываем закрыть скоуп!
-        // scope.cancel() - когда больше не нужен
+         scope.cancel() //- когда больше не нужен
     }
 
     /**
@@ -364,14 +370,25 @@ class CoroutinesTutorial {
      * 5.1. Комбинирование контекстов
      * ✅ Правильно: объединяем элементы контекста
      */
-    private fun contextComposition() {
-        // ✅ Job + Dispatcher
-        val context = Job() + Dispatchers.IO
+    class ContextCompositionDemo {
+        // SupervisorJob — чтобы падение одной корутины не убивало остальные
+        private val namedContext =
+            SupervisorJob() + Dispatchers.Main + CoroutineName("MyCoroutine")
 
-        // ✅ SupervisorJob + Dispatcher + имя
-        val namedContext = SupervisorJob() + Dispatchers.Main + CoroutineName("MyCoroutine")
+        private val scope = CoroutineScope(namedContext)
 
-        val scope = CoroutineScope(namedContext)
+        fun launchWork() {
+            scope.launch {
+                // благодаря CoroutineName это имя увидят логи и отладчик
+                withContext(Dispatchers.IO) {
+                    // тяжёлая работа
+                }
+            }
+        }
+
+        fun shutdown() {
+            namedContext.cancel() // отменяем всё разом
+        }
     }
 
     /**
@@ -614,7 +631,7 @@ class CoroutinesTutorial {
      * 9.2. Mutex - защита от конкурентного доступа
      * ✅ Правильно: для потокобезопасного доступа
      */
-    private suspend fun mutexExample() {
+    suspend fun mutexExample() {
         val mutex = Mutex()
         val counter = AtomicInteger(0)
 
@@ -651,20 +668,17 @@ class CoroutinesTutorial {
     }
 
     // ✅ ХОРОШО
-    class GoodClass : CoroutineScope {
-        private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
-
-        override val coroutineContext: CoroutineContext
-            get() = scope.coroutineContext
+    // Рекомендуемый подход
+    class GoodClass(coroutineContext: CoroutineContext = EmptyCoroutineContext) {
+        private val myJob = Job(parent = coroutineContext[Job])
+        private val scope = CoroutineScope(coroutineContext + myJob + Dispatchers.Main)
 
         fun doWork() {
-            launch {
-                // Привязан к жизненному циклу
-            }
+            scope.launch { /* ... */ }
         }
 
-        fun destroy() {
-            scope.cancel()
+        fun cancel() {
+            myJob.cancel()
         }
     }
 
@@ -706,41 +720,48 @@ class CoroutinesTutorial {
 
     /**
      * Полный пример использования корутин в ViewModel
-     * ✅ Все скоупы привязаны к жизненному циклу
-     * ✅ Правильная обработка ошибок
+     * ✅ viewModelScope — скоуп привязан к жизненному циклу
+     * ✅ CancellationException не проглатывается
+     * ✅ SharedFlow с буфером: emit не подвисает, tryEmit не отправляет в пустоту
      * ✅ Структурированная конкурентность
      */
-    class MainViewModel : CoroutineScope {
-        // ✅ Скоуп привязан к жизненному циклу ViewModel
-        private val job = SupervisorJob()
-        override val coroutineContext: CoroutineContext
-            get() = job + Dispatchers.Main
+    class MainViewModel : ViewModel() {
 
         private val _state = MutableStateFlow<UiState>(UiState.Loading)
-        val state: StateFlow<UiState> = _state
+        val state: StateFlow<UiState> = _state.asStateFlow()
 
-        private val _toasts = MutableSharedFlow<String>()
-        val toasts: SharedFlow<String> = _toasts
+        // ✅ 1) Буфер = 1: tryEmit не «улетает в пустоту», emit не подвисает
+        //    без коллектора — событие ложится в буфер и будет доставлено
+        //    поздно, но гарантированно
+        //    2) Channel идиоматически и семантически точнее, нежели SharedFlow, но можно и последний
+        //        private val _toasts = Channel<String>(capacity = Channel.BUFFERED)
+        //        val toasts = _toasts.receiveAsFlow() // ✅ наружу Flow, а не Channel!
+        private val _toasts = MutableSharedFlow<String>(extraBufferCapacity = 1)
+        val toasts: SharedFlow<String> = _toasts.asSharedFlow()
 
         private val repository = Repository()
 
         fun loadData() {
-            // ✅ Используем скоуп ViewModel
-            launch {
+            // ✅ viewModelScope: SupervisorJob + Main.immediate,
+            //    отменяется автоматически в onCleared()
+            viewModelScope.launch {
                 _state.value = UiState.Loading
 
                 try {
-                    // ✅ Таймаут и переключение контекста
+                    // ✅ Таймаут + переключение на IO
                     val data = withTimeout(5000) {
                         withContext(Dispatchers.IO) {
                             repository.fetchData()
                         }
                     }
-
                     _state.value = UiState.Success(data)
 
                 } catch (e: TimeoutCancellationException) {
                     _state.value = UiState.Error("⏰ Таймаут запроса")
+
+                } catch (e: CancellationException) {
+                    // ✅ Отмену ПРОБРАСЫВАЕМ, не глотаем
+                    throw e
 
                 } catch (e: Exception) {
                     _state.value = UiState.Error("❌ Ошибка: ${e.message}")
@@ -752,34 +773,25 @@ class CoroutinesTutorial {
         }
 
         fun onButtonClick() {
-            // ✅ Отправка события
-            launch {
-                _toasts.emit("🖱️ Кнопка нажата!")
-            }
+            // Вариант 1: tryEmit — не подвисает никогда,
+            // вернёт false, если событие не удалось доставить (буфер переполнен)
+            _toasts.tryEmit("🖱️ Кнопка нажата!")
+
+            // Вариант 2: emit — подвесится, если буфер переполнен.
+            // Нужен только если события важно НЕ терять и можно ждать
+            // viewModelScope.launch {
+            //     _toasts.emit("🖱️ Кнопка нажата!")
+            // }
         }
 
-        fun onCleared() {
-            // ✅ Отменяем всё при уничтожении
-            job.cancel()
-        }
+        // ❌ Ничего не отменяем вручную — viewModelScope сам
+        //    позаботится об этом в onCleared()
     }
 
     data class User(val id: String, val name: String)
 
-//    data class UiState(
-//        val isLoading: Boolean = false,
-//        val data: List<String>? = null,
-//        val error: String? = null
-//    ) {
-//        companion object {
-//            val Loading = UiState(isLoading = true)
-//            fun Success(data: List<String>) = UiState(data = data)
-//            fun Error(message: String) = UiState(error = message)
-//        }
-//    }
-
     sealed class UiState {
-        object Loading : UiState()
+        data object Loading : UiState()
         data class Success(val data: List<String>) : UiState()
         data class Error(val message: String) : UiState()
     }
@@ -798,10 +810,6 @@ class CoroutinesTutorial {
     // ============================================================
 
     /**
-     * ============================================================
-     * ШПАРГАЛКА ПО КОРУТИНАМ (ВСЕГДА ДЕРЖИТЕ ПОД РУКОЙ!)
-     * ============================================================
-     *
      * 🔹 Создание скоупа (ВСЕГДА с привязкой к жизненному циклу):
      * ✅ val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
      * ✅ viewModelScope (в ViewModel)
@@ -835,10 +843,9 @@ class CoroutinesTutorial {
      * ✅ supervisorScope { }   // Дети независимы (ошибка не убивает всех)
      *
      * 🔹 Именованные скоупы (по жизненному циклу):
-     * ✅ applicationScope      // Живёт всё приложение (только Application!)
+     * ✅ applicationScope      // Живёт всё приложение (создаётся вручную)
      * ✅ viewModelScope        // Живёт пока жива ViewModel (встроенный)
      * ✅ lifecycleScope        // Живёт пока жива Activity/Fragment (встроенный)
-     * ✅ repositoryScope       // Живёт пока жив Repository
      *
      * 🔹 Правила:
      * 1. НИКОГДА не используйте GlobalScope

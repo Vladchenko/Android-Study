@@ -7,7 +7,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -25,8 +27,10 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.zip
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.util.logging.Logger
+import kotlin.random.Random
 
 /**
  * ┌─────────────────────────────────────┬─────────────────────────────────────┐
@@ -75,7 +79,8 @@ class FlowDemo {
 
     fun flowDemo1Print() {
         GlobalScope.launch {    // Use GlobalScope only for demo purposes
-            // print(it) strangely doesn't work here, but println(it) does ))
+            // 1) print(it) strangely doesn't work here, but println(it) does ))
+            // 2) collect is just suspend function, so following code won't execute until collect is complete
             flowDemo1().collect { println(it) }
         }
     }
@@ -248,6 +253,35 @@ class FlowDemo {
                 .collect {
                     Log.i(TAG, "Collected item: $it")
                 }
+        }
+    }
+
+    fun flowCompletion() =
+        flow {
+            while(currentCoroutineContext().isActive) {
+                delay(300)
+                emit(Random.nextInt())
+            }
+        }.onCompletion {
+            // Next row doesn't execute and throws CancellationException since flow already cancelled
+            // Due to thrown CancellationException, all the consequent rows won't execute
+//            emit(Int.MAX_VALUE)
+            Log.d(TAG,"Flow completed")
+        }
+
+    fun flowCompletionTest(scope: CoroutineScope) {
+        scope.launch {
+            flowCompletion().collect {
+                Log.d(TAG, "Collected value: $it")
+            }
+            // Execution doesn't come down here, since collect is a suspend function and not a separate coroutine
+            Log.d(TAG, "After flow")
+            delay(2000)
+            scope.cancel()
+        }
+        scope.launch {
+            delay(5000)
+            scope.cancel()
         }
     }
 

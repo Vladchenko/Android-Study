@@ -14,6 +14,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
@@ -68,41 +69,73 @@ class CoroutinesTasks {
      * Напиши простую программу на Kotlin с использованием корутин, которая выводит на экран числа
      * от 1 до 5 с задержкой в одну секунду перед каждым выводом.
      */
-    fun task1(scope: CoroutineScope): Job {
+    fun generateNumbers(scope: CoroutineScope, delayMs: Long = 1000L, count: Int = 5): Job {
         return scope.launch {
             try {
-                repeat(5) { value -> // Or (1..5).forEach { value ->
-                    delay(1000) // Delay checks for cancellation
-                    Log.i(TAG, (value + 1).toString()) // value начинается с 0
+                Log.i(TAG, "Task1 started")
+                repeat(count) { value -> // Or (1..count).forEach { value ->
+                    delay(delayMs) // Delay checks for cancellation
+                    Log.i(TAG, "Task1 received value:${(value + 1)}")
                 }
             } catch (e: CancellationException) {
-                Log.i(TAG, "Task cancelled")
+                Log.i(TAG, "Task1 cancelled")
                 throw e // Rethrowing CancellationException for structured concurrency to work
             } catch (e: Exception) {
-                Log.e(TAG, "Error", e)
+                Log.e(TAG, "Task1 error", e)
+                throw e // Rethrowing exception for parent coroutine to be aware of the exception
             }
         }
+        //✅ Correct delay (before every log)
+        //✅ No magic numbers
+        //✅ Correct exceptions handling
+        //✅ Task starting logging
+        //❌ Function's SRP broken - separate numbers generation and their logging
     }
 
-    // Same task but with flow
-    fun task1_1(
-        processingScope: CoroutineScope,
-        collectingScope: CoroutineScope
+    fun getNumberSequence(count: Int) =
+        (1..count).asSequence() // One could also use flow, but task says to use coroutines
+
+    fun generateNumbersCorrected(
+        scope: CoroutineScope,
+        delayMs: Long = 1000L,
+        count: Int = 5
     ): Job {
-        val numbers = (1..5)
-            .asFlow()
-            .flowOn(processingScope.coroutineContext)
-            .onEach { delay(1000) }
-            .catch { e ->
-                if (e is CancellationException) throw e // Rethrowing CancellationException for structured concurrency to work
-                Log.e(TAG, "Error", e)
-            }
-        return collectingScope.launch { // Put Main in purpose, like collecting on UI
-            numbers.collect { value ->
-                Log.i(TAG, value.toString())
+        return scope.launch {
+            try {
+                Log.i(TAG, "Task1 started")
+                getNumberSequence(count).forEach { value ->
+                    delay(delayMs) // delay checks for cancellation
+                    Log.i(TAG, "Task1 received value: $value")
+                }
+            } catch (e: CancellationException) {
+                Log.i(TAG, "Task1 cancelled")
+                throw e // Rethrowing CancellationException for structured concurrency to work
+            } catch (e: Exception) {
+                Log.e(TAG, "Task1 error", e)
+                throw e // Rethrowing exception for parent coroutine to be aware of the exception
             }
         }
+        //✅ Correct delay (before every log)
+        //✅ No magic numbers
+        //✅ Correct exceptions handling
+        //✅ Task starting logging
+        //✅ Separated concerns
     }
+
+    fun generateNumbersFlow(count: Int) = flow {
+        (1..10).forEach { emit(it) }
+    }
+
+    // Same to generateNumbers but with flow
+    fun generateNumbers2(scope: CoroutineScope, count: Int): Job =
+        scope.launch {
+            generateNumbersFlow(count)
+                .onEach { delay(1000) } // Some heavy operation presumed
+                .flowOn(Dispatchers.IO)
+                .collect { value ->
+                    Log.d(TAG, value.toString())
+                }
+        }
     // endregion task1
 
     // region task2
@@ -111,30 +144,40 @@ class CoroutinesTasks {
      * — нечётные числа от 1 до 9 каждую секунду. Выводы обеих корутин должны происходить
      * одновременно, чередуя друг друга.
      */
-    fun task2() =
-        CoroutineScope(Dispatchers.Default).launch {
-            val evenNumbersJob = launch {
-                var number = 2
-                while (number <= 10) {
-                    delay(2000L)
-                    println("Even Number: $number")
-                    number += 2
+    suspend fun task2() =
+        coroutineScope {
+            launch {
+                val evenNumbersJob = launch {
+                    var number = 2
+                    while (number <= 10) {  // Better to use kotlin-idiomatic declarative way - for (number in 2..10 step 2) {
+                        delay(2000L)
+                        Log.d(TAG, "Task2: Even Number: $number")
+                        number += 2
+                    }
                 }
-            }
 
-            val oddNumbersJob = launch {
-                var number = 1
-                while (number <= 9) {
-                    delay(1000L)
-                    println("Odd Number: $number")
-                    number += 2
+                val oddNumbersJob = launch {
+                    var number = 1
+                    while (number <= 9) {   // Better to use kotlin-idiomatic declarative way - for (number in 1..9 step 2) {
+                        delay(1000L)
+                        Log.d(TAG, "Task2: Odd Number: $number")
+                        number += 2
+                    }
                 }
-            }
 
-            // В Андроиде не обязательно дожидаться. Если результат нужен до выполнения кода после
-            // корутин, то ожидание обязательно.
+                // - Jobs' vals could be omitted, since one doesn't do cancel or join on them.
+                // - If one needs a result of these jobs, one should use following row -
 //            joinAll(evenNumbersJob, oddNumbersJob) // Ожидаем завершение обеих корутин
+                // - It might be required in some case to wait for the block of these 2 coroutines to
+                // finish before exiting, in such case - surround them with coroutineScope { ... }
+            }
         }
+
+    fun task2Test() {
+        CoroutineScope(Dispatchers.Default).launch {
+            task2()
+        }
+    }
 
     /**
      * Решение предыдущей задачи каналами
@@ -415,7 +458,7 @@ class CoroutinesTasks {
         Log.i(TAG, "Processing ${list.size} items with 3s timeout")
         runCatching {
             withTimeout(totalTimeout) {
-                list.onEach { item ->   // buildList seems to be an option, nut LLM says it cannot pass a partial result (not full list in this case)
+                list.onEach { item ->   // buildList seems to be an option, иut LLM says it cannot pass a partial result (not full list in this case)
                     delay(itemDelay)
                     resultList.add(item)
                     Log.i(TAG, "$item processed")
@@ -490,9 +533,10 @@ class CoroutinesTasks {
      */
     suspend fun task5() = coroutineScope {
         val semaphore = Semaphore(3)
-        val activeTasks = AtomicInteger(0)
+        val activeTasks = AtomicInteger(0) // AtomicInteger здесь нужен только для
+        // подсчёта и логирования — сколько корутин сейчас реально находится внутри критической секции.
         val list = List(10) {
-            launch { // Dispatchers.IO.limitedParallelism(3) - почему-то не работает
+            launch { // Dispatchers.IO.limitedParallelism(3) - почему-то не работает, ИИ подскажет
                 semaphore.withPermit {
                     val concurrent = activeTasks.incrementAndGet()
                     delay(100)
@@ -503,7 +547,6 @@ class CoroutinesTasks {
         }
     }
 
-    // !!! Do not understand why there is extra launch needed here
     suspend fun task5_1(jobs: List<Job>, parallelLimit: Int) {
         val semaphore = Semaphore(parallelLimit)
         withContext(Dispatchers.IO) {
@@ -533,7 +576,7 @@ class CoroutinesTasks {
     // Made this task not watching to task5_1
     fun task5_2(
         scope: CoroutineScope,
-        tasks: List<Job>,
+        tasks: List<Job>, // These jobs are already started, so no sense in limiting their parallelism, i.e. thi fun is useless
         parallel: Int
     ) {
         val semaphore = Semaphore(parallel)
@@ -693,16 +736,16 @@ class CoroutinesTasks {
             try {
                 delay(delay)
                 val result = suspendBlock.invoke()
-                Log.i("CoroutineTask", "Task7 succeeded")
+                Log.i(TAG, "Task7 succeeded")
                 return result
             } catch (e: Exception) {
                 if (e is CancellationException) {
-                    Log.i("CoroutineTask", "Task7 cancelled")
+                    Log.i(TAG, "Task7 cancelled")
                     throw e
                 }
                 exception = e
                 delay *= 2
-                Log.e("CoroutineTask", "Error in task7_", e)
+                Log.e(TAG, "Error in task7_", e)
             }
         }
         exception?.let {
@@ -1160,7 +1203,6 @@ class CoroutinesTasks {
         //  со временем она становилась не работающей, создавая видимость будто сервер со временем
         //  перестал отвечать.
     }
-    //endregion task10
 
     // Пока без потокобезопасности
     class RequestWithFallback2<T>() {
@@ -1222,8 +1264,10 @@ class CoroutinesTasks {
         data class Success<T>(val source: (suspend () -> T)) : SourceResult()
         data class Failure(val throwable: Throwable) : SourceResult()
     }
+    //endregion task10
 
-    //region part2
+    //-----------
+
     //region task1
     /**
      * **Запуск параллельных запросов**
@@ -1490,7 +1534,7 @@ class CoroutinesTasks {
     // Нужен тип String, тк мы шлём не символы отдельно а символы набором, то есть строки.
     @ExperimentalCoroutinesApi
     @FlowPreview
-    suspend fun searchFlow(flow: Flow<String>, debounceMs: Long = 500L) =
+    fun searchFlow(flow: Flow<String>, debounceMs: Long = 500L) =
         flow
             .debounce(debounceMs)
             .distinctUntilChanged()
@@ -1693,7 +1737,69 @@ class CoroutinesTasks {
         Log.i(TAG, "All downloads complete")
     }
     //endregion task7
-    //endregion part2
+
+    //region task8
+    /**
+     * **Channel как очередь**
+     * Реализовать продюсера-консьюмера через `Channel`, где продюсер генерирует события быстрее,
+     * чем консьюмер успевает обрабатывать (решить проблему с буфером).
+     *
+     * Примечание: Продюсер и консьюмер - это один и тот же канал, как я выяснил у ИИ
+     */
+    fun overflownChannel(scope: CoroutineScope, channel: Channel<Int>) {
+        scope.launch {
+            while (isActive) {
+                delay(50)
+                val sentValue = Random.nextInt(100)
+                val start = System.currentTimeMillis()
+                channel.send(sentValue)
+                val duration = System.currentTimeMillis() - start
+                if (duration > 10) {
+                    Log.w(TAG, "⚠️ send() занял ${duration}ms — буфер был полон!")
+                }
+                Log.i(TAG, "Producer sent: $sentValue")
+            }
+        }
+        scope.launch {
+            while (isActive) {
+                delay(200)
+                Log.i(TAG, "Consumer received: ${channel.receive()}")
+            }
+        }
+    }
+
+    // Run channel test without any buffer. Data reception will stumble right away.
+    fun overflownChannelTest() =
+        overflownChannel(CoroutineScope(Dispatchers.IO), Channel<Int>())
+
+    // Run channel test with buffer. Data reception will stumble in several seconds.
+    fun overflownChannelTestBuffered() =
+        overflownChannel(
+            CoroutineScope(Dispatchers.IO),
+            Channel<Int>(Channel.BUFFERED)
+        )
+
+    // Run channel test with buffer. Data reception won't stumble, since when buffer is full, it ignores an oldest entry..
+    fun overflownChannelTestBufferedDropOldest() =
+        overflownChannel(
+            CoroutineScope(Dispatchers.IO),
+            Channel<Int>(Channel.BUFFERED, BufferOverflow.DROP_OLDEST)
+        )
+
+    // Run channel test with buffer. Data reception won't stumble, since when buffer is full, it ignores an oldest entry..
+    fun overflownChannelTestBufferedDropLatest() =
+        overflownChannel(
+            CoroutineScope(Dispatchers.IO),
+            Channel<Int>(Channel.BUFFERED, BufferOverflow.DROP_LATEST)
+        )
+
+    // Run channel test with unlimited size buffer.  Data reception won't stumble until whole app RAM runs out.
+    fun overflownChannelTestUnlimited() =
+        overflownChannel(
+            CoroutineScope(Dispatchers.IO),
+            Channel<Int>(Channel.UNLIMITED)
+        )
+    //endregion task8
 
     companion object {
         private const val TAG = "CoroutinesTasks"
