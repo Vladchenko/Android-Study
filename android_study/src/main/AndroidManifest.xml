@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionName="1.0">
 
-    <uses-sdk
-        android:maxSdkVersion="26" />
     <!-- Which screens app supports -->
     <compatible-screens />
 
@@ -19,6 +17,7 @@
     <!-- https://developer.android.com/guide/topics/manifest/manifest-intro.html -->
     <!-- https://developer.oculus.com/distribute/latest/concepts/publish-mobile-manifest/ -->
     <!-- Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!--
              The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -37,6 +36,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <application
         android:name=".MyApplication"
@@ -318,6 +319,7 @@
 
         <service
             android:name=".services.playaudio.PlayAudioService"
+            android:foregroundServiceType="mediaPlayback"
             android:description="@string/play_audio_service_description"
             android:label="@string/play_audio_service_description" />
         <service

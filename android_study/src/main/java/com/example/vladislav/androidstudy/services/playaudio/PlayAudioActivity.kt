@@ -41,6 +41,12 @@ class PlayAudioActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_audio)
         initButtons()
+        if (savedInstanceState == null) { // только при первом создании
+            val intent = Intent(this, PlayAudioService::class.java).apply {
+                action = "START"
+            }
+            startForegroundService(intent)
+        }
     }
 
     private fun initButtons() {
@@ -66,17 +72,23 @@ class PlayAudioActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
-        bindService(
-            Intent(this, PlayAudioService::class.java),
-            serviceConnection,
-            BIND_AUTO_CREATE
-        )
-//            startService(Intent(this, PlayAudioServiceDemo::class.java))
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!bound) {
+            val intent = Intent(this, PlayAudioService::class.java)
+            bindService(intent, serviceConnection, BIND_AUTO_CREATE)
+        }
     }
 
     override fun onStop() {
         super.onStop()
-        unbindService(serviceConnection)
-        bound = false
+        if (bound) {
+            unbindService(serviceConnection)
+            bound = false
+            player = null
+        }
     }
 }
