@@ -81,16 +81,18 @@ class CoroutinesBasics(val callback: (String) -> Unit) {
         }
     }
 
-    fun temp2() {
+    fun someSupervisorJobDemo() {
         val handler = CoroutineExceptionHandler { context, exception ->
             Log.i(TAG, "coroutine exception $exception")
         }
 
-        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default + handler)
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
-        scope.launch {
+        scope.launch(handler) {
             delay(1000)
             Log.i(TAG, "first coroutine isActive ${isActive}")
+            // Unless there is a CoroutineExceptionHandler provided in scope or this launch,
+            // following row will crash the app. This is a correct behaviour of supervisorJob.
             Integer.parseInt("a")
             Log.i(TAG, "first coroutine isActive ${isActive}")
         }

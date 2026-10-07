@@ -14,6 +14,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
@@ -21,6 +22,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.debounce
@@ -33,6 +35,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.timeout
 import kotlinx.coroutines.flow.toCollection
 import kotlinx.coroutines.isActive
@@ -948,10 +951,23 @@ class CoroutinesTasks {
         itemTimeout: Long
     ): List<Long> {
         val list = mutableListOf<Long>()
+        val scope = CoroutineScope(Dispatchers.IO)
         runCatching {
+            Log.i(TAG, "Collecting began")
+            val flow = eventsFlow().shareIn(
+                scope,
+                SharingStarted.Eagerly,
+                0
+            )  // eventsFlow - это холодный флоу,
+            // и каждый терминальный оператор перезапускает его с нуля, то есть first() и toCollection
+            // получают каждый раз один и тот же список. Нам же надо чтобы внутри withTimeout уже
+            // был список без первоначального элемента. Поэтому мы и используем stateIn, то есть
+            // превращаем холодный флоу в горячий.
+            val first = flow.first()
+            list.add(first)
+            Log.i(TAG, "Collected: $first")
             withTimeout(maxTotalMs) {
-                eventsFlow()
-                    .onStart { Log.i(TAG, "Collecting began") }
+                flow
                     .onEach {
                         ensureActive()
                         Log.i(TAG, "Collected: $it")
@@ -976,11 +992,14 @@ class CoroutinesTasks {
                 && exception !is TimeoutCancellationException
             ) throw exception
         }
+        scope.cancel()
         return list.toList()
     }
 
-    private fun eventsFlow(): Flow<Long> {
+    fun eventsFlow(): Flow<Long> {
         return flow {
+            delay(2000)
+            emit(Random.nextLong(100) + 100)
             while (currentCoroutineContext().isActive) {
                 val someValue = Random.nextLong(100) + 100
                 delay(someValue)
@@ -1063,15 +1082,20 @@ class CoroutinesTasks {
 
     @FlowPreview
     suspend fun collectEventsWithTimeout(
-        flow: Flow<String>,
+        flow: Flow<Long>,
         timeoutMs: Long,
         maxTotalMs: Long
     ): CollectResult {
-        val list = mutableListOf<String>()
+        val list = mutableListOf<Long>()
+        val hotFlow = flow.shareIn(
+            CoroutineScope(Dispatchers.IO),
+            SharingStarted.Eagerly,
+            replay = 0
+        )
         return coroutineScope {
             try {
                 list.add(
-                    flow
+                    hotFlow
                         .onStart {
                             Log.i(TAG, "Task9: Data reception begun")
                         }
@@ -1081,7 +1105,7 @@ class CoroutinesTasks {
                         .first()
                 )
                 withTimeout(maxTotalMs) {
-                    flow
+                    hotFlow
                         .timeout(timeoutMs.milliseconds)
                         .onCompletion { throwable ->
                             if (throwable != null) {
@@ -1121,20 +1145,11 @@ class CoroutinesTasks {
         }
     }
 
-    fun eventsFlowString(): Flow<String> {
-        return flow {
-            while (currentCoroutineContext().isActive) {
-                val someValue = Random.nextLong(100) + 100
-                delay(someValue)
-                emit(someValue.toString())
-            }
-        }
-    }
-
     sealed class CollectResult {
-        data class Success(val events: List<String>) : CollectResult()
-        data class Error(val events: List<String>, val error: Throwable) : CollectResult()
-    }// endregion task9
+        data class Success(val events: List<Long>) : CollectResult()
+        data class Error(val events: List<Long>, val error: Throwable) : CollectResult()
+    }
+    // endregion task9
 
     //region task10
     /**
